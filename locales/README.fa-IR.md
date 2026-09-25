@@ -3,12 +3,12 @@
 > [!NOTE]
 > ما همچنین روی [Open Computer](../open-computer) کار می‌کنیم که یک محیط کامل کامپیوتری در اختیار عامل‌های هوش مصنوعی قرار می‌دهد.
 >
-> این قابلیت‌های عاملِ AnythingLLM را به سطح تازه‌ای می‌رساند و الگوی جدیدی برای تجربه کاربری عامل‌های هوش مصنوعی ارائه می‌کند.
+> این قابلیت‌های عاملِ Mission LLM را به سطح تازه‌ای می‌رساند و الگوی جدیدی برای تجربه کاربری عامل‌های هوش مصنوعی ارائه می‌کند.
 >
 > ⭐ برای دریافت آخرین اخبار به مخزن ستاره بدهید!
 
 <p align="center">
-  <a href="https://anythingllm.com"><img src="https://github.com/Mintplex-Labs/anything-llm/blob/master/images/wordmark.png?raw=true" alt="AnythingLLM logo"></a>
+  <a href="https://anythingllm.com"><img src="https://github.com/Mintplex-Labs/anything-llm/blob/master/images/wordmark.png?raw=true" alt="Mission LLM logo"></a>
 </p>
 
 <div align='center'>
@@ -16,7 +16,7 @@
 </div>
 
 <p align="center" dir="rtl">
-    <b>AnythingLLM:</b> اپلیکیشن همه‌کاره هوش مصنوعی که دنبالش بودید.<br />
+    <b>Mission LLM:</b> اپلیکیشن همه‌کاره هوش مصنوعی که دنبالش بودید.<br />
     با اسناد خود چت کنید، از عامل‌های هوش مصنوعی استفاده کنید، با قابلیت پیکربندی بالا، چند کاربره، و بدون نیاز به تنظیمات پیچیده.
 </p>
 
@@ -40,14 +40,14 @@
 </p>
 
 <p align="center" dir="rtl">
-👈 AnythingLLM برای دسکتاپ (مک، ویندوز و لینوکس)! <a href="https://anythingllm.com/download" target="_blank">دانلود کنید</a>
+👈 Mission LLM برای دسکتاپ (مک، ویندوز و لینوکس)! <a href="https://anythingllm.com/download" target="_blank">دانلود کنید</a>
 </p>
 
 <div dir="rtl">
 با اسناد خود چت کنید. گردش‌کارهای پیچیده را با عامل‌های هوش مصنوعی خودکار کنید. بسیار قابل پیکربندی، آماده برای چند کاربر، آزموده‌شده در عمل — و به‌صورت پیش‌فرض بدون هیچ دردسری به‌صورت محلی اجرا می‌شود.
 </div>
 
-![Chatting](https://github.com/Mintplex-Labs/anything-llm/releases/download/v1.11.2/AnythingLLM720p.gif)
+![Chatting](https://github.com/Mintplex-Labs/anything-llm/releases/download/v1.11.2/Mission LLM720p.gif)
 
 <details>
 <summary><kbd>دموی ویدیویی را تماشا کنید!</kbd></summary>
@@ -60,11 +60,11 @@
 
 ### نمای کلی محصول
 
-AnythingLLM اپلیکیشن همه‌کاره هوش مصنوعی است که به شما امکان می‌دهد بدون هیچ سازشی یک ChatGPT خصوصی و کاملاً کارآمد بسازید. LLM محلی یا ابری مورد علاقه خود را متصل کنید، اسناد خود را وارد کنید و در عرض چند دقیقه شروع به چت کنید. به‌صورت آماده، عامل‌های داخلی، پشتیبانی چند کاربره، پایگاه‌های داده برداری و خطوط پردازش اسناد را در اختیار دارید — بدون نیاز به پیکربندی اضافی.
+Mission LLM اپلیکیشن همه‌کاره هوش مصنوعی است که به شما امکان می‌دهد بدون هیچ سازشی یک ChatGPT خصوصی و کاملاً کارآمد بسازید. LLM محلی یا ابری مورد علاقه خود را متصل کنید، اسناد خود را وارد کنید و در عرض چند دقیقه شروع به چت کنید. به‌صورت آماده، عامل‌های داخلی، پشتیبانی چند کاربره، پایگاه‌های داده برداری و خطوط پردازش اسناد را در اختیار دارید — بدون نیاز به پیکربندی اضافی.
 
-AnythingLLM همچنین از چندین کاربر پشتیبانی می‌کند که می‌توانید دسترسی و تجربه هر کاربر را بدون به خطر انداختن امنیت یا حریم خصوصی نمونه یا مالکیت فکری خود کنترل کنید.
+Mission LLM همچنین از چندین کاربر پشتیبانی می‌کند که می‌توانید دسترسی و تجربه هر کاربر را بدون به خطر انداختن امنیت یا حریم خصوصی نمونه یا مالکیت فکری خود کنترل کنید.
 
-## ویژگی‌های جذاب AnythingLLM
+## ویژگی‌های جذاب Mission LLM
 
 - [مسیریابی پویای مدل](https://docs.anythingllm.com/model-router/overview) - بر اساس قواعدی که تعریف می‌کنید، چت‌ها را به‌صورت خودکار به بهترین ارائه‌دهنده و مدل هدایت کنید.
 - [حافظه خودکار و مدیریت‌شده توسط کاربر](https://docs.anythingllm.com/features/memories) - کاری کنید LLM شما اطلاعات مهم درباره شما یا فضای کاری‌تان را به خاطر بسپارد.
@@ -132,7 +132,7 @@ AnythingLLM همچنین از چندین کاربر پشتیبانی می‌کن
 
 **مدل‌های Embedder:**
 
-- [AnythingLLM Native Embedder](/server/storage/models/README.md) (default)
+- [Mission LLM Native Embedder](/server/storage/models/README.md) (default)
 - [OpenAI](https://openai.com)
 - [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service)
 - [Gemini](https://ai.google.dev/)
@@ -149,7 +149,7 @@ AnythingLLM همچنین از چندین کاربر پشتیبانی می‌کن
 
 **مدل‌های رونویسی صوتی:**
 
-- [AnythingLLM Built-in](https://github.com/Mintplex-Labs/anything-llm/tree/master/server/storage/models#audiovideo-transcription) (default)
+- [Mission LLM Built-in](https://github.com/Mintplex-Labs/anything-llm/tree/master/server/storage/models#audiovideo-transcription) (default)
 - [OpenAI](https://openai.com/)
 
 **پشتیبانی TTS (تبدیل متن به گفتار):**
@@ -191,7 +191,7 @@ AnythingLLM همچنین از چندین کاربر پشتیبانی می‌کن
 
 ## 🛳 میزبانی شخصی
 
-Mintplex Labs و جامعه کاربران، روش‌ها، اسکریپت‌ها و قالب‌های متعددی را برای اجرای AnythingLLM به صورت محلی نگهداری می‌کنند. برای مطالعه نحوه استقرار در محیط مورد نظر خود یا استقرار خودکار، به جدول زیر مراجعه کنید.
+Mintplex Labs و جامعه کاربران، روش‌ها، اسکریپت‌ها و قالب‌های متعددی را برای اجرای Mission LLM به صورت محلی نگهداری می‌کنند. برای مطالعه نحوه استقرار در محیط مورد نظر خود یا استقرار خودکار، به جدول زیر مراجعه کنید.
 
 </div>
 
@@ -205,7 +205,7 @@ Mintplex Labs و جامعه کاربران، روش‌ها، اسکریپت‌ه
 
 <div dir="rtl">
 
-[یا راه‌اندازی نمونه تولیدی AnythingLLM بدون Docker →](../BARE_METAL.md)
+[یا راه‌اندازی نمونه تولیدی Mission LLM بدون Docker →](../BARE_METAL.md)
 
 ## راه‌اندازی برای توسعه
 
@@ -219,18 +219,18 @@ Mintplex Labs و جامعه کاربران، روش‌ها، اسکریپت‌ه
 
 ## تله‌متری و حریم خصوصی
 
-AnythingLLM توسط Mintplex Labs Inc دارای ویژگی تله‌متری است که اطلاعات استفاده ناشناس را جمع‌آوری می‌کند.
+Mission LLM توسط Mintplex Labs Inc دارای ویژگی تله‌متری است که اطلاعات استفاده ناشناس را جمع‌آوری می‌کند.
 
 </div>
 
 <details>
-<summary><kbd>اطلاعات بیشتر درباره تله‌متری و حریم خصوصی AnythingLLM</kbd></summary>
+<summary><kbd>اطلاعات بیشتر درباره تله‌متری و حریم خصوصی Mission LLM</kbd></summary>
 
 <div dir="rtl">
 
 ### چرا؟
 
-ما از این اطلاعات برای درک نحوه استفاده از AnythingLLM، اولویت‌بندی کار روی ویژگی‌های جدید و رفع اشکالات، و بهبود عملکرد و پایداری AnythingLLM استفاده می‌کنیم.
+ما از این اطلاعات برای درک نحوه استفاده از Mission LLM، اولویت‌بندی کار روی ویژگی‌های جدید و رفع اشکالات، و بهبود عملکرد و پایداری Mission LLM استفاده می‌کنیم.
 
 ### غیرفعال کردن
 
@@ -274,7 +274,7 @@ AnythingLLM توسط Mintplex Labs Inc دارای ویژگی تله‌متری �
 
 ## 👋 مشارکت
 
-- [مشارکت در AnythingLLM](../CONTRIBUTING.md) - نحوه مشارکت در AnythingLLM.
+- [مشارکت در Mission LLM](../CONTRIBUTING.md) - نحوه مشارکت در Mission LLM.
 
 ## 🌟 مشارکت‌کنندگان
 
@@ -288,9 +288,9 @@ AnythingLLM توسط Mintplex Labs Inc دارای ویژگی تله‌متری �
 
 ## 🔗 محصولات بیشتر
 
-- **[AnythingLLM Mobile (با مجوز MIT)][anythingllm-mobile]:** اپلیکیشن موبایلی که به شما امکان استفاده از AnythingLLM روی دستگاه همراهتان را می‌دهد.
-- **[افزونه مرورگر AnythingLLM][anythingllm-extension]:** افزونه مرورگری که امکان استفاده از AnythingLLM در مرورگر را فراهم می‌کند.
-- **[AnythingLLM Embed][anythingllm-embed]:** ویجتی که امکان جاسازی AnythingLLM در وب‌سایت شما را فراهم می‌کند.
+- **[Mission LLM Mobile (با مجوز MIT)][anythingllm-mobile]:** اپلیکیشن موبایلی که به شما امکان استفاده از Mission LLM روی دستگاه همراهتان را می‌دهد.
+- **[افزونه مرورگر Mission LLM][anythingllm-extension]:** افزونه مرورگری که امکان استفاده از Mission LLM در مرورگر را فراهم می‌کند.
+- **[Mission LLM Embed][anythingllm-embed]:** ویجتی که امکان جاسازی Mission LLM در وب‌سایت شما را فراهم می‌کند.
 
 </div>
 

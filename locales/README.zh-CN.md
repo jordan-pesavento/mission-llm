@@ -3,12 +3,12 @@
 > [!NOTE]
 > 我们同时也在开发 [Open Computer](../open-computer)，为 AI 智能体提供完整的计算机运行环境。
 >
-> 这将把 AnythingLLM 的智能体能力提升到新的高度，并带来全新的 AI 智能体使用范式。
+> 这将把 Mission LLM 的智能体能力提升到新的高度，并带来全新的 AI 智能体使用范式。
 >
 > ⭐ 为本仓库点亮 Star 以获取最新动态！
 
 <p align="center">
-  <a href="https://anythingllm.com"><img src="https://github.com/Mintplex-Labs/anything-llm/blob/master/images/wordmark.png?raw=true" alt="AnythingLLM logo"></a>
+  <a href="https://anythingllm.com"><img src="https://github.com/Mintplex-Labs/anything-llm/blob/master/images/wordmark.png?raw=true" alt="Mission LLM logo"></a>
 </p>
 
 <div align='center'>
@@ -16,7 +16,7 @@
 </div>
 
 <p align="center">
-    <b>AnythingLLM：</b> 您一直在寻找的全方位 AI 应用程序。<br />
+    <b>Mission LLM：</b> 您一直在寻找的全方位 AI 应用程序。<br />
     与您的文档聊天，使用 AI 智能体，高度可配置，支持多用户，无需繁琐设置。
 </p>
 
@@ -40,12 +40,12 @@
 </p>
 
 <p align="center">
-👉 适用于桌面端（Mac、Windows 和 Linux）的 AnythingLLM！<a href="https://anythingllm.com/download" target="_blank">立即下载</a>
+👉 适用于桌面端（Mac、Windows 和 Linux）的 Mission LLM！<a href="https://anythingllm.com/download" target="_blank">立即下载</a>
 </p>
 
 与您的文档聊天。使用 AI 智能体自动化复杂工作流。高度可配置、支持多用户、经过实战检验——默认本地运行，零配置摩擦。
 
-![Chatting](https://github.com/Mintplex-Labs/anything-llm/releases/download/v1.11.2/AnythingLLM720p.gif)
+![Chatting](https://github.com/Mintplex-Labs/anything-llm/releases/download/v1.11.2/Mission LLM720p.gif)
 
 <details>
 <summary><kbd>观看演示视频！</kbd></summary>
@@ -56,11 +56,11 @@
 
 ### 产品概览
 
-AnythingLLM 是一款全方位 AI 应用程序，让您毫无妥协地构建私有的、功能完备的 ChatGPT。接入您喜爱的本地或云端 LLM，导入您的文档，几分钟内即可开始聊天。开箱即用即可获得内置智能体、多用户支持、向量数据库和文档处理管道——无需额外配置。
+Mission LLM 是一款全方位 AI 应用程序，让您毫无妥协地构建私有的、功能完备的 ChatGPT。接入您喜爱的本地或云端 LLM，导入您的文档，几分钟内即可开始聊天。开箱即用即可获得内置智能体、多用户支持、向量数据库和文档处理管道——无需额外配置。
 
-AnythingLLM 还支持多用户，您可以控制每个用户的访问权限和使用体验，同时不会损害实例的安全性、隐私性或您的知识产权。
+Mission LLM 还支持多用户，您可以控制每个用户的访问权限和使用体验，同时不会损害实例的安全性、隐私性或您的知识产权。
 
-## AnythingLLM 的酷炫特性
+## Mission LLM 的酷炫特性
 
 - [动态模型路由](https://docs.anythingllm.com/model-router/overview) - 根据您定义的规则，自动将聊天路由到最合适的提供商与模型。
 - [自动与用户管理的记忆](https://docs.anythingllm.com/features/memories) - 让您的 LLM 记住关于您或您工作区的重要信息。
@@ -126,7 +126,7 @@ AnythingLLM 还支持多用户，您可以控制每个用户的访问权限和�
 
 **嵌入模型：**
 
-- [AnythingLLM Native Embedder](/server/storage/models/README.md) (default)
+- [Mission LLM Native Embedder](/server/storage/models/README.md) (default)
 - [OpenAI](https://openai.com)
 - [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service)
 - [Gemini](https://ai.google.dev/)
@@ -143,7 +143,7 @@ AnythingLLM 还支持多用户，您可以控制每个用户的访问权限和�
 
 **音频转录模型：**
 
-- [AnythingLLM Built-in](https://github.com/Mintplex-Labs/anything-llm/tree/master/server/storage/models#audiovideo-transcription) (default)
+- [Mission LLM Built-in](https://github.com/Mintplex-Labs/anything-llm/tree/master/server/storage/models#audiovideo-transcription) (default)
 - [OpenAI](https://openai.com/)
 
 **TTS（文本转语音）支持：**
@@ -183,7 +183,7 @@ AnythingLLM 还支持多用户，您可以控制每个用户的访问权限和�
 
 ## 🛳 自托管
 
-Mintplex Labs 与社区维护了多种部署方式、脚本和模板，您可以使用它们在本地运行 AnythingLLM。请参阅下表，了解如何在您偏好的环境中部署或自动部署。
+Mintplex Labs 与社区维护了多种部署方式、脚本和模板，您可以使用它们在本地运行 Mission LLM。请参阅下表，了解如何在您偏好的环境中部署或自动部署。
 | Docker | AWS | GCP | Digital Ocean | Render.com |
 |----------------------------------------|----|-----|---------------|------------|
 | [![Deploy on Docker][docker-btn]][docker-deploy] | [![Deploy on AWS][aws-btn]][aws-deploy] | [![Deploy on GCP][gcp-btn]][gcp-deploy] | [![Deploy on DigitalOcean][do-btn]][do-deploy] | [![Deploy on Render.com][render-btn]][render-deploy] |
@@ -192,7 +192,7 @@ Mintplex Labs 与社区维护了多种部署方式、脚本和模板，您可以
 | --------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------- |
 | [![Deploy on Railway][railway-btn]][railway-deploy] | [![Deploy on RepoCloud][repocloud-btn]][repocloud-deploy] | [![Deploy on Elestio][elestio-btn]][elestio-deploy] | [![Deploy on Northflank][northflank-btn]][northflank-deploy] | [![Deploy on Sealos][sealos-btn]][sealos-deploy] |
 
-[或者不使用 Docker 搭建生产环境的 AnythingLLM 实例 →](../BARE_METAL.md)
+[或者不使用 Docker 搭建生产环境的 Mission LLM 实例 →](../BARE_METAL.md)
 
 ## 如何设置开发环境
 
@@ -206,14 +206,14 @@ Mintplex Labs 与社区维护了多种部署方式、脚本和模板，您可以
 
 ## 远程信息收集与隐私保护
 
-由 Mintplex Labs Inc 开发的 AnythingLLM 包含一项收集匿名使用信息的遥测功能。
+由 Mintplex Labs Inc 开发的 Mission LLM 包含一项收集匿名使用信息的遥测功能。
 
 <details>
-<summary><kbd>有关 AnythingLLM 遥测与隐私保护的更多信息</kbd></summary>
+<summary><kbd>有关 Mission LLM 遥测与隐私保护的更多信息</kbd></summary>
 
 ### 为什么收集信息？
 
-我们使用这些信息来帮助我们理解 AnythingLLM 的使用情况，帮助我们确定新功能和错误修复的优先级，并帮助我们提升 AnythingLLM 的性能与稳定性。
+我们使用这些信息来帮助我们理解 Mission LLM 的使用情况，帮助我们确定新功能和错误修复的优先级，并帮助我们提升 Mission LLM 的性能与稳定性。
 
 ### 怎样关闭
 
@@ -253,7 +253,7 @@ Mintplex Labs 与社区维护了多种部署方式、脚本和模板，您可以
 
 ## 👋 参与贡献
 
-- [为 AnythingLLM 做贡献](../CONTRIBUTING.md) - 如何为 AnythingLLM 做贡献。
+- [为 Mission LLM 做贡献](../CONTRIBUTING.md) - 如何为 Mission LLM 做贡献。
 
 ## 🌟 贡献者们
 
@@ -263,9 +263,9 @@ Mintplex Labs 与社区维护了多种部署方式、脚本和模板，您可以
 
 ## 🔗 更多产品
 
-- **[AnythingLLM Mobile（MIT 许可）][anythingllm-mobile]：** 让您在移动设备上使用 AnythingLLM 的移动应用。
-- **[AnythingLLM 浏览器扩展][anythingllm-extension]：** 让您在浏览器中使用 AnythingLLM 的浏览器扩展。
-- **[AnythingLLM Embed][anythingllm-embed]：** 让您将 AnythingLLM 嵌入自己网站的组件。
+- **[Mission LLM Mobile（MIT 许可）][anythingllm-mobile]：** 让您在移动设备上使用 Mission LLM 的移动应用。
+- **[Mission LLM 浏览器扩展][anythingllm-extension]：** 让您在浏览器中使用 Mission LLM 的浏览器扩展。
+- **[Mission LLM Embed][anythingllm-embed]：** 让您将 Mission LLM 嵌入自己网站的组件。
 
 <div align="right">
 

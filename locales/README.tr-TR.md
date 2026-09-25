@@ -3,12 +3,12 @@
 > [!NOTE]
 > Ayrıca AI ajanlarının kullanabileceği eksiksiz bir bilgisayar ortamı sunan [Open Computer](../open-computer) üzerinde de çalışıyoruz.
 >
-> Bu, AnythingLLM'in ajan yeteneklerini yeni bir seviyeye taşıyacak ve AI ajan kullanımı için yepyeni bir UX paradigması getirecek.
+> Bu, Mission LLM'in ajan yeteneklerini yeni bir seviyeye taşıyacak ve AI ajan kullanımı için yepyeni bir UX paradigması getirecek.
 >
 > ⭐ Güncellemelerden haberdar olmak için depoya yıldız verin!
 
 <p align="center">
-  <a href="https://anythingllm.com"><img src="https://github.com/Mintplex-Labs/anything-llm/blob/master/images/wordmark.png?raw=true" alt="AnythingLLM logo"></a>
+  <a href="https://anythingllm.com"><img src="https://github.com/Mintplex-Labs/anything-llm/blob/master/images/wordmark.png?raw=true" alt="Mission LLM logo"></a>
 </p>
 
 <div align='center'>
@@ -16,7 +16,7 @@
 </div>
 
 <p align="center">
-    <b>AnythingLLM:</b> Aradığınız hepsi bir arada yapay zeka uygulaması.<br />
+    <b>Mission LLM:</b> Aradığınız hepsi bir arada yapay zeka uygulaması.<br />
     Belgelerinizle sohbet edin, yapay zeka ajanlarını kullanın; son derece özelleştirilebilir, çok kullanıcılı ve zahmetsiz kurulum.
 </p>
 
@@ -40,12 +40,12 @@
 </p>
 
 <p align="center">
-👉 Masaüstü için AnythingLLM (Mac, Windows ve Linux)! <a href="https://anythingllm.com/download" target="_blank">Şimdi İndir</a>
+👉 Masaüstü için Mission LLM (Mac, Windows ve Linux)! <a href="https://anythingllm.com/download" target="_blank">Şimdi İndir</a>
 </p>
 
 Belgelerinizle sohbet edin. Karmaşık iş akışlarını yapay zeka ajanlarıyla otomatikleştirin. Son derece özelleştirilebilir, çok kullanıcıya hazır, sahada denenmiş — ve varsayılan olarak sıfır kurulum zahmetiyle yerelde çalışır.
 
-![Chatting](https://github.com/Mintplex-Labs/anything-llm/releases/download/v1.11.2/AnythingLLM720p.gif)
+![Chatting](https://github.com/Mintplex-Labs/anything-llm/releases/download/v1.11.2/Mission LLM720p.gif)
 
 <details>
 <summary><kbd>Demoyu izle!</kbd></summary>
@@ -56,11 +56,11 @@ Belgelerinizle sohbet edin. Karmaşık iş akışlarını yapay zeka ajanlarıyl
 
 ### Ürün Genel Bakışı
 
-AnythingLLM, hiçbir ödün vermeden özel ve tam donanımlı bir ChatGPT oluşturmanızı sağlayan hepsi bir arada yapay zeka uygulamasıdır. Favori yerel veya bulut LLM'inizi bağlayın, belgelerinizi yükleyin ve dakikalar içinde sohbete başlayın. Kutudan çıktığı haliyle yerleşik ajanlar, çok kullanıcılı destek, vektör veritabanları ve belge işleme hatları sunar — ek yapılandırma gerekmez.
+Mission LLM, hiçbir ödün vermeden özel ve tam donanımlı bir ChatGPT oluşturmanızı sağlayan hepsi bir arada yapay zeka uygulamasıdır. Favori yerel veya bulut LLM'inizi bağlayın, belgelerinizi yükleyin ve dakikalar içinde sohbete başlayın. Kutudan çıktığı haliyle yerleşik ajanlar, çok kullanıcılı destek, vektör veritabanları ve belge işleme hatları sunar — ek yapılandırma gerekmez.
 
-AnythingLLM ayrıca birden fazla kullanıcıyı destekler; örneğin güvenliği, gizliliği veya fikri mülkiyetinizi tehlikeye atmadan kullanıcı başına erişimi ve deneyimi kontrol edebilirsiniz.
+Mission LLM ayrıca birden fazla kullanıcıyı destekler; örneğin güvenliği, gizliliği veya fikri mülkiyetinizi tehlikeye atmadan kullanıcı başına erişimi ve deneyimi kontrol edebilirsiniz.
 
-## AnythingLLM'in Harika Özellikleri
+## Mission LLM'in Harika Özellikleri
 
 - [Dinamik Model Yönlendirme](https://docs.anythingllm.com/model-router/overview) - Tanımladığınız kurallara göre sohbetleri otomatik olarak en uygun sağlayıcıya ve modele yönlendirin.
 - [Otomatik ve Kullanıcı Yönetimli Hafıza](https://docs.anythingllm.com/features/memories) - LLM'inizin sizinle veya çalışma alanınızla ilgili önemli bilgileri hatırlamasını sağlayın.
@@ -126,7 +126,7 @@ AnythingLLM ayrıca birden fazla kullanıcıyı destekler; örneğin güvenliği
 
 **Embedder modelleri:**
 
-- [AnythingLLM Native Embedder](/server/storage/models/README.md) (default)
+- [Mission LLM Native Embedder](/server/storage/models/README.md) (default)
 - [OpenAI](https://openai.com)
 - [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service)
 - [Gemini](https://ai.google.dev/)
@@ -143,7 +143,7 @@ AnythingLLM ayrıca birden fazla kullanıcıyı destekler; örneğin güvenliği
 
 **Ses Transkripsiyon Modelleri:**
 
-- [AnythingLLM Built-in](https://github.com/Mintplex-Labs/anything-llm/tree/master/server/storage/models#audiovideo-transcription) (default)
+- [Mission LLM Built-in](https://github.com/Mintplex-Labs/anything-llm/tree/master/server/storage/models#audiovideo-transcription) (default)
 - [OpenAI](https://openai.com/)
 
 **TTS (metinden konuşmaya) desteği:**
@@ -183,7 +183,7 @@ Bu monorepo altı ana bölümden oluşmaktadır:
 
 ## 🛳 Kendi Sunucunuzda Barındırma
 
-Mintplex Labs ve topluluk, AnythingLLM'i yerel olarak çalıştırmak için çeşitli dağıtım yöntemleri, betikler ve şablonlar sunmaktadır. Tercih ettiğiniz ortamda nasıl dağıtım yapacağınızı öğrenmek veya otomatik dağıtım için aşağıdaki tabloya bakın.
+Mintplex Labs ve topluluk, Mission LLM'i yerel olarak çalıştırmak için çeşitli dağıtım yöntemleri, betikler ve şablonlar sunmaktadır. Tercih ettiğiniz ortamda nasıl dağıtım yapacağınızı öğrenmek veya otomatik dağıtım için aşağıdaki tabloya bakın.
 | Docker | AWS | GCP | Digital Ocean | Render.com |
 |----------------------------------------|----|-----|---------------|------------|
 | [![Deploy on Docker][docker-btn]][docker-deploy] | [![Deploy on AWS][aws-btn]][aws-deploy] | [![Deploy on GCP][gcp-btn]][gcp-deploy] | [![Deploy on DigitalOcean][do-btn]][do-deploy] | [![Deploy on Render.com][render-btn]][render-deploy] |
@@ -192,7 +192,7 @@ Mintplex Labs ve topluluk, AnythingLLM'i yerel olarak çalıştırmak için çe�
 | --------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------- |
 | [![Deploy on Railway][railway-btn]][railway-deploy] | [![Deploy on RepoCloud][repocloud-btn]][repocloud-deploy] | [![Deploy on Elestio][elestio-btn]][elestio-deploy] | [![Deploy on Northflank][northflank-btn]][northflank-deploy] | [![Deploy on Sealos][sealos-btn]][sealos-deploy] |
 
-[veya Docker kullanmadan üretim ortamında bir AnythingLLM örneği kurun →](../BARE_METAL.md)
+[veya Docker kullanmadan üretim ortamında bir Mission LLM örneği kurun →](../BARE_METAL.md)
 
 ## Geliştirme İçin Kurulum
 
@@ -206,14 +206,14 @@ Mintplex Labs ve topluluk, AnythingLLM'i yerel olarak çalıştırmak için çe�
 
 ## Telemetri ve Gizlilik
 
-Mintplex Labs Inc tarafından geliştirilen AnythingLLM, anonim kullanım bilgileri toplayan bir telemetri özelliği içerir.
+Mintplex Labs Inc tarafından geliştirilen Mission LLM, anonim kullanım bilgileri toplayan bir telemetri özelliği içerir.
 
 <details>
-<summary><kbd>AnythingLLM için Telemetri ve Gizlilik hakkında daha fazla bilgi</kbd></summary>
+<summary><kbd>Mission LLM için Telemetri ve Gizlilik hakkında daha fazla bilgi</kbd></summary>
 
 ### Neden?
 
-Bu bilgileri AnythingLLM'in nasıl kullanıldığını anlamak, yeni özellikler ve hata düzeltmelerine öncelik vermek ve AnythingLLM'in performansı ile kararlılığını iyileştirmek için kullanıyoruz.
+Bu bilgileri Mission LLM'in nasıl kullanıldığını anlamak, yeni özellikler ve hata düzeltmelerine öncelik vermek ve Mission LLM'in performansı ile kararlılığını iyileştirmek için kullanıyoruz.
 
 ### Devre Dışı Bırakma
 
@@ -253,7 +253,7 @@ Temel olarak, telemetri devre dışıysa hiçbir şey toplamayız. Ancak kurulum
 
 ## 👋 Katkıda Bulunma
 
-- [AnythingLLM'e Katkıda Bulunma](../CONTRIBUTING.md) - AnythingLLM'e nasıl katkıda bulunulur.
+- [Mission LLM'e Katkıda Bulunma](../CONTRIBUTING.md) - Mission LLM'e nasıl katkıda bulunulur.
 
 ## 🌟 Katkıda Bulunanlar
 
@@ -263,9 +263,9 @@ Temel olarak, telemetri devre dışıysa hiçbir şey toplamayız. Ancak kurulum
 
 ## 🔗 Diğer Ürünler
 
-- **[AnythingLLM Mobile (MIT Lisanslı)][anythingllm-mobile]:** AnythingLLM'i mobil cihazınızda kullanmanızı sağlayan mobil uygulama.
-- **[AnythingLLM Tarayıcı Eklentisi][anythingllm-extension]:** AnythingLLM'i tarayıcınızda kullanmanızı sağlayan tarayıcı eklentisi.
-- **[AnythingLLM Embed][anythingllm-embed]:** AnythingLLM'i web sitenize gömmenizi sağlayan bir araç.
+- **[Mission LLM Mobile (MIT Lisanslı)][anythingllm-mobile]:** Mission LLM'i mobil cihazınızda kullanmanızı sağlayan mobil uygulama.
+- **[Mission LLM Tarayıcı Eklentisi][anythingllm-extension]:** Mission LLM'i tarayıcınızda kullanmanızı sağlayan tarayıcı eklentisi.
+- **[Mission LLM Embed][anythingllm-embed]:** Mission LLM'i web sitenize gömmenizi sağlayan bir araç.
 
 <div align="right">
 

@@ -1,6 +1,6 @@
 {
-  "name": "AnythingLLM",
-  "short_name": "AnythingLLM",
+  "name": "Mission LLM",
+  "short_name": "Mission LLM",
   "display": "standalone",
   "orientation": "portrait",
   "start_url": "/",

@@ -3,12 +3,12 @@
 > [!NOTE]
 > 私たちは [Open Computer](../open-computer) も開発しています。これは AI エージェントが利用できる完全なコンピュータ環境を提供するものです。
 >
-> これにより AnythingLLM のエージェント機能は新たな段階に到達し、AI エージェント利用における新しい UX パラダイムをもたらします。
+> これにより Mission LLM のエージェント機能は新たな段階に到達し、AI エージェント利用における新しい UX パラダイムをもたらします。
 >
 > ⭐ 最新情報を受け取るにはリポジトリに Star を付けてください！
 
 <p align="center">
-  <a href="https://anythingllm.com"><img src="https://github.com/Mintplex-Labs/anything-llm/blob/master/images/wordmark.png?raw=true" alt="AnythingLLM logo"></a>
+  <a href="https://anythingllm.com"><img src="https://github.com/Mintplex-Labs/anything-llm/blob/master/images/wordmark.png?raw=true" alt="Mission LLM logo"></a>
 </p>
 
 <div align='center'>
@@ -16,7 +16,7 @@
 </div>
 
 <p align="center">
-    <b>AnythingLLM:</b> あなたが探していたオールインワン AI アプリ。<br />
+    <b>Mission LLM:</b> あなたが探していたオールインワン AI アプリ。<br />
     ドキュメントとチャットし、AI エージェントを活用。高度にカスタマイズ可能で、マルチユーザー対応、面倒な設定は不要です。
 </p>
 
@@ -40,12 +40,12 @@
 </p>
 
 <p align="center">
-👉 デスクトップ版 AnythingLLM（Mac、Windows、Linux 対応）！<a href="https://anythingllm.com/download" target="_blank">今すぐダウンロード</a>
+👉 デスクトップ版 Mission LLM（Mac、Windows、Linux 対応）！<a href="https://anythingllm.com/download" target="_blank">今すぐダウンロード</a>
 </p>
 
 ドキュメントとチャットしましょう。AI エージェントで複雑なワークフローを自動化。高度にカスタマイズ可能でマルチユーザー対応、実運用で鍛えられ、既定ではローカルで動作し、面倒な初期設定は一切不要です。
 
-![Chatting](https://github.com/Mintplex-Labs/anything-llm/releases/download/v1.11.2/AnythingLLM720p.gif)
+![Chatting](https://github.com/Mintplex-Labs/anything-llm/releases/download/v1.11.2/Mission LLM720p.gif)
 
 <details>
 <summary><kbd>デモを見る！</kbd></summary>
@@ -56,11 +56,11 @@
 
 ### 製品概要
 
-AnythingLLM は、妥協のないプライベートで高機能な ChatGPT を構築できるオールインワン AI アプリケーションです。お気に入りのローカルまたはクラウドの LLM を接続し、ドキュメントを取り込めば、数分でチャットを開始できます。組み込みエージェント、マルチユーザー対応、ベクトルデータベース、ドキュメントパイプラインが最初から揃っており、追加設定は不要です。
+Mission LLM は、妥協のないプライベートで高機能な ChatGPT を構築できるオールインワン AI アプリケーションです。お気に入りのローカルまたはクラウドの LLM を接続し、ドキュメントを取り込めば、数分でチャットを開始できます。組み込みエージェント、マルチユーザー対応、ベクトルデータベース、ドキュメントパイプラインが最初から揃っており、追加設定は不要です。
 
-AnythingLLM は複数ユーザーもサポートしており、インスタンスのセキュリティやプライバシー、知的財産を損なうことなく、ユーザーごとにアクセス権と体験を制御できます。
+Mission LLM は複数ユーザーもサポートしており、インスタンスのセキュリティやプライバシー、知的財産を損なうことなく、ユーザーごとにアクセス権と体験を制御できます。
 
-## AnythingLLM のクールな機能
+## Mission LLM のクールな機能
 
 - [動的モデルルーティング](https://docs.anythingllm.com/model-router/overview) - 定義したルールに基づき、会話に最適なプロバイダーとモデルへ自動的にチャットを振り分けます。
 - [自動およびユーザー管理のメモリ](https://docs.anythingllm.com/features/memories) - あなたやワークスペースに関する重要な情報を LLM に記憶させます。
@@ -126,7 +126,7 @@ AnythingLLM は複数ユーザーもサポートしており、インスタン�
 
 **埋め込みモデル：**
 
-- [AnythingLLM Native Embedder](/server/storage/models/README.md) (default)
+- [Mission LLM Native Embedder](/server/storage/models/README.md) (default)
 - [OpenAI](https://openai.com)
 - [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service)
 - [Gemini](https://ai.google.dev/)
@@ -143,7 +143,7 @@ AnythingLLM は複数ユーザーもサポートしており、インスタン�
 
 **音声文字起こしモデル：**
 
-- [AnythingLLM Built-in](https://github.com/Mintplex-Labs/anything-llm/tree/master/server/storage/models#audiovideo-transcription) (default)
+- [Mission LLM Built-in](https://github.com/Mintplex-Labs/anything-llm/tree/master/server/storage/models#audiovideo-transcription) (default)
 - [OpenAI](https://openai.com/)
 
 **TTS（テキスト読み上げ）サポート：**
@@ -183,7 +183,7 @@ AnythingLLM は複数ユーザーもサポートしており、インスタン�
 
 ## 🛳 セルフホスティング
 
-Mintplex Labs とコミュニティは、AnythingLLM をローカルで実行するための多数のデプロイ方法、スクリプト、テンプレートを維持しています。以下の表を参照して、お好みの環境へのデプロイ方法をご確認いただくか、自動デプロイをご利用ください。
+Mintplex Labs とコミュニティは、Mission LLM をローカルで実行するための多数のデプロイ方法、スクリプト、テンプレートを維持しています。以下の表を参照して、お好みの環境へのデプロイ方法をご確認いただくか、自動デプロイをご利用ください。
 | Docker | AWS | GCP | Digital Ocean | Render.com |
 |----------------------------------------|----|-----|---------------|------------|
 | [![Deploy on Docker][docker-btn]][docker-deploy] | [![Deploy on AWS][aws-btn]][aws-deploy] | [![Deploy on GCP][gcp-btn]][gcp-deploy] | [![Deploy on DigitalOcean][do-btn]][do-deploy] | [![Deploy on Render.com][render-btn]][render-deploy] |
@@ -192,7 +192,7 @@ Mintplex Labs とコミュニティは、AnythingLLM をローカルで実行す
 | --------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------- |
 | [![Deploy on Railway][railway-btn]][railway-deploy] | [![Deploy on RepoCloud][repocloud-btn]][repocloud-deploy] | [![Deploy on Elestio][elestio-btn]][elestio-deploy] | [![Deploy on Northflank][northflank-btn]][northflank-deploy] | [![Deploy on Sealos][sealos-btn]][sealos-deploy] |
 
-[または Docker を使わずに本番環境の AnythingLLM インスタンスを構築する →](../BARE_METAL.md)
+[または Docker を使わずに本番環境の Mission LLM インスタンスを構築する →](../BARE_METAL.md)
 
 ## 開発環境のセットアップ方法
 
@@ -206,14 +206,14 @@ Mintplex Labs とコミュニティは、AnythingLLM をローカルで実行す
 
 ## テレメトリーとプライバシー
 
-Mintplex Labs Inc による AnythingLLM には、匿名の使用情報を収集するテレメトリー機能が含まれています。
+Mintplex Labs Inc による Mission LLM には、匿名の使用情報を収集するテレメトリー機能が含まれています。
 
 <details>
-<summary><kbd>AnythingLLM のテレメトリーとプライバシーについての詳細</kbd></summary>
+<summary><kbd>Mission LLM のテレメトリーとプライバシーについての詳細</kbd></summary>
 
 ### なぜ？
 
-この情報は、AnythingLLM がどのように使われているかを理解し、新機能やバグ修正の優先順位を決め、AnythingLLM のパフォーマンスと安定性を向上させるために利用します。
+この情報は、Mission LLM がどのように使われているかを理解し、新機能やバグ修正の優先順位を決め、Mission LLM のパフォーマンスと安定性を向上させるために利用します。
 
 ### オプトアウト
 
@@ -253,7 +253,7 @@ Mintplex Labs Inc による AnythingLLM には、匿名の使用情報を収集�
 
 ## 👋 コントリビュート
 
-- [AnythingLLM へのコントリビュート](../CONTRIBUTING.md) - AnythingLLM に貢献する方法。
+- [Mission LLM へのコントリビュート](../CONTRIBUTING.md) - Mission LLM に貢献する方法。
 
 ## 🌟 コントリビューター
 
@@ -263,9 +263,9 @@ Mintplex Labs Inc による AnythingLLM には、匿名の使用情報を収集�
 
 ## 🔗 その他の製品
 
-- **[AnythingLLM Mobile（MIT ライセンス）][anythingllm-mobile]：** モバイル端末で AnythingLLM を利用できるモバイルアプリケーション。
-- **[AnythingLLM ブラウザ拡張機能][anythingllm-extension]：** ブラウザ内で AnythingLLM を利用できるブラウザ拡張機能。
-- **[AnythingLLM Embed][anythingllm-embed]：** 自分のウェブサイトに AnythingLLM を埋め込めるウィジェット。
+- **[Mission LLM Mobile（MIT ライセンス）][anythingllm-mobile]：** モバイル端末で Mission LLM を利用できるモバイルアプリケーション。
+- **[Mission LLM ブラウザ拡張機能][anythingllm-extension]：** ブラウザ内で Mission LLM を利用できるブラウザ拡張機能。
+- **[Mission LLM Embed][anythingllm-embed]：** 自分のウェブサイトに Mission LLM を埋め込めるウィジェット。
 
 <div align="right">
 
