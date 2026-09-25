@@ -18,7 +18,7 @@ class OpenRouterImageGenerator extends BaseImageGenerator {
         apiKey: process.env.IMAGE_GEN_OPENROUTER_API_KEY,
         defaultHeaders: {
           "HTTP-Referer": "https://anythingllm.com",
-          "X-Title": "AnythingLLM",
+          "X-Title": "MissionLLM",
         },
       }),
       model: process.env.IMAGE_GEN_MODEL_PREF,

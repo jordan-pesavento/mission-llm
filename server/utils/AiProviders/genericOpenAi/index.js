@@ -11,7 +11,7 @@ const {
 } = require("../../helpers/chat/responses");
 const { v4: uuidv4 } = require("uuid");
 const { toValidNumber } = require("../../http");
-const { getAnythingLLMUserAgent } = require("../../../endpoints/utils");
+const { getMissionLLMUserAgent } = require("../../../endpoints/utils");
 const { attachmentToContentBlock } = require("../../helpers/attachments");
 const {
   maxTokensParam,
@@ -31,7 +31,7 @@ class GenericOpenAiLLM {
       baseURL: this.basePath,
       apiKey: process.env.GENERIC_OPEN_AI_API_KEY ?? null,
       defaultHeaders: {
-        "User-Agent": getAnythingLLMUserAgent(),
+        "User-Agent": getMissionLLMUserAgent(),
         ...GenericOpenAiLLM.parseCustomHeaders(),
       },
     });

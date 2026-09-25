@@ -1,6 +1,6 @@
-# How to deploy a private AnythingLLM instance on GCP
+# How to deploy a private Mission LLM instance on GCP
 
-With a GCP account you can easily deploy a private AnythingLLM instance on GCP. This will create a url that you can access from any browser over HTTP (HTTPS not supported). This single instance will run on your own keys and they will not be exposed - however if you want your instance to be protected it is highly recommend that you set a password once setup is complete.
+With a GCP account you can easily deploy a private Mission LLM instance on GCP. This will create a url that you can access from any browser over HTTP (HTTPS not supported). This single instance will run on your own keys and they will not be exposed - however if you want your instance to be protected it is highly recommend that you set a password once setup is complete.
 
 This deployment is created with GCP Deployment Manager, and produces:
 - 1 Compute Engine VM (`n1-standard-1`, Ubuntu 20.04 LTS, zone `us-central1-a`)
@@ -10,7 +10,7 @@ This deployment is created with GCP Deployment Manager, and produces:
 It does **not** create a firewall rule. The `default` network allows SSH on port 22, but not port 3001, so the instance will not be reachable in a browser until you allow that port yourself:
 
 ```
-gcloud compute firewall-rules create anything-llm-3001 \
+gcloud compute firewall-rules create mission-llm-3001 \
   --network default --allow tcp:3001
 ```
 
@@ -30,25 +30,25 @@ Open your terminal
 
   ```
 
-  gcloud deployment-manager deployments create anything-llm-deployment --config cloud-deployments/gcp/deployment/gcp_deploy_anything_llm.yaml
+  gcloud deployment-manager deployments create mission-llm-deployment --config cloud-deployments/gcp/deployment/gcp_deploy_mission_llm.yaml
 
   ```
 
 Once you execute these steps, the CLI will initiate the deployment process on GCP based on your configuration file. You can monitor the deployment status and view the outputs using the Google Cloud Console or the Deployment Manager CLI commands.
 
 ```
-gcloud compute instances get-serial-port-output anything-llm-instance 
+gcloud compute instances get-serial-port-output mission-llm-instance 
 ```
 
 ssh into the instance
 
 ```
-gcloud compute ssh anything-llm-instance 
+gcloud compute ssh mission-llm-instance 
 ```
 
 Delete the deployment
 ```
-gcloud deployment-manager deployments delete anything-llm-deployment 
+gcloud deployment-manager deployments delete mission-llm-deployment 
 ```
 
 ## Please read this notice before submitting issues about your deployment

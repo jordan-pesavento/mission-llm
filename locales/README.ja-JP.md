@@ -12,7 +12,7 @@
 </p>
 
 <div align='center'>
-<a href="https://trendshift.io/repositories/2415" target="_blank"><img src="https://trendshift.io/api/badge/repositories/2415" alt="Mintplex-Labs%2Fanything-llm | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<a href="https://trendshift.io/repositories/2415" target="_blank"><img src="https://trendshift.io/api/badge/repositories/2415" alt="Mintplex-Labs%2Fmission-llm | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 </div>
 
 <p align="center">
@@ -257,15 +257,15 @@ Mintplex Labs Inc による Mission LLM には、匿名の使用情報を収集�
 
 ## 🌟 コントリビューター
 
-[![anythingllm contributors](https://contrib.rocks/image?repo=mintplex-labs/anything-llm)](https://github.com/mintplex-labs/anything-llm/graphs/contributors)
+[![missionllm contributors](https://contrib.rocks/image?repo=mintplex-labs/anything-llm)](https://github.com/mintplex-labs/anything-llm/graphs/contributors)
 
 [![Star History Chart](https://api.star-history.com/svg?repos=mintplex-labs/anything-llm&type=Timeline)](https://star-history.com/#mintplex-labs/anything-llm&Date)
 
 ## 🔗 その他の製品
 
-- **[Mission LLM Mobile（MIT ライセンス）][anythingllm-mobile]：** モバイル端末で Mission LLM を利用できるモバイルアプリケーション。
-- **[Mission LLM ブラウザ拡張機能][anythingllm-extension]：** ブラウザ内で Mission LLM を利用できるブラウザ拡張機能。
-- **[Mission LLM Embed][anythingllm-embed]：** 自分のウェブサイトに Mission LLM を埋め込めるウィジェット。
+- **[Mission LLM Mobile（MIT ライセンス）][missionllm-mobile]：** モバイル端末で Mission LLM を利用できるモバイルアプリケーション。
+- **[Mission LLM ブラウザ拡張機能][missionllm-extension]：** ブラウザ内で Mission LLM を利用できるブラウザ拡張機能。
+- **[Mission LLM Embed][missionllm-embed]：** 自分のウェブサイトに Mission LLM を埋め込めるウィジェット。
 
 <div align="right">
 
@@ -282,9 +282,9 @@ Copyright © 2026 [Mintplex Labs][profile-link]。<br />
 
 [back-to-top]: https://img.shields.io/badge/-BACK_TO_TOP-222628?style=flat-square
 [profile-link]: https://github.com/mintplex-labs
-[anythingllm-mobile]: https://github.com/Mintplex-Labs/anythingllm-mobile
-[anythingllm-extension]: https://github.com/Mintplex-Labs/anythingllm-extension
-[anythingllm-embed]: https://github.com/Mintplex-Labs/anythingllm-embed
+[missionllm-mobile]: https://github.com/Mintplex-Labs/anythingllm-mobile
+[missionllm-extension]: https://github.com/Mintplex-Labs/anythingllm-extension
+[missionllm-embed]: https://github.com/Mintplex-Labs/anythingllm-embed
 [docker-btn]: ../images/deployBtns/docker.png
 [docker-deploy]: ../docker/HOW_TO_USE_DOCKER.md
 [aws-btn]: ../images/deployBtns/aws.png

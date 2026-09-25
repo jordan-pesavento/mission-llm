@@ -292,7 +292,7 @@ class LlmmanLLM {
     switch (e.message) {
       case "fetch failed":
         throw new Error(
-          "Your llmman instance could not be reached or is not responding. Please make sure `llmman serve` is running and your connection information is correct in AnythingLLM."
+          "Your llmman instance could not be reached or is not responding. Please make sure `llmman serve` is running and your connection information is correct in MissionLLM."
         );
       default:
         return e;

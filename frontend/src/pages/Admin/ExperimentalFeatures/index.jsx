@@ -183,13 +183,13 @@ function SelectedFeatureComponent({ feature, settings, refresh }) {
 
 function FeatureVerification({ children }) {
   if (
-    !window.localStorage.getItem("anythingllm_tos_experimental_feature_set")
+    !window.localStorage.getItem("missionllm_tos_experimental_feature_set")
   ) {
     function acceptTos(e) {
       e.preventDefault();
 
       window.localStorage.setItem(
-        "anythingllm_tos_experimental_feature_set",
+        "missionllm_tos_experimental_feature_set",
         "accepted"
       );
       showToast(
@@ -217,7 +217,7 @@ function FeatureVerification({ children }) {
             <ModalBody>
               <div className="w-full text-zinc-300 light:text-slate-700 text-md flex flex-col gap-y-4">
                 <p>
-                  Experimental features of AnythingLLM are features that we are
+                  Experimental features of MissionLLM are features that we are
                   piloting and are <b>opt-in</b>. We proactively will condition
                   or warn you on any potential concerns should any exist prior
                   to approval of any feature.
@@ -237,7 +237,7 @@ function FeatureVerification({ children }) {
                       Increased cost or use of any connected LLM or embedding
                       provider.
                     </li>
-                    <li>Potential bugs or issues using AnythingLLM.</li>
+                    <li>Potential bugs or issues using MissionLLM.</li>
                   </ul>
                 </div>
 
@@ -251,7 +251,7 @@ function FeatureVerification({ children }) {
                     <li>The feature being used is not currently stable.</li>
                     <li>
                       The feature may not be available in future versions,
-                      configurations, or subscriptions of AnythingLLM.
+                      configurations, or subscriptions of MissionLLM.
                     </li>
                     <li>
                       Your privacy settings <b>will be honored</b> with use of

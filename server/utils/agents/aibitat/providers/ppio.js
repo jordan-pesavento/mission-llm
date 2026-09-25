@@ -20,7 +20,7 @@ class PPIOProvider extends InheritMultiple([Provider, UnTooled]) {
       apiKey: process.env.PPIO_API_KEY,
       defaultHeaders: {
         "HTTP-Referer": "https://anythingllm.com",
-        "X-API-Source": "anythingllm",
+        "X-API-Source": "missionllm",
       },
     });
 

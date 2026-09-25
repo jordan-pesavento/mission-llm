@@ -13,7 +13,7 @@ import { useModal } from "@/hooks/useModal";
 import showToast from "@/utils/toast";
 
 // Providers that can't be routing targets
-const EXCLUDED_PROVIDERS = ["anythingllm-router"];
+const EXCLUDED_PROVIDERS = ["missionllm-router"];
 
 export default function LLMProviderModelPicker({
   providerFieldName = "fallback_provider",

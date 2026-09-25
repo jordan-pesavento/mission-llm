@@ -23,7 +23,7 @@ class NovitaProvider extends InheritMultiple([Provider, UnTooled]) {
       apiKey: process.env.NOVITA_LLM_API_KEY,
       defaultHeaders: {
         "HTTP-Referer": "https://anythingllm.com",
-        "X-Novita-Source": "anythingllm",
+        "X-Novita-Source": "missionllm",
       },
     });
 

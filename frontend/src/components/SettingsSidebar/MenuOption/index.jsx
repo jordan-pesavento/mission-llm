@@ -195,5 +195,5 @@ function hasVisibleOptions(user = null, childOptions = []) {
 
 function generateStorageKey({ key = "" }) {
   const _key = key.replace(/\s+/g, "_").toLowerCase();
-  return `anything_llm_menu_${_key}_expanded`;
+  return `mission_llm_menu_${_key}_expanded`;
 }

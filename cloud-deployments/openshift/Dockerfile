@@ -1,4 +1,4 @@
-# OpenShift-compatible Dockerfile for AnythingLLM
+# OpenShift-compatible Dockerfile for MissionLLM
 # 
 # This Dockerfile is specifically designed for OpenShift deployments which use
 # arbitrary UIDs with GID 0 (root group). Do NOT use this for standard Docker
@@ -18,7 +18,7 @@ ARG ARG_UID=1000
 ARG ARG_GID=1000
 
 FROM base AS build-arm64
-RUN echo "Preparing build of AnythingLLM image for arm64 architecture"
+RUN echo "Preparing build of MissionLLM image for arm64 architecture"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -56,26 +56,26 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
 RUN (getent passwd "$ARG_UID" && userdel -f "$(getent passwd "$ARG_UID" | cut -d: -f1)") || true && \
     if [ "$ARG_GID" != "0" ]; then \
       (getent group "$ARG_GID" && groupdel "$(getent group "$ARG_GID" | cut -d: -f1)") || true && \
-      groupadd -g "$ARG_GID" anythingllm && \
-      useradd -l -u "$ARG_UID" -m -d /app -s /bin/bash -g anythingllm -G 0 anythingllm; \
+      groupadd -g "$ARG_GID" missionllm && \
+      useradd -l -u "$ARG_UID" -m -d /app -s /bin/bash -g missionllm -G 0 missionllm; \
     else \
-      useradd -l -u "$ARG_UID" -m -d /app -s /bin/bash -g 0 anythingllm; \
+      useradd -l -u "$ARG_UID" -m -d /app -s /bin/bash -g 0 missionllm; \
     fi && \
     mkdir -p /app/frontend/ /app/server/ /app/collector/ /app/.cache /app/.yarn && \
-    chown -R anythingllm:0 /app && \
+    chown -R missionllm:0 /app && \
     chmod -R g+w /app && \
     chmod g=u /etc/passwd
 
 # Copy docker helper scripts (use OpenShift-specific entrypoint)
 COPY ./cloud-deployments/openshift/docker-entrypoint.sh /usr/local/bin/
 COPY ./docker/docker-healthcheck.sh /usr/local/bin/
-COPY --chown=anythingllm:0 ./docker/.env.example /app/server/.env
+COPY --chown=missionllm:0 ./docker/.env.example /app/server/.env
 
 # Ensure the scripts are executable
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh && \
     chmod +x /usr/local/bin/docker-healthcheck.sh
 
-USER anythingllm
+USER missionllm
 WORKDIR /app
 
 # Puppeteer does not ship with an ARM86 compatible build for Chromium
@@ -96,7 +96,7 @@ RUN echo "Done running arm64 specific installation steps"
 
 # amd64-specific stage
 FROM base AS build-amd64
-RUN echo "Preparing build of AnythingLLM image for non-ARM architecture"
+RUN echo "Preparing build of MissionLLM image for non-ARM architecture"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -134,20 +134,20 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
 RUN (getent passwd "$ARG_UID" && userdel -f "$(getent passwd "$ARG_UID" | cut -d: -f1)") || true && \
     if [ "$ARG_GID" != "0" ]; then \
       (getent group "$ARG_GID" && groupdel "$(getent group "$ARG_GID" | cut -d: -f1)") || true && \
-      groupadd -g "$ARG_GID" anythingllm && \
-      useradd -l -u "$ARG_UID" -m -d /app -s /bin/bash -g anythingllm -G 0 anythingllm; \
+      groupadd -g "$ARG_GID" missionllm && \
+      useradd -l -u "$ARG_UID" -m -d /app -s /bin/bash -g missionllm -G 0 missionllm; \
     else \
-      useradd -l -u "$ARG_UID" -m -d /app -s /bin/bash -g 0 anythingllm; \
+      useradd -l -u "$ARG_UID" -m -d /app -s /bin/bash -g 0 missionllm; \
     fi && \
     mkdir -p /app/frontend/ /app/server/ /app/collector/ /app/.cache /app/.yarn && \
-    chown -R anythingllm:0 /app && \
+    chown -R missionllm:0 /app && \
     chmod -R g+w /app && \
     chmod g=u /etc/passwd
 
 # Copy docker helper scripts (use OpenShift-specific entrypoint)
 COPY ./cloud-deployments/openshift/docker-entrypoint.sh /usr/local/bin/
 COPY ./docker/docker-healthcheck.sh /usr/local/bin/
-COPY --chown=anythingllm:0 ./docker/.env.example /app/server/.env
+COPY --chown=missionllm:0 ./docker/.env.example /app/server/.env
 
 # Ensure the scripts are executable
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh && \
@@ -159,9 +159,9 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh && \
 
 # hadolint ignore=DL3006
 FROM build-${TARGETARCH} AS build
-RUN echo "Running common build flow of AnythingLLM image for all architectures"
+RUN echo "Running common build flow of MissionLLM image for all architectures"
 
-USER anythingllm
+USER missionllm
 WORKDIR /app
 
 # Install & Build frontend layer
@@ -179,24 +179,24 @@ WORKDIR /app
 # Install server layer
 # Also pull and build collector deps (chromium issues prevent bad bindings)
 FROM build AS backend-build
-COPY --chown=anythingllm:0 ./server /app/server/
+COPY --chown=missionllm:0 ./server /app/server/
 WORKDIR /app/server
 RUN yarn install --production --network-timeout 100000 && yarn cache clean
 WORKDIR /app
 
 # Install collector dependencies
-COPY --chown=anythingllm:0 ./collector/ ./collector/
+COPY --chown=missionllm:0 ./collector/ ./collector/
 WORKDIR /app/collector
 ENV PUPPETEER_DOWNLOAD_BASE_URL=https://storage.googleapis.com/chrome-for-testing-public
 RUN yarn install --production --network-timeout 100000 && yarn cache clean
 
 WORKDIR /app
-USER anythingllm
+USER missionllm
 
 # Since we are building from backend-build we just need to move built frontend into server/public
 FROM backend-build AS production-build
 WORKDIR /app
-COPY --chown=anythingllm:0 --from=frontend-build /app/frontend/dist /app/server/public
+COPY --chown=missionllm:0 --from=frontend-build /app/frontend/dist /app/server/public
 
 # Ensure all app files are owned by group 0 (root) and group-writable so that:
 # - Docker/Compose: access works via user ownership (UID match)
@@ -204,13 +204,13 @@ COPY --chown=anythingllm:0 --from=frontend-build /app/frontend/dist /app/server/
 # - Generic Kubernetes: access works via user ownership or fsGroup
 # This must run after all COPY and yarn install steps to cover node_modules, etc.
 USER root
-RUN chown -R anythingllm:0 /app && \
+RUN chown -R missionllm:0 /app && \
     chmod -R g+w /app && \
     mkdir -p /app/server/storage
 
 # Setup the environment
 ENV NODE_ENV=production
-ENV ANYTHING_LLM_RUNTIME=docker
+ENV MISSION_LLM_RUNTIME=docker
 ENV DEPLOYMENT_VERSION=1.16.2
 ENV HOME=/app
 
@@ -218,7 +218,7 @@ ENV HOME=/app
 HEALTHCHECK --interval=1m --timeout=10s --start-period=1m \
   CMD /bin/bash /usr/local/bin/docker-healthcheck.sh || exit 1
 
-USER anythingllm
+USER missionllm
 
 # Run the server
 # CMD ["sh", "-c", "tail -f /dev/null"] # For development: keep container open

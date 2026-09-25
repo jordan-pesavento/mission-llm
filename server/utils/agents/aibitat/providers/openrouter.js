@@ -28,7 +28,7 @@ class OpenRouterProvider extends InheritMultiple([Provider, UnTooled]) {
       apiKey: process.env.OPENROUTER_API_KEY,
       defaultHeaders: {
         "HTTP-Referer": "https://anythingllm.com",
-        "X-Title": "AnythingLLM",
+        "X-Title": "MissionLLM",
       },
     });
 

@@ -44,7 +44,7 @@ function addBranding(slide, bgColor) {
       transparency: 78,
     });
   } else {
-    slide.addText("AnythingLLM", {
+    slide.addText("MissionLLM", {
       x: 7.85,
       y: 5.17,
       w: 1.85,

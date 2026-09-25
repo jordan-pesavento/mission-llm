@@ -8,7 +8,7 @@ const TRANSLATIONS = {
     llm: {
       title: "Preferência de LLM",
       description:
-        "AnythingLLM funciona com vários provedores de LLM. Este será o serviço que lidará com os chats.",
+        "Mission LLM funciona com vários provedores de LLM. Este será o serviço que lidará com os chats.",
     },
     userSetup: {
       title: "Configuração do Usuário",
@@ -35,14 +35,14 @@ const TRANSLATIONS = {
         "Estas configurações podem ser alteradas a qualquer momento.",
     },
     survey: {
-      title: "Bem-vindo ao AnythingLLM",
-      description: "Ajude-nos a melhorar o AnythingLLM. Opcional.",
+      title: "Bem-vindo ao Mission LLM",
+      description: "Ajude-nos a melhorar o Mission LLM. Opcional.",
       email: "Qual seu email?",
-      useCase: "Como você usará o AnythingLLM?",
+      useCase: "Como você usará o Mission LLM?",
       useCaseWork: "Para trabalho",
       useCasePersonal: "Uso pessoal",
       useCaseOther: "Outro",
-      comment: "Como você conheceu o AnythingLLM?",
+      comment: "Como você conheceu o Mission LLM?",
       commentPlaceholder:
         "Reddit, Twitter, GitHub, YouTube, etc. - Conte como nos encontrou!",
       skip: "Pular Pesquisa",
@@ -97,7 +97,7 @@ const TRANSLATIONS = {
     "experimental-features": "Recursos Experimentais",
     contact: "Suporte",
     "browser-extension": "Extensão de Navegador",
-    "mobile-app": "AnythingLLM Mobile",
+    "mobile-app": "Mission LLM Mobile",
     "community-hub": {
       title: "Centro Comunitário",
       trending: "Explore as tendências",
@@ -165,7 +165,7 @@ const TRANSLATIONS = {
       add: "Adicionar mensagem",
       save: "Salvar Mensagens",
       heading: "Explique para mim",
-      body: "os benefícios do AnythingLLM",
+      body: "os benefícios do Mission LLM",
     },
     delete: {
       title: "Excluir Workspace",
@@ -769,7 +769,7 @@ const TRANSLATIONS = {
       "intelligent-skill-selection": {
         title: "Seleção Inteligente de Habilidades",
         description:
-          "Permita o uso ilimitado de ferramentas e reduza o consumo de tokens em até 80% por consulta — O AnythingLLM seleciona automaticamente as habilidades mais adequadas para cada solicitação.",
+          "Permita o uso ilimitado de ferramentas e reduza o consumo de tokens em até 80% por consulta — O Mission LLM seleciona automaticamente as habilidades mais adequadas para cada solicitação.",
         "max-tools": {
           title: "Ferramentas Max",
           description:
@@ -810,7 +810,7 @@ const TRANSLATIONS = {
     },
     branding: {
       title: "Marca & Etiqueta Branca",
-      description: "Personalize sua instância do AnythingLLM com sua marca.",
+      description: "Personalize sua instância do Mission LLM com sua marca.",
     },
     chat: {
       title: "Chat",
@@ -906,7 +906,7 @@ const TRANSLATIONS = {
       close: "Fechar",
       create: "Criar chave de API",
       helper:
-        "Depois de criada, a chave de API pode ser usada para acessar e configurar esta instância do AnythingLLM programaticamente.",
+        "Depois de criada, a chave de API pode ser usada para acessar e configurar esta instância do Mission LLM programaticamente.",
       name: {
         label: "Nome",
         placeholder: "Integração de produção",
@@ -953,7 +953,7 @@ const TRANSLATIONS = {
       "Credenciais e configurações do seu provedor de transcrição. Essas chaves devem estar corretas para processar arquivos de mídia.",
     provider: "Provedor de Transcrição",
     "warn-start":
-      "Usar o modelo local whisper em máquinas com RAM ou CPU limitada pode travar o AnythingLLM.",
+      "Usar o modelo local whisper em máquinas com RAM ou CPU limitada pode travar o Mission LLM.",
     "warn-recommend": "Recomendamos pelo menos 2GB de RAM e arquivos <10Mb.",
     "warn-end":
       "O modelo interno será baixado automaticamente no primeiro uso.",
@@ -1031,7 +1031,7 @@ const TRANSLATIONS = {
   privacy: {
     title: "Privacidade & Dados",
     description:
-      "Configurações de como provedores terceiros e o AnythingLLM lidam com seus dados.",
+      "Configurações de como provedores terceiros e o Mission LLM lidam com seus dados.",
     anonymous: "Telemetria Anônima Ativa",
   },
   connectors: {
@@ -1200,7 +1200,7 @@ const TRANSLATIONS = {
       fetching: "Buscando...",
       "fetch-website": "Buscar site",
       "privacy-notice":
-        "Esses arquivos são enviados ao processador local do AnythingLLM. Não são compartilhados com terceiros.",
+        "Esses arquivos são enviados ao processador local do Mission LLM. Não são compartilhados com terceiros.",
     },
     pinning: {
       what_pinning: "O que é fixar documento?",
@@ -1382,7 +1382,7 @@ const TRANSLATIONS = {
         edit_description: "Atualize o conteúdo desta memória.",
         label: "Memória",
         placeholder:
-          "por exemplo, o nome do usuário é Joe, o usuário trabalha com AnythingLLM, etc.",
+          "por exemplo, o nome do usuário é Joe, o usuário trabalha com Mission LLM, etc.",
         create: "Criar",
         save: "Salvar",
         cancel: "Cancelar",
@@ -1559,7 +1559,7 @@ const TRANSLATIONS = {
   telegram: {
     title: "Bot do Telegram",
     description:
-      "Conecte sua instância do AnythingLLM ao Telegram para que possa conversar com seus espaços de trabalho a partir de qualquer dispositivo.",
+      "Conecte sua instância do Mission LLM ao Telegram para que possa conversar com seus espaços de trabalho a partir de qualquer dispositivo.",
     setup: {
       step1: {
         title: "Passo 1: Crie seu bot do Telegram",

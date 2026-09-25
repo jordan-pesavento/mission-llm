@@ -11,7 +11,7 @@ const { ModelRouterService } = require("../../utils/router");
 
 /**
  * `cooldown_seconds` is stored in seconds (see schema.prisma) and only converted
- * to milliseconds at the point of use in AnythingLLMModelRouter. The create
+ * to milliseconds at the point of use in MissionLLMModelRouter. The create
  * fallback previously wrote `DEFAULT_STICKY_MS` straight into the column, which
  * persisted a ~83 hour cooldown well past the validator's own 3600s ceiling.
  */

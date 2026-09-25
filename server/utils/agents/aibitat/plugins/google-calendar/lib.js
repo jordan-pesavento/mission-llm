@@ -3,7 +3,7 @@ const { safeJsonParse } = require("../../../../http");
 
 /**
  * Google Calendar Bridge Library
- * Handles communication with the AnythingLLM Google Calendar Google Apps Script deployment.
+ * Handles communication with the MissionLLM Google Calendar Google Apps Script deployment.
  */
 class GoogleCalendarBridge {
   #deploymentId = null;
@@ -143,7 +143,7 @@ class GoogleCalendarBridge {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-AnythingLLM-UA": "AnythingLLM-GoogleCalendar-Agent/1.0",
+          "X-MissionLLM-UA": "MissionLLM-GoogleCalendar-Agent/1.0",
         },
         body: JSON.stringify({
           key: this.#apiKey,

@@ -41,7 +41,7 @@ const FREE_PROVIDERS = [
  */
 
 /**
- * AnythingLLM provider slug -> models.dev provider id.
+ * MissionLLM provider slug -> models.dev provider id.
  * A missing/stale mapping degrades to "unknown", never a wrong price.
  */
 const PROVIDER_ID_MAP = {
@@ -292,7 +292,7 @@ class ModelPricing {
   }
 
   /**
-   * @param {string|null} providerSlug - AnythingLLM provider slug
+   * @param {string|null} providerSlug - MissionLLM provider slug
    * @param {string|null} model - model id used for the completion
    * @param {{prompt_tokens?: number, completion_tokens?: number}} usage
    * @returns {CostBreakdown|null} null means "unknown" - callers should omit cost fields, not show zero
@@ -336,7 +336,7 @@ const MODEL_PRICING = new ModelPricing();
  * Returns the original metrics unchanged when pricing is unavailable.
  * @param {Object} metrics - must contain `prompt_tokens` and `completion_tokens`
  * @param {Object} opts
- * @param {string|null} opts.provider - AnythingLLM provider slug
+ * @param {string|null} opts.provider - MissionLLM provider slug
  * @param {string|null} opts.model - model id (falls back to `metrics.model`)
  * @returns {Object} metrics, optionally extended with cost fields
  */

@@ -6,11 +6,11 @@ metadata:
 {{ toYaml .Values.persistentVolume.annotations | indent 4 }}
   {{- end }}
   labels:
-    {{- include "anythingllm.labels" . | nindent 4 }}
+    {{- include "missionllm.labels" . | nindent 4 }}
     {{- with .Values.persistentVolume.labels }}
        {{- toYaml . | nindent 4 }}
     {{- end }}
-  name: {{ include "anythingllm.fullname" . }}-storage-claim
+  name: {{ include "missionllm.fullname" . }}-storage-claim
 spec:
   accessModes:
     {{- toYaml .Values.persistentVolume.accessModes | nindent 4 }}

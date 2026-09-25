@@ -15,9 +15,9 @@ provider "digitalocean" {
 }  
 
   
-resource "digitalocean_droplet" "anything_llm_instance" {  
+resource "digitalocean_droplet" "mission_llm_instance" {  
   image  = "ubuntu-24-04-x64"  
-  name   = "anything-llm-instance"  
+  name   = "mission-llm-instance"  
   region = "nyc3"  
   size   = "s-2vcpu-2gb"  
   

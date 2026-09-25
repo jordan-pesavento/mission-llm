@@ -10,7 +10,7 @@
   //   },
   //   "dockerfile": "Dockerfile"
   // },
-  // "containerUser": "anythingllm",
+  // "containerUser": "missionllm",
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
   "image": "mcr.microsoft.com/devcontainers/javascript-node:1-18-bookworm",
 
@@ -99,7 +99,7 @@
   "remoteEnv": {
     "NODE_ENV": "development",
     "ESLINT_USE_FLAT_CONFIG": "true",
-    "ANYTHING_LLM_RUNTIME": "docker"
+    "MISSION_LLM_RUNTIME": "docker"
   },
   // "initializeCommand": "echo Initialize....",
   "shutdownAction": "stopContainer",

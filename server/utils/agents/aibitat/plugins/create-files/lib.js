@@ -56,7 +56,7 @@ class CreateFilesManager {
    */
   isToolAvailable() {
     if (process.env.NODE_ENV === "development") return true;
-    return process.env.ANYTHING_LLM_RUNTIME === "docker";
+    return process.env.MISSION_LLM_RUNTIME === "docker";
   }
 
   /**
@@ -302,7 +302,7 @@ class CreateFilesManager {
   }
 
   /**
-   * Gets the AnythingLLM logo for branding.
+   * Gets the MissionLLM logo for branding.
    * @param {Object} options
    * @param {boolean} [options.forDarkBackground=false] - True to get light logo (for dark backgrounds), false for dark logo (for light backgrounds)
    * @param {"buffer"|"dataUri"} [options.format="buffer"] - Return format: "buffer" for raw Buffer, "dataUri" for base64 data URI
@@ -313,8 +313,8 @@ class CreateFilesManager {
     // Does not honor Whitelabeling changes/preferences right now.
     const assetsPath = path.join(__dirname, "assets");
     const filename = forDarkBackground
-      ? "anything-llm.png"
-      : "anything-llm-invert.png";
+      ? "mission-llm.png"
+      : "mission-llm-invert.png";
     try {
       if (format === "dataUri") {
         const base64 = fsSync.readFileSync(

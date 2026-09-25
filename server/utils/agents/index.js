@@ -411,8 +411,8 @@ class AgentHandler {
   #getFallbackProvider() {
     // If workspace chat uses the model router, fall back to it.
     // Model is null here since the router determines it at resolve time.
-    if (this.invocation.workspace.chatProvider === "anythingllm-router") {
-      return { provider: "anythingllm-router", model: null };
+    if (this.invocation.workspace.chatProvider === "missionllm-router") {
+      return { provider: "missionllm-router", model: null };
     }
 
     // First, fallback to the workspace chat provider and model if they exist
@@ -429,8 +429,8 @@ class AgentHandler {
     // If workspace does not have chat provider and model fallback
     // to system provider and try to load provider default model
     const systemProvider = process.env.LLM_PROVIDER;
-    if (systemProvider === "anythingllm-router") {
-      return { provider: "anythingllm-router", model: null };
+    if (systemProvider === "missionllm-router") {
+      return { provider: "missionllm-router", model: null };
     }
 
     const systemModel = this.providerDefault(systemProvider);
@@ -475,7 +475,7 @@ class AgentHandler {
     this.model = this.#fetchModel();
 
     // If provider resolved to model router, resolve the actual provider/model
-    if (this.provider === "anythingllm-router") {
+    if (this.provider === "missionllm-router") {
       await this.#resolveRouterProvider();
     }
 
@@ -486,7 +486,7 @@ class AgentHandler {
   }
 
   async #resolveRouterProvider(prompt = null) {
-    const { AnythingLLMModelRouter } = require("../AiProviders/modelRouter");
+    const { MissionLLMModelRouter } = require("../AiProviders/modelRouter");
     const routerWorkspace = this.invocation.workspace.router_id
       ? this.invocation.workspace
       : {
@@ -510,7 +510,7 @@ class AgentHandler {
       thread = this._threadSlug ? { slug: this._threadSlug } : null;
     }
 
-    const router = new AnythingLLMModelRouter(routerWorkspace);
+    const router = new MissionLLMModelRouter(routerWorkspace);
     const { ModelRouterService } = require("../router");
     const workspace = this.invocation.workspace;
     const user = this.invocation.user_id

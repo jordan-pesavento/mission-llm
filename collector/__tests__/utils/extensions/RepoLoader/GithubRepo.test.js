@@ -110,7 +110,7 @@ describe("GitHubRepoLoader apiBase resolution", () => {
     expect(loader.ready).toBe(true);
     expect(loader.apiBase).toBe("https://api.github.com");
     expect(loader.author).toBe("Mintplex-Labs");
-    expect(loader.project).toBe("anything-llm");
+    expect(loader.project).toBe("mission-llm");
   });
 
   test("the www. alias of github.com is not mistaken for an enterprise host", async () => {

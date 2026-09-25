@@ -16,7 +16,7 @@ const MAX_TOTAL_ATTACHMENT_SIZE = 20 * 1024 * 1024; // 20MB limit for all attach
  * @returns {{success: boolean, attachment?: object, error?: string, fileInfo?: object}}
  */
 function prepareAttachment(filePath) {
-  if (process.env.ANYTHING_LLM_RUNTIME === "docker") {
+  if (process.env.MISSION_LLM_RUNTIME === "docker") {
     return {
       success: false,
       error: "File attachments are not supported in Docker environments.",
@@ -207,7 +207,7 @@ async function handleAttachments(context, messages) {
 
 /**
  * Gmail Bridge Library
- * Handles communication with the AnythingLLM Gmail Google Apps Script deployment.
+ * Handles communication with the MissionLLM Gmail Google Apps Script deployment.
  */
 class GmailBridge {
   #deploymentId = null;
@@ -347,7 +347,7 @@ class GmailBridge {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-AnythingLLM-UA": "AnythingLLM-Gmail-Agent/1.0",
+          "X-MissionLLM-UA": "MissionLLM-Gmail-Agent/1.0",
         },
         body: JSON.stringify({
           key: this.#apiKey,

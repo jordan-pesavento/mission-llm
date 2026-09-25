@@ -9,7 +9,7 @@ const { MODEL_MAP } = require("../modelMap");
 const {
   LLMPerformanceMonitor,
 } = require("../../helpers/chat/LLMPerformanceMonitor");
-const { getAnythingLLMUserAgent } = require("../../../endpoints/utils");
+const { getMissionLLMUserAgent } = require("../../../endpoints/utils");
 
 // Temperature is never sent. Anthropic models from Opus 4.7 onward reject it with
 // a 400, and every model accepts requests without it, so omitting it everywhere
@@ -26,7 +26,7 @@ class AnthropicLLM {
     const anthropic = new AnthropicAI({
       apiKey: process.env.ANTHROPIC_API_KEY,
       defaultHeaders: {
-        "User-Agent": getAnythingLLMUserAgent(),
+        "User-Agent": getMissionLLMUserAgent(),
       },
     });
     this.anthropic = anthropic;

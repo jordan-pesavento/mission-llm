@@ -18,7 +18,7 @@ class VertexProvider extends InheritMultiple([Provider, UnTooled]) {
     // bearer header must be removed (a null default header deletes it).
     const client = new OpenAI({
       baseURL: VertexLLM.openaiBaseURL(),
-      apiKey: "anythingllm",
+      apiKey: "missionllm",
       defaultHeaders: {
         Authorization: null,
         "x-goog-api-key": process.env.VERTEX_AI_LLM_API_KEY ?? null,

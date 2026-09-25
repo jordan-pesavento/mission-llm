@@ -3,7 +3,7 @@ import { useModal } from "@/hooks/useModal";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-const SEEN_COPY_LINK_CHAT_ALERT = "anythingllm_seen_copy_link_chat_alert";
+const SEEN_COPY_LINK_CHAT_ALERT = "missionllm_seen_copy_link_chat_alert";
 
 export default function CopyLinkToChatRow() {
   const { slug, threadSlug } = useParams();

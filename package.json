@@ -1,5 +1,5 @@
 {
-  "name": "anything-llm",
+  "name": "mission-llm",
   "version": "1.16.2",
   "description": "The best solution for turning private documents into a chat bot using off-the-shelf tools and commercially viable AI technologies.",
   "main": "index.js",
@@ -31,7 +31,7 @@
     "prisma:migrate": "cd server && npx prisma migrate dev --name init",
     "prisma:seed": "cd server && npx prisma db seed",
     "prisma:setup": "yarn prisma:generate && yarn prisma:migrate && yarn prisma:seed",
-    "prisma:reset": "truncate -s 0 server/storage/anythingllm.db && yarn prisma:migrate",
+    "prisma:reset": "truncate -s 0 server/storage/missionllm.db && yarn prisma:migrate",
     "prod:server": "cd server && yarn start",
     "prod:frontend": "cd frontend && yarn build",
     "translations:verify": "cd frontend/src/locales && node verifyTranslations.mjs",

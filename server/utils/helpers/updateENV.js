@@ -1202,7 +1202,7 @@ function supportedLLM(input = "") {
     "minimax",
     "cerebras",
     "omlx",
-    "anythingllm-router",
+    "missionllm-router",
     "vertex",
   ].includes(input);
   return validSelection ? null : `${input} is not a valid LLM provider.`;
@@ -1291,7 +1291,7 @@ function requiresForceMode(_, forceModeEnabled = false) {
 }
 
 async function validDockerizedUrl(input = "") {
-  if (process.env.ANYTHING_LLM_RUNTIME !== "docker") return null;
+  if (process.env.MISSION_LLM_RUNTIME !== "docker") return null;
 
   try {
     const { isPortInUse, getLocalHosts } = require("./portAvailabilityChecker");
@@ -1306,7 +1306,7 @@ async function validDockerizedUrl(input = "") {
 
     const isPortAvailableFromDocker = await isPortInUse(port, hostname);
     if (isPortAvailableFromDocker)
-      return "Port is not running a reachable service on loopback address from inside the AnythingLLM container. Please use host.docker.internal (for linux use 172.17.0.1), a real machine ip, or domain to connect to your service.";
+      return "Port is not running a reachable service on loopback address from inside the MissionLLM container. Please use host.docker.internal (for linux use 172.17.0.1), a real machine ip, or domain to connect to your service.";
   } catch (error) {
     console.error(error.message);
     return "An error occurred while validating the URL";
@@ -1567,7 +1567,7 @@ function dumpENV() {
     "GENERIC_OPEN_AI_MODEL_MAX_TOKEN_KEY",
 
     // Specify Chromium args for collector
-    "ANYTHINGLLM_CHROMIUM_ARGS",
+    "MISSIONLLM_CHROMIUM_ARGS",
 
     // Allow setting a custom response timeout for Ollama
     "OLLAMA_RESPONSE_TIMEOUT",
@@ -1589,8 +1589,8 @@ function dumpENV() {
     "AGENT_AUTO_APPROVED_SKILLS",
 
     // Allow setting a custom fetch timeouts for providers
-    "ANYTHINGLLM_FETCH_TIMEOUT",
-    "ANYTHINGLLM_MAX_RETRIES",
+    "MISSIONLLM_FETCH_TIMEOUT",
+    "MISSIONLLM_MAX_RETRIES",
 
     // Deny-by-default for embed widgets that have no allowlist configured
     "EMBED_REQUIRE_ALLOWLIST",

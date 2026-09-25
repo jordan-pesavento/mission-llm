@@ -1,4 +1,4 @@
-import AnythingLLMIcon from "@/media/logo/anything-llm-icon.png";
+import MissionLLMIcon from "@/media/logo/mission-llm-icon.png";
 import OpenAiLogo from "@/media/llmprovider/openai.png";
 import GenericOpenAiLogo from "@/media/llmprovider/generic-openai.png";
 import AzureOpenAiLogo from "@/media/llmprovider/azure.png";
@@ -324,7 +324,7 @@ const VECTOR_DB_PROVIDER_PRIVACY_MAP = {
   lancedb: {
     name: "LanceDB",
     description: [
-      "Your vectors and document text are stored privately on this instance of AnythingLLM.",
+      "Your vectors and document text are stored privately on this instance of MissionLLM.",
     ],
     logo: LanceDbLogo,
   },
@@ -332,11 +332,11 @@ const VECTOR_DB_PROVIDER_PRIVACY_MAP = {
 
 const EMBEDDING_ENGINE_PROVIDER_PRIVACY_MAP = {
   native: {
-    name: "AnythingLLM Embedder",
+    name: "MissionLLM Embedder",
     description: [
-      "Your document text is embedded privately on this instance of AnythingLLM.",
+      "Your document text is embedded privately on this instance of MissionLLM.",
     ],
-    logo: AnythingLLMIcon,
+    logo: MissionLLMIcon,
   },
   openai: {
     name: "OpenAI",

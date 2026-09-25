@@ -57,7 +57,7 @@ jest.mock("../../../utils/collectorApi", () => ({
   CollectorApi: jest.fn(),
 }));
 jest.mock("../../../utils/files", () => ({
-  hotdirPath: "/tmp/anything-llm-test-hotdir",
+  hotdirPath: "/tmp/mission-llm-test-hotdir",
   normalizePath: jest.fn((filePath) => filePath),
   isWithin: jest.fn(() => true),
   sanitizeFileName: jest.fn((filename) => filename),

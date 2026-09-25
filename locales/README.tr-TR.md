@@ -12,7 +12,7 @@
 </p>
 
 <div align='center'>
-<a href="https://trendshift.io/repositories/2415" target="_blank"><img src="https://trendshift.io/api/badge/repositories/2415" alt="Mintplex-Labs%2Fanything-llm | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<a href="https://trendshift.io/repositories/2415" target="_blank"><img src="https://trendshift.io/api/badge/repositories/2415" alt="Mintplex-Labs%2Fmission-llm | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 </div>
 
 <p align="center">
@@ -257,15 +257,15 @@ Temel olarak, telemetri devre dışıysa hiçbir şey toplamayız. Ancak kurulum
 
 ## 🌟 Katkıda Bulunanlar
 
-[![anythingllm contributors](https://contrib.rocks/image?repo=mintplex-labs/anything-llm)](https://github.com/mintplex-labs/anything-llm/graphs/contributors)
+[![missionllm contributors](https://contrib.rocks/image?repo=mintplex-labs/anything-llm)](https://github.com/mintplex-labs/anything-llm/graphs/contributors)
 
 [![Star History Chart](https://api.star-history.com/svg?repos=mintplex-labs/anything-llm&type=Timeline)](https://star-history.com/#mintplex-labs/anything-llm&Date)
 
 ## 🔗 Diğer Ürünler
 
-- **[Mission LLM Mobile (MIT Lisanslı)][anythingllm-mobile]:** Mission LLM'i mobil cihazınızda kullanmanızı sağlayan mobil uygulama.
-- **[Mission LLM Tarayıcı Eklentisi][anythingllm-extension]:** Mission LLM'i tarayıcınızda kullanmanızı sağlayan tarayıcı eklentisi.
-- **[Mission LLM Embed][anythingllm-embed]:** Mission LLM'i web sitenize gömmenizi sağlayan bir araç.
+- **[Mission LLM Mobile (MIT Lisanslı)][missionllm-mobile]:** Mission LLM'i mobil cihazınızda kullanmanızı sağlayan mobil uygulama.
+- **[Mission LLM Tarayıcı Eklentisi][missionllm-extension]:** Mission LLM'i tarayıcınızda kullanmanızı sağlayan tarayıcı eklentisi.
+- **[Mission LLM Embed][missionllm-embed]:** Mission LLM'i web sitenize gömmenizi sağlayan bir araç.
 
 <div align="right">
 
@@ -282,9 +282,9 @@ Bu proje [MIT](../LICENSE) lisansı ile lisanslanmıştır.
 
 [back-to-top]: https://img.shields.io/badge/-BACK_TO_TOP-222628?style=flat-square
 [profile-link]: https://github.com/mintplex-labs
-[anythingllm-mobile]: https://github.com/Mintplex-Labs/anythingllm-mobile
-[anythingllm-extension]: https://github.com/Mintplex-Labs/anythingllm-extension
-[anythingllm-embed]: https://github.com/Mintplex-Labs/anythingllm-embed
+[missionllm-mobile]: https://github.com/Mintplex-Labs/anythingllm-mobile
+[missionllm-extension]: https://github.com/Mintplex-Labs/anythingllm-extension
+[missionllm-embed]: https://github.com/Mintplex-Labs/anythingllm-embed
 [docker-btn]: ../images/deployBtns/docker.png
 [docker-deploy]: ../docker/HOW_TO_USE_DOCKER.md
 [aws-btn]: ../images/deployBtns/aws.png

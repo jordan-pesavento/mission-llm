@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "anythingllm.fullname" . }}
+  name: {{ include "missionllm.fullname" . }}
   labels:
-    {{- include "anythingllm.labels" . | nindent 4 }}
+    {{- include "missionllm.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "anythingllm.selectorLabels" . | nindent 6 }}
+      {{- include "missionllm.selectorLabels" . | nindent 6 }}
   {{- with .Values.strategy }}
   strategy:
     {{- toYaml . | nindent 8 }}
@@ -20,7 +20,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "anythingllm.labels" . | nindent 8 }}
+        {{- include "missionllm.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -29,7 +29,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "anythingllm.serviceAccountName" . }}
+      serviceAccountName: {{ include "missionllm.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       {{- with .Values.initContainers }}
@@ -48,7 +48,7 @@ spec:
           {{- end }}
           envFrom:
             - configMapRef:
-                name: {{ include "anythingllm.fullname" . }}-config
+                name: {{ include "missionllm.fullname" . }}-config
           {{- with .Values.envFrom }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
@@ -68,7 +68,7 @@ spec:
       volumes:
         - name: storage
           persistentVolumeClaim:
-            claimName: {{ include "anythingllm.fullname" . }}-storage-claim
+            claimName: {{ include "missionllm.fullname" . }}-storage-claim
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

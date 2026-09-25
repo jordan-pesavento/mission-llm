@@ -19,7 +19,7 @@ describe("AIbitat.getProviderForConfig providerSlug wiring", () => {
 
   afterEach(() => jest.restoreAllMocks());
 
-  test("stamps the instance with the AnythingLLM slug it was built from", () => {
+  test("stamps the instance with the MissionLLM slug it was built from", () => {
     const aibitat = new AIbitat({ provider: "openai", model: "gpt-4o" });
     const provider = aibitat.getProviderForConfig({
       provider: "openai",

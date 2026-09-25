@@ -20,7 +20,7 @@ class CometApiProvider extends InheritMultiple([Provider, UnTooled]) {
       apiKey: process.env.COMETAPI_LLM_API_KEY,
       defaultHeaders: {
         "HTTP-Referer": "https://anythingllm.com",
-        "X-CometAPI-Source": "anythingllm",
+        "X-CometAPI-Source": "missionllm",
       },
     });
 

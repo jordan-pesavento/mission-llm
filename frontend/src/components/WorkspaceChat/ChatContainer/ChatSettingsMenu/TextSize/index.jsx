@@ -14,12 +14,12 @@ export default function TextSizeRow() {
   const { t } = useTranslation();
   const [showSubmenu, setShowSubmenu] = useState(false);
   const [selectedSize, setSelectedSize] = useState(
-    window.localStorage.getItem("anythingllm_text_size") || "normal"
+    window.localStorage.getItem("missionllm_text_size") || "normal"
   );
 
   function handleTextSizeChange(size) {
     setSelectedSize(size);
-    window.localStorage.setItem("anythingllm_text_size", size);
+    window.localStorage.setItem("missionllm_text_size", size);
     window.dispatchEvent(new CustomEvent("textSizeChange", { detail: size }));
   }
 

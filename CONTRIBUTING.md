@@ -1,6 +1,6 @@
-# Contributing to AnythingLLM
+# Contributing to Mission LLM
 
-AnythingLLM is an open-source project and we welcome contributions from the community.
+Mission LLM is an open-source project and we welcome contributions from the community.
 
 ## Reporting Issues
 
@@ -18,11 +18,11 @@ If there's an issue you are interested in working on, please leave a comment on 
 
 Keep in mind that we are a small team and have limited resources. We will do our best to review and merge your PRs, but please be patient. Ultimately, **we become the maintainer** of your changes. It is our responsibility to make sure that the changes are working as expected and are of high quality as well as being compatible with the rest of the project both for existing users and for future users & features.
 
-Before you start working on an issue, please read the following so that you don't waste time on something that is not a good fit for the project or is more suitable for a personal fork. We would rather answer a comment on an issue than close a PR after you've spent time on it. Your time is valuable and we appreciate your time and effort to make AnythingLLM better.
+Before you start working on an issue, please read the following so that you don't waste time on something that is not a good fit for the project or is more suitable for a personal fork. We would rather answer a comment on an issue than close a PR after you've spent time on it. Your time is valuable and we appreciate your time and effort to make Mission LLM better.
 
 0. (most important) If you are making a PR that does not have a corresponding issue, **it will not be merged.** _The only exception to this is language translations._
 
-1. If you are modifying the permission system for a new role or something custom, you are likely better off forking the project and building your own version since this is a core part of the project and is only to be maintained by the AnythingLLM team.
+1. If you are modifying the permission system for a new role or something custom, you are likely better off forking the project and building your own version since this is a core part of the project and is only to be maintained by the Mission LLM team.
 
 2. Integrations (LLM, Vector DB, etc.) are reviewed at our discretion. We will eventually get to them. Do not expect us to merge your integration PR instantly since there are often many moving parts and we want to make sure we get it right. We will get to it!
 
@@ -35,8 +35,8 @@ Before you start working on an issue, please read the following so that you don'
 First, fork the repository on GitHub, then clone your fork:
 
 ```bash
-git clone https://github.com/<username>/anything-llm.git
-cd anything-llm
+git clone https://github.com/<username>/mission-llm.git
+cd mission-llm
 ```
 
 Then add the main repository as a remote:
@@ -68,7 +68,7 @@ For the best chance of having your pull request accepted, please follow these gu
 
 1. Unit test all bug fixes and new features. Your code will not be merged if it
    doesn't have tests.
-1. If you change the public API, update the documentation in the `anythingllm-docs` repository.
+1. If you change the public API, update the documentation in the `missionllm-docs` repository.
 1. Aim to minimize the number of changes in each pull request. Keep to solving
    one problem at a time, when possible.
 1. Before marking a pull request ready-for-review, do a self review of your code.
@@ -84,7 +84,7 @@ For the best chance of having your pull request accepted, please follow these gu
 
 ## Project structure
 
-The core library is written in Node.js. There are additional sub-repositories for the embed widget and browser extension. These are not part of the core AnythingLLM project, but are maintained by the AnythingLLM team.
+The core library is written in Node.js. There are additional sub-repositories for the embed widget and browser extension. These are not part of the core Mission LLM project, but are maintained by the Mission LLM team.
 
 * `server`: Node.js server source code
 * `frontend`: React frontend source code
@@ -92,17 +92,17 @@ The core library is written in Node.js. There are additional sub-repositories fo
 
 ## Release process
 
-Changes to the core AnythingLLM project are released through the `master` branch. When a PR is merged into `master`, a new version of the package is published to Docker and GitHub Container Registry under the `latest` tag.
+Changes to the core Mission LLM project are released through the `master` branch. When a PR is merged into `master`, a new version of the package is published to Docker and GitHub Container Registry under the `latest` tag.
 
 When a new version is released, the following steps are taken a new image is built and pushed to Docker Hub and GitHub Container Registry under the associated version tag. Version tags are of the format `v<major>.<minor>.<patch>` and are pinned code, while `latest` is the latest version of the code at any point in time.
 
 ### Desktop propagation
 
-Changes to the desktop app are downstream of the core AnythingLLM project. Releases of the desktop app are published at the same time as the core AnythingLLM project. Code from the core AnythingLLM project is copied into the desktop app into an Electron wrapper. The Electron wrapper that wraps around the core AnythingLLM project is **not** part of the core AnythingLLM project, but is maintained by the AnythingLLM team.
+Changes to the desktop app are downstream of the core Mission LLM project. Releases of the desktop app are published at the same time as the core Mission LLM project. Code from the core Mission LLM project is copied into the desktop app into an Electron wrapper. The Electron wrapper that wraps around the core Mission LLM project is **not** part of the core Mission LLM project, but is maintained by the Mission LLM team.
 
 ## 🔌 Criteria for New LLM Providers
 
-To ensure the long-term maintainability of AnythingLLM and prevent repository bloat, we enforce a vetting process for adding new third-party LLM provider integrations. 
+To ensure the long-term maintainability of Mission LLM and prevent repository bloat, we enforce a vetting process for adding new third-party LLM provider integrations. 
 
 With thousands of new wrapper API services launching daily, we do not accept dedicated integrations for services that lack an established user base or offer no unique technical utility over our existing generic connectors which should be sufficient for most use cases.
 
@@ -123,7 +123,7 @@ We do not accept dedicated integration code for providers whose API architecture
   * **Unique Architectural Features:** Exposes critical, native platform capabilities (e.g., custom server-side routing nodes or proprietary hyper-parameters) that are completely lost when forced through a generic wrapper.
 
 ### 2. Market Viability Threshold
-We cannot act as a discovery or marketing engine for early-stage startups. To qualify for codebase inclusion, a provider must demonstrate an active, existing user base who would benefit from AnythingLLM's functionality. Any of the following criteria are acceptable:
+We cannot act as a discovery or marketing engine for early-stage startups. To qualify for codebase inclusion, a provider must demonstrate an active, existing user base who would benefit from Mission LLM's functionality. Any of the following criteria are acceptable:
 
 * **Community Demand:** An integration issue request must accumulate a minimum of **20 organic upvotes (`+1` reactions)** from unique GitHub users before a PR will be reviewed. 
 * **Footprint Metrics:** The provider or core underlying model organization must possess a verifiable footprint (e.g., `50,000` aggregate downloads on Hugging Face, or `1,000` stars on its core open-source repository).
@@ -143,4 +143,4 @@ We are not anti-AI. We are anti-low-effort. If it looks like you prompted an age
 
 ## License
 
-By contributing to AnythingLLM (this repository), you agree to license your contributions under the MIT license.
+By contributing to Mission LLM (this repository), you agree to license your contributions under the MIT license.

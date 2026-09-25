@@ -1,5 +1,5 @@
 {
-  "name": "anything-llm-document-collector",
+  "name": "mission-llm-document-collector",
   "version": "1.16.2",
   "description": "Document collector server endpoints",
   "main": "index.js",

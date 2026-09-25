@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "anythingllm.name" -}}
+{{- define "missionllm.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "anythingllm.fullname" -}}
+{{- define "missionllm.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "anythingllm.chart" -}}
+{{- define "missionllm.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "anythingllm.labels" -}}
-helm.sh/chart: {{ include "anythingllm.chart" . }}
-{{ include "anythingllm.selectorLabels" . }}
+{{- define "missionllm.labels" -}}
+helm.sh/chart: {{ include "missionllm.chart" . }}
+{{ include "missionllm.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "anythingllm.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "anythingllm.name" . }}
+{{- define "missionllm.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "missionllm.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "anythingllm.serviceAccountName" -}}
+{{- define "missionllm.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "anythingllm.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "missionllm.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

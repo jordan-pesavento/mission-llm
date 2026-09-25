@@ -8,7 +8,7 @@ const {
 const {
   LLMPerformanceMonitor,
 } = require("../../helpers/chat/LLMPerformanceMonitor");
-const { getAnythingLLMUserAgent } = require("../../../endpoints/utils");
+const { getMissionLLMUserAgent } = require("../../../endpoints/utils");
 
 function perplexityModels() {
   const { MODELS } = require("./models.js");
@@ -26,7 +26,7 @@ class PerplexityLLM {
       baseURL: "https://api.perplexity.ai",
       apiKey: process.env.PERPLEXITY_API_KEY ?? null,
       defaultHeaders: {
-        "X-Pplx-Integration": getAnythingLLMUserAgent(),
+        "X-Pplx-Integration": getMissionLLMUserAgent(),
       },
     });
     this.model =

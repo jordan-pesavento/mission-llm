@@ -32,7 +32,7 @@ class CometApiLLM {
       apiKey: process.env.COMETAPI_LLM_API_KEY ?? null,
       defaultHeaders: {
         "HTTP-Referer": "https://anythingllm.com",
-        "X-CometAPI-Source": "anythingllm",
+        "X-CometAPI-Source": "missionllm",
       },
     });
     this.model =

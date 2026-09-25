@@ -2,7 +2,7 @@ const OpenAI = require("openai");
 const Provider = require("./ai-provider.js");
 const InheritMultiple = require("./helpers/classes.js");
 const UnTooled = require("./helpers/untooled.js");
-const { getAnythingLLMUserAgent } = require("../../../../endpoints/utils");
+const { getMissionLLMUserAgent } = require("../../../../endpoints/utils");
 
 /**
  * The agent provider for the Perplexity provider.
@@ -17,7 +17,7 @@ class PerplexityProvider extends InheritMultiple([Provider, UnTooled]) {
       baseURL: "https://api.perplexity.ai",
       apiKey: process.env.PERPLEXITY_API_KEY ?? null,
       defaultHeaders: {
-        "X-Pplx-Integration": getAnythingLLMUserAgent(),
+        "X-Pplx-Integration": getMissionLLMUserAgent(),
       },
     });
 

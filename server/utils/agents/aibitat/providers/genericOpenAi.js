@@ -9,7 +9,7 @@ const {
 } = require("./helpers/tooled.js");
 const { RetryError } = require("../error.js");
 const { toValidNumber } = require("../../../http/index.js");
-const { getAnythingLLMUserAgent } = require("../../../../endpoints/utils");
+const { getMissionLLMUserAgent } = require("../../../../endpoints/utils");
 const { GenericOpenAiLLM } = require("../../../AiProviders/genericOpenAi");
 const { attachmentToContentBlock } = require("../../../helpers/attachments");
 
@@ -30,7 +30,7 @@ class GenericOpenAiProvider extends InheritMultiple([Provider, UnTooled]) {
       baseURL: process.env.GENERIC_OPEN_AI_BASE_PATH,
       apiKey: process.env.GENERIC_OPEN_AI_API_KEY ?? null,
       defaultHeaders: {
-        "User-Agent": getAnythingLLMUserAgent(),
+        "User-Agent": getMissionLLMUserAgent(),
         ...GenericOpenAiLLM.parseCustomHeaders(),
       },
     });

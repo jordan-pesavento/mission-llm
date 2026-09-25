@@ -39,7 +39,7 @@ class FilesystemManager {
    */
   isToolAvailable() {
     if (process.env.NODE_ENV === "development") return true;
-    return process.env.ANYTHING_LLM_RUNTIME === "docker";
+    return process.env.MISSION_LLM_RUNTIME === "docker";
   }
 
   #allowedDirectories = [];
@@ -53,7 +53,7 @@ class FilesystemManager {
     const storageRoot =
       process.env.STORAGE_DIR ||
       path.resolve(__dirname, "../../../../../storage");
-    return path.join(storageRoot, "anythingllm-fs");
+    return path.join(storageRoot, "missionllm-fs");
   }
 
   /**

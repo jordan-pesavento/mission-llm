@@ -15,36 +15,36 @@ nameOverride: ""
 fullnameOverride: ""
 
 persistentVolume:
-  # AnythingLLM storage data Persistent Volume access modes
+  # Mission LLM storage data Persistent Volume access modes
   # Must match those of existing PV or dynamic provisioner
   # Ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
   #
   accessModes:
     - ReadWriteOnce
 
-  # AnythingLLM storage data Persistent Volume labels
+  # Mission LLM storage data Persistent Volume labels
   #
   labels: {}
 
-  # AnythingLLM storage data Persistent Volume annotations
+  # Mission LLM storage data Persistent Volume annotations
   #
   annotations: {}
 
-  # AnythingLLM storage data Persistent Volume  existing claim name
+  # Mission LLM storage data Persistent Volume  existing claim name
   # If defined, PVC must be created manually before volume will be bound
   #
   existingClaim: ""
 
-  # AnythingLLM storage data Persistent Volume size
+  # Mission LLM storage data Persistent Volume size
   #
   size: 8Gi
 
-  # AnythingLLM storage data Persistent Volume mount path
+  # Mission LLM storage data Persistent Volume mount path
   # Must match the STORAGE_DIR config value
   #
   mountPath: /app/server/storage
 
-  # AnythingLLM storage data Persistent Volume Storage Class
+  # Mission LLM storage data Persistent Volume Storage Class
   # If defined, storageClassName: <storageClass>
   # If set to "-", storageClassName: "", which disables dynamic provisioning
   # If undefined (the default) or set to null, no storageClassName spec is
@@ -53,7 +53,7 @@ persistentVolume:
   #
   storageClass: ""
 
-  # AnythingLLM storage data Persistent Volume Claim Selector
+  # Mission LLM storage data Persistent Volume Claim Selector
   # Useful if Persistent Volumes have been provisioned in advance
   # Ref: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#selector
   #
@@ -64,7 +64,7 @@ persistentVolume:
   #  matchExpressions:
   #    - { key: environment, operator: In, values: [ dev ] }
 
-  # AnythingLLM storage data Persistent Volume Name
+  # Mission LLM storage data Persistent Volume Name
   # Useful if Persistent Volumes have been provisioned in advance and you want to use a specific one
   #
   volumeName: ""
@@ -80,8 +80,8 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-# The Anything LLM application  deployment strategy
-# This is set to "Recreate" by default as AnythingLLM support is not yet
+# The Mission LLM application  deployment strategy
+# This is set to "Recreate" by default as Mission LLM support is not yet
 # production ready.  Once it is, this can be changed to "RollingUpdate"
 # Ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
 #
@@ -109,7 +109,7 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
-# AnythingLLM configuration options, these are stored in a ConfigMap and passed
+# Mission LLM configuration options, these are stored in a ConfigMap and passed
 # to the container as environment variables.
 # See https://github.com/Mintplex-Labs/anything-llm/blob/render/docker/.env.example
 # for all available environment variables to use as configuration options
@@ -264,6 +264,6 @@ extraObjects: []
 #     data:
 #       - secretKey: open_ai_key
 #         remoteRef:
-#           key: secret/data/anything-llm
+#           key: secret/data/mission-llm
 #           property: open_ai_key
 

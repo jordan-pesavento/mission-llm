@@ -20,7 +20,7 @@ class VertexLLM {
     // request that also carries an Authorization header, so the SDK's own
     // bearer header must be removed (a null default header deletes it).
     this.openai = new OpenAIApi({
-      apiKey: "anythingllm",
+      apiKey: "missionllm",
       baseURL: VertexLLM.openaiBaseURL(),
       defaultHeaders: {
         Authorization: null,
