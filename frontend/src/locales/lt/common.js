@@ -110,7 +110,7 @@ const TRANSLATIONS = {
     "experimental-features": "Eksperimentinės funkcijos",
     contact: "Susisiekti su pagalba",
     "browser-extension": "Naršyklės plėtinys",
-    "mobile-app": "Mission LLM mobiliesiems",
+    "mobile-app": "Mobilioji programėlė",
     channels: "Kanalai",
     "available-channels": {
       telegram: "„Telegram“",
@@ -1559,7 +1559,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "Reikalinga autentifikacija",
           description:
-            "Prieš skelbdami elementus, turite prisijungti prie Mission LLM bendruomenės centro.",
+            "Prieš skelbdami elementus, turite prisijungti prie bendruomenės centro.",
           button: "Prisijungti prie bendruomenės centro",
         },
       },

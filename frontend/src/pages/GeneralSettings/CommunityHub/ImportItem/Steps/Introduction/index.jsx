@@ -25,9 +25,9 @@ export default function Introduction({ settings, setSettings, setStep }) {
               agent-skills, system prompts, slash commands, and more!
             </p>
             <p>
-              These items are created by the MissionLLM team and community, and
-              are a great way to get started with MissionLLM as well as extend
-              MissionLLM in a way that is customized to your needs.
+              These items are created by the community, and are a great way to
+              get started with Mission LLM as well as extend Mission LLM in a
+              way that is customized to your needs.
             </p>
             <p>
               There are both <b>private</b> and <b>public</b> items in the

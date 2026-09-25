@@ -96,7 +96,7 @@ const TRANSLATIONS = {
     interface: "UI 환경 설정",
     branding: "브랜딩 및 화이트라벨링",
     chat: "채팅",
-    "mobile-app": "Mission LLM 모바일",
+    "mobile-app": "모바일 앱",
     "community-hub": {
       title: "지역 커뮤니티 허브",
       trending: "인기 트렌드 탐색",
@@ -1490,8 +1490,7 @@ const TRANSLATIONS = {
       generic: {
         unauthenticated: {
           title: "인증 필요",
-          description:
-            "항목을 게시하려면 Mission LLM 커뮤니티 허브에 인증해야 합니다.",
+          description: "항목을 게시하려면 커뮤니티 허브에 인증해야 합니다.",
           button: "커뮤니티 허브에 연결",
         },
       },

@@ -16,7 +16,6 @@ body:
         - Docker (local)
         - Docker (remote machine)
         - Local development
-        - Mission LLM desktop app
         - All versions
         - Not listed
       default: 0

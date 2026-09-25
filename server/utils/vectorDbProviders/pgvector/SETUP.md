@@ -1,6 +1,6 @@
 # Setting up `PGVector` for Mission LLM
 
-Setting up PGVector for missionllm to use as your vector database is quite easy. At a minimum, you will need the following:
+Setting up PGVector for Mission LLM to use as your vector database is quite easy. At a minimum, you will need the following:
 
 - PostgreSQL v12+
 - [`pgvector`](https://github.com/pgvector/pgvector) extension installed on DB
@@ -32,6 +32,11 @@ eg: `postgresql://dbuser:dbuserpass@localhost:5432/yourdb`
 > at least minimally conform to the expected schema - this can be seen in the [index.js](./index.js) file.
 
 _optional_ - set a table name you wish to have Mission LLM store vectors to. By default this is `missionllm_vectors`
+
+<!-- rebrand:keep-start -->
+> [!NOTE]
+> Installs from before the Mission LLM rebrand used `anythingllm_vectors` as the default table. If no table name is set and that table exists while `missionllm_vectors` does not, Mission LLM keeps using `anythingllm_vectors` and sets it as the table name.
+<!-- rebrand:keep-end -->
 
 ## Common Questions
 

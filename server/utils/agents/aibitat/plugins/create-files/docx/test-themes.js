@@ -137,7 +137,7 @@ async function generateThemePreview(themeName, themeConfig, options = {}) {
       createCoverPageSection(docx, {
         title,
         subtitle: subtitle || `Demonstrating the ${themeName} color scheme`,
-        author: author || "MissionLLM Theme Tester",
+        author: author || "Mission LLM Theme Tester",
         date: currentDate,
         theme: themeConfig,
         margins: marginConfig,
@@ -172,7 +172,7 @@ async function generateThemePreview(themeName, themeConfig, options = {}) {
 
   const doc = new Document({
     title,
-    creator: "MissionLLM Theme Tester",
+    creator: "Mission LLM Theme Tester",
     description: `Theme preview for ${themeName}`,
     numbering: DEFAULT_NUMBERING_CONFIG,
     sections,

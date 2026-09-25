@@ -34,7 +34,7 @@ class PPIOLLM {
       baseURL: this.basePath,
       apiKey: process.env.PPIO_API_KEY ?? null,
       defaultHeaders: {
-        "HTTP-Referer": "https://anythingllm.com",
+        "HTTP-Referer": "https://gitlab.kuler.dev/kuler/products/mission-llm",
         "X-API-Source": "missionllm",
       },
     });

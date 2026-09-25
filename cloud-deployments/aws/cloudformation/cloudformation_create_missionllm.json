@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Create a stack that runs MissionLLM on a single instance",
+  "Description": "Create a stack that runs Mission LLM on a single instance",
   "Parameters": {
     "InstanceType": {
       "Description": "EC2 instance type",
@@ -89,12 +89,13 @@
                 "mkdir -p /home/ec2-user/missionllm\n",
                 "touch /home/ec2-user/missionllm/.env\n",
                 "sudo chown ec2-user:ec2-user -R /home/ec2-user/missionllm\n",
-                "docker pull mintplexlabs/anythingllm\n",
-                "docker run -d -p 3001:3001 --cap-add SYS_ADMIN -v /home/ec2-user/missionllm:/app/server/storage -v /home/ec2-user/missionllm/.env:/app/server/.env -e STORAGE_DIR=\"/app/server/storage\" mintplexlabs/anythingllm\n",
+                "# Replace REPLACE_WITH_MISSION_LLM_IMAGE with your Mission LLM image (built from docker/Dockerfile and pushed to your registry).\n",
+                "docker pull REPLACE_WITH_MISSION_LLM_IMAGE\n",
+                "docker run -d -p 3001:3001 --cap-add SYS_ADMIN -v /home/ec2-user/missionllm:/app/server/storage -v /home/ec2-user/missionllm/.env:/app/server/.env -e STORAGE_DIR=\"/app/server/storage\" REPLACE_WITH_MISSION_LLM_IMAGE\n",
                 "echo \"Container ID: $(sudo docker ps --latest --quiet)\"\n",
                 "export ONLINE=$(curl -Is http://localhost:3001/api/ping | head -n 1|cut -d$' ' -f2)\n",
                 "echo \"Health check: $ONLINE\"\n",
-                "echo \"Setup complete! MissionLLM instance is now online!\"\n",
+                "echo \"Setup complete! Mission LLM instance is now online!\"\n",
                 "\n",
                 "--//--\n"
               ]
@@ -106,7 +107,7 @@
     "MissionLLMInstanceSecurityGroup": {
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
-        "GroupDescription": "MissionLLM Instance Security Group",
+        "GroupDescription": "Mission LLM Instance Security Group",
         "SecurityGroupIngress": [
           {
             "IpProtocol": "tcp",
@@ -132,7 +133,7 @@
   },
   "Outputs": {
     "ServerIp": {
-      "Description": "IP address of the MissionLLM instance",
+      "Description": "IP address of the Mission LLM instance",
       "Value": {
         "Fn::GetAtt": [
           "MissionLLMInstance",
@@ -141,7 +142,7 @@
       }
     },
     "ServerURL": {
-      "Description": "URL of the MissionLLM server",
+      "Description": "URL of the Mission LLM server",
       "Value": {
         "Fn::Join": [
           "",

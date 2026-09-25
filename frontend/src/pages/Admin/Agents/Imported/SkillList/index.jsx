@@ -18,7 +18,7 @@ export default function ImportedSkillList({
             className="text-theme-text-secondary underline hover:text-cta-button"
             rel="noreferrer"
           >
-            MissionLLM Agent Docs
+            Mission LLM Agent Docs
           </a>
           .
         </p>

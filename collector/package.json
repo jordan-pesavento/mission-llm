@@ -3,8 +3,13 @@
   "version": "1.16.2",
   "description": "Document collector server endpoints",
   "main": "index.js",
-  "author": "Timothy Carambat (Mintplex Labs)",
+  "author": "Sigmatech",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.kuler.dev/kuler/products/mission-llm.git",
+    "directory": "collector"
+  },
   "private": false,
   "engines": {
     "node": ">=18.12.1"

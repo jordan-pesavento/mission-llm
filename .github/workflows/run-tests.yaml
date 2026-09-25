@@ -1,3 +1,4 @@
+# Inherited upstream GitHub Actions CI. It does not run on GitLab and is kept only for reference.
 name: Run backend tests
 
 concurrency:

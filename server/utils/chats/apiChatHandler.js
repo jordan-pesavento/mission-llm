@@ -25,6 +25,13 @@ const {
   isWithin,
   sanitizeFileName,
 } = require("../files");
+
+// The second value is the pre-rebrand mime type, kept for existing API clients.
+const DOCUMENT_ATTACHMENT_MIMES = [
+  "application/missionllm-document",
+  "application/anythingllm-document", // rebrand:keep
+];
+
 /**
  * @typedef ResponseObject
  * @property {string} id - uuid of response
@@ -40,6 +47,7 @@ const {
  * Users can pass in documents as attachments to the chat API.
  * The name of the document is the name of the attachment and must include the file extension.
  * the mime type for documents is `application/missionllm-document` - anything else is assumed to be an image.
+ * The pre-rebrand `application/anythingllm-document` is still accepted for existing API clients. (rebrand:keep)
  * @param {{name: string, mime: string, contentString: string}[]} attachments
  * @returns {Promise<{parsedDocuments: Object[], imageAttachments: {name: string; mime: string; contentString: string}[]}>}
  */
@@ -53,7 +61,7 @@ async function processDocumentAttachments(attachments = []) {
       attachment &&
       attachment.contentString &&
       attachment.mime &&
-      attachment.mime.toLowerCase() === "application/missionllm-document"
+      DOCUMENT_ATTACHMENT_MIMES.includes(attachment.mime.toLowerCase())
     )
       documentAttachments.push(attachment);
     else imageAttachments.push(attachment);

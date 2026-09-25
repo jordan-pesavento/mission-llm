@@ -12,7 +12,7 @@ function parseEventData(event) {
     if (!payload) return;
   
     // options: https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification#options
-    self.registration.showNotification(payload.title || 'MissionLLM', {
+    self.registration.showNotification(payload.title || 'Mission LLM', {
       ...payload,
       icon: '/favicon.png',
     });

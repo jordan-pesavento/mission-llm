@@ -2,11 +2,11 @@
 
 ![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.85.0](https://img.shields.io/badge/AppVersion-1.85.0-informational?style=flat-square)
 
-![Mission LLM](https://raw.githubusercontent.com/Mintplex-Labs/anything-llm/master/images/wordmark.png)
+[Mission LLM](https://gitlab.kuler.dev/kuler/products/mission-llm)
 
-[Mission LLM](https://github.com/Mintplex-Labs/anything-llm)
+Mission LLM by Sigmatech, the all-in-one AI application with built-in RAG, AI agents, No-code agent builder, MCP compatibility, and more.
 
-The all-in-one Desktop & Docker AI application with built-in RAG, AI agents, No-code agent builder, MCP compatibility, and more.
+**Container image:** this chart does not ship a default image. Set `image.repository` (default placeholder `REPLACE_WITH_MISSION_LLM_IMAGE`) to your Mission LLM image, built from `docker/Dockerfile` and pushed to a registry your cluster can pull from.
 
 **Configuration & Usage**
 
@@ -58,7 +58,7 @@ Notes:
 
 ```yaml
 image:
-  repository: mintplexlabs/anythingllm
+  repository: REPLACE_WITH_MISSION_LLM_IMAGE
   tag: "1.16.2"
 
 service:
@@ -82,6 +82,20 @@ Install with:
 helm install my-missionllm ./missionllm -f values-secret.yaml
 ```
 
+<!-- rebrand:keep-start -->
+**Upgrading an existing AnythingLLM release**
+
+This chart was renamed from `anythingllm` to `missionllm`. The chart name drives the `app.kubernetes.io/name` selector label and the default resource names, including the `<fullname>-storage-claim` PVC. A Deployment selector is immutable, so `helm upgrade` of a release installed from the upstream chart fails, and a release whose name contains `anythingllm` would also get a new, empty PVC.
+
+To upgrade such a release in place and keep its data, add this to your values:
+
+```yaml
+nameOverride: anythingllm
+```
+
+This renders the same selector labels and resource names (Deployment, Service, ConfigMap, PVC) as the upstream chart. Leave `nameOverride` empty for new installs.
+<!-- rebrand:keep-end -->
+
 **Best practices & tips**
 
 - Use `envFrom` for convenience when many environment variables are stored in a single `Secret` and use `env`/`valueFrom` for explicit single-key mappings.
@@ -104,7 +118,7 @@ helm install my-missionllm ./missionllm -f values-secret.yaml
 | envFrom                            | object | `{}`                         |             |
 | fullnameOverride                   | string | `""`                         |             |
 | image.pullPolicy                   | string | `"IfNotPresent"`             |             |
-| image.repository                   | string | `"mintplexlabs/anythingllm"` |             |
+| image.repository                   | string | `"REPLACE_WITH_MISSION_LLM_IMAGE"` |             |
 | image.tag                          | string | `"1.16.2"`                   |             |
 | imagePullSecrets                   | list   | `[]`                         |             |
 | ingress.annotations                | object | `{}`                         |             |

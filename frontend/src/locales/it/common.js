@@ -98,7 +98,7 @@ const TRANSLATIONS = {
     interface: "Preferenze dell'interfaccia utente",
     branding: "Branding e personalizzazione",
     chat: "Chat",
-    "mobile-app": "Mission LLM Mobile",
+    "mobile-app": "App mobile",
     "community-hub": {
       title: "Punto di riferimento della comunità",
       trending: "Esplora le tendenze",
@@ -1541,7 +1541,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "Richiesta di autenticazione",
           description:
-            "È necessario autenticarsi tramite il Community Hub di Mission LLM prima di pubblicare contenuti.",
+            "È necessario autenticarsi tramite il Community Hub prima di pubblicare contenuti.",
           button: "Connettiti al centro comunitario",
         },
       },

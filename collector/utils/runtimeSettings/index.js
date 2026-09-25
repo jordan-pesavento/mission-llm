@@ -51,7 +51,7 @@ class RuntimeSettings {
 
   /**
    * Parse the runtime settings from the request body options body
-   * see #attachOptions https://github.com/Mintplex-Labs/anything-llm/blob/ebf112007e0d579af3d2b43569db95bdfc59074b/server/utils/collectorApi/index.js#L18
+   * see #attachOptions in server/utils/collectorApi/index.js
    * @param {import('express').Request} request
    * @returns {void}
    */

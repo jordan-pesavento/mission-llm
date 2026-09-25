@@ -1,3 +1,4 @@
+# Inherited upstream GitHub Actions CI. It does not run on GitLab and is kept only for reference.
 # Builds a QA GHCR image for a PR when the "PR: Ready for QA" label is present.
 # Triggers on:
 #   - "PR: Ready for QA" label added to a PR

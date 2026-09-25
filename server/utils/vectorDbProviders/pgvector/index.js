@@ -40,13 +40,47 @@ class PGVector extends VectorDatabase {
     "SELECT column_name,data_type FROM information_schema.columns WHERE table_name = $1";
   createExtensionSql = "CREATE EXTENSION IF NOT EXISTS vector;";
 
+  static DEFAULT_TABLE_NAME = "missionllm_vectors";
+  // Default table name before the Mission LLM rebrand (a persisted name, do not rename).
+  static LEGACY_DEFAULT_TABLE_NAME = "anythingllm_vectors"; // rebrand:keep
+  static #legacyTableCheckedFor = null;
+
   /**
    * Get the table name for the PGVector database.
    * - Defaults to "missionllm_vectors" if no table name is provided.
    * @returns {string}
    */
   static tableName() {
-    return process.env.PGVECTOR_TABLE_NAME || "missionllm_vectors";
+    return process.env.PGVECTOR_TABLE_NAME || PGVector.DEFAULT_TABLE_NAME;
+  }
+
+  /**
+   * Installs from before the rebrand that never set PGVECTOR_TABLE_NAME store
+   * their vectors in the old default table. When that table exists and the new
+   * default does not, set PGVECTOR_TABLE_NAME to the old table so existing
+   * embeddings stay in use (it is saved to .env on the next settings save).
+   * Checked once per connection string; a failed check is retried on the next connect.
+   * @param {pgsql.Client} client - A connected client
+   */
+  async #adoptLegacyDefaultTable(client) {
+    if (process.env.PGVECTOR_TABLE_NAME) return;
+    const connectionString = PGVector.connectionString();
+    if (PGVector.#legacyTableCheckedFor === connectionString) return;
+    try {
+      const { rows } = await client.query(this.getTablesSql);
+      const tables = rows.map((row) => row.tablename);
+      PGVector.#legacyTableCheckedFor = connectionString;
+      if (
+        tables.includes(PGVector.DEFAULT_TABLE_NAME) ||
+        !tables.includes(PGVector.LEGACY_DEFAULT_TABLE_NAME)
+      )
+        return;
+
+      process.env.PGVECTOR_TABLE_NAME = PGVector.LEGACY_DEFAULT_TABLE_NAME;
+      this.logger(
+        `Using existing table "${PGVector.LEGACY_DEFAULT_TABLE_NAME}" from before the rebrand as PGVECTOR_TABLE_NAME.`
+      );
+    } catch {}
   }
 
   /**
@@ -171,7 +205,7 @@ class PGVector extends VectorDatabase {
 
     if (result.rows.length === 0)
       throw new Error(
-        `The table '${tableName}' was found but does not contain any columns or cannot be accessed by role. It cannot be used as an embedding table in MissionLLM.`
+        `The table '${tableName}' was found but does not contain any columns or cannot be accessed by role. It cannot be used as an embedding table in Mission LLM.`
       );
 
     for (const rowDef of expectedSchema) {
@@ -196,7 +230,7 @@ class PGVector extends VectorDatabase {
 
   /**
    * Validate the connection to the database and verify that the table does not already exist.
-   * so that missionllm can manage the table directly.
+   * so that Mission LLM can manage the table directly.
    *
    * @param {{connectionString: string | null, tableName: string | null}} params
    * @returns {Promise<{error: string | null, success: boolean}>}
@@ -288,6 +322,7 @@ class PGVector extends VectorDatabase {
 
     const client = this.client();
     await client.connect();
+    await this.#adoptLegacyDefaultTable(client);
     return client;
   }
 
@@ -300,7 +335,7 @@ class PGVector extends VectorDatabase {
   }
 
   /**
-   * Check if the missionllm embedding table exists in the database
+   * Check if the Mission LLM embedding table exists in the database
    * @returns {Promise<boolean>}
    */
   async dbTableExists() {
@@ -820,7 +855,7 @@ class PGVector extends VectorDatabase {
   }
 
   /**
-   * Reset the entire vector database table associated with missionllm
+   * Reset the entire vector database table associated with Mission LLM
    * @returns {Promise<{reset: boolean}>}
    */
   async reset() {

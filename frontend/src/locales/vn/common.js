@@ -98,7 +98,7 @@ const TRANSLATIONS = {
     interface: "Tùy chọn Giao diện",
     branding: "Thương hiệu & Nhãn trắng",
     chat: "Trò chuyện",
-    "mobile-app": "Mission LLM Di động",
+    "mobile-app": "Ứng dụng di động",
     "community-hub": {
       title: "Trung tâm cộng đồng",
       trending: "Khám phá các nội dung đang thịnh hành",
@@ -1526,7 +1526,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "Yêu cầu Xác thực",
           description:
-            "Bạn cần xác thực với Mission LLM Community Hub trước khi đăng các mục.",
+            "Bạn cần xác thực với Community Hub trước khi đăng các mục.",
           button: "Kết nối với Community Hub",
         },
       },

@@ -98,7 +98,7 @@ const TRANSLATIONS = {
     contact: "Support kontaktieren",
     "browser-extension": "Browser-Extension",
     "system-prompt-variables": "Systempromptvariablen",
-    "mobile-app": "Mission LLM Mobile",
+    "mobile-app": "Mobile App",
     "community-hub": {
       title: "Community Hub",
       trending: "Neuigkeiten",
@@ -1527,7 +1527,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "Benötigte Authentifizierung",
           description:
-            "Sie müssen sich vor der Veröffentlichung von Inhalten über den Mission LLM Community Hub authentifizieren.",
+            "Sie müssen sich vor der Veröffentlichung von Inhalten über den Community Hub authentifizieren.",
           button: "Verbinden Sie sich mit dem Community Hub",
         },
       },

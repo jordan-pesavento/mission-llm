@@ -114,7 +114,7 @@ const TRANSLATIONS = {
     "experimental-features": "Experimentella funktioner",
     contact: "Kontakta supporten",
     "browser-extension": "Webbläsartillägg",
-    "mobile-app": "Mission LLM Mobile",
+    "mobile-app": "Mobilapp",
     channels: "Kanaler",
     "available-channels": {
       telegram: "Telegram",
@@ -1801,7 +1801,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "Autentisering krävs",
           description:
-            "Du måste autentisera med Mission LLM Community Hub innan du publicerar objekt.",
+            "Du måste autentisera med Community Hub innan du publicerar objekt.",
           button: "Anslut till Community Hub",
         },
       },

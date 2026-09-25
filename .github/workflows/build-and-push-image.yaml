@@ -1,3 +1,4 @@
+# Inherited upstream GitHub Actions CI. It does not run on GitLab and is kept only for reference.
 # This GitHub action is for publishing of the primary image for Mission LLM
 # It will publish a linux/amd64 and linux/arm64 image at the same time
 # This file should ONLY BY USED FOR `master` BRANCH. 
@@ -59,7 +60,7 @@ jobs:
       
       - name: Log in to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-        # Only login to the Docker Hub if the repo is mintplex/missionllm, to allow for forks to build on GHCR
+        # Only login to the Docker Hub if the upstream DOCKER_USERNAME secret is set (upstream image mintplexlabs/anythingllm), to allow for forks to build on GHCR
         if: steps.dockerhub.outputs.enabled == 'true' 
         with:
           username: ${{ secrets.DOCKER_USERNAME }}

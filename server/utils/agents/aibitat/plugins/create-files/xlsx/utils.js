@@ -186,8 +186,8 @@ function inferCellType(value) {
 }
 
 /**
- * Applies MissionLLM branding to an Excel workbook.
- * Adds a subtle "Created with MissionLLM" text row below the data on each sheet.
+ * Applies Mission LLM branding to an Excel workbook.
+ * Adds a subtle "Created with Mission LLM" text row below the data on each sheet.
  * @param {import('exceljs').Workbook} workbook - The ExcelJS workbook instance
  */
 function applyBranding(workbook) {
@@ -202,7 +202,7 @@ function applyBranding(workbook) {
     }
 
     const brandingCell = worksheet.getCell(brandingRowNum, 1);
-    brandingCell.value = "Created with MissionLLM";
+    brandingCell.value = "Created with Mission LLM";
     brandingCell.font = {
       italic: true,
       size: 9,

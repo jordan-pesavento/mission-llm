@@ -2,6 +2,16 @@
   "name": "mission-llm-frontend",
   "private": false,
   "license": "MIT",
+  "author": "Sigmatech",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.kuler.dev/kuler/products/mission-llm.git",
+    "directory": "frontend"
+  },
+  "bugs": {
+    "url": "https://gitlab.kuler.dev/kuler/products/mission-llm/-/issues"
+  },
+  "homepage": "https://gitlab.kuler.dev/kuler/products/mission-llm",
   "type": "module",
   "scripts": {
     "start": "vite --open",

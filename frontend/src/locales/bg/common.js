@@ -113,7 +113,7 @@ const TRANSLATIONS = {
     "experimental-features": "Експериментални функции",
     contact: "Връзка с поддръжката",
     "browser-extension": "Разширение за браузър",
-    "mobile-app": "Mission LLM Mobile",
+    "mobile-app": "Мобилно приложение",
     channels: "Канали",
     "available-channels": {
       telegram: "Telegram",
@@ -1825,7 +1825,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "Изисква се удостоверяване",
           description:
-            "Трябва да се удостоверите пред Общностния хъб на Mission LLM, преди да публикувате.",
+            "Трябва да се удостоверите пред Общностния хъб, преди да публикувате.",
           button: "Свържи се с Общностния хъб",
         },
       },

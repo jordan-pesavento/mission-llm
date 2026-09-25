@@ -11,7 +11,11 @@ const { User } = require("../../../models/user");
  */
 async function validDeviceToken(request, response, next) {
   try {
-    const token = request.header("x-missionllm-mobile-device-token");
+    // The upstream mobile app (the only client of these routes) still sends the
+    // pre-rebrand header name. It is a wire contract with an app we do not own.
+    const token =
+      request.header("x-missionllm-mobile-device-token") ??
+      request.header("x-anythingllm-mobile-device-token"); // rebrand:keep
     if (!token)
       return response.status(400).json({ error: "Device token is required" });
 

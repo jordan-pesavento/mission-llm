@@ -187,16 +187,15 @@ export default function SettingsSidebar() {
 }
 
 function SupportEmail() {
-  const [supportEmail, setSupportEmail] = useState(paths.mailToMintplex());
+  const [supportEmail, setSupportEmail] = useState(paths.issues());
   const { t } = useTranslation();
+  const isMailto = supportEmail.startsWith("mailto:");
 
   useEffect(() => {
     const fetchSupportEmail = async () => {
       const supportEmail = await System.fetchSupportEmail();
       setSupportEmail(
-        supportEmail?.email
-          ? `mailto:${supportEmail.email}`
-          : paths.mailToMintplex()
+        supportEmail?.email ? `mailto:${supportEmail.email}` : paths.issues()
       );
     };
     fetchSupportEmail();
@@ -205,6 +204,8 @@ function SupportEmail() {
   return (
     <Link
       to={supportEmail}
+      target={isMailto ? undefined : "_blank"}
+      rel={isMailto ? undefined : "noreferrer"}
       className="text-theme-text-secondary hover:text-white hover:light:text-theme-text-primary text-xs leading-[18px] mx-3 mt-1"
     >
       {t("settings.contact")}
@@ -517,7 +518,7 @@ function AppVersion() {
   if (isLoading) return null;
   return (
     <Link
-      to={`https://github.com/Mintplex-Labs/anything-llm/releases/tag/v${version}`}
+      to={paths.releases()}
       target="_blank"
       rel="noreferrer"
       className="text-theme-text-secondary light:opacity-80 opacity-50 text-xs mx-3"

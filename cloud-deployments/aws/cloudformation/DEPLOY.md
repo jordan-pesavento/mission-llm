@@ -2,6 +2,8 @@
 
 With an AWS account you can easily deploy a private Mission LLM instance on AWS. This will create a url that you can access from any browser over HTTP (HTTPS not supported). This single instance will run on your own keys and they will not be exposed - however if you want your instance to be protected it is highly recommend that you set a password once setup is complete.
 
+**Before you deploy:** the template does not pull a public image. Build the Mission LLM image from `docker/Dockerfile`, push it to a registry the instance can pull from, and replace `REPLACE_WITH_MISSION_LLM_IMAGE` in `cloudformation_create_missionllm.json` with that image.
+
 **Quick Launch (EASY)**
 1. Log in to your AWS account
 2. Open [CloudFormation](https://us-west-1.console.aws.amazon.com/cloudformation/home)

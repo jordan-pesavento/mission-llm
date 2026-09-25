@@ -52,9 +52,7 @@ export default function UserButton() {
     const fetchSupportEmail = async () => {
       const supportEmail = await System.fetchSupportEmail();
       setSupportEmail(
-        supportEmail?.email
-          ? `mailto:${supportEmail.email}`
-          : paths.mailToMintplex()
+        supportEmail?.email ? `mailto:${supportEmail.email}` : paths.issues()
       );
     };
     fetchSupportEmail();
@@ -88,6 +86,8 @@ export default function UserButton() {
             )}
             <a
               href={supportEmail}
+              target={supportEmail.startsWith("mailto:") ? undefined : "_blank"}
+              rel="noreferrer"
               className="text-white hover:bg-theme-action-menu-item-hover w-full text-left px-4 py-1.5 rounded-md"
             >
               {t("profile_settings.support")}

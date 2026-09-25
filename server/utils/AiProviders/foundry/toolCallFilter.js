@@ -5,7 +5,7 @@
  * `delta.tool_calls`, and again as raw markup inside `delta.content`:
  *
  *   <tool_call>
- *   {"name": "web-scraping", "arguments": {"url": "https://anythingllm.com"}}
+ *   {"name": "web-scraping", "arguments": {"url": "https://example.com"}}
  *   </tool_call>
  *
  * The native copy is what actually invokes the tool, so the text copy is pure

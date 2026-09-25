@@ -3,6 +3,10 @@ process.env.NODE_ENV === "development"
   : require("dotenv").config();
 
 require("./utils/logger")();
+// Must run before Prisma opens the database and before env vars are read.
+const legacyUpgrade = require("./utils/boot/legacyUpgrade");
+legacyUpgrade.migrateLegacyDatabaseFile();
+legacyUpgrade.migrateLegacyEnv();
 require("./utils/boot/patchSdkTimeouts")();
 require("./utils/helpers/modelPricing"); // boots the model pricing cache refresh
 const express = require("express");
@@ -114,6 +118,27 @@ browserExtensionEndpoints(apiRouter);
 if (process.env.NODE_ENV !== "development") {
   const { MetaGenerator } = require("./utils/boot/MetaGenerator");
   const IndexPage = new MetaGenerator();
+
+  // rebrand:keep-start
+  // Embed snippets created before the Mission LLM rebrand still load the widget
+  // from its old filename. Redirect them so existing embeds keep working.
+  app.get(
+    [
+      "/embed/anythingllm-chat-widget.min.js",
+      "/embed/anythingllm-chat-widget.min.css",
+    ],
+    function (request, response) {
+      const queryIndex = request.originalUrl.indexOf("?");
+      const query =
+        queryIndex === -1 ? "" : request.originalUrl.slice(queryIndex);
+      const filename = path
+        .basename(request.path)
+        .replace("anythingllm-", "missionllm-");
+      // Relative, so a reverse proxy path prefix is kept.
+      response.redirect(301, `./${filename}${query}`);
+    }
+  );
+  // rebrand:keep-end
 
   app.use(
     express.static(path.resolve(__dirname, "public"), {

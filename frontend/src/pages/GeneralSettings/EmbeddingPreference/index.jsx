@@ -44,12 +44,12 @@ import { useTranslation } from "react-i18next";
 
 const EMBEDDERS = [
   {
-    name: "MissionLLM Embedder",
+    name: "Mission LLM Embedder",
     value: "native",
     logo: MissionLLMIcon,
     options: (settings) => <NativeEmbeddingOptions settings={settings} />,
     description:
-      "Use the built-in embedding provider for MissionLLM. Zero setup!",
+      "Use the built-in embedding provider for Mission LLM. Zero setup!",
   },
   {
     name: "OpenAI",

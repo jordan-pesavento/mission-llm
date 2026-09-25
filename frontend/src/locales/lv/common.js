@@ -97,7 +97,7 @@ const TRANSLATIONS = {
     "experimental-features": "Eksperimentālās funkcijas",
     contact: "Sazināties ar atbalstu",
     "browser-extension": "Pārlūka paplašinājums",
-    "mobile-app": "Mission LLM mobilā versija",
+    "mobile-app": "Mobilā lietotne",
     "community-hub": {
       title: "Sabiedriskais centrs",
       trending: "Izpētiet populārākās",
@@ -1511,7 +1511,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "Nepieciešama autentifikācija",
           description:
-            'Pirms satura publicēšanas ir jāiespējo autentifikācija "Mission LLM" sabiedrības centrā.',
+            "Pirms satura publicēšanas ir jāiespējo autentifikācija sabiedrības centrā.",
           button: "Pievienojieties sabiedrības centram",
         },
       },

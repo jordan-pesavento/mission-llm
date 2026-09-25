@@ -13,10 +13,11 @@ cat <<EOF >/home/missionllm/.env
 ${env_content}
 EOF
 
-sudo docker pull mintplexlabs/anythingllm
-sudo docker run -d -p 3001:3001 --cap-add SYS_ADMIN -v /home/missionllm:/app/server/storage -v /home/missionllm/.env:/app/server/.env -e STORAGE_DIR="/app/server/storage" mintplexlabs/anythingllm
+# Replace REPLACE_WITH_MISSION_LLM_IMAGE with your Mission LLM image (built from docker/Dockerfile and pushed to your registry).
+sudo docker pull REPLACE_WITH_MISSION_LLM_IMAGE
+sudo docker run -d -p 3001:3001 --cap-add SYS_ADMIN -v /home/missionllm:/app/server/storage -v /home/missionllm/.env:/app/server/.env -e STORAGE_DIR="/app/server/storage" REPLACE_WITH_MISSION_LLM_IMAGE
 echo "Container ID: $(sudo docker ps --latest --quiet)"  
   
 export ONLINE=$(curl -Is http://localhost:3001/api/ping | head -n 1|cut -d$' ' -f2)  
 echo "Health check: $ONLINE"  
-echo "Setup complete! MissionLLM instance is now online!"  
+echo "Setup complete! Mission LLM instance is now online!"

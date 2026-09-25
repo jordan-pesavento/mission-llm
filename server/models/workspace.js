@@ -7,6 +7,7 @@ const { v4: uuidv4 } = require("uuid");
 const { User } = require("./user");
 const { PromptHistory } = require("./promptHistory");
 const { SystemSettings } = require("./systemSettings");
+const { normalizeLegacyProviderId } = require("../utils/boot/legacyUpgrade");
 
 function isNullOrNaN(value) {
   if (value === null) return true;
@@ -100,7 +101,7 @@ const Workspace = {
     },
     chatProvider: (value) => {
       if (!value || typeof value !== "string" || value === "none") return null;
-      return String(value);
+      return normalizeLegacyProviderId(String(value));
     },
     chatModel: (value) => {
       if (!value || typeof value !== "string") return null;
@@ -108,7 +109,7 @@ const Workspace = {
     },
     agentProvider: (value) => {
       if (!value || typeof value !== "string" || value === "none") return null;
-      return String(value);
+      return normalizeLegacyProviderId(String(value));
     },
     agentModel: (value) => {
       if (!value || typeof value !== "string") return null;

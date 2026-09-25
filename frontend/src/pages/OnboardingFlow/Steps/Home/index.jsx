@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import useRedirectToHomeOnOnboardingComplete from "@/hooks/useOnboardingComplete";
 import { OnboardingLogoSVG } from "./components/OnboardingLogoSVG";
-import Wordmark from "./wordmark.svg";
-import WordmarkLight from "./wordmark-light.svg";
+import Wordmark from "@/media/logo/mission-llm.png";
+import WordmarkLight from "@/media/logo/mission-llm-dark.png";
 
 export default function OnboardingHome() {
   const navigate = useNavigate();
@@ -33,12 +33,12 @@ export default function OnboardingHome() {
       <div className="relative z-10 flex justify-center pt-[58px]">
         <img
           src={Wordmark}
-          alt="MissionLLM"
+          alt="Mission LLM"
           className="h-[28px] w-auto light:hidden"
         />
         <img
           src={WordmarkLight}
-          alt="MissionLLM"
+          alt="Mission LLM"
           className="hidden h-[28px] w-auto light:block"
         />
       </div>

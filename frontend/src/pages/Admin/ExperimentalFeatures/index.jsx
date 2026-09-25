@@ -182,9 +182,7 @@ function SelectedFeatureComponent({ feature, settings, refresh }) {
 }
 
 function FeatureVerification({ children }) {
-  if (
-    !window.localStorage.getItem("missionllm_tos_experimental_feature_set")
-  ) {
+  if (!window.localStorage.getItem("missionllm_tos_experimental_feature_set")) {
     function acceptTos(e) {
       e.preventDefault();
 
@@ -217,7 +215,7 @@ function FeatureVerification({ children }) {
             <ModalBody>
               <div className="w-full text-zinc-300 light:text-slate-700 text-md flex flex-col gap-y-4">
                 <p>
-                  Experimental features of MissionLLM are features that we are
+                  Experimental features of Mission LLM are features that we are
                   piloting and are <b>opt-in</b>. We proactively will condition
                   or warn you on any potential concerns should any exist prior
                   to approval of any feature.
@@ -237,7 +235,7 @@ function FeatureVerification({ children }) {
                       Increased cost or use of any connected LLM or embedding
                       provider.
                     </li>
-                    <li>Potential bugs or issues using MissionLLM.</li>
+                    <li>Potential bugs or issues using Mission LLM.</li>
                   </ul>
                 </div>
 
@@ -251,7 +249,7 @@ function FeatureVerification({ children }) {
                     <li>The feature being used is not currently stable.</li>
                     <li>
                       The feature may not be available in future versions,
-                      configurations, or subscriptions of MissionLLM.
+                      configurations, or subscriptions of Mission LLM.
                     </li>
                     <li>
                       Your privacy settings <b>will be honored</b> with use of
@@ -266,16 +264,20 @@ function FeatureVerification({ children }) {
                   would like to read more you can refer to{" "}
                   <a
                     href="https://docs.anythingllm.com/beta-preview/overview"
+                    target="_blank"
+                    rel="noreferrer"
                     className="underline text-blue-500"
                   >
-                    docs.anythingllm.com
+                    the beta features documentation
                   </a>{" "}
-                  or email{" "}
+                  or open an issue on the{" "}
                   <a
-                    href="mailto:team@mintplexlabs.com"
+                    href={paths.issues()}
+                    target="_blank"
+                    rel="noreferrer"
                     className="underline text-blue-500"
                   >
-                    team@mintplexlabs.com
+                    Mission LLM issue tracker
                   </a>
                 </p>
               </div>

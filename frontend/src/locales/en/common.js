@@ -112,7 +112,7 @@ const TRANSLATIONS = {
     "experimental-features": "Experimental Features",
     contact: "Contact Support",
     "browser-extension": "Browser Extension",
-    "mobile-app": "Mission LLM Mobile",
+    "mobile-app": "Mobile App",
     channels: "Channels",
     "available-channels": {
       telegram: "Telegram",
@@ -1794,7 +1794,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "Authentication Required",
           description:
-            "You need to authenticate with the Mission LLM Community Hub before publishing items.",
+            "You need to authenticate with the Community Hub before publishing items.",
           button: "Connect to Community Hub",
         },
       },

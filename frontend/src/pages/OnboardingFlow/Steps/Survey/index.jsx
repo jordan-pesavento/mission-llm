@@ -128,12 +128,6 @@ export default function Survey({ setHeader, setForwardBtn, setBackBtn }) {
             <p className="text-white text-lg">
               {t("onboarding.survey.thankYou")}
             </p>
-            <a
-              href={paths.mailToMintplex()}
-              className="text-sky-400 underline text-xs"
-            >
-              team@mintplexlabs.com
-            </a>
           </div>
         </div>
       </div>

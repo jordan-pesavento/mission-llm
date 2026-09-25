@@ -32,7 +32,7 @@ const PROVIDERS = [
       "Transcribe audio using any OpenAI-compatible API via custom configuration.",
   },
   {
-    name: "MissionLLM Built-In",
+    name: "Mission LLM Built-In",
     value: "local",
     logo: MissionLLMIcon,
     options: (settings) => <NativeTranscriptionOptions settings={settings} />,

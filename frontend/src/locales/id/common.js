@@ -114,7 +114,7 @@ const TRANSLATIONS = {
     "experimental-features": "Fitur Eksperimental",
     contact: "Hubungi Dukungan",
     "browser-extension": "Ekstensi Browser",
-    "mobile-app": "Mission LLM Mobile",
+    "mobile-app": "Aplikasi Seluler",
     channels: "Saluran",
     "available-channels": {
       telegram: "Telegram",
@@ -1798,7 +1798,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "Autentikasi Diperlukan",
           description:
-            "Anda perlu mengautentikasi dengan Community Hub Mission LLM sebelum mempublikasikan item.",
+            "Anda perlu mengautentikasi dengan Community Hub sebelum mempublikasikan item.",
           button: "Hubungkan ke Community Hub",
         },
       },

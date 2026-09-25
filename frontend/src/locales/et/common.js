@@ -97,7 +97,7 @@ const TRANSLATIONS = {
     "experimental-features": "Eksperimentaalsed funktsioonid",
     contact: "Tugi",
     "browser-extension": "Brauserilaiend",
-    "mobile-app": "Mission LLM mobiilversioon",
+    "mobile-app": "Mobiilirakendus",
     "community-hub": {
       title: "Kogukonna keskpunkt",
       trending: "Avasta populaarseid",

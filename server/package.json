@@ -3,8 +3,17 @@
   "version": "1.16.2",
   "description": "Server endpoints to process or create content for chatting",
   "main": "index.js",
-  "author": "Timothy Carambat (Mintplex Labs)",
+  "author": "Sigmatech",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.kuler.dev/kuler/products/mission-llm.git",
+    "directory": "server"
+  },
+  "bugs": {
+    "url": "https://gitlab.kuler.dev/kuler/products/mission-llm/-/issues"
+  },
+  "homepage": "https://gitlab.kuler.dev/kuler/products/mission-llm",
   "private": false,
   "engines": {
     "node": ">=18.12.1"

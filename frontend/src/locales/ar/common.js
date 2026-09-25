@@ -96,7 +96,7 @@ const TRANSLATIONS = {
     interface: "تفضيلات واجهة المستخدم",
     branding: "التسويق بالعلامة التجارية ووضع العلامات التجارية",
     chat: "دردشة",
-    "mobile-app": "Mission LLM Mobile",
+    "mobile-app": "تطبيق الجوال",
     "community-hub": {
       title: "مركز المجتمع",
       trending: "استكشف الاتجاهات الرائجة",
@@ -1479,7 +1479,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "يتطلب التحقق",
           description:
-            "يجب عليك التحقق من هويتك مع مركز مجتمع Mission LLM قبل نشر أي محتوى.",
+            "يجب عليك التحقق من هويتك مع مركز المجتمع قبل نشر أي محتوى.",
           button: "تواصل مع مركز المجتمع",
         },
       },

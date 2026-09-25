@@ -6,6 +6,8 @@ The output of this Terraform configuration will be:
 - 1 DigitalOcean Droplet
 - An IP address to access your application
 
+**Before you deploy:** the configuration does not pull a public image. Build the Mission LLM image from `docker/Dockerfile`, push it to a registry the droplet can pull from, and replace `REPLACE_WITH_MISSION_LLM_IMAGE` in `user_data.tp1` with that image.
+
 **Requirements**
 - An DigitalOcean  account with billing information
 - Terraform installed on your local machine

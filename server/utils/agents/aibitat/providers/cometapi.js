@@ -19,7 +19,7 @@ class CometApiProvider extends InheritMultiple([Provider, UnTooled]) {
       baseURL: "https://api.cometapi.com/v1",
       apiKey: process.env.COMETAPI_LLM_API_KEY,
       defaultHeaders: {
-        "HTTP-Referer": "https://anythingllm.com",
+        "HTTP-Referer": "https://gitlab.kuler.dev/kuler/products/mission-llm",
         "X-CometAPI-Source": "missionllm",
       },
     });

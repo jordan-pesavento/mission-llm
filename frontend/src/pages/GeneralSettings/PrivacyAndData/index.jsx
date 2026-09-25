@@ -7,6 +7,7 @@ import PreLoader from "@/components/Preloader";
 import { useTranslation } from "react-i18next";
 import ProviderPrivacy from "@/components/ProviderPrivacy";
 import Toggle from "@/components/lib/Toggle";
+import paths from "@/utils/paths";
 
 export default function PrivacyAndDataHandling() {
   const [settings, setSettings] = useState({});
@@ -98,12 +99,12 @@ function TelemetryLogs({ settings }) {
             based information. To see the list of event tags collected you can
             look on{" "}
             <a
-              href="https://github.com/search?q=repo%3AMintplex-Labs%2Fanything-llm%20.sendTelemetry(&type=code"
+              href={`${paths.sourceCode()}/-/search?search=sendTelemetry&scope=blobs`}
               className="underline text-blue-400"
               target="_blank"
               rel="noreferrer"
             >
-              GitHub here
+              GitLab here
             </a>
             .
           </p>
@@ -112,14 +113,14 @@ function TelemetryLogs({ settings }) {
             dedicated to building the best solution for integrating AI and
             documents privately and securely. If you do decide to turn off
             telemetry all we ask is to consider sending us feedback and thoughts
-            so that we can continue to improve MissionLLM for you.{" "}
+            so that we can continue to improve Mission LLM for you.{" "}
             <a
-              href="mailto:team@mintplexlabs.com"
+              href={paths.issues()}
               className="underline text-blue-400"
               target="_blank"
               rel="noreferrer"
             >
-              team@mintplexlabs.com
+              Mission LLM issue tracker
             </a>
             .
           </p>

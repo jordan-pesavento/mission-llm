@@ -98,7 +98,7 @@ const TRANSLATIONS = {
     "experimental-features": "Funkcje eksperymentalne",
     contact: "Kontakt z pomocą techniczną",
     "browser-extension": "Rozszerzenie przeglądarki",
-    "mobile-app": "Mission LLM Mobile",
+    "mobile-app": "Aplikacja mobilna",
     "community-hub": {
       title: "Centrum Społeczności",
       trending: "Odkryj popularne",
@@ -1546,7 +1546,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "Wymagane uwierzytelnienie",
           description:
-            "Przed opublikowaniem elementów należy uwierzytelnić się w centrum społeczności Mission LLM.",
+            "Przed opublikowaniem elementów należy uwierzytelnić się w centrum społeczności.",
           button: "Połączenie z centrum społeczności",
         },
       },

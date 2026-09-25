@@ -98,7 +98,7 @@ const TRANSLATIONS = {
     interface: "Arayüz Tercihleri",
     branding: "Marka & Beyaz Etiketleme",
     chat: "Sohbet",
-    "mobile-app": "Mission LLM Mobil",
+    "mobile-app": "Mobil Uygulama",
     "community-hub": {
       title: "Topluluk Merkezi",
       trending: "Popüler olanları keşfedin",
@@ -1540,7 +1540,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "Kimlik Doğrulama Gerekli",
           description:
-            "Öğeleri yayınlamadan önce Mission LLM Topluluk Hub'ına kimlik doğrulaması yapmanız gerekir.",
+            "Öğeleri yayınlamadan önce Topluluk Hub'ına kimlik doğrulaması yapmanız gerekir.",
           button: "Topluluk Hub'ına Bağlan",
         },
       },

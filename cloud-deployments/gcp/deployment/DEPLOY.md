@@ -16,6 +16,8 @@ gcloud compute firewall-rules create mission-llm-3001 \
 
 `--source-ranges` defaults to `0.0.0.0/0`; restrict it to your own address if you do not want the instance open to the internet. The instance carries no network tags, so the rule applies to it without `--target-tags`.
 
+**Before you deploy:** the configuration does not pull a public image. Build the Mission LLM image from `docker/Dockerfile`, push it to a registry the instance can pull from, and replace `REPLACE_WITH_MISSION_LLM_IMAGE` in `gcp_deploy_mission_llm.yaml` with that image.
+
 **Requirements**
 - A GCP account with billing information.
 

@@ -43,7 +43,7 @@ const TRANSLATIONS = {
       useCaseWork: "Per a la feina",
       useCasePersonal: "Per a ús personal",
       useCaseOther: "Altres",
-      comment: "Com has sabut d'Mission LLM?",
+      comment: "Com has sabut de Mission LLM?",
       commentPlaceholder:
         "Reddit, Twitter, GitHub, YouTube, etc. - Fes-nos saber com ens has trobat!",
       skip: "Omet l'enquesta",
@@ -111,7 +111,7 @@ const TRANSLATIONS = {
     "experimental-features": "Funcions experimentals",
     contact: "Contacta el suport",
     "browser-extension": "Extensió del navegador",
-    "mobile-app": "Mission LLM Mòbil",
+    "mobile-app": "Aplicació mòbil",
     channels: "Canals",
     "available-channels": {
       telegram: "Telegram",
@@ -175,7 +175,7 @@ const TRANSLATIONS = {
       add: "Afegeix un missatge nou",
       save: "Desa els missatges",
       heading: "Explica'm",
-      body: "els beneficis d'Mission LLM",
+      body: "els beneficis de Mission LLM",
     },
     delete: {
       title: "Elimina l'espai de treball",
@@ -824,7 +824,7 @@ const TRANSLATIONS = {
     branding: {
       title: "Marca i etiqueta blanca",
       description:
-        "Personalitza la teva instància d'Mission LLM amb una marca pròpia.",
+        "Personalitza la teva instància de Mission LLM amb una marca pròpia.",
     },
     chat: {
       title: "Xat",
@@ -868,7 +868,7 @@ const TRANSLATIONS = {
       "display-language": {
         title: "Idioma de visualització",
         description:
-          "Selecciona l'idioma preferit per mostrar la interfície d'Mission LLM, quan les traduccions estiguin disponibles.",
+          "Selecciona l'idioma preferit per mostrar la interfície de Mission LLM, quan les traduccions estiguin disponibles.",
       },
       logo: {
         title: "Logotip de la marca",
@@ -916,7 +916,7 @@ const TRANSLATIONS = {
   api: {
     title: "Claus API",
     description:
-      "Les claus API permeten al titular accedir i gestionar programàticament aquesta instància d'Mission LLM.",
+      "Les claus API permeten al titular accedir i gestionar programàticament aquesta instància de Mission LLM.",
     link: "Llegeix la documentació de l'API",
     generate: "Genera una nova clau API",
     empty: "No s'han trobat claus API",
@@ -930,7 +930,7 @@ const TRANSLATIONS = {
       close: "Tanca",
       create: "Crea la clau API",
       helper:
-        "Un cop creada, la clau API es pot usar per accedir i configurar programàticament aquesta instància d'Mission LLM.",
+        "Un cop creada, la clau API es pot usar per accedir i configurar programàticament aquesta instància de Mission LLM.",
       name: {
         label: "Nom",
         placeholder: "Integració de producció",
@@ -1014,7 +1014,7 @@ const TRANSLATIONS = {
   vector: {
     title: "Base de dades vectorial",
     description:
-      "Aquestes són les credencials i la configuració de com funcionarà la teva instància d'Mission LLM. És important que aquestes claus siguin actuals i correctes.",
+      "Aquestes són les credencials i la configuració de com funcionarà la teva instància de Mission LLM. És important que aquestes claus siguin actuals i correctes.",
     provider: {
       title: "Proveïdor de la base de dades vectorial",
       description: "No cal cap configuració per a LanceDB.",
@@ -1048,7 +1048,7 @@ const TRANSLATIONS = {
   telegram: {
     title: "Bot de Telegram",
     description:
-      "Connecta la teva instància d'Mission LLM a Telegram per poder xatejar amb els teus espais de treball des de qualsevol dispositiu.",
+      "Connecta la teva instància de Mission LLM a Telegram per poder xatejar amb els teus espais de treball des de qualsevol dispositiu.",
     setup: {
       step1: {
         title: "Pas 1: Crea el teu bot de Telegram",
@@ -1126,7 +1126,7 @@ const TRANSLATIONS = {
     password: {
       title: "Protecció per contrasenya",
       description:
-        "Protegeix la teva instància d'Mission LLM amb una contrasenya. Si l'oblides, no hi ha cap mètode de recuperació, per la qual cosa assegura't de guardar-la.",
+        "Protegeix la teva instància de Mission LLM amb una contrasenya. Si l'oblides, no hi ha cap mètode de recuperació, per la qual cosa assegura't de guardar-la.",
       "password-label": "Contrasenya de la instància",
     },
   },
@@ -1318,7 +1318,7 @@ const TRANSLATIONS = {
       fetching: "Obtenint...",
       "fetch-website": "Obtén el lloc web",
       "privacy-notice":
-        "Aquests fitxers es pujaran al processador de documents que s'executa en aquesta instància d'Mission LLM. Aquests fitxers no s'envien ni es comparteixen amb tercers.",
+        "Aquests fitxers es pujaran al processador de documents que s'executa en aquesta instància de Mission LLM. Aquests fitxers no s'envien ni es comparteixen amb tercers.",
     },
     pinning: {
       what_pinning: "Què és l'ancoratge de documents?",
@@ -1327,7 +1327,7 @@ const TRANSLATIONS = {
       pin_explained_block2:
         "Funciona millor amb <b>models de context gran</b> o fitxers petits que siguin crítics per a la seva base de coneixement.",
       pin_explained_block3:
-        "Si per defecte no obtens les respostes que desitges d'Mission LLM, l'ancoratge és una manera excel·lent d'obtenir respostes de major qualitat amb un sol clic.",
+        "Si per defecte no obtens les respostes que desitges de Mission LLM, l'ancoratge és una manera excel·lent d'obtenir respostes de major qualitat amb un sol clic.",
       accept: "D'acord, entès",
     },
     watching: {
@@ -1649,7 +1649,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "Autenticació requerida",
           description:
-            "Has d'autenticar-te amb el Centre de la comunitat d'Mission LLM abans de publicar elements.",
+            "Has d'autenticar-te amb el Centre de la comunitat abans de publicar elements.",
           button: "Connecta al Centre de la comunitat",
         },
       },

@@ -22,7 +22,7 @@ class NovitaProvider extends InheritMultiple([Provider, UnTooled]) {
       baseURL: "https://api.novita.ai/v3/openai",
       apiKey: process.env.NOVITA_LLM_API_KEY,
       defaultHeaders: {
-        "HTTP-Referer": "https://anythingllm.com",
+        "HTTP-Referer": "https://gitlab.kuler.dev/kuler/products/mission-llm",
         "X-Novita-Source": "missionllm",
       },
     });

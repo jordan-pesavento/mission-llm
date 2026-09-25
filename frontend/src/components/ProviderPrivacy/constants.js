@@ -324,7 +324,7 @@ const VECTOR_DB_PROVIDER_PRIVACY_MAP = {
   lancedb: {
     name: "LanceDB",
     description: [
-      "Your vectors and document text are stored privately on this instance of MissionLLM.",
+      "Your vectors and document text are stored privately on this instance of Mission LLM.",
     ],
     logo: LanceDbLogo,
   },
@@ -332,9 +332,9 @@ const VECTOR_DB_PROVIDER_PRIVACY_MAP = {
 
 const EMBEDDING_ENGINE_PROVIDER_PRIVACY_MAP = {
   native: {
-    name: "MissionLLM Embedder",
+    name: "Mission LLM Embedder",
     description: [
-      "Your document text is embedded privately on this instance of MissionLLM.",
+      "Your document text is embedded privately on this instance of Mission LLM.",
     ],
     logo: MissionLLMIcon,
   },

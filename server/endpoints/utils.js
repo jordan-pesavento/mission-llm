@@ -127,7 +127,7 @@ async function getDiskStorage() {
  * Returns the model tag based on the provider set in the environment.
  * This information is used to identify the parent model for the system
  * so that we can prioritize the correct model and types for future updates
- * as well as build features in MissionLLM directly for a specific model or capabilities.
+ * as well as build features in Mission LLM directly for a specific model or capabilities.
  *
  * Disable with  {@link https://github.com/Mintplex-Labs/anything-llm?tab=readme-ov-file#telemetry--privacy|Disable Telemetry}
  * @returns {string} The model tag.
@@ -268,7 +268,7 @@ function getDeploymentVersion() {
 }
 
 /**
- * Returns the user agent for the MissionLLM deployment.
+ * Returns the user agent for the Mission LLM deployment.
  * @returns {string} The user agent.
  */
 function getMissionLLMUserAgent() {

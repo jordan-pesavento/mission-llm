@@ -80,7 +80,7 @@ async function sendPairingRequest(bot, msg, pendingPairings) {
 
 Your pairing code is: <code>${code}</code>
 
-In MissionLLM, go to Settings → Connections → Telegram and approve your request.
+In Mission LLM, go to Settings → Connections → Telegram and approve your request.
 
 Make sure the pairing code shown here matches what is displayed in the settings page.
 

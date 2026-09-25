@@ -21,6 +21,8 @@ const EXCLUDE = [
   /(^|\/)yarn\.lock$/,
   /(^|\/)package-lock\.json$/,
   /^LICENSE$/,
+  /^NOTICE$/,
+  /^TERMS_SELF_HOSTED\.md$/,
   /^\.gitmodules$/,
   /^server\/prisma\/migrations\//,
   /^scripts\/rebrand\.mjs$/,
@@ -37,6 +39,12 @@ const PROTECT = [
   /[A-Za-z0-9.-]*anythingllm\.(?:com|ai|io)[^\s"'`<>()\[\]{}]*/gi,
   /[A-Za-z0-9.-]*mintplexlabs\.com[^\s"'`<>()\[\]{}]*/gi,
   /mintplex[-_]?labs\/[A-Za-z0-9._-]+/gi,
+  // Explicit opt-outs for names that must survive a re-run: upgrade shims read
+  // pre-rebrand keys, and attribution names the upstream project. Mark a single
+  // line with "rebrand:keep", or a region with "rebrand:keep-start" and
+  // "rebrand:keep-end".
+  /rebrand:keep-start[\s\S]*?rebrand:keep-end/g,
+  /^.*rebrand:keep(?!-(?:start|end)).*$/gm,
 ];
 
 const ID_CHAR = "[A-Za-z0-9_$]";

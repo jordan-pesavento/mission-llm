@@ -97,7 +97,7 @@ const TRANSLATIONS = {
     "experimental-features": "Recursos Experimentais",
     contact: "Suporte",
     "browser-extension": "Extensão de Navegador",
-    "mobile-app": "Mission LLM Mobile",
+    "mobile-app": "Aplicativo móvel",
     "community-hub": {
       title: "Centro Comunitário",
       trending: "Explore as tendências",

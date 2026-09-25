@@ -1,8 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import MissionLLM from "./media/logo/mission-llm.png";
 import MissionLLMDark from "./media/logo/mission-llm-dark.png";
-import DefaultLoginLogoLight from "./media/illustrations/login-logo.svg";
-import DefaultLoginLogoDark from "./media/illustrations/login-logo-light.svg";
+import DefaultLoginLogo from "./media/logo/mission-llm-login.svg";
 import System from "./models/system";
 
 export const REFETCH_LOGO_EVENT = "refetch-logo";
@@ -18,9 +17,6 @@ export function LogoProvider({ children }) {
   const [isCustomLogo, setIsCustomLogo] = useState(false);
 
   async function fetchInstanceLogo() {
-    const DefaultLoginLogo = isLightMode()
-      ? DefaultLoginLogoDark
-      : DefaultLoginLogoLight;
     try {
       const { isCustomLogo, logoURL } = await System.fetchLogo();
       if (logoURL) {

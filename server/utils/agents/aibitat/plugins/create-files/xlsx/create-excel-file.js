@@ -221,7 +221,7 @@ module.exports.CreateExcelFile = {
               const ExcelJS = await import("exceljs");
               const workbook = new ExcelJS.default.Workbook();
 
-              workbook.creator = "MissionLLM";
+              workbook.creator = "Mission LLM";
               workbook.created = new Date();
               workbook.modified = new Date();
 

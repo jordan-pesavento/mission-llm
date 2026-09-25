@@ -20,6 +20,8 @@ fi
   cd /app/server/ &&
     # Disable Prisma CLI telemetry (https://www.prisma.io/docs/orm/tools/prisma-cli#how-to-opt-out-of-data-collection)
     export CHECKPOINT_DISABLE=1 &&
+    # Rename a pre-rebrand database before Prisma can create an empty one.
+    node ./utils/boot/legacyUpgrade.js &&
     npx prisma generate --schema=./prisma/schema.prisma &&
     npx prisma migrate deploy --schema=./prisma/schema.prisma &&
     node /app/server/index.js

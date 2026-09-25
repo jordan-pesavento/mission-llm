@@ -21,15 +21,50 @@ class Milvus extends VectorDatabase {
     return "Milvus";
   }
 
+  collectionPrefix = "missionllm_";
+  // Collection prefix before the Mission LLM rebrand (a persisted name, do not rename).
+  legacyCollectionPrefix = "anythingllm_"; // rebrand:keep
+  // Pre-rebrand collections with no counterpart under the current prefix.
+  // Filled on connect() so those namespaces keep their existing vectors.
+  legacyCollections = new Set();
+
   // Milvus/Zilliz only allows letters, numbers, and underscores in collection names
   // so we need to enforce that by re-normalizing the names when communicating with
   // the DB.
   // If the first char of the collection is not an underscore or letter the collection name will be invalid.
   normalize(inputString) {
     let normalized = inputString.replace(/[^a-zA-Z0-9_]/g, "_");
-    if (new RegExp(/^[a-zA-Z_]/).test(normalized.slice(0, 1)))
-      normalized = `missionllm_${normalized}`;
+    if (new RegExp(/^[a-zA-Z_]/).test(normalized.slice(0, 1))) {
+      const legacyName = `${this.legacyCollectionPrefix}${normalized}`;
+      normalized = this.legacyCollections.has(legacyName)
+        ? legacyName
+        : `${this.collectionPrefix}${normalized}`;
+    }
     return normalized;
+  }
+
+  /**
+   * Records which pre-rebrand collections are still in use (see normalize).
+   * On failure only the current prefix is used.
+   * @param {MilvusClient} client
+   */
+  async loadLegacyCollections(client) {
+    try {
+      const { collection_names = [] } = await client.listCollections();
+      const names = new Set(collection_names);
+      this.legacyCollections = new Set(
+        collection_names.filter(
+          (name) =>
+            name.startsWith(this.legacyCollectionPrefix) &&
+            !names.has(
+              this.collectionPrefix +
+                name.slice(this.legacyCollectionPrefix.length)
+            )
+        )
+      );
+    } catch {
+      this.legacyCollections = new Set();
+    }
   }
 
   async connect() {
@@ -48,6 +83,7 @@ class Milvus extends VectorDatabase {
         `${this.name}::Invalid Heartbeat received - is the instance online?`
       );
 
+    await this.loadLegacyCollections(client);
     return { client };
   }
 
@@ -60,8 +96,9 @@ class Milvus extends VectorDatabase {
     const { client } = await this.connect();
     const { collection_names } = await client.listCollections();
     let total = 0;
-    for (const name of collection_names.filter((n) =>
-      n.startsWith("missionllm_")
+    for (const name of collection_names.filter(
+      (n) =>
+        n.startsWith(this.collectionPrefix) || this.legacyCollections.has(n)
     )) {
       const { data: count } = await client.count({ collection_name: name });
       total += Number(count ?? 0);

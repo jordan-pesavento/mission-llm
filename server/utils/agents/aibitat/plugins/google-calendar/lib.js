@@ -3,7 +3,7 @@ const { safeJsonParse } = require("../../../../http");
 
 /**
  * Google Calendar Bridge Library
- * Handles communication with the MissionLLM Google Calendar Google Apps Script deployment.
+ * Handles communication with the Mission LLM Google Calendar Google Apps Script deployment.
  */
 class GoogleCalendarBridge {
   #deploymentId = null;

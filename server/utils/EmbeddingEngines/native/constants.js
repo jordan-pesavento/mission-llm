@@ -12,7 +12,7 @@ const SUPPORTED_NATIVE_EMBEDDING_MODELS = {
       id: "Xenova/all-MiniLM-L6-v2",
       name: "all-MiniLM-L6-v2",
       description:
-        "A lightweight and fast model for embedding text. The default model for MissionLLM.",
+        "A lightweight and fast model for embedding text. The default model for Mission LLM.",
       lang: "English",
       size: "23MB",
       modelCard: "https://huggingface.co/Xenova/all-MiniLM-L6-v2",

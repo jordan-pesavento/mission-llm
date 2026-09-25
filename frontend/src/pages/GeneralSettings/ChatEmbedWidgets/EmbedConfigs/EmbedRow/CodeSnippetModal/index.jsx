@@ -32,7 +32,7 @@ export default function CodeSnippetModal({ embed, closeModal }) {
 function createScriptTagSnippet(embed, scriptHost, serverHost) {
   return `<!--
 Paste this script at the bottom of your HTML before the </body> tag.
-See more style and config options on our docs
+See more style and config options in the embed widget README
 https://github.com/Mintplex-Labs/anythingllm-embed/blob/main/README.md
 -->
 <script
@@ -40,7 +40,7 @@ https://github.com/Mintplex-Labs/anythingllm-embed/blob/main/README.md
   data-base-api-url="${serverHost}/api/embed"
   src="${scriptHost}/embed/missionllm-chat-widget.min.js">
 </script>
-<!-- MissionLLM (https://anythingllm.com) -->
+<!-- Mission LLM -->
 `;
 }
 
@@ -81,6 +81,18 @@ const ScriptTag = ({ embed }) => {
         >
           View all style and configuration options &rarr;
         </a>
+        <ModalHint>
+          That guide uses the upstream widget names. In this build the script is{" "}
+          <code>missionllm-chat-widget.min.js</code>, the element ids are{" "}
+          <code>mission-llm-embed-chat-button-container</code>,{" "}
+          <code>mission-llm-embed-chat-button</code>,{" "}
+          <code>mission-llm-embed-chat-container</code>,{" "}
+          <code>mission-llm-header</code>, <code>mission-llm-chat</code> and{" "}
+          <code>mission-llm-icon</code>, the message classes are{" "}
+          <code>allm-mission-llm-user-message</code> and{" "}
+          <code>allm-mission-llm-assistant-message</code>, and the send-prompt
+          event is <code>missionllm-embed-send-prompt</code>.
+        </ModalHint>
       </div>
       <button
         disabled={copied}

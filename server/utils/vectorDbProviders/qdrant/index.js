@@ -195,7 +195,7 @@ class QDrant extends VectorDatabase {
 
             // Before sending to Qdrant and saving the records to our db
             // we need to assign the id of each chunk that is stored in the cached file.
-            // The id property must be defined or else it will be unable to be managed by ALLM.
+            // The id property must be defined or else it will be unable to be managed by Mission LLM.
             chunk.forEach((chunk) => {
               const id = uuidv4();
               if (chunk?.payload?.hasOwnProperty("id")) {

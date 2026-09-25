@@ -94,7 +94,7 @@ const TRANSLATIONS = {
     contact: "联系支持",
     "browser-extension": "浏览器扩展",
     "system-prompt-variables": "系统提示变量",
-    "mobile-app": "Mission LLM 移动版",
+    "mobile-app": "移动应用",
     "community-hub": {
       title: "社区中心",
       trending: "探索热门",
@@ -1402,8 +1402,7 @@ const TRANSLATIONS = {
       generic: {
         unauthenticated: {
           title: "需要验证",
-          description:
-            "在发布项目之前，您需要通过 Mission LLM 社区中心进行验证。",
+          description: "在发布项目之前，您需要通过社区中心进行验证。",
           button: "连接到社区中心",
         },
       },

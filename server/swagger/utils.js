@@ -21,7 +21,7 @@ function useSwagger(app) {
       fs.readFileSync(path.resolve(__dirname, "index.css")),
       fs.readFileSync(path.resolve(__dirname, "dark-swagger.css")),
     ].join("\n\n\n"),
-    customSiteTitle: "MissionLLM Developer API Documentation",
+    customSiteTitle: "Mission LLM Developer API Documentation",
     customfavIcon: faviconUrl(),
   };
 

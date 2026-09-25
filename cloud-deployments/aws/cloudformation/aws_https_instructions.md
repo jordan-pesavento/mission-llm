@@ -1,5 +1,5 @@
 # How to Configure HTTPS for Mission LLM AWS private deployment
-Instructions for manual https configuration after generating and running the aws cloudformation template (aws_build_from_source_no_credentials.json). Tested on following browsers: Firefox version 119, Chrome version 118, Edge 118.
+Instructions for manual https configuration after generating and running the aws cloudformation template (cloudformation_create_missionllm.json). Tested on following browsers: Firefox version 119, Chrome version 118, Edge 118.
 
 **Requirements**
 - Successful deployment of Amazon Linux 2023 EC2 instance with Docker container running Mission LLM
@@ -59,7 +59,7 @@ These instructions are for CLI configuration and assume you are logged in to EC2
 
 ## Step 7: Create simple http proxy configuration for Mission LLM 
 These instructions are for CLI configuration and assume you are logged in to EC2 instance as the ec2-user.
-1. $sudo vi /etc/nginx/conf.d/anything.conf
+1. $sudo vi /etc/nginx/conf.d/missionllm.conf
 2. Add the following configuration ensuring that you add your FQDN:.
 
 ```
@@ -91,7 +91,7 @@ server {
     }
 }
 ```
-3. Enter ':wq' to save the changes to the anything config file
+3. Enter ':wq' to save the changes to the missionllm config file
 
 ## Step 8: Test nginx http proxy config and restart nginx service
 These instructions are for CLI configuration and assume you are logged in to EC2 instance as the ec2-user.
@@ -104,13 +104,13 @@ These instructions are for CLI configuration and assume you are logged in to EC2
 1. $sudo certbot --nginx -d [Insert FQDN here] 
     Example command: $sudo certbot --nginx -d missionllm.exampleorganization.org
     This command will generate the appropriate certificate files, write the files to /etc/letsencrypt/live/yourFQDN, and make updates to the nginx
-    configuration file for missionllm located at /etc/nginx/conf.d/anything.llm
+    configuration file for Mission LLM located at /etc/nginx/conf.d/missionllm.conf
 3. Enter the email address you would like to use for updates.
 4. Accept the terms of service.
 5. Accept or decline to receive communication from LetsEncrypt.
 
 ## Step 10: Test Cert installation
-1. $sudo cat /etc/nginx/conf.d/anything.conf
+1. $sudo cat /etc/nginx/conf.d/missionllm.conf
 Your should see a completely updated configuration that includes https/443 and a redirect configuration for http/80. 
 2. Navigate to https://FQDN in a browser and you should be proxied to the Mission LLM web UI.
 

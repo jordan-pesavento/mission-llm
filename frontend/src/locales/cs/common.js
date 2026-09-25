@@ -105,7 +105,7 @@ const TRANSLATIONS = {
     "experimental-features": "Experimentální funkce",
     contact: "Kontaktovat podporu",
     "browser-extension": "Rozšíření prohlížeče",
-    "mobile-app": "Mission LLM Mobile",
+    "mobile-app": "Mobilní aplikace",
     "community-hub": {
       title: "Centrální místo pro komunitu",
       trending: "Prozkoumejte aktuální trendy",
@@ -1554,7 +1554,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "Vyžadováno ověření",
           description:
-            "Musíte se ověřit pomocí komunitního centra Mission LLM před publikováním položek.",
+            "Musíte se ověřit pomocí komunitního centra před publikováním položek.",
           button: "Připojit se ke komunitnímu centru",
         },
       },

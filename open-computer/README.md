@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 
 <p align="center">
-  <a href="https://github.com/Mintplex-Labs/anything-llm/tree/master/open-computer"><img src="https://github.com/Mintplex-Labs/anything-llm/blob/master/open-computer/assets/OPEN_COMPUTER.png?raw=true" alt="Open Computer logo"></a>
+  <img src="./assets/OPEN_COMPUTER.png" alt="Open Computer logo">
 </p>
 
 <p align="center">
@@ -12,9 +12,7 @@
 <video src="https://github.com/user-attachments/assets/79334c87-c5ae-4c2c-8384-d7ef922e4184"></video>
 
 > [!IMPORTANT]
-> This project is a work in progress and is something we intend to bring fully into Mission LLM — enabling custom, secure, and scalable agent compute for everyone.
->
-> ⭐ Star the repo to stay updated!
+> This project is a work in progress and is something we intend to bring fully into Mission LLM, enabling custom, secure, and scalable agent compute for everyone.
 
 ### What if your AI agent had its own computer?
 
@@ -149,10 +147,9 @@ The bones are solid. The vision is clear. The roadmap is ambitious.
 - [ ] Automated base image builds: remove the manual VNC install step entirely
 - [ ] Enterprise-ready features: firewall policies, VPN, audit logs, role-based access
 
-## 🔗 More Products
+## More Products
 
-- **[Mission LLM](https://github.com/Mintplex-Labs/anything-llm):** The all-in-one AI app you were looking for.
-- **[Mission LLM Mobile](https://github.com/Mintplex-Labs/anythingllm-mobile):** Mission LLM on your phone, MIT licensed.
+- **[Mission LLM](https://gitlab.kuler.dev/kuler/products/mission-llm):** The all-in-one AI app you were looking for.
 
 <div align="right">
 

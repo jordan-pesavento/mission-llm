@@ -98,7 +98,7 @@ const TRANSLATIONS = {
     interface: "UI-voorkeuren",
     branding: "Branding & Whitelabeling",
     chat: "Chat",
-    "mobile-app": "Mission LLM Mobiele App",
+    "mobile-app": "Mobiele app",
     "community-hub": {
       title: "Centraal punt",
       trending: "Bekijk populaire onderwerpen",
@@ -1515,7 +1515,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "Authenticatie vereist",
           description:
-            "U moet zich authenticeren bij de Mission LLM Community Hub voordat u items kunt publiceren.",
+            "U moet zich authenticeren bij de Community Hub voordat u items kunt publiceren.",
           button: "Verbinden met Community Hub",
         },
       },

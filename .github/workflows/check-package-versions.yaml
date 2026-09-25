@@ -1,3 +1,4 @@
+# Inherited upstream GitHub Actions CI. It does not run on GitLab and is kept only for reference.
 # This GitHub action is for checking the versions of the packages in the project.
 # Any package that is present in both the `server` and `collector` package.json file
 # is checked to ensure that they are the same version.

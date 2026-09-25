@@ -31,7 +31,7 @@ export default function VertexLLMOptions({ settings }) {
                 className="underline flex gap-x-1 items-center"
                 rel="noreferrer"
               >
-                Read more on how to use Google Vertex AI in MissionLLM
+                Read more on how to use Google Vertex AI in Mission LLM
                 <ArrowSquareOut size={14} />
               </a>
             </p>

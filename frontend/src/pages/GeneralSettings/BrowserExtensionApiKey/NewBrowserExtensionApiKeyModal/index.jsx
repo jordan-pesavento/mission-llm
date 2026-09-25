@@ -74,12 +74,12 @@ export default function NewBrowserExtensionApiKeyModal({
           </p>
         )}
         <p className="text-xs text-zinc-400 light:text-slate-600">
-          After clicking "Create API Key", MissionLLM will attempt to connect
+          After clicking "Create API Key", Mission LLM will attempt to connect
           to your browser extension automatically.
         </p>
         <p className="text-xs text-zinc-400 light:text-slate-600">
-          If you see "Connected to MissionLLM" in the extension, the connection
-          was successful. If not, please copy the connection string and paste it
+          If the extension shows that it is connected, the connection was
+          successful. If not, please copy the connection string and paste it
           into the extension manually.
         </p>
       </ModalBody>

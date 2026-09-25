@@ -5,7 +5,7 @@
 # If the current UID has no entry, dynamically add one using nss_wrapper-style injection.
 if ! whoami &> /dev/null 2>&1; then
   if [ -w /etc/passwd ]; then
-    echo "missionllm:x:$(id -u):0:MissionLLM User:/app:/bin/bash" >> /etc/passwd
+    echo "missionllm:x:$(id -u):0:Mission LLM User:/app:/bin/bash" >> /etc/passwd
   fi
 fi
 export HOME=/app
@@ -30,6 +30,8 @@ fi
   cd /app/server/ &&
     # Disable Prisma CLI telemetry (https://www.prisma.io/docs/orm/tools/prisma-cli#how-to-opt-out-of-data-collection)
     export CHECKPOINT_DISABLE=1 &&
+    # Rename a pre-rebrand database before Prisma can create an empty one.
+    node ./utils/boot/legacyUpgrade.js &&
     npx prisma generate --schema=./prisma/schema.prisma &&
     npx prisma migrate deploy --schema=./prisma/schema.prisma &&
     node /app/server/index.js

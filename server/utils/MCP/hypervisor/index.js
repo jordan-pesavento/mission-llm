@@ -13,6 +13,13 @@ const {
 } = require("@modelcontextprotocol/sdk/client/streamableHttp.js");
 const { patchShellEnvironmentPath } = require("../../helpers/shell");
 
+// rebrand:keep-start
+// Pre-rebrand names. Installs from before the Mission LLM rebrand have a config
+// file with this name, and server entries that use this per-server options key.
+const LEGACY_CONFIG_FILENAME = "anythingllm_mcp_servers.json";
+const LEGACY_OPTIONS_KEY = "anythingllm";
+// rebrand:keep-end
+
 /**
  * @typedef {'stdio' | 'http'} MCPServerTypes
  */
@@ -26,10 +33,10 @@ const { patchShellEnvironmentPath } = require("../../helpers/shell");
  *
  * @notice This class is a singleton.
  * @notice Each MCP tool has dependencies specific to it and this call WILL NOT check for them.
- * For example, if the tools requires `npx` then the context in which MissionLLM mains process is running will need to access npx.
+ * For example, if the tools requires `npx` then the context in which Mission LLM mains process is running will need to access npx.
  * This is typically not common in our pre-built image so may not function. But this is the case anywhere MCP is used.
  *
- * MissionLLM will take care of porting MCP servers to agent-callable functions via @agent directive.
+ * Mission LLM will take care of porting MCP servers to agent-callable functions via @agent directive.
  * @see MCPCompatibilityLayer.convertServerToolsToPlugins
  */
 class MCPHypervisor {
@@ -77,6 +84,24 @@ class MCPHypervisor {
             `plugins/missionllm_mcp_servers.json`
           );
 
+    // Keep the MCP servers of an install from before the rebrand.
+    const legacyPath = path.join(
+      path.dirname(this.mcpServerJSONPath),
+      LEGACY_CONFIG_FILENAME
+    );
+    if (!fs.existsSync(this.mcpServerJSONPath) && fs.existsSync(legacyPath)) {
+      try {
+        fs.renameSync(legacyPath, this.mcpServerJSONPath);
+        this.log(
+          `Renamed legacy MCP config file ${legacyPath} to ${this.mcpServerJSONPath}`
+        );
+      } catch (e) {
+        this.log(
+          `Could not rename legacy MCP config file ${legacyPath}: ${e.message}`
+        );
+      }
+    }
+
     if (!fs.existsSync(this.mcpServerJSONPath)) {
       fs.mkdirSync(path.dirname(this.mcpServerJSONPath), { recursive: true });
       fs.writeFileSync(
@@ -94,14 +119,31 @@ class MCPHypervisor {
   }
 
   /**
-   * Get the MCP servers from the JSON file.
-   * @returns { { name: string, server: { command: string, args: string[], env: { [key: string]: string } } }[] } The MCP servers.
+   * Read the MCP config file. Server entries that still use the pre-rebrand
+   * options key are read as `missionllm`, and are saved under that key the next
+   * time this class writes the file.
+   * @returns {{mcpServers: Object}}
    */
-  get mcpServerConfigs() {
+  #readConfigFile() {
     const servers = safeJsonParse(
       fs.readFileSync(this.mcpServerJSONPath, "utf8"),
       { mcpServers: {} }
     );
+    for (const server of Object.values(servers?.mcpServers ?? {})) {
+      const legacyOptions = server?.[LEGACY_OPTIONS_KEY];
+      if (!legacyOptions || typeof legacyOptions !== "object") continue;
+      server.missionllm = { ...legacyOptions, ...(server.missionllm ?? {}) };
+      delete server[LEGACY_OPTIONS_KEY];
+    }
+    return servers;
+  }
+
+  /**
+   * Get the MCP servers from the JSON file.
+   * @returns { { name: string, server: { command: string, args: string[], env: { [key: string]: string } } }[] } The MCP servers.
+   */
+  get mcpServerConfigs() {
+    const servers = this.#readConfigFile();
     return Object.entries(servers.mcpServers).map(([name, server]) => ({
       name,
       server,
@@ -138,10 +180,7 @@ class MCPHypervisor {
    * @returns {{success: boolean, error: string | null, suppressedTools: string[]}}
    */
   updateSuppressedTools(serverName, toolName, enabled) {
-    const servers = safeJsonParse(
-      fs.readFileSync(this.mcpServerJSONPath, "utf8"),
-      { mcpServers: {} }
-    );
+    const servers = this.#readConfigFile();
 
     if (!servers.mcpServers[serverName]) {
       return {

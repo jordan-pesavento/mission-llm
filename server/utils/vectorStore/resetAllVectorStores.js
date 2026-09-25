@@ -25,7 +25,7 @@ async function resetAllVectorStores({ vectorDbKey }) {
     });
 
     console.log(
-      "Resetting missionllm managed vector namespaces for",
+      "Resetting Mission LLM managed vector namespaces for",
       vectorDbKey
     );
     const VectorDb = getVectorDbClass(vectorDbKey);

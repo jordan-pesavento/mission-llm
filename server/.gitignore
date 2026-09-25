@@ -18,6 +18,11 @@ storage/plugins/agent-skills/*
 storage/plugins/agent-flows/*
 storage/plugins/office-extensions/*
 storage/plugins/missionllm_mcp_servers.json
+# rebrand:keep-start
+# Pre-rebrand paths, renamed on boot. Keep them ignored until then.
+storage/anythingllm-fs/*
+storage/plugins/anythingllm_mcp_servers.json
+# rebrand:keep-end
 !storage/documents/DOCUMENTS.md
 storage/push-notifications/*
 storage/direct-uploads

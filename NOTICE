@@ -1,0 +1,36 @@
+Mission LLM
+https://gitlab.kuler.dev/kuler/products/mission-llm
+
+Mission LLM is a modified version of AnythingLLM.
+Mission LLM modifications are by Sigmatech.
+
+
+Upstream project
+----------------
+
+  Name:       AnythingLLM
+  Author:     Mintplex Labs Inc.
+  Source:     https://github.com/Mintplex-Labs/anything-llm
+  License:    MIT License
+  Notice:     Copyright (c) Mintplex Labs Inc.
+
+AnythingLLM is used under the MIT License. The full license text, including
+the Mintplex Labs Inc. copyright notice, is in the LICENSE file at the root of
+this repository. That notice must be kept in all copies or substantial
+portions of the software.
+
+
+Components with separate terms
+------------------------------
+
+  open-computer/       Upstream experimental component by Mintplex Labs,
+                       licensed under the GNU Affero General Public License
+                       v3.0. See open-computer/LICENSE.
+
+  embed/               Git submodules that point at the upstream embed widget
+  browser-extension/   and browser extension repositories. They are
+                       distributed under their own licenses.
+
+Third-party dependencies are distributed under their own licenses, as declared
+in the package metadata of each dependency used by server/, collector/, and
+frontend/.

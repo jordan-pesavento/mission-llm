@@ -1,5 +1,5 @@
 import { CaretDown, CaretUp, Plus, CaretLeft } from "@phosphor-icons/react";
-import AnythingInfinityLogo from "@/media/logo/mission-llm-infinity.png";
+import MissionLLMInfinityLogo from "@/media/logo/mission-llm-infinity.png";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import paths from "@/utils/paths";
@@ -54,7 +54,7 @@ export default function HeaderMenu({
               className="!border-t-transparent !border-l-transparent !border-b-transparent flex items-center gap-x-2 px-4 py-2 border-r border-white/10 hover:bg-theme-action-menu-bg transition-colors duration-300"
             >
               <img
-                src={AnythingInfinityLogo}
+                src={MissionLLMInfinityLogo}
                 alt="logo"
                 className="w-[20px] light:invert"
               />

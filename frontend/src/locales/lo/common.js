@@ -113,7 +113,7 @@ const TRANSLATIONS = {
     "experimental-features": "ຟີເຈີທົດລອງ",
     contact: "ຕິດຕໍ່ຝ່າຍຊ່ວຍເຫຼືອ",
     "browser-extension": "ສ່ວນເສີມບຣາວເຊີ",
-    "mobile-app": "Mission LLM ມືຖື",
+    "mobile-app": "ແອັບມືຖື",
     channels: "ຊ່ອງທາງການຕິດຕໍ່",
     "available-channels": {
       telegram: "Telegram",
@@ -1704,7 +1704,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "ຕ້ອງຢືນຢັນຕົວຕົນ",
           description:
-            "ທ່ານຕ້ອງເຊື່ອມຕໍ່ກັບ Mission LLM Community Hub ກ່ອນຈະເຜີຍແຜ່ລາຍການໄດ້.",
+            "ທ່ານຕ້ອງເຊື່ອມຕໍ່ກັບ Community Hub ກ່ອນຈະເຜີຍແຜ່ລາຍການໄດ້.",
           button: "ເຊື່ອມຕໍ່ກັບ Community Hub",
         },
       },

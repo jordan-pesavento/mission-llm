@@ -98,7 +98,7 @@ const TRANSLATIONS = {
     "experimental-features": "Funcții experimentale",
     contact: "Contact suport",
     "browser-extension": "Extensie browser",
-    "mobile-app": "Mission LLM Mobile",
+    "mobile-app": "Aplicație mobilă",
     "community-hub": {
       title: "Centru comunitar",
       trending: "Descoperă tendințele",
@@ -795,7 +795,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "Autentificare necesară",
           description:
-            "Trebuie să te autentifici cu Mission LLM Community Hub înainte de a publica elemente.",
+            "Trebuie să te autentifici cu Community Hub înainte de a publica elemente.",
           button: "Conectează-te la Community Hub",
         },
       },

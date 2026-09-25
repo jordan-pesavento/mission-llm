@@ -20,6 +20,39 @@ class Chroma extends VectorDatabase {
     return "Chroma";
   }
 
+  collectionPrefix = "missionllm-";
+  // Collection prefix before the Mission LLM rebrand (a persisted name, do not rename).
+  legacyCollectionPrefix = "anythingllm-"; // rebrand:keep
+  // Pre-rebrand collection names with no counterpart under the current prefix.
+  // Filled on connect() so those namespaces keep their existing vectors.
+  legacyCollections = new Set();
+
+  /**
+   * Records which pre-rebrand collections are still in use (see normalize).
+   * On failure only the current prefix is used.
+   * @param {import("chromadb").ChromaClient} client
+   */
+  async loadLegacyCollections(client) {
+    try {
+      const names = (await client.listCollections()).map((collection) =>
+        typeof collection === "string" ? collection : collection?.name
+      );
+      const nameSet = new Set(names);
+      this.legacyCollections = new Set(
+        names.filter(
+          (name) =>
+            name?.startsWith(this.legacyCollectionPrefix) &&
+            !nameSet.has(
+              this.collectionPrefix +
+                name.slice(this.legacyCollectionPrefix.length)
+            )
+        )
+      );
+    } catch {
+      this.legacyCollections = new Set();
+    }
+  }
+
   // Chroma DB has specific requirements for collection names:
   // (1) Must contain 3-63 characters
   // (2) Must start and end with an alphanumeric character
@@ -28,7 +61,19 @@ class Chroma extends VectorDatabase {
   // (5) Cannot be a valid IPv4 address
   // We need to enforce these rules by normalizing the collection names
   // before communicating with the Chroma DB.
+  // A name that needs a prefix keeps the pre-rebrand prefix while its legacy
+  // collection is still in use (see loadLegacyCollections).
   normalize(inputString) {
+    const name = this.normalizeWithPrefix(inputString, this.collectionPrefix);
+    if (name === inputString) return name;
+    const legacyName = this.normalizeWithPrefix(
+      inputString,
+      this.legacyCollectionPrefix
+    );
+    return this.legacyCollections.has(legacyName) ? legacyName : name;
+  }
+
+  normalizeWithPrefix(inputString, prefix) {
     if (COLLECTION_REGEX.test(inputString)) return inputString;
     let normalized = inputString.replace(/[^a-zA-Z0-9_-]/g, "-");
 
@@ -37,7 +82,7 @@ class Chroma extends VectorDatabase {
 
     // Ensure the name doesn't start with a non-alphanumeric character
     if (normalized[0] && !/^[a-zA-Z0-9]$/.test(normalized[0])) {
-      normalized = "missionllm-" + normalized.slice(1);
+      normalized = prefix + normalized.slice(1);
     }
 
     // Ensure the name doesn't end with a non-alphanumeric character
@@ -50,10 +95,10 @@ class Chroma extends VectorDatabase {
 
     // Ensure the length is between 3 and 63 characters
     if (normalized.length < 3) {
-      normalized = `missionllm-${normalized}`;
+      normalized = `${prefix}${normalized}`;
     } else if (normalized.length > 63) {
       // Recheck the norm'd name if sliced since its ending can still be invalid.
-      normalized = this.normalize(normalized.slice(0, 63));
+      normalized = this.normalizeWithPrefix(normalized.slice(0, 63), prefix);
     }
 
     // Ensure the name is not an IPv4 address
@@ -87,6 +132,7 @@ class Chroma extends VectorDatabase {
       throw new Error(
         "ChromaDB::Invalid Heartbeat received - is the instance online?"
       );
+    await this.loadLegacyCollections(client);
     return { client };
   }
 

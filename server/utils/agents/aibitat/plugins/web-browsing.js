@@ -24,9 +24,9 @@ const webBrowsing = {
             "Search the internet for real-time information. Look online for current news, recent updates, latest changes, or any information not available locally. Browse the web to find answers about current events, prices, weather, or live data.",
           examples: [
             {
-              prompt: "Look online for recent changes to MissionLLM",
+              prompt: "Look online for recent changes to Mission LLM",
               call: JSON.stringify({
-                query: "MissionLLM recent changes updates",
+                query: "Mission LLM recent changes updates",
               }),
             },
             {
@@ -1543,7 +1543,10 @@ const webBrowsing = {
 
             const headers = {
               "Content-Type": "application/json",
-              "User-Agent": "keenable-missionllm",
+              // Integration identifier this client has always sent to Keenable,
+              // whose keyless public endpoint may depend on it. It is a vendor
+              // value, not branding: keep it until Keenable confirms a new one.
+              "User-Agent": "keenable-anythingllm", // rebrand:keep
               "X-Keenable-Title": getMissionLLMUserAgent(),
             };
 

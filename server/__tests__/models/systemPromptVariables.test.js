@@ -17,7 +17,7 @@ const mockSystemPromptVariables = [
   {
     id: 1,
     key: "mystaticvariable",
-    value: "MissionLLM testing runtime",
+    value: "Mission LLM testing runtime",
     description: "A test variable",
     type: "static",
     userId: null,

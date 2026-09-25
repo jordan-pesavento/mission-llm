@@ -41,6 +41,7 @@ class ChromaCloud extends Chroma {
       throw new Error(
         "ChromaCloud::Invalid Heartbeat received - is the instance online?"
       );
+    await this.loadLegacyCollections(client);
     return { client };
   }
 

@@ -97,7 +97,7 @@ const TRANSLATIONS = {
     interface: "UI設定",
     branding: "ブランディングとホワイトレーベル化",
     chat: "チャット",
-    "mobile-app": "Mission LLM モバイル版",
+    "mobile-app": "モバイルアプリ",
     "community-hub": {
       title: "地域交流拠点",
       trending: "人気のあるものを探す",
@@ -1489,7 +1489,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "本人確認が必要です。",
           description:
-            "アイテムを公開する前に、Mission LLMコミュニティハブで認証する必要があります。",
+            "アイテムを公開する前に、コミュニティハブで認証する必要があります。",
           button: "コミュニティハブへの接続",
         },
       },

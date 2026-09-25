@@ -29,6 +29,7 @@ class Zilliz extends Milvus {
         `${this.name}::Invalid Heartbeat received - is the instance online?`
       );
 
+    await this.loadLegacyCollections(client);
     return { client };
   }
 }

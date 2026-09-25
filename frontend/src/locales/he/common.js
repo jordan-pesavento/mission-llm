@@ -95,7 +95,7 @@ const TRANSLATIONS = {
     "experimental-features": "תכונות ניסיוניות",
     contact: "צור קשר עם התמיכה",
     "browser-extension": "תוסף דפדפן",
-    "mobile-app": "Mission LLM Mobile",
+    "mobile-app": "אפליקציה לנייד",
     "community-hub": {
       title: "מרכז קהילתי",
       trending: "גלו את הנושאים החמים",
@@ -1472,8 +1472,7 @@ const TRANSLATIONS = {
       generic: {
         unauthenticated: {
           title: "נדרש אימות",
-          description:
-            "עליך להתאמת עם מרכז הקהילה של Mission LLM לפני פרסום פריטים.",
+          description: "עליך להתאמת עם מרכז הקהילה לפני פרסום פריטים.",
           button: "התחבר למרכז הקהילה",
         },
       },

@@ -149,7 +149,7 @@ export default function OMLXOptions({ settings }) {
                     tokens if the model supports more than that and no value is
                     specified.
                     <br /> <br />
-                    If an invalid value is entered, MissionLLM will handle this
+                    If an invalid value is entered, Mission LLM will handle this
                     for you so that chats do not fail.
                   </p>
                 </Tooltip>

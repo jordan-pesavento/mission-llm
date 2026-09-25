@@ -27,8 +27,8 @@ class MetaGenerator {
   #customConfig = null;
 
   #defaultManifest = {
-    name: "MissionLLM",
-    short_name: "MissionLLM",
+    name: "Mission LLM",
+    short_name: "Mission LLM",
     display: "standalone",
     orientation: "portrait",
     start_url: "/",
@@ -59,21 +59,21 @@ class MetaGenerator {
       {
         tag: "title",
         props: null,
-        content: "MissionLLM | Your personal LLM trained on anything",
+        content: "Mission LLM | Private, self-hosted AI",
       },
 
       {
         tag: "meta",
         props: {
           name: "title",
-          content: "MissionLLM | Your personal LLM trained on anything",
+          content: "Mission LLM | Private, self-hosted AI",
         },
       },
       {
         tag: "meta",
         props: {
           description: "title",
-          content: "MissionLLM | Your personal LLM trained on anything",
+          content: "Mission LLM | Private, self-hosted AI",
         },
       },
 
@@ -81,28 +81,16 @@ class MetaGenerator {
       { tag: "meta", props: { property: "og:type", content: "website" } },
       {
         tag: "meta",
-        props: { property: "og:url", content: "https://anythingllm.com" },
-      },
-      {
-        tag: "meta",
         props: {
           property: "og:title",
-          content: "MissionLLM | Your personal LLM trained on anything",
+          content: "Mission LLM | Private, self-hosted AI",
         },
       },
       {
         tag: "meta",
         props: {
           property: "og:description",
-          content: "MissionLLM | Your personal LLM trained on anything",
-        },
-      },
-      {
-        tag: "meta",
-        props: {
-          property: "og:image",
-          content:
-            "https://raw.githubusercontent.com/Mintplex-Labs/anything-llm/master/images/promo.png",
+          content: "Mission LLM | Private, self-hosted AI",
         },
       },
 
@@ -113,28 +101,16 @@ class MetaGenerator {
       },
       {
         tag: "meta",
-        props: { property: "twitter:url", content: "https://anythingllm.com" },
-      },
-      {
-        tag: "meta",
         props: {
           property: "twitter:title",
-          content: "MissionLLM | Your personal LLM trained on anything",
+          content: "Mission LLM | Private, self-hosted AI",
         },
       },
       {
         tag: "meta",
         props: {
           property: "twitter:description",
-          content: "MissionLLM | Your personal LLM trained on anything",
-        },
-      },
-      {
-        tag: "meta",
-        props: {
-          property: "twitter:image",
-          content:
-            "https://raw.githubusercontent.com/Mintplex-Labs/anything-llm/master/images/promo.png",
+          content: "Mission LLM | Private, self-hosted AI",
         },
       },
 
@@ -245,7 +221,7 @@ class MetaGenerator {
             props: null,
             content:
               customTitle ??
-              "MissionLLM | Your personal LLM trained on anything",
+              "Mission LLM | Private, self-hosted AI",
           };
         }
         // Override meta title
@@ -256,7 +232,7 @@ class MetaGenerator {
               name: "title",
               content:
                 customTitle ??
-                "MissionLLM | Your personal LLM trained on anything",
+                "Mission LLM | Private, self-hosted AI",
             },
           };
         }
@@ -268,7 +244,7 @@ class MetaGenerator {
               property: "og:title",
               content:
                 customTitle ??
-                "MissionLLM | Your personal LLM trained on anything",
+                "Mission LLM | Private, self-hosted AI",
             },
           };
         }
@@ -280,7 +256,7 @@ class MetaGenerator {
               property: "twitter:title",
               content:
                 customTitle ??
-                "MissionLLM | Your personal LLM trained on anything",
+                "Mission LLM | Private, self-hosted AI",
             },
           };
         }
@@ -346,7 +322,7 @@ class MetaGenerator {
       const { SystemSettings } = require("../../models/systemSettings");
       const manifestName = await SystemSettings.getValueOrFallback(
         { label: "meta_page_title" },
-        "MissionLLM"
+        "Mission LLM"
       );
       const faviconURL = await SystemSettings.getValueOrFallback(
         { label: "meta_page_favicon" },

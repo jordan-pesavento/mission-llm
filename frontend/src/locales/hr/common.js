@@ -113,7 +113,7 @@ const TRANSLATIONS = {
     "experimental-features": "Eksperimentalne značajke",
     contact: "Kontaktirajte podršku",
     "browser-extension": "Ekstenzija za preglednik",
-    "mobile-app": "Mission LLM mobilna aplikacija",
+    "mobile-app": "Mobilna aplikacija",
     channels: "Kanali",
     "available-channels": {
       telegram: "Telegram",
@@ -1797,7 +1797,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "Potrebna autentikacija",
           description:
-            "Morate se autentificirati putem Mission LLM Community Hub-a prije objavljivanja stavki.",
+            "Morate se autentificirati putem Community Hub-a prije objavljivanja stavki.",
           button: "Poveži se s Community Hub-om",
         },
       },

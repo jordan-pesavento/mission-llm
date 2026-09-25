@@ -112,7 +112,7 @@ const TRANSLATIONS = {
     "experimental-features": "प्रायोगिक सुविधाएँ",
     contact: "सहायता से संपर्क करें",
     "browser-extension": "ब्राउज़र एक्सटेंशन",
-    "mobile-app": "Mission LLM मोबाइल",
+    "mobile-app": "मोबाइल ऐप",
     channels: "चैनल",
     "available-channels": {
       telegram: "Telegram",
@@ -1780,7 +1780,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "प्रमाणीकरण आवश्यक",
           description:
-            "आइटम प्रकाशित करने से पहले आपको Mission LLM Community Hub से प्रमाणित होना होगा।",
+            "आइटम प्रकाशित करने से पहले आपको Community Hub से प्रमाणित होना होगा।",
           button: "कम्युनिटी हब से कनेक्ट करें",
         },
       },

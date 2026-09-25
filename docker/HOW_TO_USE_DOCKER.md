@@ -35,10 +35,10 @@ Use the Dockerized version of Mission LLM for a much faster and complete startup
 > It is best to mount the containers storage volume to a folder on your host machine
 > so that you can pull in future updates without deleting your existing data!
 
-Pull in the latest image from docker. Supports both `amd64` and `arm64` CPU architectures.
+Build the Mission LLM image from the root of this repository. The Dockerfile supports both `amd64` and `arm64` CPU architectures.
 
 ```shell
-docker pull mintplexlabs/anythingllm
+docker build -f docker/Dockerfile -t mission-llm:latest .
 ```
 
 <table>
@@ -60,7 +60,7 @@ docker run -d --rm -p 3001:3001 \
 -v ${STORAGE_LOCATION}:/app/server/storage \
 -v ${STORAGE_LOCATION}/.env:/app/server/.env \
 -e STORAGE_DIR="/app/server/storage" \
-mintplexlabs/anythingllm
+mission-llm:latest
 ```
 
 </td>
@@ -81,7 +81,7 @@ docker run -d --rm -p 3001:3001 `
 -v "$env:STORAGE_LOCATION`:/app/server/storage" `
 -v "$env:STORAGE_LOCATION\.env:/app/server/.env" `
 -e STORAGE_DIR="/app/server/storage" `
-mintplexlabs/anythingllm;
+mission-llm:latest;
 ```
 
 </td>
@@ -95,7 +95,7 @@ mintplexlabs/anythingllm;
 version: '3.8'
 services:
   missionllm:
-    image: mintplexlabs/anythingllm
+    image: mission-llm:latest
     container_name: missionllm
     ports:
     - "3001:3001"
@@ -137,7 +137,7 @@ volumes:
 </table>
 
 Go to `http://localhost:3001` and you are now using Mission LLM! All your data and progress will persist between
-container rebuilds or pulls from Docker Hub.
+container rebuilds.
 
 ## How to use the user interface
 
@@ -147,7 +147,7 @@ container rebuilds or pulls from Docker Hub.
 
 - The UID and GID are set to 1000 by default. This is the default user in the Docker container and on most host operating systems. If there is a mismatch between your host user UID and GID and what is set in the `.env` file, you may experience permission issues.
 
-## Build locally from source _not recommended for casual use_
+## Build and run from source with Docker Compose
 
 - `git clone` this repo and `cd mission-llm` to get to the root directory.
 - `touch server/storage/missionllm.db` to create empty SQLite DB file.
@@ -156,17 +156,6 @@ container rebuilds or pulls from Docker Hub.
 - `docker-compose up -d --build` to build the image - this will take a few moments.
 
 Your docker host will show the image as online once the build process is completed. This will build the app to `http://localhost:3001`.
-
-## Integrations and one-click setups
-
-The integrations below are templates or tooling built by the community to make running the docker experience of Mission LLM easier.
-
-### Use the Midori AI Subsystem to Manage Mission LLM
-
-Follow the setup found on [Midori AI Subsystem Site](https://io.midori-ai.xyz/subsystem/manager/) for your host OS
-After setting that up install the Mission LLM docker backend to the Midori AI Subsystem.
-
-Once that is done, you are all set!
 
 ## Common questions and fixes
 
@@ -206,4 +195,4 @@ If you are getting errors like `llama:streaming - could not stream chat. Error: 
 
 ### Still not working?
 
-[Ask for help on Discord](https://discord.gg/6UyHPeGZAC)
+[Open an issue](https://gitlab.kuler.dev/kuler/products/mission-llm/-/issues)

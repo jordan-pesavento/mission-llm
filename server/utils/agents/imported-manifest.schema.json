@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "MissionLLM Agent Skill Plugin Manifest Schema",
+  "title": "Mission LLM Agent Skill Plugin Manifest Schema",
   "type": "object",
   "properties": {
     "active": {
@@ -13,7 +13,7 @@
     },
     "name": {
       "type": "string",
-      "description": "The human-readable name of the skill displayed in the MissionLLM UI."
+      "description": "The human-readable name of the skill displayed in the Mission LLM UI."
     },
     "schema": {
       "type": "string",

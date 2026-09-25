@@ -99,7 +99,7 @@ const TRANSLATIONS = {
     interface: "Brugerpræferencer",
     branding: "Brandstrategi og white-labeling",
     chat: "Chat",
-    "mobile-app": "Mission LLM Mobile",
+    "mobile-app": "Mobilapp",
     "community-hub": {
       title: "Fælleshus",
       trending: "Udforsk populære emner",
@@ -1501,7 +1501,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "Krav om godkendelse",
           description:
-            "Du skal verificere din identitet via Mission LLM Community Hub, før du kan publicere indhold.",
+            "Du skal verificere din identitet via Community Hub, før du kan publicere indhold.",
           button: "Forbind til fællesskabscenter",
         },
       },

@@ -99,7 +99,7 @@ const TRANSLATIONS = {
     interface: "تنظیمات رابط کاربری",
     branding: "برندسازی و تولید محصولات با برچسب سفید",
     chat: "چت",
-    "mobile-app": "Mission LLM Mobile",
+    "mobile-app": "اپلیکیشن موبایل",
     "community-hub": {
       title: "مرکز محلی",
       trending: "بررسی ترندها",
@@ -1490,7 +1490,7 @@ const TRANSLATIONS = {
         unauthenticated: {
           title: "احراز هویت الزامی است",
           description:
-            "شما باید قبل از انتشار مطالب، با مرکز جامعه Mission LLM احراز هویت کنید.",
+            "شما باید قبل از انتشار مطالب، با مرکز جامعه احراز هویت کنید.",
           button: "اتصال به مرکز جامعه",
         },
       },

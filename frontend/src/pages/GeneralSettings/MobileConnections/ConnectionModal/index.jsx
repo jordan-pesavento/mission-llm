@@ -8,7 +8,6 @@ import MobileConnection from "@/models/mobile";
 import PreLoader from "@/components/Preloader";
 import Logo from "@/media/logo/mission-llm-infinity.png";
 import paths from "@/utils/paths";
-import GetOnGooglePlay from "./gplay-badge.svg";
 
 export default function MobileConnectModal({ isOpen, onClose }) {
   return (
@@ -35,26 +34,16 @@ export default function MobileConnectModal({ isOpen, onClose }) {
           {/* left column */}
           <div className="flex flex-col w-1/2 gap-y-[16px]">
             <p className="text-[#FFF] text-xl font-bold">
-              Go mobile. Stay local. MissionLLM Mobile.
+              Go mobile. Stay local.
             </p>
             <p className="text-[#FFF] text-lg">
-              MissionLLM for mobile allows you to connect to your workspace's
+              A compatible mobile app allows you to connect to your workspace's
               chats, threads, tools, and documents for you to use on the go.
               <br />
               <br />
               Run with local models on your phone privately or relay chats
               directly to this instance seamlessly.
             </p>
-            <Link
-              to="https://play.google.com/store/apps/details?id=com.anythingllm"
-              target="_blank"
-            >
-              <img
-                src={GetOnGooglePlay}
-                alt="Get on Google Play"
-                className="w-[150px] h-auto"
-              />
-            </Link>
           </div>
 
           {/* right column */}
@@ -63,8 +52,8 @@ export default function MobileConnectModal({ isOpen, onClose }) {
               <ConnectionQrCode isOpen={isOpen} />
             </div>
             <p className="text-[#FFF] text-sm w-[300px] text-center">
-              Scan the QR code with the MissionLLM Mobile app to enable live
-              sync of your workspaces, chats, threads and documents.
+              Scan the QR code with a compatible mobile app to enable live sync
+              of your workspaces, chats, threads and documents.
               <br />
               <Link
                 to={paths.documentation.mobileIntroduction()}

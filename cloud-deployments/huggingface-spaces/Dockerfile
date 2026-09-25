@@ -1,12 +1,14 @@
-# With this dockerfile in a Huggingface space you will get an entire MissionLLM instance running
-# in your space with all features you would normally get from the docker based version of MissionLLM.
+# With this dockerfile in a Huggingface space you will get an entire Mission LLM instance running
+# in your space with all features you would normally get from the docker based version of Mission LLM.
 #
 # How to use
+# - Build the Mission LLM image from docker/Dockerfile, push it to a registry the Space can pull from,
+#   and replace REPLACE_WITH_MISSION_LLM_IMAGE in the FROM line below with that image.
 # - Login to https://huggingface.co/spaces
 # - Click on "Create new Space"
 # - Name the space and select "Docker" as the SDK w/ a blank template
 # - The default 2vCPU/16GB machine is OK. The more the merrier.
-# - Decide if you want your MissionLLM Space public or private.
+# - Decide if you want your Mission LLM Space public or private.
 #   **You might want to stay private until you at least set a password or enable multi-user mode**
 # - Click "Create Space"
 # - Click on "Settings" on top of page (https://huggingface.co/spaces/<username>/<space-name>/settings)
@@ -15,10 +17,11 @@
 # - Go to "Files" Tab (https://huggingface.co/spaces/<username>/<space-name>/tree/main)
 # - Click "Add Files"
 # - Upload this file or create a file named `Dockerfile` and copy-paste this content into it. "Commit to main" and save.
-# - Your container will build and boot. You now have MissionLLM on HuggingFace. Your data is stored in the persistent storage attached.
+# - Your container will build and boot. You now have Mission LLM on HuggingFace. Your data is stored in the persistent storage attached.
 # Have Fun 🤗 
 # Have issues? Check the logs on HuggingFace for clues.
-FROM mintplexlabs/anythingllm:render
+# Replace with your Mission LLM image (built from docker/Dockerfile and pushed to your registry).
+FROM REPLACE_WITH_MISSION_LLM_IMAGE
 
 USER root
 RUN mkdir -p /data/storage
@@ -28,4 +31,4 @@ USER missionllm
 ENV STORAGE_DIR="/data/storage"
 ENV SERVER_PORT=7860
 
-ENTRYPOINT ["/bin/bash", "/usr/local/bin/render-entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/usr/local/bin/docker-entrypoint.sh"]

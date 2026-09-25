@@ -2,9 +2,9 @@
   {
     "thumbnail_url": "https://cdn.anythingllm.com/support/announcements/assets/mcp.jpg",
     "title": "MCP Support",
-    "short_description": "Import and leverage MCP tools using MissionLLM.",
+    "short_description": "Import and leverage MCP tools using Mission LLM.",
     "goto": "https://docs.anythingllm.com/mcp-compatibility/overview",
-    "author": "MissionLLM",
+    "author": "Mission LLM",
     "date": "April 8, 2025"
   },
   {
@@ -20,7 +20,7 @@
     "title": "Community Hub Updates",
     "short_description": "We refreshed the Community Hub with a new look and feel. Check it out!",
     "goto": "https://hub.anythingllm.com",
-    "author": "MissionLLM",
+    "author": "Mission LLM",
     "date": "March 12, 2025"
   }
 ]

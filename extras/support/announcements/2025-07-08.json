@@ -1,25 +1,9 @@
 [
   {
-    "thumbnail_url": "https://cdn.anythingllm.com/support/announcements/assets/private-browsing.png",
-    "title": "Private Web Scraping",
-    "short_description": "Scrape private, gated, or authenticated websites using the browser tool.",
-    "goto": "https://docs.anythingllm.com/features/browser-tool",
-    "author": "MissionLLM",
-    "date": "July 8, 2025"
-  },
-  {
-    "thumbnail_url": "https://cdn.anythingllm.com/support/announcements/assets/mobile.png",
-    "title": "MissionLLM Mobile Beta",
-    "short_description": "MissionLLM on-device, offline, and private. Syncs with MissionLLM.",
-    "goto": "https://docs.google.com/forms/d/e/1FAIpQLSdrMRCUXVDWKrtNTcHzVcHQk_SRoiT8X8tiawTFtAhjMq_L6Q/viewform",
-    "author": "MissionLLM",
-    "date": "July 3, 2025"
-  },
-  {
     "title": "Community Hub updates",
-    "short_description": "You can now easily push and pull Agent Flows, System Prompts, and more to the MissionLLM Community Hub.",
+    "short_description": "You can now easily push and pull Agent Flows, System Prompts, and more to the Mission LLM Community Hub.",
     "goto": "https://hub.anythingllm.com",
-    "author": "MissionLLM",
+    "author": "Mission LLM",
     "date": "June 25, 2025"
   }
 ]

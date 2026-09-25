@@ -54,23 +54,20 @@ export default {
       return "/onboarding/data-handling";
     },
   },
-  github: () => {
-    return "https://github.com/Mintplex-Labs/anything-llm";
+  sourceCode: () => {
+    return "https://gitlab.kuler.dev/kuler/products/mission-llm";
   },
-  discord: () => {
-    return "https://discord.com/invite/6UyHPeGZAC";
+  issues: () => {
+    return "https://gitlab.kuler.dev/kuler/products/mission-llm/-/issues";
+  },
+  releases: () => {
+    return "https://gitlab.kuler.dev/kuler/products/mission-llm/-/releases";
   },
   docs: (path = "") => {
     return `https://docs.anythingllm.com${path}`;
   },
   chatModes: () => {
     return "https://docs.anythingllm.com/features/chat-modes";
-  },
-  mailToMintplex: () => {
-    return "mailto:team@mintplexlabs.com";
-  },
-  hosting: () => {
-    return "https://my.mintplexlabs.com/aio-checkout?product=anythingllm";
   },
   workspace: {
     chat: (slug, options = {}) => {

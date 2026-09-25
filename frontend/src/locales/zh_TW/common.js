@@ -94,7 +94,7 @@ const TRANSLATIONS = {
     interface: "介面偏好",
     branding: "品牌與白標設定",
     chat: "對話",
-    "mobile-app": "Mission LLM 行動版",
+    "mobile-app": "行動應用程式",
     "community-hub": {
       title: "社群中心",
       trending: "探索熱門",
@@ -1400,7 +1400,7 @@ const TRANSLATIONS = {
       generic: {
         unauthenticated: {
           title: "需要驗證",
-          description: "發布項目前，需先完成 Mission LLM 社群中心驗證。",
+          description: "發布項目前，需先完成社群中心驗證。",
           button: "連接到社群中心",
         },
       },

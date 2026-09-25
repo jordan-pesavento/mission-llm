@@ -1,24 +1,24 @@
 
-### Pull Request Type
+### Merge Request Type
 
 <!-- For change type, change [ ] to [x]. -->
 
-- [ ] ✨ feat (New feature)
-- [ ] 🐛 fix (Bug fix)
-- [ ] ♻️ refactor (Code refactoring without changing behavior)
-- [ ] 💄 style (UI style changes)
-- [ ] 🔨 chore (Build, CI, maintenance)
-- [ ] 📝 docs (Documentation updates)
+- [ ] feat (New feature)
+- [ ] fix (Bug fix)
+- [ ] refactor (Code refactoring without changing behavior)
+- [ ] style (UI style changes)
+- [ ] chore (Build, CI, maintenance)
+- [ ] docs (Documentation updates)
 
 ### Relevant Issues
 
-<!-- Use "resolves #xxx" to auto resolve on merge. Otherwise, please use "connect #xxx" -->
+<!-- Use "resolves #xxx" to auto resolve on merge. Otherwise, please use "related to #xxx" -->
 
 resolves #
 
 ### Description
 
-<!-- Describe the changes in this PR that are impactful to the repo. What problem does it solve? -->
+<!-- Describe the changes in this merge request that are impactful to the repo. What problem does it solve? -->
 
 
 ### Visuals (if applicable)
@@ -28,7 +28,7 @@ resolves #
 
 ### Additional Information
 
-<!-- Add any other context about the Pull Request here that was not captured above. -->
+<!-- Add any other context about the merge request here that was not captured above. -->
 
 
 ### Developer Validations

@@ -12,14 +12,14 @@ Here you can find the scripts and known working process to run Mission LLM outsi
 > You should aim for at least 2GB of RAM. Disk storage is proportional to however much data
 > you will be storing (documents, vectors, models, etc). Minimum 10GB recommended.
 
-- NodeJS v18
-- Yarn
+- Node.js 18 or newer
+- Yarn classic 1.x
 
 
 ## Getting started
 
 1. Clone the repo into your server as the user who the application will run as.
-`git clone git@github.com:Mintplex-Labs/anything-llm.git`
+`git clone https://gitlab.kuler.dev/kuler/products/mission-llm.git`
 
 2. `cd mission-llm` and run `yarn setup`. This will install all dependencies to run in production as well as debug the application.
 
@@ -29,6 +29,7 @@ Here you can find the scripts and known working process to run Mission LLM outsi
 ```
 STORAGE_DIR="/your/absolute/path/to/server/storage"
 ```
+Also replace the placeholder `JWT_SECRET`, `SIG_KEY`, and `SIG_SALT` values with strong random strings, and set `DISABLE_TELEMETRY="true"` so no usage events are sent to the upstream project's telemetry service.
 
 5. Edit the `frontend/.env` file for the `VITE_API_BASE` to now be set to `/api`. This is documented in the .env for which one you should use.
 ```

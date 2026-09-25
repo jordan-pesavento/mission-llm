@@ -1,6 +1,16 @@
+# rebrand:keep-start
+# Upgrading an existing AnythingLLM deployment of this manifest:
+# every object was renamed from anything-llm-* to mission-llm-* (PV, PVC, Deployment, Service,
+# Ingress), and the template variable anythingllm_awsElasticBlockStore_volumeID is now
+# missionllm_awsElasticBlockStore_volumeID. Applying this file creates new objects next to the old
+# ones instead of updating them, and the new mission-llm-volume-claim does not hold your existing data.
+# To keep your data, delete the old anything-llm Deployment, Service, and Ingress, remove the
+# PersistentVolume and PersistentVolumeClaim documents below, and set the Deployment's claimName
+# to anything-llm-volume-claim before applying. Otherwise, copy the data into the new volume first.
+# rebrand:keep-end
 ---
-apiVersion: v1                                                                                                                                           
-kind: PersistentVolume                                                                                                                                   
+apiVersion: v1
+kind: PersistentVolume
 metadata:                                                                                                                                                
   name: mission-llm-volume                                                                                                                              
   annotations:                                                                                                                                           
@@ -92,7 +102,8 @@ spec:
             memory: "512Mi"
             cpu: "250m"
         imagePullPolicy: IfNotPresent
-        image: "mintplexlabs/anythingllm:render"
+        # Replace with your Mission LLM image (built from docker/Dockerfile and pushed to your registry).
+        image: "REPLACE_WITH_MISSION_LLM_IMAGE"
         securityContext:                     
           allowPrivilegeEscalation: true                                                                                                                                                                                                                                                 
           capabilities:                                                                                                                                                                                                                                                                  
@@ -114,6 +125,7 @@ spec:
             echo "STORAGE_DIR: $STORAGE_DIR"
             {
               cd /app/server/ &&
+                node ./utils/boot/legacyUpgrade.js &&
                 npx prisma generate --schema=./prisma/schema.prisma &&
                 npx prisma migrate deploy --schema=./prisma/schema.prisma &&
                 node /app/server/index.js

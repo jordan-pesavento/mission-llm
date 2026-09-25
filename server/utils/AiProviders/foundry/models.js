@@ -18,14 +18,14 @@ const FoundryCatalog = require("./catalog.js");
 /**
  * Resolves Foundry models over HTTP only.
  *
- * MissionLLM runs in a container here, so the `foundry` CLI — which lives on
+ * Mission LLM runs in a container here, so the `foundry` CLI — which lives on
  * the host — is not reachable. Everything must go through the daemon's REST
  * API, which comes in two flavors:
  *
  *  - `rest`   A pre-0.10 daemon that serves the management routes
  *             (/foundry/list, /openai/models, /openai/download). This is the
  *             only configuration where models can be browsed and installed
- *             from MissionLLM.
+ *             from Mission LLM.
  *  - `openai` A 0.10+ daemon, which dropped every management route and serves
  *             only the OpenAI-compatible /v1 surface. Lists only what is
  *             installed; management is a host-side action via the CLI.

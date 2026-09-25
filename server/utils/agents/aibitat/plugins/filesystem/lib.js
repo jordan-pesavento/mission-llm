@@ -57,6 +57,34 @@ class FilesystemManager {
   }
 
   /**
+   * Installs from before the Mission LLM rebrand kept agent files in
+   * storage/anythingllm-fs (a pre-rebrand path, do not rename). When only that (rebrand:keep)
+   * folder exists, move it to the current default root so the files stay
+   * available to the filesystem tool.
+   * @param {string} defaultRoot - The current default filesystem root path
+   */
+  async #migrateLegacyFilesystemRoot(defaultRoot) {
+    const legacyRoot = path.join(path.dirname(defaultRoot), "anythingllm-fs"); // rebrand:keep
+    const exists = (dir) =>
+      fs.access(dir).then(
+        () => true,
+        () => false
+      );
+    if ((await exists(defaultRoot)) || !(await exists(legacyRoot))) return;
+
+    try {
+      await fs.rename(legacyRoot, defaultRoot);
+      console.log(
+        `Renamed legacy filesystem root ${legacyRoot} to ${defaultRoot}`
+      );
+    } catch (error) {
+      console.error(
+        `Warning: Could not rename ${legacyRoot} to ${defaultRoot}: ${error.message}`
+      );
+    }
+  }
+
+  /**
    * Initializes the filesystem with default or configured directories.
    * @param {string[]} [directories] - Optional array of directories to allow
    * @returns {Promise<string[]>} The initialized allowed directories
@@ -68,6 +96,7 @@ class FilesystemManager {
       );
     } else {
       const defaultRoot = this.#getDefaultFilesystemRoot();
+      await this.#migrateLegacyFilesystemRoot(defaultRoot);
       this.#allowedDirectories = [defaultRoot];
     }
 

@@ -6,7 +6,8 @@ initContainers: []
   #   command: ['sh', '-c', 'chown -R 1000:1000 /storage']
 
 image:
-  repository: mintplexlabs/anythingllm
+  # Replace with your Mission LLM image (built from docker/Dockerfile and pushed to your registry).
+  repository: REPLACE_WITH_MISSION_LLM_IMAGE
   pullPolicy: IfNotPresent
   tag: "1.16.2"
 
@@ -111,7 +112,7 @@ securityContext: {}
 
 # Mission LLM configuration options, these are stored in a ConfigMap and passed
 # to the container as environment variables.
-# See https://github.com/Mintplex-Labs/anything-llm/blob/render/docker/.env.example
+# See docker/.env.example in the Mission LLM repository (https://gitlab.kuler.dev/kuler/products/mission-llm)
 # for all available environment variables to use as configuration options
 #
 config:

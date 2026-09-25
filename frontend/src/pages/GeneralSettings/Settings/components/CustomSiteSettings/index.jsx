@@ -63,17 +63,14 @@ export default function CustomSiteSettings() {
             name="meta_page_title"
             type="text"
             className="border-none bg-theme-settings-input-bg mt-2 text-white placeholder:text-theme-settings-input-placeholder text-sm rounded-lg focus:outline-primary-button active:outline-primary-button outline-none block w-fit py-2 px-4"
-            placeholder="MissionLLM | Your personal LLM trained on anything"
+            placeholder="Mission LLM | Private, self-hosted AI"
             autoComplete="off"
             onChange={(e) => {
               setSettings((prev) => {
                 return { ...prev, title: e.target.value };
               });
             }}
-            value={
-              settings.title ??
-              "MissionLLM | Your personal LLM trained on anything"
-            }
+            value={settings.title ?? "Mission LLM | Private, self-hosted AI"}
           />
         </div>
       </div>
