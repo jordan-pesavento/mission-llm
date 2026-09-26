@@ -26,6 +26,14 @@ import { useTranslation } from "react-i18next";
 import { middleTruncate } from "@/utils/directories";
 import { useEmbeddingProgress } from "@/EmbeddingProgressContext";
 
+// Floating bar shown while rows are selected (concept 1 tokens, both themes).
+const SELECTION_BAR =
+  "mx-auto p-1.5 rounded-[12px] border border-ml-line-2 bg-ml-raised shadow-ml-pop pointer-events-auto";
+const SELECTION_BTN =
+  "h-[32px] inline-flex items-center justify-center gap-1.5 px-3 rounded-[9px] border border-ml-line-2 bg-ml-panel text-ml-text text-[14px] font-semibold whitespace-nowrap cursor-pointer transition-colors duration-150 hover:border-ml-accent-line hover:bg-ml-accent-soft hover:text-ml-accent-text";
+const SELECTION_BTN_DANGER =
+  "h-[32px] inline-flex items-center justify-center gap-1.5 px-3 rounded-[9px] border border-ml-line-2 bg-ml-panel text-ml-text text-[14px] font-semibold whitespace-nowrap cursor-pointer transition-colors duration-150 hover:border-ml-bad hover:text-ml-bad";
+
 function WorkspaceDirectory({
   workspace,
   files,
@@ -135,7 +143,7 @@ function WorkspaceDirectory({
           </h3>
         </div>
         <div className="relative w-[560px] h-[445px] bg-theme-settings-input-bg rounded-2xl mt-5 border border-theme-modal-border">
-          <div className="text-white/80 text-xs grid grid-cols-12 py-2 px-3.5 border-b border-white/20 light:border-theme-modal-border bg-theme-settings-input-bg sticky top-0 z-10 rounded-t-2xl">
+          <div className="text-ml-text-2 text-xs grid grid-cols-12 py-2 px-3.5 border-b border-white/20 light:border-theme-modal-border bg-theme-settings-input-bg sticky top-0 z-10 rounded-t-2xl">
             <div className="col-span-8 flex items-center gap-x-[4px]">
               <div className="shrink-0 w-3 h-3" />
               <p className="ml-[7px] text-theme-text-primary">Name</p>
@@ -191,12 +199,12 @@ function WorkspaceDirectory({
             }`}
           />
           <div className="relative w-full h-full bg-theme-settings-input-bg rounded-2xl overflow-hidden border border-theme-modal-border">
-            <div className="text-white/80 text-xs grid grid-cols-12 py-2 px-3.5 border-b border-white/20 light:border-theme-modal-border bg-theme-settings-input-bg sticky top-0 z-10">
+            <div className="text-ml-text-2 text-xs grid grid-cols-12 py-2 px-3.5 border-b border-white/20 light:border-theme-modal-border bg-theme-settings-input-bg sticky top-0 z-10">
               <div className="col-span-10 flex items-center gap-x-[4px]">
                 {!hasChanges &&
                 files.items.some((folder) => folder.items.length > 0) ? (
                   <div
-                    className={`shrink-0 w-3 h-3 rounded border-[1px] border-solid border-white text-theme-text-primary light:invert flex justify-center items-center cursor-pointer`}
+                    className="shrink-0 w-3 h-3 rounded-[3px] border border-solid border-ml-text-3 flex justify-center items-center cursor-pointer"
                     role="checkbox"
                     aria-checked={
                       Object.keys(selectedItems).length ===
@@ -212,7 +220,9 @@ function WorkspaceDirectory({
                       files.items.reduce(
                         (sum, folder) => sum + folder.items.length,
                         0
-                      ) && <div className="w-2 h-2 bg-white rounded-[2px]" />}
+                      ) && (
+                      <div className="w-2 h-2 bg-ml-accent rounded-[2px]" />
+                    )}
                   </div>
                 ) : (
                   <div className="shrink-0 w-3 h-3" />
@@ -264,12 +274,9 @@ function WorkspaceDirectory({
 
             {Object.keys(selectedItems).length > 0 && !hasChanges && (
               <div className="absolute bottom-[12px] left-0 right-0 flex justify-center pointer-events-none">
-                <div className="mx-auto bg-white/40 light:bg-white rounded-lg py-1 px-2 pointer-events-auto light:shadow-lg">
-                  <div className="flex flex-row items-center gap-x-2">
-                    <button
-                      onClick={toggleSelectAll}
-                      className="border-none text-sm font-semibold bg-white light:bg-[#E0F2FE] h-[30px] px-2.5 rounded-lg hover:bg-neutral-800/80 hover:text-white light:text-[#026AA2] light:hover:bg-[#026AA2] light:hover:text-white"
-                    >
+                <div className={SELECTION_BAR}>
+                  <div className="flex flex-row items-center gap-x-1.5">
+                    <button onClick={toggleSelectAll} className={SELECTION_BTN}>
                       {Object.keys(selectedItems).length ===
                       files.items.reduce(
                         (sum, folder) => sum + folder.items.length,
@@ -280,7 +287,7 @@ function WorkspaceDirectory({
                     </button>
                     <button
                       onClick={removeSelectedItems}
-                      className="border-none text-sm font-semibold bg-white light:bg-[#E0F2FE] h-[30px] px-2.5 rounded-lg hover:bg-neutral-800/80 hover:text-white light:text-[#026AA2] light:hover:bg-[#026AA2] light:hover:text-white"
+                      className={SELECTION_BTN_DANGER}
                     >
                       {t("connectors.directory.remove_selected")}
                     </button>
@@ -463,15 +470,13 @@ function WorkspaceDocumentTooltips() {
         id="ws-directory-item"
         place="bottom"
         delayShow={800}
-        className="tooltip invert light:invert-0 z-99 max-w-[200px]"
+        className="tooltip z-99 max-w-[200px]"
         render={({ content }) => {
           const data = safeJsonParse(content, null);
           if (!data) return null;
           return (
             <div className="text-xs">
-              <p className="text-white light:invert font-medium break-all">
-                {data.title}
-              </p>
+              <p className="text-ml-text font-medium break-all">{data.title}</p>
               <div className="flex mt-1 gap-x-2">
                 <p className="">
                   Date: <b>{data.date}</b>
@@ -488,19 +493,19 @@ function WorkspaceDocumentTooltips() {
         id="watch-changes"
         place="bottom"
         delayShow={300}
-        className="tooltip invert !text-xs"
+        className="tooltip !text-xs"
       />
       <Tooltip
         id="pin-document"
         place="bottom"
         delayShow={300}
-        className="tooltip invert !text-xs"
+        className="tooltip !text-xs"
       />
       <Tooltip
         id="remove-document"
         place="bottom"
         delayShow={300}
-        className="tooltip invert !text-xs"
+        className="tooltip !text-xs"
       />
     </>
   );
@@ -579,7 +584,7 @@ function EmbeddingFileRow({ filename, status: fileStatus, onRemove }) {
         {STATUS_STYLES[status]?.icon || STATUS_STYLES.pending.icon}
         <p
           className={`whitespace-nowrap overflow-hidden text-ellipsis ${
-            status === "failed" ? "text-red-400" : ""
+            status === "failed" ? "text-ml-bad" : ""
           }`}
           title={displayName}
         >

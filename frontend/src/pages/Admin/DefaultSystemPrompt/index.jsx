@@ -239,7 +239,7 @@ export default function DefaultSystemPrompt() {
                     >
                       <Highlighter
                         className="whitespace-pre-wrap"
-                        highlightClassName="bg-cta-button p-0.5 rounded-md"
+                        highlightClassName="bg-ml-accent-soft text-ml-accent-text p-0.5 rounded-md"
                         searchWords={availableVariables.map(
                           (v) => `{${v.key}}`
                         )}
@@ -253,7 +253,7 @@ export default function DefaultSystemPrompt() {
                     disabled={
                       !systemPromptForm.isDirty || systemPromptForm.isSubmitting
                     }
-                    className={`enabled:hover:bg-secondary enabled:hover:text-white rounded-lg bg-primary-button w-fit py-2 px-4 font-semibold text-xs disabled:opacity-20 disabled:cursor-not-allowed`}
+                    className="h-[34px] inline-flex items-center w-fit px-4 rounded-[9px] border border-transparent bg-ml-accent-fill text-ml-on-accent font-semibold text-[14px] transition-[filter] duration-150 enabled:hover:brightness-105 disabled:opacity-60 disabled:cursor-not-allowed"
                     type="submit"
                   >
                     Save Changes

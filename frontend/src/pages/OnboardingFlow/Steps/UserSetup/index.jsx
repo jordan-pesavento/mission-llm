@@ -68,9 +68,9 @@ export default function UserSetup({ setHeader, setForwardBtn, setBackBtn }) {
             onClick={() => setSelectedOption("just_me")}
             className={`${
               selectedOption === "just_me"
-                ? "text-sky-400 border-sky-400/70"
+                ? "text-ml-accent-text border-ml-accent-line"
                 : "text-theme-text-primary border-theme-sidebar-border"
-            } min-w-[230px] h-11 p-4 rounded-[10px] border-2  justify-center items-center gap-[100px] inline-flex hover:border-sky-400/70 hover:text-sky-400 transition-all duration-300`}
+            } min-w-[230px] h-11 p-4 rounded-[10px] border-2  justify-center items-center gap-[100px] inline-flex hover:border-ml-accent-line hover:text-ml-accent-text transition-all duration-300`}
           >
             <div className="text-center text-sm font-bold">
               {t("onboarding.userSetup.justMe")}
@@ -80,9 +80,9 @@ export default function UserSetup({ setHeader, setForwardBtn, setBackBtn }) {
             onClick={() => setSelectedOption("my_team")}
             className={`${
               selectedOption === "my_team"
-                ? "text-sky-400 border-sky-400/70"
+                ? "text-ml-accent-text border-ml-accent-line"
                 : "text-theme-text-primary border-theme-sidebar-border"
-            } min-w-[230px] h-11 p-4 rounded-[10px] border-2  justify-center items-center gap-[100px] inline-flex hover:border-sky-400/70 hover:text-sky-400 transition-all duration-300`}
+            } min-w-[230px] h-11 p-4 rounded-[10px] border-2  justify-center items-center gap-[100px] inline-flex hover:border-ml-accent-line hover:text-ml-accent-text transition-all duration-300`}
           >
             <div className="text-center text-sm font-bold">
               {t("onboarding.userSetup.myTeam")}
@@ -188,9 +188,9 @@ const JustMe = ({
             onClick={handleYes}
             className={`${
               enablePassword && itemSelected
-                ? "text-sky-400 border-sky-400/70"
+                ? "text-ml-accent-text border-ml-accent-line"
                 : "text-theme-text-primary border-theme-sidebar-border"
-            } min-w-[230px] h-11 p-4 rounded-[10px] border-2  justify-center items-center gap-[100px] inline-flex hover:border-sky-400/70 hover:text-sky-400 transition-all duration-300`}
+            } min-w-[230px] h-11 p-4 rounded-[10px] border-2  justify-center items-center gap-[100px] inline-flex hover:border-ml-accent-line hover:text-ml-accent-text transition-all duration-300`}
           >
             <div className="text-center text-sm font-bold">
               {t("common.yes")}
@@ -200,9 +200,9 @@ const JustMe = ({
             onClick={handleNo}
             className={`${
               !enablePassword && itemSelected
-                ? "text-sky-400 border-sky-400/70"
+                ? "text-ml-accent-text border-ml-accent-line"
                 : "text-theme-text-primary border-theme-sidebar-border"
-            } min-w-[230px] h-11 p-4 rounded-[10px] border-2  justify-center items-center gap-[100px] inline-flex hover:border-sky-400/70 hover:text-sky-400 transition-all duration-300`}
+            } min-w-[230px] h-11 p-4 rounded-[10px] border-2  justify-center items-center gap-[100px] inline-flex hover:border-ml-accent-line hover:text-ml-accent-text transition-all duration-300`}
           >
             <div className="text-center text-sm font-bold">
               {t("common.no")}

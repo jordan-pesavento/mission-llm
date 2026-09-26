@@ -23,7 +23,7 @@ function RulesList({
     <div className="mt-6 flex flex-col gap-y-6">
       {calculatedRules.length > 0 && (
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 light:text-slate-400 mb-2">
+          <p className="text-xs font-semibold uppercase tracking-wider text-ml-text-3 mb-2">
             {t("model-router.rules.calculated-section-label")}
           </p>
           <DragDropContext onDragEnd={onDragEnd}>
@@ -68,7 +68,7 @@ function RulesList({
 
       {llmRules.length > 0 && (
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 light:text-slate-400 mb-2">
+          <p className="text-xs font-semibold uppercase tracking-wider text-ml-text-3 mb-2">
             {t("model-router.rules.llm-section-label")}
           </p>
           <div className="flex flex-col gap-y-2">

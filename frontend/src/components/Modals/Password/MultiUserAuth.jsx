@@ -9,8 +9,10 @@ import RecoveryCodeModal from "@/components/Modals/DisplayRecoveryCodeModal";
 import { useTranslation } from "react-i18next";
 import { t } from "i18next";
 import PasswordInput from "@/components/lib/PasswordInput";
+import useBranding from "@/hooks/useBranding";
 import {
   AUTH_FIELD,
+  AuthAck,
   AuthAlert,
   AuthButton,
   AuthField,
@@ -138,7 +140,9 @@ export default function MultiUserAuth() {
   const [token, setToken] = useState(null);
   const [showRecoveryForm, setShowRecoveryForm] = useState(false);
   const [showResetPasswordForm, setShowResetPasswordForm] = useState(false);
-  const [customAppName, setCustomAppName] = useState(null);
+  const [acknowledged, setAcknowledged] = useState(false);
+  const { brand } = useBranding();
+  const requireAck = brand.login.requireAck;
 
   const {
     isOpen: isRecoveryCodeModalOpen,
@@ -147,12 +151,14 @@ export default function MultiUserAuth() {
   } = useModal();
 
   const handleLogin = async (e) => {
+    e.preventDefault();
+    if (requireAck && !acknowledged) return;
     setError(null);
     setLoading(true);
-    e.preventDefault();
     const data = {};
     const form = new FormData(e.target);
     for (var [key, value] of form.entries()) data[key] = value;
+    if (requireAck) data.acknowledged = true;
     const { valid, user, token, message, recoveryCodes } =
       await System.requestToken(data);
     if (valid && !!token && !!user) {
@@ -221,15 +227,6 @@ export default function MultiUserAuth() {
     }
   }, [downloadComplete, user, token]);
 
-  useEffect(() => {
-    const fetchCustomAppName = async () => {
-      const { appName } = await System.fetchCustomAppName();
-      setCustomAppName(appName || "");
-      setLoading(false);
-    };
-    fetchCustomAppName();
-  }, []);
-
   if (showRecoveryForm) {
     return (
       <RecoveryForm
@@ -248,7 +245,7 @@ export default function MultiUserAuth() {
           title={t("login.title", { defaultValue: "Sign in" })}
           subtitle={t("login.subtitle", {
             defaultValue: "Use your {{appName}} account.",
-            appName: customAppName || "Mission LLM",
+            appName: brand.appName,
           })}
         />
         <AuthField
@@ -277,8 +274,19 @@ export default function MultiUserAuth() {
             autoComplete="off"
           />
         </AuthField>
+        {requireAck && (
+          <AuthAck
+            id="signin-ack"
+            checked={acknowledged}
+            onChange={setAcknowledged}
+          />
+        )}
         {error && <AuthAlert id="signin-error">{error}</AuthAlert>}
-        <AuthButton disabled={loading} busy={loading} type="submit">
+        <AuthButton
+          disabled={loading || (requireAck && !acknowledged)}
+          busy={loading}
+          type="submit"
+        >
           {loading
             ? t("login.multi-user.validating")
             : t("login.title", { defaultValue: "Sign in" })}

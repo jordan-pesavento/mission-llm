@@ -210,9 +210,9 @@ export default function OutlookSkillPanel({
         </div>
 
         {isMultiUserMode && (
-          <div className="flex items-center gap-x-2 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-            <Warning size={20} className="text-yellow-500 shrink-0" />
-            <p className="text-yellow-500 text-xs">
+          <div className="flex items-center gap-x-2 p-3 bg-ml-warn-soft border border-ml-warn/40 rounded-lg">
+            <Warning size={20} className="text-ml-warn shrink-0" />
+            <p className="text-ml-text text-xs">
               {t("agent.skill.outlook.multiUserWarning")}
             </p>
           </div>
@@ -224,7 +224,7 @@ export default function OutlookSkillPanel({
             components={{
               a: (
                 <Link
-                  className="text-sky-400 hover:text-sky-500 text-xs font-medium underline"
+                  className="text-ml-accent-text hover:text-ml-text text-xs font-medium underline"
                   to={paths.docs("/agent/usage/outlook-agent")}
                   target="_blank"
                 />
@@ -317,7 +317,7 @@ function ConfigurationSection({
           {isConfigured && (
             <div className="flex items-center gap-x-1">
               <CheckCircle size={14} weight="fill" className="text-green-500" />
-              <span className="text-xs text-green-500">
+              <span className="text-xs text-ml-text-2">
                 {t("agent.skill.outlook.configured")}
               </span>
             </div>
@@ -466,9 +466,9 @@ function ConfigurationSection({
           </div>
 
           {!hasCredentials && (
-            <div className="flex items-center gap-x-2 p-3 bg-orange-500/10 border border-orange-500/30 rounded-lg">
-              <Warning size={20} className="text-orange-500 shrink-0" />
-              <p className="text-orange-500 text-xs">
+            <div className="flex items-center gap-x-2 p-3 bg-ml-warn-soft border border-ml-warn/40 rounded-lg">
+              <Warning size={20} className="text-ml-warn shrink-0" />
+              <p className="text-ml-text text-xs">
                 {t("agent.skill.outlook.configurationRequired")}
               </p>
             </div>
@@ -476,9 +476,9 @@ function ConfigurationSection({
 
           {hasCredentials && !isAuthenticated && (
             <div className="flex flex-col gap-y-3">
-              <div className="flex items-center gap-x-2 p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-                <Info size={20} className="text-blue-500 shrink-0" />
-                <p className="text-blue-500 text-xs">
+              <div className="flex items-center gap-x-2 p-3 bg-ml-accent-soft border border-ml-accent-line rounded-lg">
+                <Info size={20} className="text-ml-accent-text shrink-0" />
+                <p className="text-ml-text text-xs">
                   {t("agent.skill.outlook.authRequired")}
                 </p>
               </div>
@@ -486,7 +486,7 @@ function ConfigurationSection({
                 type="button"
                 onClick={onStartAuth}
                 disabled={authLoading}
-                className="flex items-center justify-center gap-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 text-white text-sm font-medium rounded-lg transition-colors"
+                className="flex items-center justify-center gap-x-2 px-4 py-2 bg-ml-accent-fill text-ml-on-accent hover:brightness-105 disabled:opacity-60 text-sm font-semibold rounded-lg transition-[filter] duration-150"
               >
                 {authLoading ? (
                   <CircleNotch size={16} className="animate-spin" />
@@ -647,9 +647,7 @@ function SkillRow({ skill, disabled, onToggle }) {
         <span className="text-sm font-medium text-slate-100 light:text-slate-900">
           {skill.title}
         </span>
-        <span className="text-xs text-slate-100/50 light:text-slate-900/50">
-          {skill.description}
-        </span>
+        <span className="text-xs text-ml-text-3">{skill.description}</span>
       </div>
       <SimpleToggleSwitch enabled={!disabled} onChange={onToggle} size="md" />
     </div>

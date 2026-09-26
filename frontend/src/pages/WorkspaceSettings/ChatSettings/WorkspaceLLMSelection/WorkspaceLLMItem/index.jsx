@@ -86,7 +86,7 @@ export default function WorkspaceLLM({
                 e.preventDefault();
                 openModal();
               }}
-              className="border-none p-2 text-white/60 hover:text-white hover:bg-theme-bg-hover rounded-md transition-all duration-300"
+              className="border-none p-2 text-ml-text-2 hover:text-ml-text hover:bg-theme-bg-hover rounded-md transition-all duration-300"
               title="Edit Settings"
             >
               <Gear size={20} weight="bold" />

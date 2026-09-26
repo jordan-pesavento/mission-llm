@@ -31,6 +31,12 @@ const {
 const {
   workspaceDeletionProtection,
 } = require("../utils/middleware/workspaceDeletionProtection");
+const {
+  validateValues: validateBrandValues,
+} = require("../utils/branding/validate");
+const {
+  VALUE_LABELS: BRANDING_VALUE_LABELS,
+} = require("../utils/branding/constants");
 
 function adminEndpoints(app) {
   if (!app) return;
@@ -487,8 +493,29 @@ function adminEndpoints(app) {
           updates = filteredUpdates;
         }
 
-        await SystemSettings.updateSettings(updates);
-        response.status(200).json({ success: true, error: null });
+        // Branding labels (app name, tab title, favicon URL, support email,
+        // footer links) follow the same rules as POST /admin/branding.
+        const brandingUpdates = Object.fromEntries(
+          Object.entries(updates).filter(([key]) =>
+            BRANDING_VALUE_LABELS.includes(key)
+          )
+        );
+        if (Object.keys(brandingUpdates).length) {
+          const { ok, clean, errors } = validateBrandValues(brandingUpdates);
+          if (!ok)
+            return response.status(400).json({
+              success: false,
+              error: Object.entries(errors)
+                .map(([label, code]) => `${label}: ${code}`)
+                .join(", "),
+            });
+          updates = { ...updates, ...clean };
+        }
+
+        const { success, error } = await SystemSettings.updateSettings(updates);
+        response
+          .status(success ? 200 : 500)
+          .json({ success, error: error || null });
       } catch (e) {
         console.error(e);
         response.sendStatus(500).end();

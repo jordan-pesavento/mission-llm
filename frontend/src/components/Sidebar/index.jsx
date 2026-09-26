@@ -5,9 +5,8 @@ import NewWorkspaceModal, {
 } from "../Modals/NewWorkspace";
 import ActiveWorkspaces from "./ActiveWorkspaces";
 import useLogo from "@/hooks/useLogo";
-import { RailLinks } from "../Footer";
+import { RailFootRow } from "../Footer";
 import SettingsButton from "../SettingsButton";
-import { RailUser } from "../UserMenu";
 import RailBrand from "../SettingsSidebar/RailBrand";
 import { useSidebarToggle, ToggleSidebarButton } from "./SidebarToggle";
 import SearchBox from "./SearchBox";
@@ -63,7 +62,7 @@ export default function Sidebar() {
   // Frame: a flush rail (var(--ml-rail-w) wide, rail surface, hairline on the
   // right) with three zones: brand band (64px, hairline below, aligned with
   // the main pane's top bar), scrolling body, and a foot band (hairline above)
-  // that holds the user row.
+  // with the link icons and the settings gear in one row.
   return (
     <>
       <div
@@ -98,15 +97,14 @@ export default function Sidebar() {
             >
               <SearchBox inputRef={searchInputRef} />
               <ActiveWorkspaces showNewWsModal={showNewWsModal} />
-              <RailLinks />
             </div>
             <div
               data-frame="rail-foot"
               className="shrink-0 border-t border-ml-line px-[14px] py-3"
             >
-              <RailUser>
+              <RailFootRow>
                 <SettingsButton />
-              </RailUser>
+              </RailFootRow>
             </div>
           </nav>
         </div>
@@ -191,12 +189,11 @@ export function SidebarMobileHeader() {
           <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-[14px] flex flex-col gap-y-[6px]">
             <SearchBox />
             <ActiveWorkspaces showNewWsModal={showNewWsModal} />
-            <RailLinks />
           </div>
           <div className="shrink-0 border-t border-ml-line px-[14px] py-3">
-            <RailUser>
+            <RailFootRow>
               <SettingsButton />
-            </RailUser>
+            </RailFootRow>
           </div>
         </nav>
         {showingNewWsModal && <NewWorkspaceModal hideModal={hideNewWsModal} />}

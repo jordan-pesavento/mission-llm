@@ -11,8 +11,10 @@ import {
   USERNAME_PATTERN,
 } from "@/utils/username";
 import PasswordInput from "@/components/lib/PasswordInput";
+import useBranding from "@/hooks/useBranding";
 import {
   AUTH_FIELD,
+  AuthAck,
   AuthAlert,
   AuthButton,
   AuthField,
@@ -28,17 +30,26 @@ import {
 export default function NewUserModal() {
   const { code } = useParams();
   const [error, setError] = useState(null);
+  const [acknowledged, setAcknowledged] = useState(false);
   const { t } = useTranslation();
+  const { brand } = useBranding();
+  // When Branding requires the sign-in notice to be acknowledged, the new
+  // account's first sign-in needs the same checkbox as the sign-in form.
+  const requireAck = brand.login.requireAck;
 
   const handleCreate = async (e) => {
-    setError(null);
     e.preventDefault();
+    if (requireAck && !acknowledged) return;
+    setError(null);
     const data = {};
     const form = new FormData(e.target);
     for (var [key, value] of form.entries()) data[key] = value;
     const { success, error } = await Invite.acceptInvite(code, data);
     if (success) {
-      const { valid, user, token, message } = await System.requestToken(data);
+      const { valid, user, token, message } = await System.requestToken({
+        ...data,
+        ...(requireAck ? { acknowledged: true } : {}),
+      });
       if (valid && !!token && !!user) {
         window.localStorage.setItem(AUTH_USER, JSON.stringify(user));
         window.localStorage.setItem(AUTH_TOKEN, token);
@@ -85,8 +96,17 @@ export default function NewUserModal() {
           autoComplete="off"
         />
       </AuthField>
+      {requireAck && (
+        <AuthAck
+          id="invite-ack"
+          checked={acknowledged}
+          onChange={setAcknowledged}
+        />
+      )}
       {error && <AuthAlert id="invite-error">{error}</AuthAlert>}
-      <AuthButton type="submit">Accept Invitation</AuthButton>
+      <AuthButton type="submit" disabled={requireAck && !acknowledged}>
+        Accept Invitation
+      </AuthButton>
     </AuthForm>
   );
 }

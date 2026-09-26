@@ -67,7 +67,7 @@ export default function PrivateModeOptions({ settings }) {
               <Link
                 to="https://docs.privatemode.ai/quickstart#2-run-the-proxy"
                 target="_blank"
-                className="text-blue-500 hover:underline"
+                className="text-ml-accent-text hover:underline"
               >
                 Learn more &rarr;
               </Link>

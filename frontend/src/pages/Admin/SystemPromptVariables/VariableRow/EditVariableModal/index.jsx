@@ -77,7 +77,7 @@ export default function EditVariableModal({ variable, closeModal, onRefresh }) {
           defaultValue={variable.description}
           autoComplete="off"
         />
-        {error && <p className="text-red-400 text-sm">Error: {error}</p>}
+        {error && <p className="text-ml-bad text-sm">Error: {error}</p>}
       </ModalBody>
       <ModalFooter>
         <ModalSecondaryButton onClick={closeModal} type="button">

@@ -32,7 +32,7 @@ export default function SlashCommand({ item, setStep }) {
             <a
               href={paths.communityHub.profile(item.creatorUsername)}
               target="_blank"
-              className="hover:text-blue-500 hover:underline"
+              className="hover:text-ml-accent-text hover:underline"
               rel="noreferrer"
             >
               @{item.creatorUsername}

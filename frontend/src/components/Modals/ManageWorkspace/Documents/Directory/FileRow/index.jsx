@@ -21,7 +21,7 @@ function FileRow({ item, selected, folderName, toggleSelection }) {
     <tr
       onClick={() => toggleSelection(item, folderName)}
       className={`text-theme-text-primary text-xs grid grid-cols-12 py-2 pl-8 pr-8 hover:bg-theme-file-picker-hover cursor-pointer file-row ${
-        selected ? "selected light:text-white" : ""
+        selected ? "selected" : ""
       }`}
     >
       <div
@@ -30,14 +30,14 @@ function FileRow({ item, selected, folderName, toggleSelection }) {
         data-tooltip-content={tooltipContent}
       >
         <div
-          className={`shrink-0 w-3 h-3 rounded border-[1px] border-solid border-white ${
-            selected ? "text-white" : "text-theme-text-primary light:invert"
+          className={`shrink-0 w-3 h-3 rounded-[3px] border border-solid ${
+            selected ? "border-ml-accent" : "border-ml-text-3"
           } flex justify-center items-center cursor-pointer`}
           role="checkbox"
           aria-checked={selected}
           tabIndex={0}
         >
-          {selected && <div className="w-2 h-2 bg-white rounded-[2px]" />}
+          {selected && <div className="w-2 h-2 bg-ml-accent rounded-[2px]" />}
         </div>
         <File
           className="shrink-0 text-base font-bold w-4 h-4 mr-[3px]"

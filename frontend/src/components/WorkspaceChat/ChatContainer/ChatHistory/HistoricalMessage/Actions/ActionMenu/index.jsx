@@ -71,9 +71,9 @@ function ActionMenu({ chatId, forkThread, isEditing, role }) {
             type="button"
             role="menuitem"
             onClick={handleDelete}
-            className={`${MENU_ROW} hover:!text-ml-bad`}
+            className={`${MENU_ROW} hover:!bg-ml-bad-soft`}
           >
-            <Trash size={18} />
+            <Trash size={18} className="text-ml-bad" />
             <span>{t("chat_window.delete")}</span>
           </button>
         </div>

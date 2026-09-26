@@ -60,9 +60,7 @@ export default function WorkspaceFileRow({
         !disableSelection
           ? "hover:bg-theme-file-picker-hover cursor-pointer"
           : ""
-      } ${isMovedItem ? "selected light:text-white" : ""} ${
-        selected ? "selected light:text-white" : ""
-      }`}
+      } ${isMovedItem ? "selected" : ""} ${selected ? "selected" : ""}`}
       onClick={toggleRowSelection}
     >
       <div
@@ -77,15 +75,17 @@ export default function WorkspaceFileRow({
         <div className="shrink-0 w-3 h-3">
           {!disableSelection ? (
             <div
-              className={`shrink-0 w-3 h-3 rounded border-[1px] border-solid border-white ${
-                selected ? "text-white" : "text-theme-text-primary light:invert"
+              className={`shrink-0 w-3 h-3 rounded-[3px] border border-solid ${
+                selected ? "border-ml-accent" : "border-ml-text-3"
               } flex justify-center items-center cursor-pointer`}
               role="checkbox"
               aria-checked={selected}
               tabIndex={0}
               onClick={handleRowSelection}
             >
-              {selected && <div className="w-2 h-2 bg-white rounded-[2px]" />}
+              {selected && (
+                <div className="w-2 h-2 bg-ml-accent rounded-[2px]" />
+              )}
             </div>
           ) : null}
         </div>
@@ -169,8 +169,8 @@ const PinItemToWorkspace = memo(({ workspace, docPath, item }) => {
       }
     >
       {pinned ? (
-        <div className="bg-theme-settings-input-active group-hover:bg-red-500/20 rounded-3xl whitespace-nowrap">
-          <p className="text-xs px-2 py-0.5 group-hover:text-red-500">
+        <div className="bg-theme-settings-input-active group-hover:bg-ml-bad-soft rounded-3xl whitespace-nowrap">
+          <p className="text-xs px-2 py-0.5 text-ml-text">
             <span className="group-hover:hidden">Pinned</span>
             <span className="hidden group-hover:inline">Un-pin</span>
           </p>

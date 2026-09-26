@@ -61,7 +61,7 @@ export default function InviteRow({ invite }) {
               <button
                 onClick={copyInviteLink}
                 disabled={copied}
-                className="text-xs font-medium text-blue-300 rounded-lg hover:text-blue-400 hover:underline"
+                className="text-xs font-medium text-ml-accent-text rounded-lg hover:underline"
               >
                 {copied ? "Copied" : "Copy Invite Link"}
               </button>

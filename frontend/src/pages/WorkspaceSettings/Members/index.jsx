@@ -71,7 +71,7 @@ export default function Members({ workspace }) {
             ))
           ) : (
             <tr>
-              <td className="text-center py-4 text-white/80" colSpan="4">
+              <td className="text-center py-4 text-ml-text-2" colSpan="4">
                 No workspace members
               </td>
             </tr>

@@ -7,8 +7,10 @@ import { useModal } from "@/hooks/useModal";
 import RecoveryCodeModal from "@/components/Modals/DisplayRecoveryCodeModal";
 import { useTranslation } from "react-i18next";
 import PasswordInput from "@/components/lib/PasswordInput";
+import useBranding from "@/hooks/useBranding";
 import {
   AUTH_FIELD,
+  AuthAck,
   AuthAlert,
   AuthButton,
   AuthField,
@@ -23,7 +25,9 @@ export default function SingleUserAuth() {
   const [recoveryCodes, setRecoveryCodes] = useState([]);
   const [downloadComplete, setDownloadComplete] = useState(false);
   const [token, setToken] = useState(null);
-  const [customAppName, setCustomAppName] = useState(null);
+  const [acknowledged, setAcknowledged] = useState(false);
+  const { brand } = useBranding();
+  const requireAck = brand.login.requireAck;
 
   const {
     isOpen: isRecoveryCodeModalOpen,
@@ -32,12 +36,14 @@ export default function SingleUserAuth() {
   } = useModal();
 
   const handleLogin = async (e) => {
+    e.preventDefault();
+    if (requireAck && !acknowledged) return;
     setError(null);
     setLoading(true);
-    e.preventDefault();
     const data = {};
     const form = new FormData(e.target);
     for (var [key, value] of form.entries()) data[key] = value;
+    if (requireAck) data.acknowledged = true;
     const { valid, token, message, recoveryCodes } =
       await System.requestToken(data);
     if (valid && !!token) {
@@ -67,15 +73,6 @@ export default function SingleUserAuth() {
     }
   }, [downloadComplete, token]);
 
-  useEffect(() => {
-    const fetchCustomAppName = async () => {
-      const { appName } = await System.fetchCustomAppName();
-      setCustomAppName(appName || "");
-      setLoading(false);
-    };
-    fetchCustomAppName();
-  }, []);
-
   return (
     <>
       <AuthForm onSubmit={handleLogin}>
@@ -83,7 +80,7 @@ export default function SingleUserAuth() {
           title={t("login.title", { defaultValue: "Sign in" })}
           subtitle={t("login.single-user.subtitle", {
             defaultValue: "Enter the password for this {{appName}} instance.",
-            appName: customAppName || "Mission LLM",
+            appName: brand.appName,
           })}
         />
         <AuthField
@@ -99,8 +96,19 @@ export default function SingleUserAuth() {
             autoComplete="off"
           />
         </AuthField>
+        {requireAck && (
+          <AuthAck
+            id="signin-ack"
+            checked={acknowledged}
+            onChange={setAcknowledged}
+          />
+        )}
         {error && <AuthAlert id="signin-error">{error}</AuthAlert>}
-        <AuthButton disabled={loading} busy={loading} type="submit">
+        <AuthButton
+          disabled={loading || (requireAck && !acknowledged)}
+          busy={loading}
+          type="submit"
+        >
           {loading
             ? t("login.multi-user.validating")
             : t("login.title", { defaultValue: "Sign in" })}

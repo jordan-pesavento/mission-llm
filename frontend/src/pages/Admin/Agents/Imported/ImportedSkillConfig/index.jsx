@@ -172,7 +172,7 @@ export default function ImportedSkillConfig({
                 <button
                   onClick={handleSubmit}
                   type="button"
-                  className="bg-blue-500 text-white light:text-white rounded-md p-2"
+                  className="bg-ml-accent-fill text-ml-on-accent font-semibold rounded-md p-2 transition-[filter] duration-150 hover:brightness-105"
                 >
                   Save
                 </button>

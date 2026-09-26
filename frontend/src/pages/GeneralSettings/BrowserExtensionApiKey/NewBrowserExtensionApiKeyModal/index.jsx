@@ -57,13 +57,13 @@ export default function NewBrowserExtensionApiKeyModal({
     <form onSubmit={handleCreate} className="flex flex-col gap-y-5">
       <ModalHeader title="New Browser Extension API Key" onClose={closeModal} />
       <ModalBody>
-        {error && <p className="text-red-400 text-sm">Error: {error}</p>}
+        {error && <p className="text-ml-bad text-sm">Error: {error}</p>}
         {apiKey && (
           <input
             type="text"
             defaultValue={apiKey}
             disabled={true}
-            className="border-none bg-zinc-800 w-full text-zinc-100 placeholder:text-zinc-400 light:bg-white light:text-slate-900 light:placeholder:text-slate-400 text-sm rounded-lg block p-2.5"
+            className="border-none bg-zinc-800 w-full text-zinc-100 placeholder:text-zinc-400 light:bg-white light:text-slate-900 light:placeholder:text-slate-500 text-sm rounded-lg block p-2.5"
           />
         )}
         {isMultiUser && (

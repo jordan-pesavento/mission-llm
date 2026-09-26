@@ -249,13 +249,13 @@ export default function AgentSkillsTab({
             className="text-zinc-500 light:text-slate-400 animate-spin"
             weight="bold"
           />
-          <span className="text-[13px] text-zinc-500 light:text-slate-400">
+          <span className="text-[13px] text-ml-text-3">
             {t("chat_window.loading_mcp_servers")}
           </span>
         </div>
       )}
       {filteredSections.length === 0 && !mcpLoading && searchQuery.trim() && (
-        <p className="text-[13px] text-zinc-500 light:text-slate-400 text-center py-2">
+        <p className="text-[13px] text-ml-text-3 text-center py-2">
           {t("chat_window.no_tools_found")}
         </p>
       )}
@@ -292,7 +292,7 @@ function SearchInput({ value, onChange, placeholder }) {
           }
           if (e.key === "Enter") e.preventDefault();
         }}
-        className="w-full pl-7 pr-2 py-1 text-[13px] bg-zinc-700/50 light:bg-slate-100 border border-zinc-600 light:border-slate-300 rounded text-white light:text-slate-900 placeholder:text-zinc-500 light:placeholder:text-slate-400 outline-none focus:border-zinc-500 light:focus:border-slate-400"
+        className="w-full pl-7 pr-2 py-1 text-[13px] bg-zinc-700/50 light:bg-slate-100 border border-zinc-600 light:border-slate-300 rounded text-white light:text-slate-900 placeholder:text-zinc-500 light:placeholder:text-slate-500 outline-none focus:border-zinc-500 light:focus:border-slate-400"
       />
     </div>
   );

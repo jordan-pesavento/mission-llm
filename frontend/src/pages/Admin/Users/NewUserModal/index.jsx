@@ -99,7 +99,7 @@ export default function NewUserModal({ closeModal }) {
           limit={messageLimit.limit}
           updateState={setMessageLimit}
         />
-        {error && <p className="text-red-400 text-sm">Error: {error}</p>}
+        {error && <p className="text-ml-bad text-sm">Error: {error}</p>}
         <p className="text-zinc-300 light:text-slate-700 text-xs md:text-sm">
           After creating a user they will need to login with their initial login
           to get access.

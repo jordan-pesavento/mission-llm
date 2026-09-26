@@ -83,7 +83,7 @@ export default function RecoveryCodeModal({
         <button
           type="button"
           onClick={downloadClicked ? handleClose : downloadRecoveryCodes}
-          className="inline-flex h-11 items-center justify-center gap-x-2 rounded-[12px] bg-ml-accent-fill px-5 text-[15px] font-semibold text-ml-on-accent shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_8px_20px_-10px_var(--ml-accent)] transition-[filter] duration-150 ease-ml hover:brightness-[1.08]"
+          className="inline-flex h-11 items-center justify-center gap-x-2 rounded-[12px] bg-ml-accent-fill px-5 text-[15px] font-semibold text-ml-on-accent shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_8px_20px_-10px_var(--ml-accent)] transition-[filter] duration-150 ease-ml hover:brightness-105"
         >
           {downloadClicked ? (
             "Close"

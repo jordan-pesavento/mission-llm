@@ -82,7 +82,7 @@ export default function AwsBedrockLLMOptions({ settings }) {
                     setRegion(AWS_REGIONS[0].code);
                   setManualRegion(false);
                 }}
-                className="text-white/60 hover:text-white text-xs text-left mt-1.5 underline w-fit"
+                className="text-ml-text-2 hover:text-ml-text text-xs text-left mt-1.5 underline w-fit"
               >
                 Select from available regions
               </button>
@@ -246,7 +246,7 @@ function BedrockModelSelection({ settings, apiKey, region }) {
           <button
             type="button"
             onClick={() => setManualEntry(false)}
-            className="text-white/60 hover:text-white text-xs text-left mt-1.5 underline w-fit"
+            className="text-ml-text-2 hover:text-ml-text text-xs text-left mt-1.5 underline w-fit"
           >
             Select from available models
           </button>

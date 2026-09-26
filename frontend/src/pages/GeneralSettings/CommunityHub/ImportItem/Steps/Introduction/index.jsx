@@ -35,12 +35,12 @@ export default function Introduction({ settings, setSettings, setStep }) {
               items are visible to everyone.
             </p>
 
-            <p className="p-4 bg-yellow-800/30 light:bg-orange-100 light:text-orange-500 light:border-orange-500 rounded-lg border border-yellow-500 text-yellow-500">
+            <p className="p-4 bg-ml-warn-soft rounded-lg border border-ml-warn/40 text-ml-text">
               If you are pulling in a private item, make sure it is{" "}
               <b>shared with a team</b> you belong to, and you have added a{" "}
               <a
                 href={paths.communityHub.authentication()}
-                className="underline text-yellow-100 light:text-orange-500 font-semibold"
+                className="underline text-ml-text font-semibold"
               >
                 Connection Key.
               </a>

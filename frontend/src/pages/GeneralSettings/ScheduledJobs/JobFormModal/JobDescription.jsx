@@ -9,10 +9,10 @@ export default function JobDescription({ form, errors, onChange }) {
         <label className="flex items-baseline gap-1.5 mb-2 text-sm font-medium text-theme-text-primary">
           <span>
             {t("scheduledJobs.modal.nameLabel")}{" "}
-            <span className="text-red-400">*</span>
+            <span className="text-ml-bad">*</span>
           </span>
           {errors.name && (
-            <span className="text-red-400 italic font-normal">
+            <span className="text-ml-bad italic font-normal">
               {t("scheduledJobs.modal.required", "Required")}
             </span>
           )}
@@ -33,10 +33,10 @@ export default function JobDescription({ form, errors, onChange }) {
         <label className="flex items-baseline gap-1.5 mb-2 text-sm font-medium text-theme-text-primary">
           <span>
             {t("scheduledJobs.modal.promptLabel")}{" "}
-            <span className="text-red-400">*</span>
+            <span className="text-ml-bad">*</span>
           </span>
           {errors.prompt && (
-            <span className="text-red-400 italic font-normal">
+            <span className="text-ml-bad italic font-normal">
               {t("scheduledJobs.modal.required", "Required")}
             </span>
           )}

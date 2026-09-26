@@ -25,7 +25,7 @@ function PaginationControls({ index, total, onPrev, onNext, isFirst, isLast }) {
       >
         <CaretLeft size={16} />
       </button>
-      <span className="text-[13px] text-zinc-400 light:text-zinc-400 leading-4 whitespace-nowrap select-none">
+      <span className="text-[13px] text-ml-text-3 leading-4 whitespace-nowrap select-none">
         {t("chat_window.agent_invocation.clarifying_pagination", {
           current: index + 1,
           total,

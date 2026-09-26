@@ -153,12 +153,12 @@ export default function GiteaOptions() {
             <button
               type="submit"
               disabled={loading}
-              className="mt-2 w-full justify-center border-none px-4 py-2 rounded-lg text-dark-text light:text-white text-sm font-bold items-center flex gap-x-2 bg-theme-home-button-primary hover:bg-theme-home-button-primary-hover disabled:bg-theme-home-button-primary-hover disabled:cursor-not-allowed"
+              className="mt-2 w-full justify-center border-none px-4 py-2 rounded-lg text-ml-on-accent text-sm font-bold items-center flex gap-x-2 bg-theme-home-button-primary transition-[filter] duration-150 hover:brightness-105 disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {loading ? "Collecting files..." : "Submit"}
             </button>
             {loading && (
-              <p className="text-xs text-white/50">
+              <p className="text-xs text-ml-text-3">
                 {t("connectors.gitea.task_explained")}
               </p>
             )}

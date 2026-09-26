@@ -371,7 +371,7 @@ function FinalResponseSection({ t, result }) {
       copyableContent={msgToRender}
     >
       {reasoning && (
-        <div className="text-sm text-zinc-50/50 light:text-slate-950/50 markdown border-l-2 border-zinc-700 light:border-slate-400 pl-2 mb-4">
+        <div className="text-sm text-ml-text-3 markdown border-l-2 border-zinc-700 light:border-slate-400 pl-2 mb-4">
           <span
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(renderMarkdown(reasoning)),
@@ -399,7 +399,7 @@ function MetricsSection({ t, metrics }) {
   function renderModel(metrics) {
     if (!metrics.model) return null;
     return (
-      <span className="font-mono text-xs font-normal text-zinc-50/50 light:text-slate-950/50">
+      <span className="font-mono text-xs font-normal text-ml-text-3">
         ({metrics.model})
       </span>
     );

@@ -88,7 +88,7 @@ export default function NewEmbedModal({ closeModal }) {
           hint="Allow setting of the system prompt to override the workspace default."
         />
 
-        {error && <p className="text-red-400 text-sm">Error: {error}</p>}
+        {error && <p className="text-ml-bad text-sm">Error: {error}</p>}
         <p className="text-xs text-zinc-400 light:text-slate-600">
           After creating an embed you will be provided a link that you can
           publish on your website with a simple
@@ -278,7 +278,7 @@ export const PermittedDomains = ({ defaultValue = [] }) => {
         classNames={{
           tag: "!bg-zinc-700 light:!bg-slate-200 !text-zinc-100 light:!text-slate-800",
           input:
-            "flex !bg-transparent text-zinc-100 light:text-slate-900 placeholder:text-zinc-400 light:placeholder:text-slate-400 text-sm outline-none",
+            "flex !bg-transparent text-zinc-100 light:text-slate-900 placeholder:text-zinc-400 light:placeholder:text-slate-500 text-sm outline-none",
         }}
       />
     </div>
@@ -295,7 +295,7 @@ export const NumberInput = ({ name, title, hint, defaultValue = 0 }) => {
       <input
         type="number"
         name={name}
-        className="border border-zinc-800 light:border-slate-300 bg-zinc-800 light:bg-white text-zinc-100 light:text-slate-900 placeholder:text-zinc-400 light:placeholder:text-slate-400 text-sm rounded-lg focus:border-sky-500 light:focus:border-sky-500 outline-none block w-[15rem] p-2.5"
+        className="border border-zinc-800 light:border-slate-300 bg-zinc-800 light:bg-white text-zinc-100 light:text-slate-900 placeholder:text-zinc-400 light:placeholder:text-slate-500 text-sm rounded-lg focus:border-sky-500 light:focus:border-sky-500 outline-none block w-[15rem] p-2.5"
         min={0}
         defaultValue={defaultValue}
         onScroll={(e) => e.target.blur()}

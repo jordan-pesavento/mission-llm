@@ -14,7 +14,7 @@ export default function WebsiteNode({
           placeholder="https://example.com"
           value={config.url}
           onChange={(e) => onConfigChange({ url: e.target.value })}
-          className="w-full p-2.5 text-sm rounded-lg bg-theme-bg-primary border border-white/5 text-white placeholder:text-white/20 focus:border-primary-button focus:ring-1 focus:ring-primary-button outline-none"
+          className="w-full p-2.5 text-sm rounded-lg bg-theme-bg-primary border border-white/5 text-white placeholder:text-theme-settings-input-placeholder focus:border-primary-button focus:ring-1 focus:ring-primary-button outline-none"
           autoComplete="off"
           spellCheck={false}
         />
@@ -48,7 +48,7 @@ export default function WebsiteNode({
           placeholder="#element-id or .class-name"
           value={config.selector}
           onChange={(e) => onConfigChange({ selector: e.target.value })}
-          className="w-full p-2.5 text-sm rounded-lg bg-theme-bg-primary border border-white/5 text-white placeholder:text-white/20 focus:border-primary-button focus:ring-1 focus:ring-primary-button outline-none"
+          className="w-full p-2.5 text-sm rounded-lg bg-theme-bg-primary border border-white/5 text-white placeholder:text-theme-settings-input-placeholder focus:border-primary-button focus:ring-1 focus:ring-primary-button outline-none"
           autoComplete="off"
           spellCheck={false}
         />

@@ -45,7 +45,7 @@ export default function CronBuilder({ value, onChange }) {
   return (
     <div className="flex gap-3 p-3 bg-theme-settings-input-bg/40 rounded-lg">
       {wasFallback && (
-        <p className="text-xs text-yellow-400">
+        <p className="text-xs text-ml-warn light:text-amber-800">
           {t("scheduledJobs.builder.fallbackWarning")}
         </p>
       )}

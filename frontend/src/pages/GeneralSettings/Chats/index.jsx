@@ -132,7 +132,7 @@ export default function WorkspaceChats() {
                   <button
                     ref={openMenuButton}
                     onClick={toggleMenu}
-                    className="flex items-center gap-x-2 px-4 py-1 rounded-lg bg-primary-button hover:light:bg-theme-bg-primary hover:text-theme-text-primary text-xs font-semibold hover:bg-secondary shadow-[0_4px_14px_rgba(0,0,0,0.25)] h-[34px] w-fit"
+                    className="flex items-center gap-x-2 px-3 rounded-[9px] border border-transparent bg-ml-accent-fill text-ml-on-accent text-[14px] font-semibold transition-[filter] duration-150 hover:brightness-105 h-[34px] w-fit"
                   >
                     <Download size={18} weight="bold" />
                     {t("recorded.export")}
@@ -142,9 +142,9 @@ export default function WorkspaceChats() {
                     ref={menuRef}
                     className={`${
                       showMenu ? "slide-down" : "slide-up hidden"
-                    } z-20 w-fit rounded-lg absolute top-full right-0 bg-secondary light:bg-theme-bg-secondary mt-2 shadow-md`}
+                    } z-20 w-fit p-1.5 rounded-[12px] absolute top-full right-0 bg-ml-raised border border-ml-line-2 shadow-ml-pop mt-2`}
                   >
-                    <div className="py-2">
+                    <div className="flex flex-col gap-0.5">
                       {Object.entries(exportOptions).map(([key, data]) => (
                         <button
                           key={key}
@@ -152,7 +152,7 @@ export default function WorkspaceChats() {
                             handleDumpChats(key);
                             setShowMenu(false);
                           }}
-                          className="w-full text-left px-4 py-2 text-white text-sm hover:bg-[#3D4147] light:hover:bg-theme-sidebar-item-hover"
+                          className="w-full text-left px-3 py-2 rounded-[9px] text-ml-text-2 text-[14px] hover:bg-ml-raised-2 hover:text-ml-text"
                         >
                           {data.name}
                         </button>
@@ -163,7 +163,7 @@ export default function WorkspaceChats() {
                 {chats.length > 0 && (
                   <button
                     onClick={handleClearAllChats}
-                    className="flex items-center gap-x-2 px-4 py-1 border hover:border-transparent light:border-theme-sidebar-border border-white/40 text-white/40 light:text-theme-text-secondary rounded-lg bg-transparent hover:light:text-theme-bg-primary hover:text-theme-text-primary text-xs font-semibold hover:bg-red-500 shadow-[0_4px_14px_rgba(0,0,0,0.25)] h-[34px] w-fit"
+                    className="flex items-center gap-x-2 px-3 rounded-[9px] border border-ml-line-2 bg-transparent text-ml-text-2 text-[14px] font-semibold transition-colors duration-150 hover:border-ml-bad hover:bg-ml-bad-soft hover:text-ml-text h-[34px] w-fit"
                   >
                     <Trash size={18} weight="bold" />
                     Clear Chats

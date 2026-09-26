@@ -38,7 +38,7 @@ export default function ResetDatabase({ workspace }) {
       disabled={deleting}
       onClick={resetVectorDatabase}
       type="button"
-      className="w-60 transition-all duration-300 border border-transparent rounded-lg whitespace-nowrap text-sm px-5 py-2.5 focus:z-10 bg-red-500/25 text-red-200 light:text-red-500 hover:light:text-[#FFFFFF] hover:text-[#FFFFFF] hover:bg-red-600 disabled:bg-red-600 disabled:text-red-200 disabled:animate-pulse"
+      className="w-60 h-[42px] transition-colors duration-150 border border-ml-bad/50 rounded-[12px] whitespace-nowrap text-[15px] font-semibold px-5 focus:z-10 bg-ml-bad-soft text-ml-text enabled:hover:bg-ml-bad enabled:hover:text-ml-ground enabled:hover:border-transparent disabled:animate-pulse disabled:opacity-60"
     >
       {deleting
         ? t("vector-workspace.reset.resetting")

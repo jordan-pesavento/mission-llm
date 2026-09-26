@@ -181,9 +181,7 @@ function SkillRow({ skill, disabled, onToggle }) {
           <span className="text-sm font-medium text-slate-100 light:text-slate-900">
             {skill.title}
           </span>
-          <span className="text-xs text-slate-100/50 light:text-slate-900/50">
-            {skill.description}
-          </span>
+          <span className="text-xs text-ml-text-3">{skill.description}</span>
         </div>
       </div>
       <SimpleToggleSwitch enabled={!disabled} onChange={onToggle} size="md" />

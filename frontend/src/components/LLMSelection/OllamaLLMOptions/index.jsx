@@ -88,7 +88,7 @@ export default function OllamaLLMOptions({ settings }) {
                     {!basePathValue.value && (
                       <button
                         onClick={handleAutoDetectClick}
-                        className="bg-primary-button text-xs font-medium px-2 py-1 rounded-lg hover:bg-secondary hover:text-white shadow-[0_4px_14px_rgba(0,0,0,0.25)]"
+                        className="bg-ml-accent-fill text-ml-on-accent text-xs font-semibold px-2 py-1 rounded-lg transition-[filter] duration-150 hover:brightness-105 shadow-[0_4px_14px_rgba(0,0,0,0.25)]"
                       >
                         Auto-Detect
                       </button>
@@ -137,7 +137,7 @@ export default function OllamaLLMOptions({ settings }) {
                     Choose how long Ollama should keep your model in memory
                     before unloading.{" "}
                     <Link
-                      className="underline text-blue-300"
+                      className="underline text-ml-accent-text"
                       to="https://docs.ollama.com/faq#how-do-i-keep-a-model-loaded-in-memory-or-make-it-unload-immediately"
                       target="_blank"
                       rel="noreferrer"

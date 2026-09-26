@@ -262,7 +262,7 @@ function FeatureVerification({ children }) {
                     href="https://docs.anythingllm.com/beta-preview/overview"
                     target="_blank"
                     rel="noreferrer"
-                    className="underline text-blue-500"
+                    className="underline text-ml-accent-text"
                   >
                     the beta features documentation
                   </a>{" "}
@@ -271,7 +271,7 @@ function FeatureVerification({ children }) {
                     href={paths.issues()}
                     target="_blank"
                     rel="noreferrer"
-                    className="underline text-blue-500"
+                    className="underline text-ml-accent-text"
                   >
                     Mission LLM issue tracker
                   </a>

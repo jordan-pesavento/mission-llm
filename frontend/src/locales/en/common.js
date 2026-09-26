@@ -82,7 +82,7 @@ const TRANSLATIONS = {
     "workspace-chats": "Workspace Chats",
     customization: "Customization",
     interface: "UI Preferences",
-    branding: "Branding & Whitelabeling",
+    branding: "Branding",
     chat: "Chat",
     "api-keys": "Developer API",
     llm: "LLM",
@@ -792,9 +792,240 @@ const TRANSLATIONS = {
       description: "Set your UI preferences for Mission LLM.",
     },
     branding: {
-      title: "Branding & Whitelabeling",
+      title: "Branding",
       description:
-        "White-label your Mission LLM instance with custom branding.",
+        "Name, logos, colors, and the sign-in experience for this instance.",
+      loading: "Loading branding settings",
+      "load-failed": "Branding settings could not be loaded.",
+      retry: "Try again",
+      uploading: "Uploading",
+      actions: {
+        save: "Save changes",
+        saving: "Saving",
+        reset: "Reset to defaults",
+        "admin-only": "Only an admin can reset branding.",
+      },
+      tabs: {
+        identity: "Identity",
+        colors: "Colors",
+        "sign-in": "Sign-in page",
+        banner: "System banner",
+        advanced: "Advanced",
+      },
+      swatches: {
+        "mission-blue": "Mission blue",
+        "stellar-teal": "Stellar teal",
+        "ops-green": "Ops green",
+        "signal-amber": "Signal amber",
+        crimson: "Crimson",
+        "delta-silver": "Delta silver",
+      },
+      identity: {
+        name: {
+          title: "Product name",
+          description:
+            "Shown in the sidebar, on the sign-in page, and in the browser tab.",
+          name: "Name",
+          tagline: "Tagline",
+        },
+        logo: {
+          title: "Logo",
+          description:
+            "One version for the dark theme and one for the light theme. SVG, PNG, JPEG, or WebP. If you upload only one, it is used for both.",
+          dark: "Dark theme",
+          light: "Light theme",
+          replace: "Replace",
+          remove: "Remove {{label}} logo",
+          "using-dark": "Using your dark theme logo",
+          "using-light": "Using your light theme logo",
+        },
+        icon: {
+          title: "App icon and favicon",
+          description:
+            "Upload one square image. The browser tab icon, home-screen icon, and install icons are generated from it.",
+          replace: "Replace icon",
+          remove: "Remove app icon",
+          size: "{{size}} px",
+        },
+        accent: {
+          title: "Accent color",
+          description:
+            "Drives buttons, highlights, links, and citations. Button text switches between light and dark automatically so it stays readable.",
+          hex: "Custom hex color",
+        },
+      },
+      colors: {
+        theme: {
+          title: "Default theme",
+          description:
+            "For people who have not chosen a theme. A person's own choice under UI Preferences always wins.",
+          system: "Match device",
+          dark: "Dark",
+          light: "Light",
+        },
+        "light-accent": {
+          title: "Light theme accent",
+          description:
+            "Automatic uses a darker shade of the accent color so text and links stay readable on light backgrounds.",
+          auto: "Automatic",
+          custom: "Custom",
+          hex: "Light theme accent hex color",
+        },
+        readability: {
+          title: "Readability",
+          description:
+            "The accent each theme uses, the button text color, and its contrast.",
+          dark: "Dark theme",
+          light: "Light theme",
+          "light-text": "Light text",
+          "dark-text": "Dark text",
+          readable: "Readable",
+          adjusted: "Adjusted for readability",
+          "low-contrast": "Low contrast",
+        },
+      },
+      "sign-in": {
+        notice: {
+          title: "Sign-in notice",
+          description:
+            "A notice in the brand panel of the sign-in page, such as an authorized use statement. Line breaks are kept.",
+          toggle: "Show a notice on the sign-in page",
+          heading: "Heading",
+          text: "Text",
+        },
+        ack: {
+          title: "Require acknowledgment",
+          description:
+            'Adds the checkbox "I have read and agree to the notice" to the sign-in form. Sign in stays disabled until it is ticked.',
+          toggle: "Require people to accept the notice",
+          "needs-notice": "Turn on the sign-in notice first.",
+        },
+      },
+      banner: {
+        main: {
+          title: "Banner",
+          description:
+            "A classification or status banner on every screen, including sign-in. It takes its own space and never covers content.",
+          toggle: "Show a system banner",
+          text: "Text",
+        },
+        color: {
+          title: "Color",
+          description:
+            "Pick a standard marking or enter your own color. A marking also fills in its banner text unless you wrote your own. The text color is chosen automatically for contrast.",
+          hex: "Custom banner color",
+        },
+        position: {
+          title: "Position",
+          description:
+            "Show the banner at the top only, or at the top and bottom.",
+          both: "Top and bottom",
+          top: "Top only",
+        },
+        presets: {
+          unclassified: "Unclassified",
+          cui: "CUI",
+          confidential: "Confidential",
+          secret: "Secret",
+          "top-secret": "Top Secret",
+          "ts-sci": "TS/SCI",
+        },
+      },
+      advanced: {
+        title: {
+          title: "Browser tab title",
+          description: "Leave it empty to use the default title.",
+          label: "Title",
+        },
+        favicon: {
+          title: "Favicon from a URL",
+          description:
+            "Optional. An http or https image address that replaces the uploaded app icon in the browser tab.",
+          label: "Image address",
+        },
+        support: {
+          title: "Support email",
+          description: "The address people can use when they need help.",
+          label: "Email",
+        },
+        footer: {
+          title: "Sidebar footer links",
+          description:
+            "Up to three icon links at the bottom of the sidebar. Use https://, http://, or mailto: addresses.",
+          icon: "Icon",
+          link: "Link",
+          "choose-icon": "Choose icon",
+          "link-n": "Link {{n}}",
+          "clear-n": "Clear link {{n}}",
+        },
+      },
+      preview: {
+        title: "Live preview",
+        dark: "dark theme",
+        light: "light theme",
+        button: "Sign-in button",
+        "sign-in": "Sign in",
+        ack: "I have read and agree to the notice",
+      },
+      reset: {
+        title: "Reset branding to defaults?",
+        body: "This restores the name, tagline, logos, app icon, colors, sign-in notice, system banner, and browser tab settings. Uploaded files are moved to a backup folder on the server.",
+        "include-links": "Also reset support email and sidebar footer links",
+        cancel: "Cancel",
+        confirm: "Reset to defaults",
+        working: "Resetting",
+      },
+      leave: {
+        title: "Leave without saving?",
+        body: "Your branding changes have not been saved. If you leave now, they are discarded.",
+        stay: "Stay on this page",
+        discard: "Discard changes",
+      },
+      toast: {
+        saved: "Branding saved.",
+        "fix-fields": "Some fields need attention. Nothing was saved.",
+        "save-failed": "Branding could not be saved ({{error}}).",
+        "logo-updated": "Logo updated.",
+        "logo-removed": "Logo removed.",
+        "icon-updated": "App icon updated.",
+        "icon-removed": "App icon removed.",
+        "remove-failed": "That image could not be removed ({{error}}).",
+        reset: "Branding reset to defaults.",
+        "reset-failed": "Branding could not be reset ({{error}}).",
+      },
+      errors: {
+        "too-long": "Use {{max}} characters or fewer.",
+        "too-many": "Use at most three links.",
+        "invalid-chars":
+          "Remove the < and > characters and any control characters.",
+        "invalid-hex": "Enter a hex color such as #4F86FF.",
+        "invalid-url":
+          "Enter a full address that starts with http:// or https://.",
+        "invalid-link":
+          "Enter an address that starts with https://, http://, or mailto:.",
+        "invalid-email": "Enter an email address such as support@example.com.",
+        "missing-url": "Add a link for this icon.",
+        "missing-icon": "Choose an icon for this link.",
+        "footer-rows": "Check the footer links.",
+        "missing-file": "Choose a file to upload.",
+        "unsupported-type": "Use an SVG, PNG, JPEG, or WebP image.",
+        "too-large": "The file is too large. The limit is 2 MB.",
+        "too-large-dimensions":
+          "The image is too large. Keep it within 4096 pixels.",
+        "logo-too-small":
+          "The logo is too small. Use at least 64 pixels wide and 16 pixels tall.",
+        "icon-too-small":
+          "The icon is too small. Use at least 192 by 192 pixels.",
+        "bad-aspect":
+          "Use a logo that is wider than it is tall, up to 12 times as wide.",
+        "not-square": "The icon must be square.",
+        "icon-too-detailed":
+          "This image is too detailed for the browser icon sizes, which must stay under 256 KB each. Use a simpler image, such as a logo mark on a plain or transparent background.",
+        "invalid-svg":
+          "This SVG could not be used. It needs a viewBox or a width and height.",
+        "upload-failed": "The upload failed. Try again.",
+        invalid: "This value is not valid.",
+      },
     },
     chat: {
       title: "Chat",
@@ -827,49 +1058,10 @@ const TRANSLATIONS = {
         description:
           "Disable automatic scrolling to the bottom of the chat when new messages are received.",
       },
-      "support-email": {
-        title: "Support Email",
-        description:
-          "Set the support email address that should be accessible by users when they need help.",
-      },
-      "app-name": {
-        title: "Name",
-        description:
-          "Set a name that is displayed on the login page to all users.",
-      },
       "display-language": {
         title: "Display Language",
         description:
           "Select the preferred language to render Mission LLM's UI in - when translations are available.",
-      },
-      logo: {
-        title: "Brand Logo",
-        description: "Upload your custom logo to showcase on all pages.",
-        add: "Add a custom logo",
-        recommended: "Recommended size: 800 x 200",
-        remove: "Remove",
-        replace: "Replace",
-      },
-      "browser-appearance": {
-        title: "Browser Appearance",
-        description:
-          "Customize the appearance of the browser tab and title when the app is open.",
-        tab: {
-          title: "Title",
-          description:
-            "Set a custom tab title when the app is open in a browser.",
-        },
-        favicon: {
-          title: "Favicon",
-          description: "Use a custom favicon for the browser tab.",
-        },
-      },
-      "sidebar-footer": {
-        title: "Sidebar Footer Items",
-        description:
-          "Customize the footer items displayed on the bottom of the sidebar.",
-        icon: "Icon",
-        link: "Link",
       },
       "render-html": {
         title: "Render HTML in chat",

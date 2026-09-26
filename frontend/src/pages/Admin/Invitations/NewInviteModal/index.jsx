@@ -78,14 +78,14 @@ export default function NewInviteModal({ closeModal, onSuccess }) {
     <form onSubmit={handleCreate} className="flex flex-col gap-y-5">
       <ModalHeader title="Create new invite" onClose={closeModal} />
       <ModalBody>
-        {error && <p className="text-red-400 text-sm">Error: {error}</p>}
+        {error && <p className="text-ml-bad text-sm">Error: {error}</p>}
         {invite && (
           <div className="relative">
             <input
               type="url"
               defaultValue={`${window.location.origin}/accept-invite/${invite.code}`}
               disabled={true}
-              className="w-full h-[34px] px-3.5 pr-10 text-sm rounded-lg outline-none bg-zinc-800 border border-zinc-800 text-zinc-100 placeholder:text-zinc-400 light:bg-white light:border-slate-300 light:text-slate-900 light:placeholder:text-slate-400 focus:border-sky-500 light:focus:border-sky-500"
+              className="w-full h-[34px] px-3.5 pr-10 text-sm rounded-lg outline-none bg-zinc-800 border border-zinc-800 text-zinc-100 placeholder:text-zinc-400 light:bg-white light:border-slate-300 light:text-slate-900 light:placeholder:text-slate-500 focus:border-sky-500 light:focus:border-sky-500"
             />
             <button
               type="button"

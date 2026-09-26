@@ -161,7 +161,7 @@ function EditActionBar({ onCancel, onSave, isUserMessage = false }) {
         )}
         <button
           type="submit"
-          className={`${btn} border border-transparent bg-ml-accent-fill text-ml-on-accent shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] hover:brightness-110`}
+          className={`${btn} border border-transparent bg-ml-accent-fill text-ml-on-accent shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] hover:brightness-105`}
         >
           {isUserMessage ? t("chat_window.submit") : t("chat_window.save")}
         </button>

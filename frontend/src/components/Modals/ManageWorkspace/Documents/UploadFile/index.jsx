@@ -147,7 +147,7 @@ export default function UploadFile({
         <button
           disabled={fetchingUrl}
           type="submit"
-          className="disabled:bg-white/20 disabled:text-slate-300 disabled:border-slate-400 disabled:cursor-wait bg bg-transparent hover:bg-slate-200 hover:text-slate-800 w-auto border border-white light:border-theme-modal-border text-sm text-white p-2.5 rounded-lg"
+          className="w-auto border border-ml-line-2 bg-ml-raised text-ml-text text-sm font-semibold p-2.5 rounded-lg transition-colors duration-150 hover:border-ml-accent-line disabled:opacity-60 disabled:cursor-wait"
         >
           {fetchingUrl
             ? t("connectors.upload.fetching")

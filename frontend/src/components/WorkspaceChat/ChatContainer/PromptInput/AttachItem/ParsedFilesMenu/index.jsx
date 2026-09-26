@@ -146,7 +146,7 @@ export default function ParsedFilesMenu({
           <button
             onClick={handleEmbed}
             disabled={isEmbedding}
-            className="border-none disabled:opacity-50 flex items-center justify-center gap-2 px-3 py-2 text-[13px] bg-primary-button hover:bg-theme-button-primary-hover text-white font-medium rounded transition-colors shadow-sm"
+            className="border-none disabled:opacity-50 flex items-center justify-center gap-2 px-3 py-2 text-[13px] bg-ml-accent-fill text-ml-on-accent font-semibold rounded transition-[filter] duration-150 hover:brightness-105 shadow-sm"
           >
             {isEmbedding ? (
               <>

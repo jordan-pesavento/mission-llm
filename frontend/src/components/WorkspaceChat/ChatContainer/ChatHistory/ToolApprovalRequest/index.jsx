@@ -175,7 +175,7 @@ function ToolApprovalResponseOption({
         <button
           type="button"
           onClick={onApprove}
-          className="h-10 px-4 rounded-[11px] border-none bg-ml-accent-fill text-ml-on-accent font-semibold text-[14.5px] shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] hover:brightness-110 transition-[filter]"
+          className="h-10 px-4 rounded-[11px] border-none bg-ml-accent-fill text-ml-on-accent font-semibold text-[14.5px] shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] hover:brightness-105 transition-[filter]"
         >
           {t("chat_window.agent_invocation.approve")}
         </button>

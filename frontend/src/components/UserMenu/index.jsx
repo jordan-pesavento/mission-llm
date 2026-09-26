@@ -1,29 +1,18 @@
-import { useEffect, useState } from "react";
-import UserButton, { useRailUserMounted } from "./UserButton";
+import UserButton, { useInlineUserMounted } from "./UserButton";
 
-export { RailUser } from "./UserButton";
+export { TopBarUser } from "./UserButton";
 
 /**
- * Wraps every signed-in page. The user menu itself lives in the rail foot
- * (RailUser); the floating button only appears on pages that have no rail.
- * The short delay keeps it from flashing while a page with a rail loads.
+ * Wraps every signed-in page. The avatar lives in the top-right corner: the
+ * chat top bar renders it in flow (TopBarUser); every other page gets the
+ * floating UserButton at the same spot.
  */
 export default function UserMenu({ children }) {
-  const railUserMounted = useRailUserMounted();
-  const [showFallback, setShowFallback] = useState(false);
-
-  useEffect(() => {
-    if (railUserMounted) {
-      setShowFallback(false);
-      return;
-    }
-    const timer = setTimeout(() => setShowFallback(true), 800);
-    return () => clearTimeout(timer);
-  }, [railUserMounted]);
+  const inlineUserMounted = useInlineUserMounted();
 
   return (
     <div className="w-auto h-auto">
-      {showFallback && !railUserMounted && <UserButton />}
+      {!inlineUserMounted && <UserButton />}
       {children}
     </div>
   );

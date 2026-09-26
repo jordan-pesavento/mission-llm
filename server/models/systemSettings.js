@@ -3,7 +3,7 @@ process.env.NODE_ENV === "development"
   : require("dotenv").config();
 
 const { default: slugify } = require("slugify");
-const { isValidUrl, safeJsonParse } = require("../utils/http");
+const { safeJsonParse } = require("../utils/http");
 const prisma = require("../utils/prisma");
 const { MetaGenerator } = require("../utils/boot/MetaGenerator");
 const { PGVector } = require("../utils/vectorDbProviders/pgvector");
@@ -106,10 +106,26 @@ const SystemSettings = {
     "memory_auto_extraction",
   ],
   validations: {
+    // Legacy single-logo file name (logos are managed under Branding now). An
+    // empty value clears it; only a plain image file name directly in the
+    // assets folder is kept, and a path, a folder or anything else reads as
+    // the shipped default.
+    logo_filename: (update) => {
+      if (update === null || update === undefined || update === "") return null;
+      const { LOGO_FILENAME } = require("../utils/files/logo");
+      const name = typeof update === "string" ? update.trim() : "";
+      return /^[A-Za-z0-9_-][A-Za-z0-9_.-]*\.(png|jpe?g|webp|svg|gif)$/i.test(
+        name
+      )
+        ? name
+        : LOGO_FILENAME;
+    },
     footer_data: (updates) => {
       try {
+        // Footer links may be web pages or mailto: addresses.
+        const { isValidFooterUrl } = require("../utils/branding/validate");
         const array = JSON.parse(updates)
-          .filter((setting) => isValidUrl(setting.url))
+          .filter((setting) => isValidFooterUrl(setting?.url))
           .slice(0, 3); // max of 3 items in footer.
         return JSON.stringify(array);
       } catch {
@@ -742,6 +758,10 @@ const SystemSettings = {
       }
 
       await Promise.all(updatePromises);
+      // The public brand is cached; drop it when a branding label changed.
+      require("../utils/branding/cache").invalidateForLabels(
+        Object.keys(updates)
+      );
       return { success: true, error: null };
     } catch (error) {
       console.error("FAILED TO UPDATE SYSTEM SETTINGS", error.message);

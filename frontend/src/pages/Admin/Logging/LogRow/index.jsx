@@ -45,14 +45,14 @@ export default function LogRow({ log }) {
                 className={`px-2 gap-x-1 flex items-center justify-center transform transition-transform duration-200`}
               >
                 <CaretUp weight="bold" size={20} />
-                <p className="text-xs text-white/50 min-w-[34px]">hide</p>
+                <p className="text-xs text-ml-text-3 min-w-[34px]">hide</p>
               </td>
             ) : (
               <td
                 className={`px-2 gap-x-1 flex items-center justify-center transform transition-transform duration-200`}
               >
                 <CaretDown weight="bold" size={20} />
-                <p className="text-xs text-white/50 min-w-[34px]">show</p>
+                <p className="text-xs text-ml-text-3 min-w-[34px]">show</p>
               </td>
             )}
           </div>

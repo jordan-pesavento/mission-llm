@@ -130,7 +130,7 @@ export default function HeaderMenu({
             </button>
             <button
               onClick={onSaveFlow}
-              className="border-none bg-primary-button hover:opacity-80 text-black light:text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2"
+              className="border-none bg-ml-accent-fill text-ml-on-accent hover:brightness-105 px-3 py-2 rounded-lg text-sm font-semibold transition-[filter] duration-150 flex items-center justify-center gap-2"
             >
               Save
             </button>

@@ -102,27 +102,32 @@ const ManageWorkspace = ({ hideModal = noop, providedSlug = null }) => {
 
 export default memo(ManageWorkspace);
 
+// Segmented Documents / Data Connectors switch, matching SettingsSegmented.
+const TAB_BTN =
+  "h-[38px] px-4 rounded-[9px] border-none text-[15px] font-semibold whitespace-nowrap cursor-pointer transition-colors duration-150";
+const TAB_BTN_ON =
+  "bg-ml-raised-2 text-ml-text shadow-[inset_0_1px_0_var(--ml-inset-hi),0_1px_3px_rgba(0,0,0,0.25)]";
+const TAB_BTN_OFF = "bg-transparent text-ml-text-2 hover:text-ml-text";
+
 const ModalTabSwitcher = ({ selectedTab, setSelectedTab }) => {
   const { t } = useTranslation();
   return (
     <div className="w-full flex justify-center z-10 relative">
-      <div className="gap-x-2 flex justify-center -mt-[68px] mb-10 bg-zinc-900 light:bg-white p-1 rounded-xl shadow border-2 border-zinc-800 light:border-slate-300 w-fit">
+      <div className="gap-x-[3px] flex justify-center -mt-[68px] mb-10 p-[3px] rounded-[12px] border border-ml-line-2 bg-ml-panel shadow-ml w-fit">
         <button
           onClick={() => setSelectedTab("documents")}
-          className={`border-none px-4 py-2 rounded-[8px] font-semibold hover:bg-zinc-800 light:hover:bg-sky-100 ${
-            selectedTab === "documents"
-              ? "bg-zinc-800 font-bold text-white light:bg-sky-100 light:text-sky-700"
-              : "text-white/20 font-medium hover:text-white light:bg-white light:text-slate-500"
+          aria-pressed={selectedTab === "documents"}
+          className={`${TAB_BTN} ${
+            selectedTab === "documents" ? TAB_BTN_ON : TAB_BTN_OFF
           }`}
         >
           {t("connectors.manage.documents")}
         </button>
         <button
           onClick={() => setSelectedTab("dataConnectors")}
-          className={`border-none px-4 py-2 rounded-[8px] font-semibold hover:bg-zinc-800 light:hover:bg-sky-100 ${
-            selectedTab === "dataConnectors"
-              ? "bg-zinc-800 font-bold text-white light:bg-sky-100 light:text-sky-700"
-              : "text-white/20 font-medium hover:text-white light:bg-white light:text-slate-500"
+          aria-pressed={selectedTab === "dataConnectors"}
+          className={`${TAB_BTN} ${
+            selectedTab === "dataConnectors" ? TAB_BTN_ON : TAB_BTN_OFF
           }`}
         >
           {t("connectors.manage.data-connectors")}

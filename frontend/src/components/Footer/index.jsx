@@ -1,4 +1,5 @@
 import System from "@/models/system";
+import useBranding from "@/hooks/useBranding";
 import paths from "@/utils/paths";
 import {
   BookOpen,
@@ -27,37 +28,44 @@ export const ICON_COMPONENTS = {
   Info: Info,
 };
 
-// Quiet 30px icon button, the same size as the rail's small "+" button.
+// Quiet icon button, the same size as the settings gear and back button
+// that share the rail foot row with it.
 export const RAIL_ICON_LINK =
-  "w-[30px] h-[30px] shrink-0 grid place-items-center rounded-[8px] border border-transparent text-ml-text-3 hover:text-ml-text hover:bg-ml-raised hover:border-ml-line transition-colors duration-150";
+  "w-ctl h-ctl shrink-0 grid place-items-center rounded-[10px] border border-transparent text-ml-text-2 hover:text-ml-text hover:bg-ml-raised hover:border-ml-line transition-colors duration-150";
 
 /**
- * Quiet row that closes the rail body, just above the foot hairline (pushed
- * down with mt-auto when the list is short, after the list when it scrolls).
+ * The rail foot: one row with the footer link icons on the left and the
+ * settings gear (in settings: the back button) at the right end.
  */
-export function RailLinks({ className = "" }) {
+export function RailFootRow({ children = null }) {
   return (
-    <div className={`mt-auto pt-3 flex items-center shrink-0 ${className}`}>
+    <div data-row="rail-foot" className="flex items-center gap-x-1 min-h-ctl">
       <Footer />
+      <div className="ml-auto flex items-center gap-x-1">{children}</div>
     </div>
   );
 }
 
 /**
  * The footer link icons (source code and docs by default, or the custom
- * footer icons an admin configured under Branding). They close the rail body
- * so they stay one click away without crowding the user row.
+ * footer icons an admin configured under Branding).
  */
 export default function Footer() {
   const [footerData, setFooterData] = useState(false);
+  // The saved brand version changes whenever Branding is saved (here, in
+  // another tab, or by another admin), so the links refetch right away.
+  const { savedBrand } = useBranding();
+  const brandVersion = savedBrand?.version || null;
 
   useEffect(() => {
-    async function fetchFooterData() {
-      const { footerData } = await System.fetchCustomFooterIcons();
-      setFooterData(footerData);
-    }
-    fetchFooterData();
-  }, []);
+    let active = true;
+    System.fetchCustomFooterIcons(brandVersion).then(({ footerData }) => {
+      if (active) setFooterData(footerData);
+    });
+    return () => {
+      active = false;
+    };
+  }, [brandVersion]);
 
   // wait for some kind of non-false response from footer data first
   // to prevent pop-in.
