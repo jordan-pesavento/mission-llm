@@ -90,22 +90,27 @@ export default function EmptyChatState({
             ))}
           </div>
         )}
+        {/* Suggested prompts as tiles that share the width, centered under
+            the actions: short prompts never stretch into long empty rows. */}
         {suggestions.length > 0 && (
-          <ul className="mt-8 w-full text-left rounded-[14px] border border-ml-line bg-ml-panel overflow-hidden">
+          <ul
+            data-row="empty-suggestions"
+            className="mt-8 w-full flex flex-wrap justify-center gap-3 text-left"
+          >
             {suggestions.map((text, index) => (
-              <li
-                key={index}
-                className="border-t border-ml-line first:border-t-0"
-              >
+              <li key={index} className="flex w-[300px] max-w-full">
                 <button
                   type="button"
                   onClick={() => sendCommand({ text, autoSubmit: true })}
-                  className="group w-full flex items-center gap-3 px-4 py-3 text-left text-[15.5px] leading-snug text-ml-text-2 cursor-pointer transition-colors duration-150 hover:bg-ml-raised hover:text-ml-text"
+                  className="group flex-1 min-h-[96px] flex flex-col justify-between gap-3 p-4 rounded-[14px] border border-ml-line-2 bg-ml-panel text-left text-[15.5px] leading-snug text-ml-text-2 cursor-pointer transition-colors duration-150 hover:border-ml-accent-line hover:bg-ml-raised hover:text-ml-text"
                 >
-                  <span className="flex-1 min-w-0">{text}</span>
+                  <span className="line-clamp-3 [text-wrap:pretty]">
+                    {text}
+                  </span>
                   <ArrowUpRight
                     size={16}
-                    className="shrink-0 text-ml-text-3 group-hover:text-ml-accent-text"
+                    aria-hidden="true"
+                    className="self-end shrink-0 text-ml-text-3 transition-colors duration-150 group-hover:text-ml-accent-text"
                   />
                 </button>
               </li>
