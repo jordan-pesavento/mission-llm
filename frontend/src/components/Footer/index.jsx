@@ -4,7 +4,6 @@ import {
   BookOpen,
   DiscordLogo,
   GithubLogo,
-  GitlabLogo,
   Briefcase,
   Envelope,
   Globe,
@@ -69,9 +68,9 @@ export default function Footer() {
       ? [
           {
             url: paths.sourceCode(),
-            Icon: GitlabLogo,
+            Icon: GithubLogo,
             label: "View Source Code",
-            ariaLabel: "View source code on GitLab",
+            ariaLabel: "View source code on GitHub",
           },
           {
             url: paths.docs(),

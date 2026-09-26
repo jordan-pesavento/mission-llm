@@ -149,7 +149,7 @@ The bones are solid. The vision is clear. The roadmap is ambitious.
 
 ## More Products
 
-- **[Mission LLM](https://gitlab.kuler.dev/kuler/products/mission-llm):** The all-in-one AI app you were looking for.
+- **[Mission LLM](https://github.com/jordan-pesavento/mission-llm):** The all-in-one AI app you were looking for.
 
 <div align="right">
 

@@ -8,12 +8,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.kuler.dev/kuler/products/mission-llm.git"
+    "url": "git+https://github.com/jordan-pesavento/mission-llm.git"
   },
   "bugs": {
-    "url": "https://gitlab.kuler.dev/kuler/products/mission-llm/-/issues"
+    "url": "https://github.com/jordan-pesavento/mission-llm/issues"
   },
-  "homepage": "https://gitlab.kuler.dev/kuler/products/mission-llm",
+  "homepage": "https://github.com/jordan-pesavento/mission-llm",
   "engines": {
     "node": ">=18"
   },

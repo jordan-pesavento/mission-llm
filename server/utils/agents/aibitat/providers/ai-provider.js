@@ -266,7 +266,7 @@ class Provider {
             baseURL: "https://openrouter.ai/api/v1",
             defaultHeaders: {
               "HTTP-Referer":
-                "https://gitlab.kuler.dev/kuler/products/mission-llm",
+                "https://github.com/jordan-pesavento/mission-llm",
               "X-Title": "Mission LLM",
             },
           },

@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.kuler.dev/kuler/products/mission-llm.git",
+    "url": "git+https://github.com/jordan-pesavento/mission-llm.git",
     "directory": "collector"
   },
   "private": false,

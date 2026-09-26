@@ -5,12 +5,12 @@ Mission LLM is Sigmatech's private, self-hosted AI platform, built on an open-so
 ## Reporting Issues
 
 If you encounter a bug or have a feature request, please open an issue on the
-[project issue tracker](https://gitlab.kuler.dev/kuler/products/mission-llm/-/issues).
+[project issue tracker](https://github.com/jordan-pesavento/mission-llm/issues).
 
 ## Picking an issue
 
 We track issues on the project issue tracker. If you are looking for something to
-work on, check the [open issues](https://gitlab.kuler.dev/kuler/products/mission-llm/-/issues). Issues that are well described and have the smallest scope are typically the best starting point.
+work on, check the [open issues](https://github.com/jordan-pesavento/mission-llm/issues). Issues that are well described and have the smallest scope are typically the best starting point.
 
 If there's an issue you are interested in working on, please leave a comment on the issue. This will help us avoid duplicate work. Additionally, if you have questions about the issue, please ask them in the issue comments. We are happy to provide guidance on how to approach the issue.
 
@@ -35,7 +35,7 @@ Before you start working on an issue, please read the following so that you don'
 Clone the repository:
 
 ```bash
-git clone https://gitlab.kuler.dev/kuler/products/mission-llm.git
+git clone https://github.com/jordan-pesavento/mission-llm.git
 cd mission-llm
 ```
 

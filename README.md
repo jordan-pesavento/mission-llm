@@ -2,8 +2,8 @@
 
 Mission LLM is Sigmatech's private, self-hosted AI platform. It gives teams one place to chat with their documents, run AI agents, and work with local or cloud language models, while the data stays on infrastructure you control.
 
-- Source: https://gitlab.kuler.dev/kuler/products/mission-llm
-- Issues: https://gitlab.kuler.dev/kuler/products/mission-llm/-/issues
+- Source: https://github.com/jordan-pesavento/mission-llm
+- Issues: https://github.com/jordan-pesavento/mission-llm/issues
 
 ## Capabilities
 
@@ -39,7 +39,7 @@ Mission LLM is Sigmatech's private, self-hosted AI platform. It gives teams one 
 ### 1. Clone
 
 ```bash
-git clone https://gitlab.kuler.dev/kuler/products/mission-llm.git
+git clone https://github.com/jordan-pesavento/mission-llm.git
 cd mission-llm
 ```
 

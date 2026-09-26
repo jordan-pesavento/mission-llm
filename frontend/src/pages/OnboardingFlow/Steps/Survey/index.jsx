@@ -1,7 +1,4 @@
-import {
-  COMPLETE_QUESTIONNAIRE,
-  ONBOARDING_SURVEY_URL,
-} from "@/utils/constants";
+import { COMPLETE_QUESTIONNAIRE } from "@/utils/constants";
 import paths from "@/utils/paths";
 import { CheckCircle } from "@phosphor-icons/react";
 import React, { useState, useEffect, useRef } from "react";
@@ -9,37 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Workspace from "@/models/workspace";
 
-async function sendQuestionnaire({ email, useCase, comment }) {
-  if (import.meta.env.DEV) {
-    console.log("sendQuestionnaire", { email, useCase, comment });
-    return;
-  }
-
-  const data = JSON.stringify({
-    email,
-    useCase,
-    comment,
-    sourceId: "0VRjqHh6Vukqi0x0Vd0n/m8JuT7k8nOz",
-  });
-
-  if (!navigator.sendBeacon) {
-    console.log("navigator.sendBeacon not supported, falling back to fetch");
-    return fetch(ONBOARDING_SURVEY_URL, {
-      method: "POST",
-      body: data,
-    })
-      .then(() => {
-        window.localStorage.setItem(COMPLETE_QUESTIONNAIRE, true);
-        console.log(`✅ Questionnaire responses sent.`);
-      })
-      .catch((error) => {
-        console.error(`sendQuestionnaire`, error.message);
-      });
-  }
-
-  navigator.sendBeacon(ONBOARDING_SURVEY_URL, data);
+/**
+ * Mission LLM never sends onboarding answers off the machine. Upstream posted the
+ * user's email, use case and comment to a third-party survey service; here the
+ * step only records locally that it was completed.
+ */
+async function sendQuestionnaire() {
   window.localStorage.setItem(COMPLETE_QUESTIONNAIRE, true);
-  console.log(`✅ Questionnaire responses sent.`);
 }
 
 export default function Survey({ setHeader, setForwardBtn, setBackBtn }) {

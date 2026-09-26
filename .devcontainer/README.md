@@ -70,4 +70,4 @@ Then, in the "Run and Debug" tab (Ctrl+shift+D), you can select on the menu:
 - Server debug. This will start the server in debug mode and attach the debugger. Works very well.
 - Frontend debug. This will start the frontend in debug mode and attach the debugger. I am still struggling with this one. I don't know if VSCode can handle the .jsx files seamlessly as the pure .js on the server. Maybe there is a need for a particular configuration for Vite or React. Anyway, it starts. Another two configurations launch Chrome and Edge, and I think we could add breakpoints on .jsx files somehow. The best scenario would be always to use the embedded browser. WIP.
 
-Please leave comments on the [Issues tab](https://gitlab.kuler.dev/kuler/products/mission-llm/-/issues).
+Please leave comments on the [Issues tab](https://github.com/jordan-pesavento/mission-llm/issues).

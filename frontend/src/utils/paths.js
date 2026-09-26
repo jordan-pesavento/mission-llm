@@ -55,13 +55,13 @@ export default {
     },
   },
   sourceCode: () => {
-    return "https://gitlab.kuler.dev/kuler/products/mission-llm";
+    return "https://github.com/jordan-pesavento/mission-llm";
   },
   issues: () => {
-    return "https://gitlab.kuler.dev/kuler/products/mission-llm/-/issues";
+    return "https://github.com/jordan-pesavento/mission-llm/issues";
   },
   releases: () => {
-    return "https://gitlab.kuler.dev/kuler/products/mission-llm/-/releases";
+    return "https://github.com/jordan-pesavento/mission-llm/releases";
   },
   docs: (path = "") => {
     return `https://docs.anythingllm.com${path}`;

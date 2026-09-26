@@ -19,7 +19,7 @@ class PPIOProvider extends InheritMultiple([Provider, UnTooled]) {
       baseURL: "https://api.ppinfra.com/v3/openai",
       apiKey: process.env.PPIO_API_KEY,
       defaultHeaders: {
-        "HTTP-Referer": "https://gitlab.kuler.dev/kuler/products/mission-llm",
+        "HTTP-Referer": "https://github.com/jordan-pesavento/mission-llm",
         "X-API-Source": "missionllm",
       },
     });

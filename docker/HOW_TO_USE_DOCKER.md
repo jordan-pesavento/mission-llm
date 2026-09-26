@@ -195,4 +195,4 @@ If you are getting errors like `llama:streaming - could not stream chat. Error: 
 
 ### Still not working?
 
-[Open an issue](https://gitlab.kuler.dev/kuler/products/mission-llm/-/issues)
+[Open an issue](https://github.com/jordan-pesavento/mission-llm/issues)

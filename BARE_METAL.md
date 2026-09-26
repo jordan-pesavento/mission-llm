@@ -19,7 +19,7 @@ Here you can find the scripts and known working process to run Mission LLM outsi
 ## Getting started
 
 1. Clone the repo into your server as the user who the application will run as.
-`git clone https://gitlab.kuler.dev/kuler/products/mission-llm.git`
+`git clone https://github.com/jordan-pesavento/mission-llm.git`
 
 2. `cd mission-llm` and run `yarn setup`. This will install all dependencies to run in production as well as debug the application.
 

@@ -112,7 +112,7 @@ securityContext: {}
 
 # Mission LLM configuration options, these are stored in a ConfigMap and passed
 # to the container as environment variables.
-# See docker/.env.example in the Mission LLM repository (https://gitlab.kuler.dev/kuler/products/mission-llm)
+# See docker/.env.example in the Mission LLM repository (https://github.com/jordan-pesavento/mission-llm)
 # for all available environment variables to use as configuration options
 #
 config:

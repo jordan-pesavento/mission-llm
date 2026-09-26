@@ -8,7 +8,7 @@ The supported versions are the current major version and its two most recent min
 
 ## Reporting a Vulnerability
 
-Report vulnerabilities privately to the Mission LLM maintainers through the project at https://gitlab.kuler.dev/kuler/products/mission-llm, for example as a confidential issue. Do not open a public issue for a suspected vulnerability.
+Report vulnerabilities privately to the Mission LLM maintainers through the project at https://github.com/jordan-pesavento/mission-llm, for example as a confidential issue. Do not open a public issue for a suspected vulnerability.
 
 For low-severity issues with an obvious fix, you are also welcome to simply open a merge request.
 

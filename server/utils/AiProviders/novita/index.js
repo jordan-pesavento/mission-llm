@@ -31,7 +31,7 @@ class NovitaLLM {
       baseURL: this.basePath,
       apiKey: process.env.NOVITA_LLM_API_KEY ?? null,
       defaultHeaders: {
-        "HTTP-Referer": "https://gitlab.kuler.dev/kuler/products/mission-llm",
+        "HTTP-Referer": "https://github.com/jordan-pesavento/mission-llm",
         "X-Novita-Source": "missionllm",
       },
     });

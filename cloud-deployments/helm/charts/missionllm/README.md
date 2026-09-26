@@ -2,7 +2,7 @@
 
 ![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.85.0](https://img.shields.io/badge/AppVersion-1.85.0-informational?style=flat-square)
 
-[Mission LLM](https://gitlab.kuler.dev/kuler/products/mission-llm)
+[Mission LLM](https://github.com/jordan-pesavento/mission-llm)
 
 Mission LLM by Sigmatech, the all-in-one AI application with built-in RAG, AI agents, No-code agent builder, MCP compatibility, and more.
 

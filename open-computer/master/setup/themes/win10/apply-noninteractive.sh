@@ -550,7 +550,7 @@ cat > "$HOME_DIR/.config/chromium/Default/Bookmarks" << 'BOOKMARKS'
             {
                "name": "Mission LLM",
                "type": "url",
-               "url": "https://gitlab.kuler.dev/kuler/products/mission-llm"
+               "url": "https://github.com/jordan-pesavento/mission-llm"
             },
             {
                "name": "Agent Computer Docs",
@@ -594,14 +594,14 @@ CREATE INDEX IF NOT EXISTS favicons_url ON favicons(url);
 CREATE INDEX IF NOT EXISTS icon_mapping_page_url_idx ON icon_mapping(page_url);
 SQL
 
-sqlite3 "$FAVICON_DB" "INSERT OR REPLACE INTO favicons(id,url,icon_type) VALUES(1,'https://gitlab.kuler.dev/kuler/products/mission-llm',1);"
+sqlite3 "$FAVICON_DB" "INSERT OR REPLACE INTO favicons(id,url,icon_type) VALUES(1,'https://github.com/jordan-pesavento/mission-llm',1);"
 sqlite3 "$FAVICON_DB" "INSERT OR REPLACE INTO favicons(id,url,icon_type) VALUES(3,'https://docs.anythingllm.com/',1);"
 
 sqlite3 "$FAVICON_DB" "INSERT OR REPLACE INTO favicon_bitmaps(id,icon_id,last_updated,image_data,width,height) VALUES(1,1,$(date +%s),readfile('$FAV_DIR/missionllm.png'),16,16);"
 sqlite3 "$FAVICON_DB" "INSERT OR REPLACE INTO favicon_bitmaps(id,icon_id,last_updated,image_data,width,height) VALUES(3,3,$(date +%s),readfile('$FAV_DIR/missionllm.png'),16,16);"
 
-sqlite3 "$FAVICON_DB" "INSERT OR REPLACE INTO icon_mapping(id,page_url,icon_id) VALUES(1,'https://gitlab.kuler.dev/kuler/products/mission-llm',1);"
-sqlite3 "$FAVICON_DB" "INSERT OR REPLACE INTO icon_mapping(id,page_url,icon_id) VALUES(2,'https://gitlab.kuler.dev/kuler/products/mission-llm/',1);"
+sqlite3 "$FAVICON_DB" "INSERT OR REPLACE INTO icon_mapping(id,page_url,icon_id) VALUES(1,'https://github.com/jordan-pesavento/mission-llm',1);"
+sqlite3 "$FAVICON_DB" "INSERT OR REPLACE INTO icon_mapping(id,page_url,icon_id) VALUES(2,'https://github.com/jordan-pesavento/mission-llm/',1);"
 sqlite3 "$FAVICON_DB" "INSERT OR REPLACE INTO icon_mapping(id,page_url,icon_id) VALUES(5,'https://docs.anythingllm.com/features/agent-computers',3);"
 sqlite3 "$FAVICON_DB" "INSERT OR REPLACE INTO icon_mapping(id,page_url,icon_id) VALUES(6,'https://docs.anythingllm.com/features/agent-computers/',3);"
 
