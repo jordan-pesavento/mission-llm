@@ -318,7 +318,14 @@ function adminEndpoints(app) {
         await WorkspaceChats.delete({ workspaceId: Number(workspace.id) });
         await DocumentVectors.deleteForWorkspace(Number(workspace.id));
         await Document.delete({ workspaceId: Number(workspace.id) });
-        await Workspace.delete({ id: Number(workspace.id) });
+        // Workspace.delete answers false instead of throwing when the row
+        // could not be deleted; do not report a delete that did not happen.
+        if (!(await Workspace.delete({ id: Number(workspace.id) }))) {
+          response
+            .status(500)
+            .json({ success: false, error: "Could not delete the workspace." });
+          return;
+        }
         try {
           await VectorDb["delete-namespace"]({ namespace: workspace.slug });
         } catch (e) {

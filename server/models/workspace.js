@@ -8,10 +8,28 @@ const { User } = require("./user");
 const { PromptHistory } = require("./promptHistory");
 const { SystemSettings } = require("./systemSettings");
 const { normalizeLegacyProviderId } = require("../utils/boot/legacyUpgrade");
+const {
+  workspaceIconError,
+  workspaceIconColorError,
+  normalizeWorkspaceIcon,
+  normalizeWorkspaceIconColor,
+} = require("../utils/workspaceIcons");
 
 function isNullOrNaN(value) {
   if (value === null) return true;
   return isNaN(value);
+}
+
+/**
+ * Thrown by a strict field validation when a value must be rejected rather
+ * than coerced to a default. Endpoints answer it with HTTP 400.
+ */
+class InvalidWorkspaceFieldError extends Error {
+  constructor(field, message) {
+    super(message);
+    this.name = "InvalidWorkspaceFieldError";
+    this.field = field;
+  }
 }
 
 /**
@@ -31,6 +49,8 @@ function isNullOrNaN(value) {
  * @property {string} agentModel - The agent model of the workspace
  * @property {string} queryRefusalResponse - The query refusal response of the workspace
  * @property {string} vectorSearchMode - The vector search mode of the workspace
+ * @property {string|null} icon - Tile icon library key, or null for initials
+ * @property {string|null} iconColor - Tile color palette key, or null for the accent
  */
 
 const Workspace = {
@@ -57,7 +77,16 @@ const Workspace = {
     "queryRefusalResponse",
     "vectorSearchMode",
     "router_id",
+    "icon",
+    "iconColor",
   ],
+
+  // Writable fields whose invalid values are rejected (HTTP 400) instead of
+  // coerced to a default. Each returns an error message or null.
+  strictFieldErrors: {
+    icon: workspaceIconError,
+    iconColor: workspaceIconColorError,
+  },
 
   validations: {
     name: (value) => {
@@ -144,6 +173,32 @@ const Workspace = {
       if (isNaN(date.getTime())) return new Date();
       return date;
     },
+    icon: (value) => {
+      const error = workspaceIconError(value);
+      if (error) throw new InvalidWorkspaceFieldError("icon", error);
+      return normalizeWorkspaceIcon(value);
+    },
+    iconColor: (value) => {
+      const error = workspaceIconColorError(value);
+      if (error) throw new InvalidWorkspaceFieldError("iconColor", error);
+      return normalizeWorkspaceIconColor(value);
+    },
+  },
+
+  /**
+   * Check the strict fields of an update before anything is written, so the
+   * caller can answer HTTP 400 instead of storing or dropping a bad value.
+   * @param {Object} updates - The request body of a workspace update
+   * @returns {string|null} The first error message, or null when all are valid
+   */
+  invalidFieldMessage: function (updates = {}) {
+    if (!updates || typeof updates !== "object") return null;
+    for (const [key, errorFor] of Object.entries(this.strictFieldErrors)) {
+      if (!Object.prototype.hasOwnProperty.call(updates, key)) continue;
+      const message = errorFor(updates[key]);
+      if (message) return message;
+    }
+    return null;
   },
 
   /**
@@ -248,7 +303,13 @@ const Workspace = {
   update: async function (id = null, updates = {}) {
     if (!id) throw new Error("No workspace id provided for update");
 
-    const validatedUpdates = this.validateFields(updates);
+    let validatedUpdates;
+    try {
+      validatedUpdates = this.validateFields(updates);
+    } catch (error) {
+      if (!(error instanceof InvalidWorkspaceFieldError)) throw error;
+      return { workspace: null, message: error.message };
+    }
     if (Object.keys(validatedUpdates).length === 0)
       return { workspace: { id }, message: "No valid fields to update!" };
 
@@ -727,4 +788,4 @@ const Workspace = {
   },
 };
 
-module.exports = { Workspace };
+module.exports = { Workspace, InvalidWorkspaceFieldError };

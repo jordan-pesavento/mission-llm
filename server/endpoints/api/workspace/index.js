@@ -258,7 +258,12 @@ function apiWorkspaceEndpoints(app) {
         await WorkspaceChats.delete({ workspaceId: workspaceId });
         await DocumentVectors.deleteForWorkspace(workspaceId);
         await Document.delete({ workspaceId: workspaceId });
-        await Workspace.delete({ id: workspaceId });
+        // Workspace.delete answers false instead of throwing when the row
+        // could not be deleted; do not report a delete that did not happen.
+        if (!(await Workspace.delete({ id: workspaceId }))) {
+          response.sendStatus(500).end();
+          return;
+        }
 
         await EventLogs.logEvent("api_workspace_deleted", {
           workspaceName: workspace?.name || "Unknown Workspace",
@@ -290,7 +295,7 @@ function apiWorkspaceEndpoints(app) {
         type: 'string'
     }
     #swagger.requestBody = {
-      description: 'JSON object containing new settings to update a workspace. All keys are optional and will not update unless provided',
+      description: 'JSON object containing new settings to update a workspace. All keys are optional and will not update unless provided. icon takes initials, null or an icon library key. iconColor takes null or a palette key. An invalid icon or iconColor returns 400.',
       required: true,
       content: {
         "application/json": {
@@ -298,7 +303,9 @@ function apiWorkspaceEndpoints(app) {
             "name": 'Updated Workspace Name',
             "openAiTemp": 0.2,
             "openAiHistory": 20,
-            "openAiPrompt": "Respond to all inquires and questions in binary - do not respond in any other format."
+            "openAiPrompt": "Respond to all inquires and questions in binary - do not respond in any other format.",
+            "icon": "leaf",
+            "iconColor": "teal"
           }
         }
       }
@@ -341,6 +348,12 @@ function apiWorkspaceEndpoints(app) {
           response.sendStatus(400).end();
           return;
         }
+
+        const invalidMessage = Workspace.invalidFieldMessage(data);
+        if (invalidMessage)
+          return response
+            .status(400)
+            .json({ workspace: null, message: invalidMessage });
 
         const { workspace, message } = await Workspace.update(
           currWorkspace.id,

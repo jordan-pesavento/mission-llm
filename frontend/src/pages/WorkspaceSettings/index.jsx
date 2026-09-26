@@ -24,7 +24,7 @@ import WorkspaceAgentConfiguration from "./AgentConfig";
 import useUser from "@/hooks/useUser";
 import { useTranslation } from "react-i18next";
 import System from "@/models/system";
-import { initialsFor } from "@/components/WorkspaceChat/ChatContainer/chatUi";
+import WorkspaceTile, { useLiveWorkspace } from "@/components/WorkspaceTile";
 
 const TABS = {
   "general-appearance": GeneralAppearance,
@@ -49,7 +49,9 @@ function ShowWorkspaceChat() {
   const { t } = useTranslation();
   const { slug, tab } = useParams();
   const { user } = useUser();
-  const [workspace, setWorkspace] = useState(null);
+  const [loadedWorkspace, setWorkspace] = useState(null);
+  // The header follows a rename or a new icon saved on the General tab.
+  const workspace = useLiveWorkspace(loadedWorkspace);
   const [deletionProtected, setDeletionProtected] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -98,12 +100,7 @@ function ShowWorkspaceChat() {
           </Link>
           {workspace?.name && (
             <>
-              <span
-                aria-hidden="true"
-                className="w-[30px] h-[30px] shrink-0 grid place-items-center rounded-[9px] border border-ml-accent-line bg-ml-accent-soft text-ml-accent-text font-mono font-semibold text-[13px]"
-              >
-                {initialsFor(workspace.name)}
-              </span>
+              <WorkspaceTile workspace={workspace} aria-hidden="true" />
               <strong className="min-w-0 truncate whitespace-nowrap font-semibold text-[15.5px] text-ml-text">
                 {workspace.name}
               </strong>

@@ -202,6 +202,20 @@
     0 18px 44px -12px rgba(0, 0, 0, 0.7);
   --ml-inset-hi: rgba(255, 255, 255, 0.05);
   --ml-scrim: rgba(2, 4, 10, 0.6);
+
+  /* Workspace tile colors (WorkspaceTile). One OKLCH lightness per theme
+     (0.72 dark, 0.52 light) so no color outshouts another. On its tile
+     (the color at 15% over any surface) each tile's text, the color mixed
+     72% into --ml-text, reads at 5:1 or better in both themes. */
+  --ml-tile-teal: #00beaf;
+  --ml-tile-green: #53be70;
+  --ml-tile-amber: #d79700;
+  --ml-tile-orange: #f18336;
+  --ml-tile-red: #fd7273;
+  --ml-tile-pink: #f075aa;
+  --ml-tile-violet: #ad8dfd;
+  --ml-tile-slate: #96a6bb;
+  --ml-tile-sky: #32b3e6;
 }
 
 [data-theme="light"] {
@@ -235,6 +249,16 @@
     0 18px 44px -16px rgba(16, 32, 64, 0.3);
   --ml-inset-hi: rgba(255, 255, 255, 0.6);
   --ml-scrim: rgba(11, 21, 40, 0.35);
+
+  --ml-tile-teal: #007a70;
+  --ml-tile-green: #007f38;
+  --ml-tile-amber: #8b6000;
+  --ml-tile-orange: #a34e00;
+  --ml-tile-red: #b63039;
+  --ml-tile-pink: #ab366e;
+  --ml-tile-violet: #7250ba;
+  --ml-tile-slate: #5c6a7d;
+  --ml-tile-sky: #007399;
 }
 
 /* Derived tokens. Declared on the same element as the channels above, so
@@ -661,6 +685,35 @@ input[type="range"]:focus-visible {
   color: var(--ml-text-2);
   font: 500 13px/1 var(--font-mono);
   white-space: nowrap;
+}
+
+/* Workspace tile (components/WorkspaceTile): initials or a library icon.
+   --ws-tile is the tile color (the accent by default). "tint" is the
+   selected-tile recipe: the color at 15% fill and 48% border with the color
+   mixed 72% into the text, which for the accent is exactly --ml-accent-soft,
+   --ml-accent-line and --ml-accent-text. "neutral" is an unselected tile in
+   the default color. */
+.ml-ws-tile {
+  --ws-tile: var(--ml-accent);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border: 1px solid;
+  font-family: var(--font-mono);
+  font-feature-settings: normal;
+  font-weight: 600;
+  line-height: 1;
+  user-select: none;
+}
+.ml-ws-tile[data-tone="tint"] {
+  border-color: color-mix(in srgb, var(--ws-tile) 48%, transparent);
+  background: color-mix(in srgb, var(--ws-tile) 15%, transparent);
+  color: color-mix(in srgb, var(--ws-tile) 72%, var(--ml-text));
+}
+.ml-ws-tile[data-tone="neutral"] {
+  border-color: var(--ml-line);
+  background: var(--ml-raised-2);
+  color: var(--ml-text-2);
 }
 
 .grr {

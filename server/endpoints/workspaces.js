@@ -94,6 +94,14 @@ function workspaceEndpoints(app) {
           return;
         }
 
+        const invalidMessage = Workspace.invalidFieldMessage(data);
+        if (invalidMessage) {
+          response
+            .status(400)
+            .json({ workspace: null, message: invalidMessage });
+          return;
+        }
+
         await Workspace.trackChange(currWorkspace, data, user);
         const { workspace, message } = await Workspace.update(
           currWorkspace.id,
@@ -309,7 +317,12 @@ function workspaceEndpoints(app) {
         await WorkspaceChats.delete({ workspaceId: Number(workspace.id) });
         await DocumentVectors.deleteForWorkspace(workspace.id);
         await Document.delete({ workspaceId: Number(workspace.id) });
-        await Workspace.delete({ id: Number(workspace.id) });
+        // Workspace.delete answers false instead of throwing when the row
+        // could not be deleted; do not report a delete that did not happen.
+        if (!(await Workspace.delete({ id: Number(workspace.id) }))) {
+          response.sendStatus(500).end();
+          return;
+        }
 
         await EventLogs.logEvent(
           "workspace_deleted",
