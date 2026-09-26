@@ -62,7 +62,7 @@ export default function EmptyChatState({
 
   return (
     <div className="flex-1 min-h-0 overflow-y-auto px-gutter py-8 flex">
-      <div className="m-auto w-full max-w-[760px] flex flex-col items-center text-center">
+      <div className="m-auto w-full flex flex-col items-center text-center">
         <div
           aria-hidden="true"
           className="w-14 h-14 grid place-items-center rounded-[16px] border border-[rgba(169,186,214,0.38)] shadow-[inset_0_1px_0_rgba(255,255,255,0.1),var(--ml-shadow)] bg-[linear-gradient(180deg,#173063,#070F26)]"

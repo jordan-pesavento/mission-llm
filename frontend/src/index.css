@@ -281,7 +281,7 @@
   --ml-rail-w: clamp(280px, 19vw, 320px);
   --ml-drawer-w: clamp(320px, 23vw, 384px);
   --ml-topbar-h: 64px;
-  --ml-gutter: clamp(16px, 4vw, 48px);
+  --ml-gutter: 16px; /* owner: full width, border to border, with only a small margin */
   --ml-ctl: 38px; /* top bar controls: pill, Sources, more */
   --ml-ctl-lg: 40px; /* composer chips, send, source chips */
   --ml-field: 44px; /* form fields; sign-in uses 50px */
