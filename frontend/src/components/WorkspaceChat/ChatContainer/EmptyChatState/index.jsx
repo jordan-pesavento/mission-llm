@@ -102,15 +102,15 @@ export default function EmptyChatState({
                 <button
                   type="button"
                   onClick={() => sendCommand({ text, autoSubmit: true })}
-                  className="group flex-1 min-h-[96px] flex flex-col justify-between gap-3 p-4 rounded-[14px] border border-ml-line-2 bg-ml-panel text-left text-[15.5px] leading-snug text-ml-text-2 cursor-pointer transition-colors duration-150 hover:border-ml-accent-line hover:bg-ml-raised hover:text-ml-text"
+                  className="group flex-1 flex items-start gap-3 px-4 py-3.5 rounded-[14px] border border-ml-line-2 bg-ml-panel text-left text-[15.5px] leading-snug text-ml-text-2 cursor-pointer transition-colors duration-150 hover:border-ml-accent-line hover:bg-ml-raised hover:text-ml-text"
                 >
-                  <span className="line-clamp-3 [text-wrap:pretty]">
+                  <span className="flex-1 min-w-0 line-clamp-3 [text-wrap:pretty]">
                     {text}
                   </span>
                   <ArrowUpRight
                     size={16}
                     aria-hidden="true"
-                    className="self-end shrink-0 text-ml-text-3 transition-colors duration-150 group-hover:text-ml-accent-text"
+                    className="shrink-0 mt-[3px] text-ml-text-3 transition-colors duration-150 group-hover:text-ml-accent-text"
                   />
                 </button>
               </li>
