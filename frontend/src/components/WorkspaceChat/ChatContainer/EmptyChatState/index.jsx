@@ -90,27 +90,28 @@ export default function EmptyChatState({
             ))}
           </div>
         )}
-        {/* Suggested prompts as tiles that share the width, centered under
-            the actions: short prompts never stretch into long empty rows. */}
+        {/* Suggested prompts as chips sized to their text and centered under
+            the actions: one line each, one height, wrapping only when a
+            prompt is longer than the chip's maximum width. */}
         {suggestions.length > 0 && (
           <ul
             data-row="empty-suggestions"
             className="mt-8 w-full flex flex-wrap justify-center gap-3 text-left"
           >
             {suggestions.map((text, index) => (
-              <li key={index} className="flex w-[300px] max-w-full">
+              <li key={index} className="flex max-w-[min(100%,640px)]">
                 <button
                   type="button"
                   onClick={() => sendCommand({ text, autoSubmit: true })}
-                  className="group flex-1 flex items-start gap-3 px-4 py-3.5 rounded-[14px] border border-ml-line-2 bg-ml-panel text-left text-[15.5px] leading-snug text-ml-text-2 cursor-pointer transition-colors duration-150 hover:border-ml-accent-line hover:bg-ml-raised hover:text-ml-text"
+                  className="group flex-1 min-h-[48px] flex items-center gap-3 px-4 py-2.5 rounded-[14px] border border-ml-line-2 bg-ml-panel text-left text-[15.5px] leading-snug text-ml-text-2 cursor-pointer transition-colors duration-150 hover:border-ml-accent-line hover:bg-ml-raised hover:text-ml-text"
                 >
-                  <span className="flex-1 min-w-0 line-clamp-3 [text-wrap:pretty]">
+                  <span className="min-w-0 line-clamp-3 [text-wrap:balance]">
                     {text}
                   </span>
                   <ArrowUpRight
                     size={16}
                     aria-hidden="true"
-                    className="shrink-0 mt-[3px] text-ml-text-3 transition-colors duration-150 group-hover:text-ml-accent-text"
+                    className="shrink-0 text-ml-text-3 transition-colors duration-150 group-hover:text-ml-accent-text"
                   />
                 </button>
               </li>
