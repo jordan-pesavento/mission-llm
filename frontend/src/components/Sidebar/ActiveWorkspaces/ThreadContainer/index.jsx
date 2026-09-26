@@ -1,10 +1,12 @@
 import Workspace from "@/models/workspace";
 import paths from "@/utils/paths";
-import { Trash } from "@phosphor-icons/react";
+import { CircleNotch, Plus, Trash } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import ThreadItem from "./ThreadItem";
 import { useNavigate, useParams } from "react-router-dom";
 import useHoverMetaKey from "./hooks";
+import startNewThread from "../startNewThread";
+import showToast from "@/utils/toast";
 import {
   THREAD_RENAME_EVENT,
   THREAD_FORK_EVENT,
@@ -124,12 +126,14 @@ export default function ThreadContainer({
     }, 500);
   }
 
+  // A fresh conversation (the bare workspace route with an empty default
+  // thread, or the home page's virtual thread) highlights the "New thread"
+  // row instead of a thread.
+  const inFreshConversation =
+    isVirtualThread || (!threadSlug && !defaultThreadHasChats);
+
   function getActiveThreadIdx() {
-    if (isVirtualThread)
-      return threads.length + (defaultThreadHasChats ? 1 : 0);
-    // On a bare workspace route with no default chats, show virtual thread as active
-    if (!threadSlug && !defaultThreadHasChats)
-      return threads.length + (defaultThreadHasChats ? 1 : 0);
+    if (inFreshConversation) return -1;
     const idx = threads.findIndex((t) => t?.slug === threadSlug);
     if (idx >= 0) return idx + (defaultThreadHasChats ? 1 : 0);
     if (!threadSlug && defaultThreadHasChats) return 0;
@@ -150,11 +154,6 @@ export default function ThreadContainer({
 
   const activeThreadIdx = getActiveThreadIdx();
 
-  // Show a virtual thread when on a bare workspace route (no threadSlug) and
-  // the default thread has no chats — mimics the Home page virtual thread behavior.
-  const showVirtualThread =
-    isVirtualThread || (!threadSlug && !defaultThreadHasChats);
-
   return (
     <div
       ref={containerRef}
@@ -169,7 +168,6 @@ export default function ThreadContainer({
           isActive={activeThreadIdx === 0}
           workspace={workspace}
           thread={{ slug: null, name: "default" }}
-          hasNext={threads.length > 0 || showVirtualThread}
         />
       )}
       {threads.map((thread, i) => (
@@ -183,24 +181,58 @@ export default function ThreadContainer({
           workspace={workspace}
           onRemove={removeThread}
           thread={thread}
-          hasNext={i !== threads.length - 1 || showVirtualThread}
         />
       ))}
-      {showVirtualThread && (
-        <ThreadItem
-          idx={activeThreadIdx}
-          activeIdx={activeThreadIdx}
-          isActive={true}
-          workspace={workspace}
-          thread={{ slug: null, name: "*New Thread", virtual: true }}
-          hasNext={false}
-        />
-      )}
+      <NewThreadRow workspace={workspace} isActive={inFreshConversation} />
       <DeleteAllThreadButton
         ctrlPressed={ctrlPressed}
         threads={threads}
         onDelete={handleDeleteAll}
       />
+    </div>
+  );
+}
+
+/**
+ * The last row of the thread list: always there, so starting a new thread is
+ * one click from any thread. Highlighted while the open conversation is a
+ * fresh one that has no thread yet.
+ */
+function NewThreadRow({ workspace, isActive }) {
+  const navigate = useNavigate();
+  const [busy, setBusy] = useState(false);
+
+  const onClick = async () => {
+    if (busy) return;
+    setBusy(true);
+    const { error } = await startNewThread(workspace.slug, navigate);
+    if (error)
+      showToast(`Could not create thread - ${error}`, "error", { clear: true });
+    setBusy(false);
+  };
+
+  return (
+    <div role="listitem" className="shrink-0">
+      <button
+        type="button"
+        onClick={onClick}
+        disabled={busy}
+        aria-busy={busy}
+        aria-current={isActive ? "page" : undefined}
+        title={`New thread in ${workspace.name}`}
+        className={`w-full h-[38px] flex items-center gap-x-2 px-[10px] rounded-[9px] text-[15px] transition-colors duration-150 ${
+          isActive
+            ? "bg-ml-accent-soft text-ml-text font-medium"
+            : "text-ml-text-3 hover:text-ml-text hover:bg-ml-raised"
+        }`}
+      >
+        {busy ? (
+          <CircleNotch size={16} className="shrink-0 animate-spin" />
+        ) : (
+          <Plus size={16} className="shrink-0" />
+        )}
+        <span className="truncate">New thread</span>
+      </button>
     </div>
   );
 }
@@ -212,9 +244,9 @@ function DeleteAllThreadButton({ ctrlPressed, threads, onDelete }) {
     <button
       type="button"
       onClick={onDelete}
-      className="w-full h-[38px] flex items-center gap-x-2 px-[10px] rounded-[9px] text-[15px] font-semibold text-ml-bad hover:bg-ml-bad-soft transition-colors duration-150"
+      className="w-full h-[38px] flex items-center gap-x-2 px-[10px] rounded-[9px] text-[15px] font-semibold text-ml-text hover:bg-ml-bad-soft transition-colors duration-150"
     >
-      <Trash size={16} weight="bold" className="shrink-0" />
+      <Trash size={16} weight="bold" className="shrink-0 text-ml-bad" />
       Delete Selected
     </button>
   );
