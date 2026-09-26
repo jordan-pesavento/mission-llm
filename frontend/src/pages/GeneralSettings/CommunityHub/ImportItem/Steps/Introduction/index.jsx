@@ -63,10 +63,7 @@ export default function Introduction({ settings, setSettings, setStep }) {
               </div>
             </div>
           </div>
-          <CTAButton
-            className="text-dark-text w-full mt-[18px] h-[34px] hover:bg-accent"
-            onClick={handleContinue}
-          >
+          <CTAButton className="w-full mt-[18px]" onClick={handleContinue}>
             Continue with import &rarr;
           </CTAButton>
         </div>

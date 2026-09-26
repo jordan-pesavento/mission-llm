@@ -29,12 +29,9 @@ import useChatContainerQuickScroll from "@/hooks/useChatContainerQuickScroll";
 import { PENDING_HOME_MESSAGE } from "@/utils/constants";
 import { clearPromptInputDraft } from "@/hooks/usePromptInputStorage";
 import { safeJsonParse } from "@/utils/request";
-import { useTranslation } from "react-i18next";
 import paths from "@/utils/paths";
-import QuickActions from "@/components/lib/QuickActions";
-import SuggestedMessages from "@/components/lib/SuggestedMessages";
-import ChatSettingsMenu from "./ChatSettingsMenu";
-import WorkspaceModelPicker from "./WorkspaceModelPicker";
+import ChatTopBar from "./ChatTopBar";
+import EmptyChatState from "./EmptyChatState";
 import { ChatSidebarProvider } from "./ChatSidebar";
 import SourcesSidebar from "./SourcesSidebar";
 import MemoriesSidebar from "./MemoriesSidebar";
@@ -46,7 +43,6 @@ export default function ChatContainer({
   knownHistory = [],
 }) {
   const navigate = useNavigate();
-  const { t } = useTranslation();
   const [loadingResponse, setLoadingResponse] = useState(false);
   const [chatHistory, setChatHistory] = useState(knownHistory);
   const [socketId, setSocketId] = useState(null);
@@ -60,24 +56,8 @@ export default function ChatContainer({
   const isEmpty =
     chatHistory.length === 0 && !sessionStorage.getItem(PENDING_HOME_MESSAGE);
 
-  /**
-   * Keep chat history bottom-padding in sync with the prompt input's
-   * actual rendered height so expanding input never covers messages.
-   */
-  useEffect(() => {
-    if (isEmpty) return;
-    const wrapper = document.getElementById("prompt-input-wrapper");
-    const chatEl = document.getElementById("chat-history");
-    if (!wrapper || !chatEl) return;
-
-    const observer = new ResizeObserver(([entry]) => {
-      const inputHeight =
-        entry.borderBoxSize?.[0]?.blockSize ?? entry.target.offsetHeight;
-      chatEl.style.paddingBottom = `${inputHeight}px`;
-    });
-    observer.observe(wrapper);
-    return () => observer.disconnect();
-  }, [isEmpty]);
+  // The composer sits in the normal flow under the thread (not overlaid), so
+  // the thread never needs extra bottom padding to stay clear of it.
 
   const { listening, resetTranscript } = useSpeechRecognition({
     clearTranscriptOnListen: true,
@@ -130,6 +110,9 @@ export default function ChatContainer({
         content: currentMessage,
         role: "user",
         attachments: parseAttachments(),
+        // Client-side send time, used for the "name · 09:41" line and day
+        // dividers until the reloaded history carries the server's sentAt.
+        sentAt: Math.floor(Date.now() / 1000),
       },
       {
         content: "",
@@ -236,6 +219,7 @@ export default function ChatContainer({
           content: text,
           role: "user",
           attachments,
+          sentAt: Math.floor(Date.now() / 1000),
         },
         {
           content: "",
@@ -477,51 +461,37 @@ export default function ChatContainer({
     return (
       <ChatSidebarProvider>
         <div
-          style={{ height: isMobile ? "100%" : "calc(100% - 32px)" }}
-          className="relative flex md:ml-[2px] md:mr-[16px] md:my-[16px] w-full h-full z-[2]"
+          data-frame="main"
+          className="relative flex w-full h-full min-w-0 z-[2]"
         >
-          <ChatSettingsMenu
-            history={chatHistory}
-            workspace={workspace}
-            threadSlug={activeThreadSlug}
-          />
-          <div className="flex-1 min-w-0 relative md:rounded-[16px] bg-zinc-900 light:bg-white w-full h-full overflow-hidden border-none light:border-solid light:border light:border-theme-modal-border">
+          <div className="flex-1 min-w-0 relative flex flex-col bg-theme-bg-primary text-theme-text-primary w-full h-full overflow-hidden">
             {isMobile && <SidebarMobileHeader />}
-            <WorkspaceModelPicker workspaceSlug={workspace.slug} />
+            <ChatTopBar
+              workspace={workspace}
+              threadSlug={activeThreadSlug}
+              history={chatHistory}
+            />
             <DnDFileUploaderWrapper>
-              <div className="flex flex-col h-full w-full items-center justify-center">
-                <div className="flex flex-col items-center w-full max-w-[750px]">
-                  <h1 className="text-white text-xl md:text-2xl mb-11 text-center">
-                    {t("main-page.greeting")}
-                  </h1>
-                  <PromptInput
-                    workspace={workspace}
-                    submit={handleSubmit}
-                    isStreaming={loadingResponse}
-                    sendCommand={sendCommand}
-                    attachments={files}
-                    centered={true}
-                  />
-                  <QuickActions
-                    hasAvailableWorkspace={!!workspace}
-                    onCreateAgent={() => navigate(paths.settings.agentSkills())}
-                    onEditWorkspace={() =>
-                      navigate(
-                        paths.workspace.settings.generalAppearance(
-                          workspace.slug
-                        )
-                      )
-                    }
-                    onUploadDocument={() =>
-                      document.getElementById("dnd-chat-file-uploader")?.click()
-                    }
-                  />
-                </div>
-                <SuggestedMessages
-                  suggestedMessages={workspace?.suggestedMessages}
-                  sendCommand={sendCommand}
-                />
-              </div>
+              <EmptyChatState
+                workspace={workspace}
+                sendCommand={sendCommand}
+                onCreateAgent={() => navigate(paths.settings.agentSkills())}
+                onEditWorkspace={() =>
+                  navigate(
+                    paths.workspace.settings.generalAppearance(workspace.slug)
+                  )
+                }
+                onUploadDocument={() =>
+                  document.getElementById("dnd-chat-file-uploader")?.click()
+                }
+              />
+              <PromptInput
+                workspace={workspace}
+                submit={handleSubmit}
+                isStreaming={loadingResponse}
+                sendCommand={sendCommand}
+                attachments={files}
+              />
             </DnDFileUploaderWrapper>
             <ChatTooltips />
           </div>
@@ -535,45 +505,40 @@ export default function ChatContainer({
     <ChatSidebarProvider>
       <ActiveGenerationGuard isGenerating={loadingResponse} />
       <div
-        style={{ height: isMobile ? "100%" : "calc(100% - 32px)" }}
-        className="relative flex md:ml-[2px] md:mr-[16px] md:my-[16px] w-full h-full z-[2]"
+        data-frame="main"
+        className="relative flex w-full h-full min-w-0 z-[2]"
       >
-        <ChatSettingsMenu
-          history={chatHistory}
-          workspace={workspace}
-          threadSlug={activeThreadSlug}
-        />
-        <div className="flex-1 min-w-0 relative md:rounded-[16px] bg-zinc-900 light:bg-white text-white light:text-slate-900 h-full overflow-hidden border-none light:border-solid light:border light:border-theme-modal-border">
+        <div className="flex-1 min-w-0 relative flex flex-col bg-theme-bg-primary text-theme-text-primary h-full overflow-hidden">
           {isMobile && <SidebarMobileHeader />}
-          <WorkspaceModelPicker workspaceSlug={workspace.slug} />
+          <ChatTopBar
+            workspace={workspace}
+            threadSlug={activeThreadSlug}
+            history={chatHistory}
+            showSources={true}
+          />
           <DnDFileUploaderWrapper>
-            <div className="flex flex-col h-full w-full pb-20 md:pb-0">
-              <div className="contents">
-                <MetricsProvider>
-                  <ChatHistory
-                    ref={chatHistoryRef}
-                    history={chatHistory}
-                    workspace={workspace}
-                    sendCommand={sendCommand}
-                    updateHistory={setChatHistory}
-                    regenerateAssistantMessage={regenerateAssistantMessage}
-                    websocket={websocket}
-                  />
-                </MetricsProvider>
-                <PromptInput
-                  workspace={workspace}
-                  submit={handleSubmit}
-                  isStreaming={loadingResponse}
-                  sendCommand={sendCommand}
-                  attachments={files}
-                  centered={false}
-                />
-              </div>
-            </div>
+            <MetricsProvider>
+              <ChatHistory
+                ref={chatHistoryRef}
+                history={chatHistory}
+                workspace={workspace}
+                sendCommand={sendCommand}
+                updateHistory={setChatHistory}
+                regenerateAssistantMessage={regenerateAssistantMessage}
+                websocket={websocket}
+              />
+            </MetricsProvider>
+            <PromptInput
+              workspace={workspace}
+              submit={handleSubmit}
+              isStreaming={loadingResponse}
+              sendCommand={sendCommand}
+              attachments={files}
+            />
           </DnDFileUploaderWrapper>
           <ChatTooltips />
         </div>
-        <SourcesSidebar />
+        <SourcesSidebar workspace={workspace} />
         <MemoriesSidebar workspace={workspace} />
       </div>
     </ChatSidebarProvider>

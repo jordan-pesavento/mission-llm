@@ -119,7 +119,7 @@ function ImageGenerationCard({ props }) {
             {status === "failed" && (
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-y-2 text-zinc-400 light:text-slate-500">
                 <ImageBroken size={28} weight="bold" />
-                <span className="text-xs">
+                <span className="text-[13px]">
                   {t("imageGeneration.card.failed-to-load")}
                 </span>
               </div>

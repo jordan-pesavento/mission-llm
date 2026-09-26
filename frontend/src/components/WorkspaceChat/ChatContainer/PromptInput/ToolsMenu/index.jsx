@@ -153,11 +153,11 @@ export default function ToolsMenu({
           if (e.currentTarget.contains(e.target)) e.preventDefault();
         }}
         style={{ maxHeight }}
-        className={`absolute left-2 right-2 md:left-14 md:right-auto md:w-[400px] z-50 bg-zinc-800 light:bg-white border border-zinc-700 light:border-slate-300 rounded-lg p-3 flex flex-col gap-2.5 shadow-lg overflow-hidden ${
+        className={`absolute left-0 right-0 md:right-auto md:w-[440px] z-50 bg-ml-raised border border-ml-line-2 rounded-[14px] shadow-ml-pop p-2.5 flex flex-col gap-2 overflow-hidden ${
           centered ? "top-full mt-2" : "bottom-full mb-2"
         }`}
       >
-        <div className="flex shrink-0 gap-2.5 items-center">
+        <div role="tablist" className="flex shrink-0 gap-1 items-center">
           {TABS.map((tab) => (
             <TabButton
               key={tab.key}
@@ -188,11 +188,13 @@ function TabButton({ active, onClick, children }) {
   return (
     <button
       type="button"
+      role="tab"
+      aria-selected={active}
       onClick={onClick}
-      className={`border-none cursor-pointer hover:bg-zinc-700/50 light:hover:bg-slate-100 px-1.5 py-0.5 rounded text-[10px] font-medium text-center whitespace-nowrap ${
+      className={`h-8 px-3 rounded-[8px] border-none cursor-pointer text-[13.5px] font-semibold text-center whitespace-nowrap transition-colors duration-150 ${
         active
-          ? "bg-zinc-700 text-white light:bg-slate-200 light:text-slate-800"
-          : "text-zinc-400 light:text-slate-800"
+          ? "bg-ml-accent-soft text-ml-text"
+          : "text-ml-text-2 hover:bg-ml-raised-2 hover:text-ml-text"
       }`}
     >
       {children}

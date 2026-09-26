@@ -34,7 +34,7 @@ function FileDownloadCard({ props }) {
         <div className="flex items-center justify-between bg-zinc-800 light:bg-slate-100 light:border light:border-slate-200/50 rounded-xl px-2 py-1">
           <div className="flex items-center gap-x-3 min-w-0">
             <div
-              className={`${badgeBg} ${badgeText} rounded-lg flex items-center justify-center flex-shrink-0 h-[48px] w-[48px] text-xs font-bold`}
+              className={`${badgeBg} ${badgeText} rounded-lg flex items-center justify-center flex-shrink-0 h-[48px] w-[48px] text-[13px] font-bold`}
             >
               {badge}
             </div>
@@ -42,7 +42,7 @@ function FileDownloadCard({ props }) {
               <p className="text-white light:text-slate-900 text-sm font-medium truncate leading-snug">
                 {filename || "Unknown file"}
               </p>
-              <p className="text-zinc-400 light:text-slate-500 text-xs leading-snug">
+              <p className="text-zinc-400 light:text-slate-500 text-[13px] leading-snug">
                 {humanFileSize(fileSize, true, 1)}
                 {fileSize && fileType ? " · " : ""}
                 {fileType}

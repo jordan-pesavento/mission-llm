@@ -8,18 +8,18 @@ const TOGGLE_STYLES = {
 
 const LABEL_STYLES = {
   sm: {
-    label: "text-[12px] leading-[10px] font-medium mt-[1.5px]",
-    description: "text-[10px] leading-[16px] font-normal",
+    label: "text-[13px] leading-[16px] font-medium",
+    description: "text-[13px] leading-[18px] font-normal",
     gap: "gap-[2px]",
   },
   md: {
-    label: "text-[14px] leading-[18px] font-medium -mt-[2px]",
-    description: "text-[12px] leading-[16px] font-normal",
+    label: "text-[15px] leading-[20px] font-medium -mt-[2px]",
+    description: "text-[14px] leading-[20px] font-normal",
     gap: "gap-[2px]",
   },
   lg: {
-    label: "text-[16px] leading-[14px] font-medium mt-[2.5px]",
-    description: "text-[14px] leading-[24px] font-normal",
+    label: "text-[16px] leading-[20px] font-medium",
+    description: "text-[15px] leading-[24px] font-normal",
     gap: "gap-[2px]",
   },
 };
@@ -159,7 +159,7 @@ function TextContent({
     <div className={`flex flex-col ${gapClassName ?? labelStyles.gap}`}>
       {label && (
         <span
-          className={`flex items-center gap-x-1 text-white light:text-slate-950 ${labelClassName ?? labelStyles.label}`}
+          className={`flex items-center gap-x-1 text-ml-text ${labelClassName ?? labelStyles.label}`}
         >
           {label}
           {hint && (
@@ -173,7 +173,7 @@ function TextContent({
       )}
       {description && (
         <span
-          className={`text-zinc-400 light:text-zinc-600 ${descriptionClassName ?? labelStyles.description}`}
+          className={`text-ml-text-2 ${descriptionClassName ?? labelStyles.description}`}
         >
           {description}
         </span>

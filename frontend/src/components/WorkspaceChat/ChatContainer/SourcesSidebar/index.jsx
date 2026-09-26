@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import { X } from "@phosphor-icons/react";
@@ -9,16 +9,35 @@ import {
 import MobileCitationModal from "./MobileCitationModal";
 import SourceItem from "./SourceItem";
 import ChatSidebar, { useSourcesSidebar } from "../ChatSidebar";
+import { ICON_BTN } from "../chatUi";
 
 // Re-export for backward compat with existing imports
 export { useSourcesSidebar } from "../ChatSidebar";
 
-export default function SourcesSidebar() {
-  const { sources, sidebarOpen, closeSidebar } = useSourcesSidebar();
+/**
+ * The Sources drawer: the answer's sources as numbered cards with the file
+ * name, an excerpt and the real retrieval score. Clicking a card opens the
+ * full cited passages (the existing citation detail view).
+ */
+export default function SourcesSidebar({ workspace = null }) {
+  const { sources, sidebarOpen, closeSidebar, highlight } = useSourcesSidebar();
   const { t } = useTranslation();
   const [selectedSource, setSelectedSource] = useState(null);
+  const bodyRef = useRef(null);
 
-  const combined = combineLikeSources(sources);
+  const combined = combineLikeSources(sources ?? []);
+  const totalDocs = Array.isArray(workspace?.documents)
+    ? workspace.documents.length
+    : null;
+
+  // Bring the card a source chip was clicked for into view.
+  useEffect(() => {
+    if (!sidebarOpen || !highlight || !bodyRef.current) return;
+    const card = [
+      ...bodyRef.current.querySelectorAll("[data-source-title]"),
+    ].find((el) => el.getAttribute("data-source-title") === highlight);
+    card?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }, [sidebarOpen, highlight, sources]);
 
   if (isMobile) {
     return (
@@ -38,32 +57,49 @@ export default function SourcesSidebar() {
   return (
     <>
       <ChatSidebar isOpen={sidebarOpen}>
-        <div
-          className="ml-4 w-[350px] bg-zinc-900 light:bg-white light:border-2 light:border-slate-300 md:rounded-[16px] p-4 flex flex-col gap-4 overflow-hidden mt-[72px]"
-          style={{ maxHeight: "calc(100% - 88px)" }}
+        <aside
+          aria-label={t("chat_window.sources")}
+          className="w-full h-full flex flex-col overflow-hidden"
         >
-          <div className="flex items-start justify-between">
-            <p className="font-medium text-base leading-6 text-white light:text-slate-900">
+          <div className="h-topbar shrink-0 flex items-center gap-2.5 pl-5 pr-3 border-b border-ml-line">
+            <h3 className="text-[16.5px] font-[650] text-ml-text">
               {t("chat_window.sources")}
-            </p>
+            </h3>
+            {combined.length > 0 && (
+              <span className="font-mono font-medium text-[13.5px] text-ml-text-3 whitespace-nowrap">
+                {totalDocs
+                  ? t("chat_window.sources_of_docs", {
+                      count: combined.length,
+                      total: totalDocs,
+                    })
+                  : t("chat_window.source_total", { count: combined.length })}
+              </span>
+            )}
+            <span className="flex-1" />
             <button
               onClick={closeSidebar}
               type="button"
-              className="text-white/60 light:text-slate-400 hover:text-white light:hover:text-slate-900 transition-colors border-none bg-transparent cursor-pointer"
+              aria-label={t("chat_window.close_sources")}
+              className={ICON_BTN}
             >
-              <X size={16} weight="bold" />
+              <X size={20} />
             </button>
           </div>
-          <div className="flex flex-col gap-3 overflow-y-auto no-scroll">
+          <div
+            ref={bodyRef}
+            className="flex-1 min-h-0 flex flex-col gap-3 p-4 overflow-y-auto"
+          >
             {combined.map((source, idx) => (
               <SourceItem
                 key={source.title || idx}
+                number={idx + 1}
                 source={source}
+                highlighted={highlight === source.title}
                 onClick={() => setSelectedSource(source)}
               />
             ))}
           </div>
-        </div>
+        </aside>
       </ChatSidebar>
       {selectedSource && (
         <CitationDetailModal

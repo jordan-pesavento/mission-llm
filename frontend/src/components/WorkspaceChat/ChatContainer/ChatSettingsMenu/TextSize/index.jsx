@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { CaretRight } from "@phosphor-icons/react";
+import { CaretRight, Check } from "@phosphor-icons/react";
 import { useTranslation } from "react-i18next";
+import { MENU_ROW, MENU_SURFACE } from "../../chatUi";
 
 function getTextSizes(t) {
   return [
@@ -29,22 +30,17 @@ export default function TextSizeRow() {
       onMouseEnter={() => setShowSubmenu(true)}
       onMouseLeave={() => setShowSubmenu(false)}
     >
-      <div
-        className={`flex items-center justify-between px-2 py-1 rounded cursor-pointer ${
-          showSubmenu
-            ? "bg-zinc-700 light:bg-slate-200"
-            : "hover:bg-zinc-700 light:hover:bg-slate-200"
-        }`}
+      <button
+        type="button"
+        role="menuitem"
+        aria-haspopup="menu"
+        aria-expanded={showSubmenu}
+        onClick={() => setShowSubmenu((v) => !v)}
+        className={`${MENU_ROW} justify-between ${showSubmenu ? "bg-ml-raised-2 text-ml-text" : ""}`}
       >
-        <span className="text-sm font-normal text-zinc-50 light:text-slate-800">
-          {t("chat_window.text_size_label")}
-        </span>
-        <CaretRight
-          size={14}
-          weight="bold"
-          className="text-zinc-50 light:text-slate-800"
-        />
-      </div>
+        <span>{t("chat_window.text_size_label")}</span>
+        <CaretRight size={14} weight="bold" className="text-ml-text-3" />
+      </button>
       {showSubmenu && (
         <TextSizeSubmenu
           selectedSize={selectedSize}
@@ -60,20 +56,27 @@ function TextSizeSubmenu({ selectedSize, onSizeChange }) {
   const textSizes = getTextSizes(t);
 
   return (
-    <div className="absolute right-full top-0 -mr-2 pr-2 pt-0">
-      <div className="bg-zinc-800 light:bg-slate-50 border border-zinc-700 light:border-slate-300 rounded-lg p-3.5 w-[98px] flex flex-col gap-1.5 shadow-lg">
+    <div className="absolute right-full top-0 pr-2">
+      <div
+        role="menu"
+        className={`w-[150px] p-1.5 flex flex-col gap-0.5 ${MENU_SURFACE}`}
+      >
         {textSizes.map(({ key, label }) => (
-          <div
+          <button
+            type="button"
+            role="menuitemradio"
+            aria-checked={selectedSize === key}
             key={key}
             onClick={() => onSizeChange(key)}
-            className={`px-2 py-1 rounded cursor-pointer text-sm font-normal text-white light:text-slate-800 ${
-              selectedSize === key
-                ? "bg-zinc-700 light:bg-slate-200"
-                : "hover:bg-zinc-700/50 light:hover:bg-slate-100"
+            className={`${MENU_ROW} justify-between ${
+              selectedSize === key ? "bg-ml-accent-soft text-ml-text" : ""
             }`}
           >
-            {label}
-          </div>
+            <span>{label}</span>
+            {selectedSize === key && (
+              <Check size={14} weight="bold" className="text-ml-accent-text" />
+            )}
+          </button>
         ))}
       </div>
     </div>

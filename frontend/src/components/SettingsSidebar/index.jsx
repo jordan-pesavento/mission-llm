@@ -2,21 +2,24 @@ import React, { useEffect, useRef, useState } from "react";
 import paths from "@/utils/paths";
 import useLogo from "@/hooks/useLogo";
 import {
-  House,
-  List,
+  Cpu,
   Flask,
-  Gear,
-  UserCircleGear,
-  PencilSimpleLine,
-  Nut,
+  GlobeHemisphereWest,
+  List,
+  LockKey,
+  PaintBrush,
+  PlugsConnected,
+  Robot,
   Toolbox,
-  Plugs,
+  UsersThree,
+  X,
 } from "@phosphor-icons/react";
-import AgentIcon from "@/media/animations/agent-static.png";
-import CommunityHubIcon from "@/media/illustrations/community-hub.png";
 import useUser from "@/hooks/useUser";
 import { isMobile } from "react-device-detect";
-import Footer from "../Footer";
+import { RailLinks } from "../Footer";
+import { BackToWorkspacesButton } from "../SettingsButton";
+import { RailUser } from "../UserMenu";
+import RailBrand from "./RailBrand";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import showToast from "@/utils/toast";
@@ -24,6 +27,46 @@ import System from "@/models/system";
 import Option from "./MenuOption";
 import { CanViewChatHistoryProvider } from "../CanViewChatHistory";
 import useAppVersion from "@/hooks/useAppVersion";
+
+/**
+ * Settings rail: the same flush rail as the workspace rail (64px brand band,
+ * scrolling body, foot band with the user row) holding the real settings
+ * groups.
+ */
+function RailBody({ user, t }) {
+  return (
+    <>
+      <div className="flex items-center shrink-0 mt-2 mr-[2px] mb-[2px] ml-[6px]">
+        <span className="text-[14px] leading-[21px] font-semibold text-ml-text-3">
+          {t("settings.title")}
+        </span>
+      </div>
+      <SidebarOptions user={user} t={t} />
+      <div className="h-px shrink-0 bg-ml-line mx-[10px] my-2" />
+      <div className="flex flex-col gap-y-1 shrink-0 px-[10px]">
+        <SupportEmail />
+        <Link
+          hidden={user?.hasOwnProperty("role") && user.role !== "admin"}
+          to={paths.settings.privacy()}
+          className={RAIL_TEXT_LINK}
+        >
+          {t("settings.privacy")}
+        </Link>
+        <AppVersion />
+      </div>
+      <RailLinks />
+    </>
+  );
+}
+
+function RailFoot() {
+  return (
+    <div className="flex flex-col gap-y-[10px]">
+      <BackToWorkspacesButton />
+      <RailUser />
+    </div>
+  );
+}
 
 export default function SettingsSidebar() {
   const { t } = useTranslation();
@@ -49,12 +92,13 @@ export default function SettingsSidebar() {
   if (isMobile) {
     return (
       <>
-        <div className="fixed top-0 left-0 right-0 z-10 flex justify-between items-center px-4 py-2 bg-theme-bg-sidebar light:bg-white text-theme-text-secondary shadow-lg h-16">
+        <div className="fixed top-0 left-0 right-0 z-10 flex justify-between items-center px-4 py-2 bg-ml-rail border-b border-ml-line text-ml-text-2 h-16">
           <button
             onClick={() => setShowSidebar(true)}
-            className="rounded-md p-2 flex items-center justify-center text-theme-text-secondary"
+            aria-label="Open settings menu"
+            className="w-ctl h-ctl grid place-items-center rounded-[10px] border border-ml-line-2 bg-ml-panel text-ml-text-2"
           >
-            <List className="h-6 w-6" />
+            <List size={20} />
           </button>
           <div className="flex items-center justify-center flex-grow">
             <img
@@ -77,59 +121,32 @@ export default function SettingsSidebar() {
               showBgOverlay
                 ? "transition-all opacity-1"
                 : "transition-none opacity-0"
-            }  duration-500 fixed top-0 left-0 bg-theme-bg-secondary bg-opacity-75 w-screen h-screen`}
+            }  duration-500 fixed top-0 left-0 bg-[var(--ml-scrim)] w-screen h-screen`}
             onClick={() => setShowSidebar(false)}
           />
-          <div
+          <nav
             ref={sidebarRef}
-            className="h-[100vh] fixed top-0 left-0 rounded-r-[26px] bg-theme-bg-sidebar w-[80%] p-[18px]"
+            aria-label="Settings"
+            className="relative h-[100dvh] flex flex-col bg-ml-rail border-r border-ml-line w-[min(320px,86vw)]"
           >
-            <div className="w-full h-full flex flex-col overflow-x-hidden items-between">
-              {/* Header Information */}
-              <div className="flex w-full items-center justify-between gap-x-4">
-                <div className="flex shrink-1 w-fit items-center justify-start">
-                  <img
-                    src={logo}
-                    alt="Logo"
-                    className="rounded w-full max-h-[40px]"
-                    style={{ objectFit: "contain" }}
-                  />
-                </div>
-                <div className="flex gap-x-2 items-center text-slate-500 shrink-0">
-                  <a
-                    href={paths.home()}
-                    className="transition-all duration-300 p-2 rounded-full text-white bg-theme-action-menu-bg hover:bg-theme-action-menu-item-hover hover:border-slate-100 hover:border-opacity-50 border-transparent border"
-                  >
-                    <House className="h-4 w-4" />
-                  </a>
-                </div>
-              </div>
-
-              {/* Primary Body */}
-              <div className="h-full flex flex-col w-full justify-between pt-4 overflow-y-scroll no-scroll">
-                <div className="h-auto md:sidebar-items">
-                  <div className="flex flex-col gap-y-4 pb-[60px] overflow-y-scroll no-scroll">
-                    <SidebarOptions user={user} t={t} />
-                    <div className="h-[1.5px] bg-[#3D4147] mx-3 mt-[14px]" />
-                    <SupportEmail />
-                    <Link
-                      hidden={
-                        user?.hasOwnProperty("role") && user.role !== "admin"
-                      }
-                      to={paths.settings.privacy()}
-                      className="text-theme-text-secondary hover:text-white text-xs leading-[18px] mx-3"
-                    >
-                      {t("settings.privacy")}
-                    </Link>
-                    <AppVersion />
-                  </div>
-                </div>
-              </div>
-              <div className="absolute bottom-2 left-0 right-0 pt-2 bg-theme-bg-sidebar bg-opacity-80 backdrop-filter backdrop-blur-md">
-                <Footer />
-              </div>
+            <div className="h-topbar shrink-0 flex items-center justify-between gap-x-2 pl-[18px] pr-3 border-b border-ml-line">
+              <RailBrand />
+              <button
+                type="button"
+                onClick={() => setShowSidebar(false)}
+                aria-label="Close settings menu"
+                className="w-ctl h-ctl shrink-0 grid place-items-center rounded-[10px] text-ml-text-2 hover:bg-ml-raised"
+              >
+                <X size={20} />
+              </button>
             </div>
-          </div>
+            <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-[14px] flex flex-col gap-y-[6px]">
+              <RailBody user={user} t={t} />
+            </div>
+            <div className="shrink-0 border-t border-ml-line px-[14px] py-3">
+              <RailFoot />
+            </div>
+          </nav>
         </div>
       </>
     );
@@ -137,54 +154,39 @@ export default function SettingsSidebar() {
 
   return (
     <>
-      <div>
-        <Link
-          to={paths.home()}
-          className="flex shrink-0 items-center justify-start mx-[20.5px] my-[18px]"
+      <nav
+        data-frame="rail"
+        data-settings-rail
+        aria-label="Settings"
+        className="relative shrink-0 h-full flex flex-col bg-ml-rail border-r border-ml-line"
+        style={{ width: "var(--ml-rail-w)" }}
+      >
+        <div
+          data-frame="rail-head"
+          className="h-topbar shrink-0 flex items-center pl-[18px] pr-3 border-b border-ml-line"
         >
-          <img
-            src={logo}
-            alt="Logo"
-            className="rounded max-h-[24px]"
-            style={{ objectFit: "contain" }}
-          />
-        </Link>
+          <RailBrand />
+        </div>
         <div
           ref={sidebarRef}
-          className="transition-all duration-500 relative m-[16px] rounded-[16px] bg-theme-bg-sidebar border-[2px] border-theme-sidebar-border light:border-none min-w-[250px] p-[10px] h-[calc(100%-76px)]"
+          data-frame="rail-body"
+          className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-[14px] flex flex-col gap-y-[6px]"
         >
-          <div className="w-full h-full flex flex-col overflow-x-hidden items-between min-w-[235px]">
-            <div className="text-theme-text-secondary text-sm font-medium uppercase mt-[4px] mb-0 ml-2">
-              {t("settings.title")}
-            </div>
-            <div className="relative h-[calc(100%-60px)] flex flex-col w-full justify-between pt-[10px] overflow-y-scroll no-scroll">
-              <div className="h-auto sidebar-items">
-                <div className="flex flex-col gap-y-2 pb-[60px] overflow-y-scroll no-scroll">
-                  <SidebarOptions user={user} t={t} />
-                  <div className="h-[1.5px] bg-[#3D4147] mx-3 mt-[14px]" />
-                  <SupportEmail />
-                  <Link
-                    hidden={
-                      user?.hasOwnProperty("role") && user.role !== "admin"
-                    }
-                    to={paths.settings.privacy()}
-                    className="text-theme-text-secondary hover:text-white hover:light:text-theme-text-primary text-xs leading-[18px] mx-3"
-                  >
-                    {t("settings.privacy")}
-                  </Link>
-                  <AppVersion />
-                </div>
-              </div>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 pt-4 pb-3 rounded-b-[16px] bg-theme-bg-sidebar bg-opacity-80 backdrop-filter backdrop-blur-md z-10">
-              <Footer />
-            </div>
-          </div>
+          <RailBody user={user} t={t} />
         </div>
-      </div>
+        <div
+          data-frame="rail-foot"
+          className="shrink-0 border-t border-ml-line px-[14px] py-3"
+        >
+          <RailFoot />
+        </div>
+      </nav>
     </>
   );
 }
+
+const RAIL_TEXT_LINK =
+  "w-fit text-[14px] leading-[22px] text-ml-text-3 hover:text-ml-text transition-colors duration-150";
 
 function SupportEmail() {
   const [supportEmail, setSupportEmail] = useState(paths.issues());
@@ -206,7 +208,7 @@ function SupportEmail() {
       to={supportEmail}
       target={isMailto ? undefined : "_blank"}
       rel={isMailto ? undefined : "noreferrer"}
-      className="text-theme-text-secondary hover:text-white hover:light:text-theme-text-primary text-xs leading-[18px] mx-3 mt-1"
+      className={RAIL_TEXT_LINK}
     >
       {t("settings.contact")}
     </Link>
@@ -219,7 +221,7 @@ const SidebarOptions = ({ user = null, t }) => (
       <>
         <Option
           btnText={t("settings.ai-providers")}
-          icon={<Gear className="h-5 w-5 flex-shrink-0" />}
+          icon={<Cpu size={20} />}
           user={user}
           childOptions={[
             {
@@ -274,7 +276,7 @@ const SidebarOptions = ({ user = null, t }) => (
         />
         <Option
           btnText={t("settings.admin")}
-          icon={<UserCircleGear className="h-5 w-5 flex-shrink-0" />}
+          icon={<UsersThree size={20} />}
           user={user}
           childOptions={[
             {
@@ -309,13 +311,7 @@ const SidebarOptions = ({ user = null, t }) => (
         />
         <Option
           btnText={t("settings.agent-skills")}
-          icon={
-            <img
-              src={AgentIcon}
-              alt="Agent"
-              className="h-5 w-5 flex-shrink-0 light:invert"
-            />
-          }
+          icon={<Robot size={20} />}
           href={paths.settings.agentSkills()}
           user={user}
           flex={true}
@@ -323,13 +319,7 @@ const SidebarOptions = ({ user = null, t }) => (
         />
         <Option
           btnText={t("settings.community-hub.title")}
-          icon={
-            <img
-              src={CommunityHubIcon}
-              alt="Community Hub"
-              className="h-5 w-5 flex-shrink-0 light:invert"
-            />
-          }
+          icon={<GlobeHemisphereWest size={20} />}
           user={user}
           childOptions={[
             {
@@ -354,7 +344,7 @@ const SidebarOptions = ({ user = null, t }) => (
         />
         <Option
           btnText={t("settings.customization")}
-          icon={<PencilSimpleLine className="h-5 w-5 flex-shrink-0" />}
+          icon={<PaintBrush size={20} />}
           user={user}
           childOptions={[
             {
@@ -379,7 +369,7 @@ const SidebarOptions = ({ user = null, t }) => (
         />
         <Option
           btnText={t("settings.channels")}
-          icon={<Plugs className="h-5 w-5 flex-shrink-0" />}
+          icon={<PlugsConnected size={20} />}
           user={user}
           childOptions={[
             {
@@ -392,7 +382,7 @@ const SidebarOptions = ({ user = null, t }) => (
         />
         <Option
           btnText={t("settings.tools")}
-          icon={<Toolbox className="h-5 w-5 flex-shrink-0" />}
+          icon={<Toolbox size={20} />}
           user={user}
           childOptions={[
             {
@@ -442,7 +432,7 @@ const SidebarOptions = ({ user = null, t }) => (
         />
         <Option
           btnText={t("settings.security")}
-          icon={<Nut className="h-5 w-5 flex-shrink-0" />}
+          icon={<LockKey size={20} />}
           href={paths.settings.security()}
           user={user}
           flex={true}
@@ -452,7 +442,7 @@ const SidebarOptions = ({ user = null, t }) => (
         <HoldToReveal key="exp_features">
           <Option
             btnText={t("settings.experimental-features")}
-            icon={<Flask className="h-5 w-5 flex-shrink-0" />}
+            icon={<Flask size={20} />}
             href={paths.settings.experimental()}
             user={user}
             flex={true}
@@ -521,7 +511,7 @@ function AppVersion() {
       to={paths.releases()}
       target="_blank"
       rel="noreferrer"
-      className="text-theme-text-secondary light:opacity-80 opacity-50 text-xs mx-3"
+      className={`${RAIL_TEXT_LINK} ml-mono`}
     >
       v{version}
     </Link>

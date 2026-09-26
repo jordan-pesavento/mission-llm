@@ -1,3 +1,5 @@
+// Primary settings action (Save changes, Add user, ...). Concept 1 primary
+// button: 40px, 11px radius, accent fill. Callers position it with className.
 export default function CTAButton({
   children,
   disabled = false,
@@ -8,7 +10,7 @@ export default function CTAButton({
     <button
       disabled={disabled}
       onClick={() => onClick?.()}
-      className={`border-none text-xs px-4 py-1 font-semibold light:text-[#ffffff] rounded-lg bg-primary-button hover:bg-secondary hover:text-white h-[34px] -mr-8 whitespace-nowrap w-fit ${className}`}
+      className={`h-ctl-lg px-4 rounded-[11px] border border-transparent bg-ml-accent-fill text-ml-on-accent light:text-ml-on-accent text-[15px] font-semibold whitespace-nowrap w-fit shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_8px_20px_-10px_var(--ml-accent)] transition-[filter] duration-150 hover:brightness-110 disabled:opacity-60 disabled:cursor-default ${className}`}
     >
       <div className="flex items-center justify-center gap-2">{children}</div>
     </button>

@@ -1,4 +1,4 @@
-import { useMemo, useCallback, forwardRef } from "react";
+import { useMemo, useCallback, useEffect, forwardRef } from "react";
 import HistoricalMessage from "./HistoricalMessage";
 import PromptReply from "./PromptReply";
 import StatusResponse from "./StatusResponse";
@@ -26,6 +26,8 @@ import {
   THOUGHT_REGEX_COMPLETE,
 } from "./ThoughtContainer";
 import { MessageActionsProvider } from "./MessageActionsContext";
+import { useTranslation } from "react-i18next";
+import { dayKey, formatClock, formatDay, toDate } from "../chatUi";
 
 export default forwardRef(function (
   {
@@ -44,7 +46,33 @@ export default forwardRef(function (
   const { threadSlug = null } = useParams();
   const { showing, hideModal } = useManageWorkspaceModal();
   const { showScrollbar } = Appearance.getSettings();
-  const { textSizeClass } = useTextSize();
+  const { textSize } = useTextSize();
+  const { t, i18n } = useTranslation();
+  const locale = i18n?.language;
+
+  // Opening or closing the Sources drawer (or collapsing the rail) changes the
+  // thread's width and re-wraps every message. Keep a reader who was at the
+  // latest message there instead of leaving them mid-thread.
+  useEffect(() => {
+    const el = chatHistoryRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    let atBottom = true;
+    const onScroll = () => {
+      atBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 40;
+    };
+    let lastWidth = el.clientWidth;
+    const observer = new ResizeObserver(() => {
+      if (el.clientWidth === lastWidth) return;
+      lastWidth = el.clientWidth;
+      if (atBottom) el.scrollTop = el.scrollHeight;
+    });
+    el.addEventListener("scroll", onScroll, { passive: true });
+    observer.observe(el);
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      observer.disconnect();
+    };
+  }, [chatHistoryRef]);
 
   const saveEditedMessage = useCallback(
     async ({
@@ -138,6 +166,7 @@ export default forwardRef(function (
         saveEditedMessage,
         forkThread,
         websocket,
+        locale,
       }),
     [
       workspace,
@@ -146,6 +175,7 @@ export default forwardRef(function (
       saveEditedMessage,
       forkThread,
       websocket,
+      locale,
     ]
   );
   // A chain stays animated while the run feeding it is still live: an open
@@ -177,40 +207,68 @@ export default forwardRef(function (
   return (
     <MessageActionsProvider>
       <ThoughtExpansionProvider>
-        <div
-          className={`markdown text-white/80 light:text-theme-text-primary font-light ${textSizeClass} h-full md:h-[83%] pb-[100px] pt-6 md:pt-0 md:pb-20 md:mx-0 overflow-y-scroll flex flex-col items-center justify-start ${showScrollbar ? "show-scrollbar" : "no-scroll"}`}
-          id="chat-history"
-          ref={chatHistoryRef}
-          {...scrollHandlers}
-        >
-          <div className="w-full max-w-[750px]">
-            {compiledHistory.map((item, index) =>
-              Array.isArray(item) ? renderStatusResponse(item, index) : item
+        <div className="relative flex-1 min-h-0 flex flex-col">
+          <div
+            className={`markdown flex-1 min-h-0 overflow-y-auto text-ml-text ${CHAT_TEXT_SIZES[textSize] ?? CHAT_TEXT_SIZES.normal} px-gutter pt-[26px] pb-3 ${showScrollbar ? "show-scrollbar" : "no-scroll"}`}
+            id="chat-history"
+            ref={chatHistoryRef}
+            {...scrollHandlers}
+          >
+            <div
+              data-align="chat:left"
+              className="w-full flex flex-col gap-[26px]"
+            >
+              {compiledHistory.map((item, index) =>
+                Array.isArray(item) ? renderStatusResponse(item, index) : item
+              )}
+            </div>
+            {showing && (
+              <ManageWorkspace
+                hideModal={hideModal}
+                providedSlug={workspace.slug}
+              />
             )}
           </div>
-          {showing && (
-            <ManageWorkspace
-              hideModal={hideModal}
-              providedSlug={workspace.slug}
-            />
+          {!isAtBottom && (
+            <button
+              type="button"
+              onClick={() => scrollToBottom(true)}
+              aria-label={t("chat_window.scroll_to_latest")}
+              className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 w-10 h-10 grid place-items-center rounded-full border border-ml-line-2 bg-ml-raised text-ml-text-2 shadow-ml-pop cursor-pointer transition-colors duration-150 hover:text-ml-text hover:border-ml-accent-line"
+            >
+              <ArrowDown weight="bold" size={18} />
+            </button>
           )}
         </div>
-        {!isAtBottom && (
-          <div className="absolute bottom-40 right-10 z-50 cursor-pointer animate-pulse">
-            <div className="flex flex-col items-center">
-              <div
-                className="p-1 rounded-full border border-white/10 bg-white/10 hover:bg-white/20 hover:text-white"
-                onClick={() => scrollToBottom(true)}
-              >
-                <ArrowDown weight="bold" className="text-white/60 w-5 h-5" />
-              </div>
-            </div>
-          </div>
-        )}
       </ThoughtExpansionProvider>
     </MessageActionsProvider>
   );
 });
+
+/**
+ * Chat text sizes for the text size setting. The concept's reading size is
+ * 17px / 1.68; small and large step by 2px and stay above the 13px floor.
+ */
+const CHAT_TEXT_SIZES = {
+  small: "text-[15px] leading-[1.65]",
+  normal: "text-[17px] leading-[1.68]",
+  large: "text-[19px] leading-[1.68]",
+};
+
+/**
+ * "Today · 09:41" rule between days, from the messages' real send times.
+ */
+function DayDivider({ label }) {
+  return (
+    <div
+      role="separator"
+      aria-label={label}
+      className="flex items-center gap-3.5 font-mono font-medium text-[13.5px] leading-none text-ml-text-3 before:content-[''] before:flex-1 before:h-px before:bg-ml-line after:content-[''] after:flex-1 after:h-px after:bg-ml-line"
+    >
+      <span className="whitespace-nowrap">{label}</span>
+    </div>
+  );
+}
 
 /**
  * Builds the history of messages for the chat.
@@ -234,10 +292,28 @@ function buildMessages({
   saveEditedMessage,
   forkThread,
   websocket,
+  locale,
 }) {
+  let lastDay = null;
   return history.reduce((acc, props, index) => {
     const isLastBotReply =
       index === history.length - 1 && props.role === "assistant";
+
+    // A "Today · 09:41" divider opens each calendar day, taken from the real
+    // send time of the first user message of that day.
+    if (props.role === "user") {
+      const sent = toDate(props.sentAt);
+      if (sent && dayKey(sent) !== lastDay) {
+        lastDay = dayKey(sent);
+        const label = [formatDay(sent, locale), formatClock(sent, locale)]
+          .filter(Boolean)
+          .join(" · ");
+        if (label)
+          acc.push(
+            <DayDivider key={`day-${lastDay}-${index}`} label={label} />
+          );
+      }
+    }
 
     if (props?.type === "statusResponse" && !!props.content) {
       pushActivity(acc, props);
@@ -354,6 +430,7 @@ function buildMessages({
             metrics={props.metrics}
             outputs={props.outputs}
             clarifyingQuestions={props.clarifyingQuestions}
+            sentAt={props.sentAt}
           />
         );
       }

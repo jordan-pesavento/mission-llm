@@ -4,8 +4,14 @@ import paths from "@/utils/paths";
 import useQuery from "@/hooks/useQuery";
 import System from "@/models/system";
 import { AUTH_TIMESTAMP, AUTH_TOKEN, AUTH_USER } from "@/utils/constants";
+import { useTranslation } from "react-i18next";
+import AuthLayout, {
+  AuthAlert,
+  AuthHeading,
+} from "@/components/Modals/Password/AuthLayout";
 
 export default function SimpleSSOPassthrough() {
+  const { t } = useTranslation();
   const query = useQuery();
   const redirectPath = query.get("redirectTo") || paths.home();
   const [ready, setReady] = useState(false);
@@ -39,12 +45,18 @@ export default function SimpleSSOPassthrough() {
 
   if (error)
     return (
-      <div className="w-screen h-screen overflow-hidden bg-theme-bg-primary flex items-center justify-center flex-col gap-4">
-        <p className="text-theme-text-primary font-mono text-lg">{error}</p>
-        <p className="text-theme-text-secondary font-mono text-sm">
-          Please contact the system administrator about this error.
-        </p>
-      </div>
+      <AuthLayout>
+        <div className="flex w-full flex-col gap-[18px]">
+          <AuthHeading
+            id="sso-error-title"
+            title={t("login.title", { defaultValue: "Sign in" })}
+          />
+          <AuthAlert id="sso-error">{error}</AuthAlert>
+          <p className="text-[15px] leading-[1.6] text-ml-text-2">
+            Please contact the system administrator about this error.
+          </p>
+        </div>
+      </AuthLayout>
     );
   if (ready) return window.location.replace(redirectPath);
 

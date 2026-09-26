@@ -68,10 +68,7 @@ export default function SlashCommand({ item, setStep }) {
           </div>
         </div>
       </div>
-      <CTAButton
-        className="text-dark-text w-full mt-[18px] h-[34px] hover:bg-accent"
-        onClick={handleSubmit}
-      >
+      <CTAButton className="w-full mt-[18px]" onClick={handleSubmit}>
         Import slash command
       </CTAButton>
     </div>

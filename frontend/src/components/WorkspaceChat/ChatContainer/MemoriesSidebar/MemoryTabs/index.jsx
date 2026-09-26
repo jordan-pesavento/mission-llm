@@ -24,7 +24,7 @@ export default function MemoryTabs() {
           onClick={() => setActiveTab("workspace")}
           data-tooltip-id="memories-workspace-pill"
           data-tooltip-content={workspaceName}
-          className={`flex items-center gap-0.5 h-6 px-3 rounded-full border-none cursor-pointer text-xs font-medium uppercase tracking-[1.2px] whitespace-nowrap transition-colors min-w-0 shrink ${
+          className={`flex items-center gap-0.5 h-6 px-3 rounded-full border-none cursor-pointer text-[13px] font-medium uppercase tracking-[1.2px] whitespace-nowrap transition-colors min-w-0 shrink ${
             activeTab === "workspace"
               ? "bg-zinc-800 light:bg-slate-300"
               : "bg-transparent hover:bg-zinc-800/50 light:hover:bg-slate-200"
@@ -40,7 +40,7 @@ export default function MemoryTabs() {
         <button
           type="button"
           onClick={() => setActiveTab("global")}
-          className={`flex items-center gap-0.5 h-6 px-3 rounded-full border-none cursor-pointer text-xs font-medium uppercase tracking-[1.2px] whitespace-nowrap transition-colors shrink-0 ${
+          className={`flex items-center gap-0.5 h-6 px-3 rounded-full border-none cursor-pointer text-[13px] font-medium uppercase tracking-[1.2px] whitespace-nowrap transition-colors shrink-0 ${
             activeTab === "global"
               ? "bg-zinc-800 light:bg-slate-300"
               : "bg-transparent hover:bg-zinc-800/50 light:hover:bg-slate-200"
@@ -66,7 +66,7 @@ export default function MemoryTabs() {
         id="memories-workspace-pill"
         place="bottom"
         delayShow={800}
-        className="tooltip !text-xs z-99"
+        className="tooltip !text-[13px] z-99"
       />
     </div>
   );

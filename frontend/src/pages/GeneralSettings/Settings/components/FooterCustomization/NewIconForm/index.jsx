@@ -1,6 +1,7 @@
 import { ICON_COMPONENTS } from "@/components/Footer";
 import React, { useEffect, useRef, useState } from "react";
 import { Plus, X } from "@phosphor-icons/react";
+import { SET_FIELD, SET_BTN_PRIMARY } from "@/components/SettingsPage";
 
 export default function NewIconForm({ icon, url, onSave, onRemove }) {
   const [selectedIcon, setSelectedIcon] = useState(icon || "Plus");
@@ -53,10 +54,14 @@ export default function NewIconForm({ icon, url, onSave, onRemove }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center gap-x-1.5">
-      <div className="relative" ref={dropdownRef}>
-        <div
-          className="h-[34px] w-[34px] bg-theme-settings-input-bg rounded-full flex items-center justify-center cursor-pointer hover:outline-primary-button hover:outline"
+    <form onSubmit={handleSubmit} className="flex items-center gap-x-2.5">
+      <div className="relative shrink-0" ref={dropdownRef}>
+        <button
+          type="button"
+          aria-label="Choose icon"
+          aria-haspopup="menu"
+          aria-expanded={isDropdownOpen}
+          className="w-field h-field grid place-items-center rounded-[12px] border border-ml-line-2 bg-ml-panel cursor-pointer transition-colors duration-150 hover:border-ml-accent-line"
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         >
           {React.createElement(ICON_COMPONENTS[selectedIcon] || Plus, {
@@ -64,14 +69,19 @@ export default function NewIconForm({ icon, url, onSave, onRemove }) {
             weight: selectedIcon === "Plus" ? "bold" : "fill",
             color: "var(--theme-sidebar-footer-icon-fill)",
           })}
-        </div>
+        </button>
         {isDropdownOpen && (
-          <div className="absolute z-10 grid grid-cols-4 bg-theme-settings-input-bg mt-2 rounded-md w-[150px] h-[78px] overflow-y-auto border border-white/20 shadow-lg">
+          <div
+            role="menu"
+            className="absolute z-10 mt-2 grid grid-cols-4 gap-1 p-1.5 w-[188px] max-h-[140px] overflow-y-auto rounded-[12px] border border-ml-line-2 bg-ml-raised shadow-ml-pop"
+          >
             {Object.keys(ICON_COMPONENTS).map((iconName) => (
               <button
                 key={iconName}
                 type="button"
-                className="flex justify-center items-center border border-transparent hover:bg-theme-sidebar-footer-icon-hover hover:border-slate-100 light:hover:border-black/80 rounded-full p-2"
+                role="menuitem"
+                aria-label={iconName}
+                className="w-10 h-10 grid place-items-center rounded-[9px] border border-transparent cursor-pointer transition-colors duration-150 hover:bg-ml-raised-2 hover:border-ml-line"
                 onClick={() => handleIconChange(iconName)}
               >
                 {React.createElement(ICON_COMPONENTS[iconName], {
@@ -89,25 +99,24 @@ export default function NewIconForm({ icon, url, onSave, onRemove }) {
         value={selectedUrl}
         onChange={handleUrlChange}
         placeholder="https://example.com"
-        className="border-none bg-theme-settings-input-bg text-white placeholder:text-theme-settings-input-placeholder text-sm rounded-md p-2.5 w-[300px] h-[32px] focus:outline-primary-button active:outline-primary-button outline-none"
+        aria-label="Link"
+        className={`${SET_FIELD} flex-1 min-w-0`}
         required
       />
       {selectedIcon !== "Plus" && (
         <>
           {isEdited ? (
-            <button
-              type="submit"
-              className="text-sky-400 px-2 py-2 rounded-md text-sm font-bold hover:text-sky-500"
-            >
+            <button type="submit" className={SET_BTN_PRIMARY}>
               Save
             </button>
           ) : (
             <button
               type="button"
               onClick={handleRemove}
-              className="hover:text-red-500 text-white/80 px-2 py-2 rounded-md text-sm font-bold"
+              aria-label="Remove"
+              className="w-field h-field shrink-0 grid place-items-center rounded-[12px] border border-ml-line-2 bg-ml-raised text-ml-text-2 cursor-pointer transition-colors duration-150 hover:border-ml-bad hover:text-ml-bad"
             >
-              <X size={20} />
+              <X size={18} />
             </button>
           )}
         </>

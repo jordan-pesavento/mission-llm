@@ -69,7 +69,7 @@ export default function AgentFlow({ item, setStep }) {
       </div>
       <CTAButton
         disabled={loading}
-        className="text-dark-text w-full mt-[18px] h-[34px] hover:bg-accent"
+        className="w-full mt-[18px]"
         onClick={importAgentFlow}
       >
         {loading ? <CircleNotch size={16} className="animate-spin" /> : null}

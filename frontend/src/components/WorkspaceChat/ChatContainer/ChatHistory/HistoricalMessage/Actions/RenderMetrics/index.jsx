@@ -30,26 +30,6 @@ function getAutoShowMetrics() {
 }
 
 /**
- * Build the metrics string for a given metrics object
- * - Model name
- * - Duration and output TPS
- * - Timestamp
- * @param {metrics: {duration:number, outputTps: number, model?: string, timestamp?: number}} metrics
- * @returns {string}
- */
-function buildMetricsString(metrics = {}) {
-  return [
-    metrics?.model ? metrics.model : "",
-    `${formatDuration(metrics.duration)} (${formatTps(metrics.outputTps)} tok/s)`,
-    metrics?.timestamp
-      ? formatDateTimeAsMoment(metrics.timestamp, "MMM D, h:mm A")
-      : "",
-  ]
-    .filter(Boolean)
-    .join(" · ");
-}
-
-/**
  * Toggle the show metrics setting in localStorage `missionllm_show_chat_metrics` key
  * @returns {void}
  */
@@ -95,31 +75,66 @@ export function MetricsProvider({ children }) {
 }
 
 /**
- * Render the metrics for a given chat, if available
- * @param {metrics: {duration:number, outputTps: number, model: string, timestamp: number}} props
- * @returns
+ * The monospace meta line next to the assistant name:
+ * "model · N sources · 4.5s", then "61.02 tok/s · Sep 26, 4:27 AM".
+ * The first part is always shown; the throughput and timestamp follow the
+ * existing "show metrics" preference (always, or on hover), which a click on
+ * the line toggles as before. Only real values are shown.
+ * @param {{metrics: {duration:number, outputTps: number, model?: string, timestamp?: number}, sourcesLabel?: string}} props
  */
-export default function RenderMetrics({ metrics = {} }) {
+export default function RenderMetrics({ metrics = {}, sourcesLabel = "" }) {
   // Inherit the showMetricsAutomatically state from the MetricsProvider so the state is shared across all chats
   const { showMetricsAutomatically, setShowMetricsAutomatically } =
-    useContext(MetricsContext);
-  if (!metrics?.duration || !metrics?.outputTps || isMobile) return null;
+    useContext(MetricsContext) ?? {};
+  const hasMetrics = !!metrics?.duration && !!metrics?.outputTps;
+
+  const base = [
+    metrics?.model || "",
+    sourcesLabel,
+    hasMetrics ? formatDuration(metrics.duration) : "",
+  ]
+    .filter(Boolean)
+    .join(" · ");
+  if (!base) return null;
+  if (!hasMetrics || isMobile)
+    return (
+      <span className="min-w-0 truncate font-mono font-medium text-[13.5px] text-ml-text-3">
+        {base}
+      </span>
+    );
+
+  const detail = [
+    `${formatTps(metrics.outputTps)} tok/s`,
+    metrics?.timestamp
+      ? formatDateTimeAsMoment(metrics.timestamp, "MMM D, h:mm A")
+      : "",
+  ]
+    .filter(Boolean)
+    .join(" · ");
 
   return (
     <button
       type="button"
-      onClick={() => setShowMetricsAutomatically(toggleAutoShowMetrics())}
+      onClick={() => setShowMetricsAutomatically?.(toggleAutoShowMetrics())}
       data-tooltip-id="metrics-visibility"
       data-tooltip-content={
         showMetricsAutomatically
           ? "Click to only show metrics when hovering"
           : "Click to show metrics as soon as they are available"
       }
-      className={`border-none flex md:justify-end items-center gap-x-[8px] -ml-7 ${showMetricsAutomatically ? "opacity-100" : "opacity-0"} md:group-hover:opacity-100 transition-all duration-300`}
+      className="min-w-0 truncate border-none bg-transparent p-0 text-left cursor-pointer font-mono font-medium text-[13.5px] text-ml-text-3 hover:text-ml-text-2 transition-colors"
     >
-      <p className="cursor-pointer text-xs font-mono text-zinc-400 light:text-slate-500">
-        {buildMetricsString(metrics)}
-      </p>
+      {base}
+      <span
+        className={
+          showMetricsAutomatically
+            ? "inline"
+            : "hidden group-hover:inline group-focus-within:inline"
+        }
+      >
+        {" · "}
+        {detail}
+      </span>
     </button>
   );
 }

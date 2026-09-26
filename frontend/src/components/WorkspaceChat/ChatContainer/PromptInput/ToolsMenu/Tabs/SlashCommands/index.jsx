@@ -201,7 +201,7 @@ export default function SlashCommandsTab({
           weight="bold"
           className="text-white light:text-slate-900"
         />
-        <span className="text-xs text-white light:text-slate-900">
+        <span className="text-[13px] text-white light:text-slate-900">
           {t("chat_window.add_new")}
         </span>
       </div>

@@ -123,7 +123,7 @@ export default function LLMSelectorModal({
         className="w-full h-[388px] flex flex-col items-center justify-center gap-2"
       >
         <PreLoader size={12} />
-        <p className="text-zinc-400 light:text-slate-500 text-sm">
+        <p className="text-ml-text-2 text-[14.5px]">
           {t("chat_window.workspace_llm_manager.loading_workspace_settings")}
         </p>
       </div>
@@ -141,12 +141,12 @@ export default function LLMSelectorModal({
       <div className="w-[60%] h-full p-[18px] flex flex-col gap-2.5">
         <div className="flex flex-col gap-[15px]">
           <div className="flex flex-col gap-1.5">
-            <p className="text-sm font-medium text-white light:text-slate-800">
+            <p className="text-[15px] font-semibold text-ml-text">
               {t("chat_window.workspace_llm_manager.available_models", {
                 provider: providerName,
               })}
             </p>
-            <p className="text-xs font-medium text-zinc-400 light:text-slate-500">
+            <p className="text-[13.5px] text-ml-text-2">
               {t(
                 "chat_window.workspace_llm_manager.available_models_description"
               )}
@@ -188,7 +188,7 @@ export default function LLMSelectorModal({
             type="button"
             disabled={saving}
             onClick={handleSave}
-            className="border-none text-xs px-4 py-1.5 font-semibold rounded-lg bg-white text-zinc-900 hover:bg-zinc-200 light:bg-slate-800 light:text-white light:hover:bg-slate-700 h-8 w-full cursor-pointer transition-colors mt-auto"
+            className="border-none text-[14.5px] px-4 font-semibold rounded-[11px] bg-ml-accent-fill text-ml-on-accent shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] hover:brightness-110 h-10 w-full cursor-pointer transition-[filter] mt-auto"
           >
             {saving
               ? t("chat_window.workspace_llm_manager.saving")

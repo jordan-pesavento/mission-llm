@@ -53,7 +53,7 @@ export default function SlashCommandRow({
           : "hover:bg-zinc-700/50 light:hover:bg-slate-100"
       }`}
     >
-      <div className="flex gap-1.5 items-center text-xs min-w-0 flex-1">
+      <div className="flex gap-1.5 items-center text-[13px] min-w-0 flex-1">
         <span className="text-white light:text-slate-900 shrink-0">
           {command}
         </span>
@@ -89,7 +89,7 @@ export default function SlashCommandRow({
               >
                 <button
                   type="button"
-                  className="border-none px-3 py-1.5 text-xs text-white light:text-slate-900 hover:bg-zinc-700 light:hover:bg-slate-100 cursor-pointer text-left"
+                  className="border-none px-3 py-1.5 text-[13px] text-white light:text-slate-900 hover:bg-zinc-700 light:hover:bg-slate-100 cursor-pointer text-left"
                   onClick={(e) => {
                     e.stopPropagation();
                     setMenuOpen(false);
@@ -100,7 +100,7 @@ export default function SlashCommandRow({
                 </button>
                 <button
                   type="button"
-                  className="border-none px-3 py-1.5 text-xs text-white light:text-slate-900 hover:bg-zinc-700 light:hover:bg-slate-100 cursor-pointer text-left"
+                  className="border-none px-3 py-1.5 text-[13px] text-white light:text-slate-900 hover:bg-zinc-700 light:hover:bg-slate-100 cursor-pointer text-left"
                   onClick={(e) => {
                     e.stopPropagation();
                     setMenuOpen(false);

@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 function ProgressIndicator({ answeredCount, total }) {
   const { t } = useTranslation();
   return (
-    <div className="text-xs text-zinc-400 light:text-slate-500">
+    <div className="text-[13px] text-zinc-400 light:text-slate-500">
       {t("chat_window.agent_invocation.batch_progress", {
         answered: answeredCount,
         total,

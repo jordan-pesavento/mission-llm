@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Sidebar from "@/components/SettingsSidebar";
-import { isMobile } from "react-device-detect";
 import { CircleNotch, PencilSimple, X } from "@phosphor-icons/react";
 import ModelRouter from "@/models/modelRouter";
 import { useModal } from "@/hooks/useModal";
@@ -87,26 +86,26 @@ export default function ModelRouters() {
 
 function Layout({ t, showAction, onAction, children }) {
   return (
-    <div className="w-screen h-screen overflow-hidden bg-zinc-950 light:bg-slate-50 flex md:mt-0 mt-6">
+    <div className="w-screen h-screen overflow-hidden bg-theme-bg-container flex md:mt-0 mt-6">
       <Sidebar />
       <div
-        style={{ height: isMobile ? "100%" : "calc(100% - 32px)" }}
-        className="relative md:ml-[2px] md:mr-[16px] md:my-[16px] md:rounded-2xl bg-zinc-900 light:bg-white light:border light:border-slate-300 w-full h-full overflow-y-scroll p-4 md:p-0"
+        style={{ height: "100%" }}
+        className="relative bg-theme-bg-primary w-full h-full overflow-y-scroll p-4 md:p-0"
       >
         <div className="flex flex-col w-full px-1 md:pl-6 md:pr-[50px] md:py-0 py-16">
-          <div className="flex items-end justify-between pr-8 py-6 border-b border-white/20 light:border-slate-300">
+          <div className="flex items-center flex-wrap gap-4 justify-between pt-[22px] pb-4 border-b border-ml-line">
             <div className="flex flex-col gap-y-2">
-              <p className="text-lg font-semibold leading-7 text-white light:text-slate-900">
+              <p className="font-display [font-stretch:112%] font-[650] text-[27px] leading-[1.2] tracking-[0.01em] text-ml-text">
                 {t("model-router.title")}
               </p>
-              <p className="text-xs leading-4 text-zinc-400 light:text-slate-600 max-w-[700px]">
+              <p className="text-[16px] leading-[1.5] text-ml-text-2 max-w-[760px]">
                 {t("model-router.description")}
               </p>
             </div>
             {showAction && (
               <button
                 onClick={onAction}
-                className="border-none shrink-0 flex items-center justify-center h-9 px-5 py-2.5 rounded-lg bg-slate-50 text-zinc-950 text-sm font-medium leading-5 hover:opacity-90 transition-opacity duration-200"
+                className="shrink-0 h-ctl-lg inline-flex items-center justify-center gap-2 px-4 rounded-[11px] border border-transparent bg-ml-accent-fill text-ml-on-accent text-[15px] font-semibold whitespace-nowrap shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_8px_20px_-10px_var(--ml-accent)] transition-[filter] duration-150 hover:brightness-110"
               >
                 {t("model-router.new-router-button")}
               </button>
@@ -114,7 +113,7 @@ function Layout({ t, showAction, onAction, children }) {
           </div>
 
           <div className="mt-8 flex flex-col">
-            <div className="grid grid-cols-[2fr_2fr_1fr_1fr_88px] gap-x-4 px-4 text-sm font-semibold uppercase tracking-[1.4px] text-zinc-500 light:text-slate-500 leading-5">
+            <div className="grid grid-cols-[2fr_2fr_1fr_1fr_88px] gap-x-4 px-4 text-[14px] font-semibold text-ml-text-2 leading-5">
               <span>{t("model-router.table.name")}</span>
               <span>{t("model-router.table.fallback")}</span>
               <span>{t("model-router.table.rules")}</span>
@@ -167,7 +166,7 @@ function EmptyState({ onCreateClick, t }) {
       </div>
       <button
         onClick={onCreateClick}
-        className="border-none flex items-center justify-center h-9 px-5 py-2.5 rounded-lg bg-slate-50 text-zinc-950 text-sm font-medium leading-5 hover:opacity-90 transition-opacity duration-200"
+        className="h-ctl-lg inline-flex items-center justify-center gap-2 px-4 rounded-[11px] border border-transparent bg-ml-accent-fill text-ml-on-accent text-[15px] font-semibold whitespace-nowrap shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_8px_20px_-10px_var(--ml-accent)] transition-[filter] duration-150 hover:brightness-110"
       >
         {t("model-router.new-router-button")}
       </button>

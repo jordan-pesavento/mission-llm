@@ -54,7 +54,7 @@ export default function EmbedConfigsView() {
           </p>
 
           <div>
-            <CTAButton onClick={openModal} className="text-theme-bg-chat">
+            <CTAButton onClick={openModal}>
               <CodeBlock className="h-4 w-4" weight="bold" />{" "}
               {t("embeddable.create")}
             </CTAButton>

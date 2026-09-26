@@ -27,7 +27,9 @@ export default function SkillRow({
       className={classNames}
       onClick={() => !disabled && onToggle()}
     >
-      <span className="text-xs text-white light:text-slate-900">{name}</span>
+      <span className="text-[13px] text-white light:text-slate-900">
+        {name}
+      </span>
       <div className="pointer-events-none" aria-hidden="true">
         <SimpleToggleSwitch size="sm" enabled={enabled} />
       </div>

@@ -17,7 +17,7 @@ export default function ChatModelSelection({
       <select
         required={true}
         disabled={true}
-        className="bg-zinc-900 light:bg-white text-white light:text-slate-900 text-sm rounded-lg h-8 w-full px-2.5 outline-none border border-zinc-900 light:border-slate-400 cursor-not-allowed"
+        className="bg-ml-panel text-ml-text text-[14.5px] font-mono rounded-[10px] h-10 w-full px-3 outline-none border border-ml-line-2 focus:border-ml-accent-line cursor-not-allowed"
       >
         <option disabled={true} selected={true}>
           -- waiting for models --
@@ -35,7 +35,7 @@ export default function ChatModelSelection({
         setHasChanges(true);
         setSelectedLLMModel(e.target.value);
       }}
-      className="bg-zinc-900 light:bg-white text-white light:text-slate-900 text-sm rounded-lg h-8 w-full px-2.5 outline-none border border-zinc-900 light:border-slate-400 cursor-pointer"
+      className="bg-ml-panel text-ml-text text-[14.5px] font-mono rounded-[10px] h-10 w-full px-3 outline-none border border-ml-line-2 focus:border-ml-accent-line cursor-pointer"
     >
       {defaultModels.length > 0 && (
         <optgroup label="General models">

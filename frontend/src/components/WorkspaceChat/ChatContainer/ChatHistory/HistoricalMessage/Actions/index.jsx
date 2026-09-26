@@ -1,12 +1,17 @@
 import React, { memo, useState } from "react";
 import useCopyText from "@/hooks/useCopyText";
-import { Check, ThumbsUp, ArrowsClockwise, Copy } from "@phosphor-icons/react";
+import { Check, ThumbsUp, ArrowClockwise, Copy } from "@phosphor-icons/react";
 import Workspace from "@/models/workspace";
 import { EditMessageAction } from "./EditMessage";
-import RenderMetrics from "./RenderMetrics";
 import ActionMenu from "./ActionMenu";
 import { useTranslation } from "react-i18next";
+import { ACT_BTN } from "../../../chatUi";
 
+/**
+ * The row of 36px icon actions under a message.
+ * Assistant: copy, regenerate (last reply), good response, read aloud
+ * (ttsSlot), edit, more (fork, delete). User: copy, edit.
+ */
 const Actions = ({
   message,
   feedbackScore,
@@ -17,7 +22,7 @@ const Actions = ({
   forkThread,
   isEditing,
   role,
-  metrics = {},
+  ttsSlot = null,
 }) => {
   const { t } = useTranslation();
   const [selectedFeedback, setSelectedFeedback] = useState(feedbackScore);
@@ -28,47 +33,41 @@ const Actions = ({
     setSelectedFeedback(updatedFeedback);
   };
 
-  return (
-    <div
-      className={`flex w-full flex-wrap items-center gap-y-1 ${role === "user" ? "justify-end" : "justify-between"}`}
-    >
-      <div className="flex justify-start items-center gap-x-[8px]">
-        <div className="md:group-hover:opacity-100 transition-all duration-300 md:opacity-0 flex justify-start items-center gap-x-[8px]">
-          <div
-            className={`flex justify-start items-center gap-x-[8px] ${role === "user" ? "flex-row-reverse" : ""}`}
-          >
-            <CopyMessage message={message} />
-            <EditMessageAction
-              chatId={chatId}
-              role={role}
-              isEditing={isEditing}
-            />
-          </div>
-          {isLastMessage && !isEditing && (
-            <RegenerateMessage
-              regenerateMessage={regenerateMessage}
-              slug={slug}
-              chatId={chatId}
-            />
-          )}
-          {chatId && role !== "user" && !isEditing && (
-            <FeedbackButton
-              isSelected={selectedFeedback === true}
-              handleFeedback={() => handleFeedback(true)}
-              tooltipId="feedback-button"
-              tooltipContent={t("chat_window.good_response")}
-              IconComponent={ThumbsUp}
-            />
-          )}
-          <ActionMenu
-            chatId={chatId}
-            forkThread={forkThread}
-            isEditing={isEditing}
-            role={role}
-          />
-        </div>
+  if (role === "user") {
+    return (
+      <div className="flex items-center gap-0.5">
+        <CopyMessage message={message} />
+        <EditMessageAction chatId={chatId} role={role} isEditing={isEditing} />
       </div>
-      <RenderMetrics metrics={metrics} />
+    );
+  }
+
+  return (
+    <div data-row="message-actions" className="flex items-center gap-0.5">
+      <CopyMessage message={message} />
+      {isLastMessage && !isEditing && (
+        <RegenerateMessage
+          regenerateMessage={regenerateMessage}
+          slug={slug}
+          chatId={chatId}
+        />
+      )}
+      {chatId && !isEditing && (
+        <FeedbackButton
+          isSelected={selectedFeedback === true}
+          handleFeedback={() => handleFeedback(true)}
+          tooltipContent={t("chat_window.good_response")}
+          IconComponent={ThumbsUp}
+        />
+      )}
+      {ttsSlot}
+      <EditMessageAction chatId={chatId} role={role} isEditing={isEditing} />
+      <ActionMenu
+        chatId={chatId}
+        forkThread={forkThread}
+        isEditing={isEditing}
+        role={role}
+      />
     </div>
   );
 };
@@ -80,21 +79,17 @@ function FeedbackButton({
   IconComponent,
 }) {
   return (
-    <div className="mt-3 relative">
-      <button
-        onClick={handleFeedback}
-        data-tooltip-id="feedback-button"
-        data-tooltip-content={tooltipContent}
-        className="text-zinc-300 light:text-slate-500"
-        aria-label={tooltipContent}
-      >
-        <IconComponent
-          size={20}
-          className="mb-1"
-          weight={isSelected ? "fill" : "regular"}
-        />
-      </button>
-    </div>
+    <button
+      type="button"
+      onClick={handleFeedback}
+      data-tooltip-id="feedback-button"
+      data-tooltip-content={tooltipContent}
+      className={`${ACT_BTN} ${isSelected ? "!text-ml-accent-text" : ""}`}
+      aria-label={tooltipContent}
+      aria-pressed={isSelected}
+    >
+      <IconComponent size={18} weight={isSelected ? "fill" : "regular"} />
+    </button>
   );
 }
 
@@ -103,23 +98,16 @@ function CopyMessage({ message }) {
   const { t } = useTranslation();
 
   return (
-    <>
-      <div className="mt-3 relative">
-        <button
-          onClick={() => copyText(message)}
-          data-tooltip-id="copy-assistant-text"
-          data-tooltip-content={t("chat_window.copy")}
-          className="text-zinc-300 light:text-slate-500"
-          aria-label={t("chat_window.copy")}
-        >
-          {copied ? (
-            <Check size={20} className="mb-1" />
-          ) : (
-            <Copy size={20} className="mb-1" />
-          )}
-        </button>
-      </div>
-    </>
+    <button
+      type="button"
+      onClick={() => copyText(message)}
+      data-tooltip-id="copy-assistant-text"
+      data-tooltip-content={t("chat_window.copy")}
+      className={ACT_BTN}
+      aria-label={t("chat_window.copy")}
+    >
+      {copied ? <Check size={18} /> : <Copy size={18} />}
+    </button>
   );
 }
 
@@ -127,17 +115,16 @@ function RegenerateMessage({ regenerateMessage, chatId }) {
   const { t } = useTranslation();
   if (!chatId) return null;
   return (
-    <div className="mt-3 relative">
-      <button
-        onClick={() => regenerateMessage(chatId)}
-        data-tooltip-id="regenerate-assistant-text"
-        data-tooltip-content={t("chat_window.regenerate_response")}
-        className="border-none text-zinc-300 light:text-slate-500"
-        aria-label={t("chat_window.regenerate")}
-      >
-        <ArrowsClockwise size={20} className="mb-1" weight="fill" />
-      </button>
-    </div>
+    <button
+      type="button"
+      onClick={() => regenerateMessage(chatId)}
+      data-tooltip-id="regenerate-assistant-text"
+      data-tooltip-content={t("chat_window.regenerate_response")}
+      className={ACT_BTN}
+      aria-label={t("chat_window.regenerate")}
+    >
+      <ArrowClockwise size={18} />
+    </button>
   );
 }
 

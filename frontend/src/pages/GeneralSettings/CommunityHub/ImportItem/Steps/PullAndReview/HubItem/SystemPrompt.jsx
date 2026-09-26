@@ -94,10 +94,7 @@ export default function SystemPrompt({ item, setStep }) {
         </div>
       </div>
       {destinationWorkspaceSlug && (
-        <CTAButton
-          className="text-dark-text w-full mt-[18px] h-[34px] hover:bg-accent"
-          onClick={handleSubmit}
-        >
+        <CTAButton className="w-full mt-[18px]" onClick={handleSubmit}>
           Apply system prompt to workspace
         </CTAButton>
       )}

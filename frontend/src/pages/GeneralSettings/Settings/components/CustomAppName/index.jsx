@@ -3,6 +3,12 @@ import System from "@/models/system";
 import showToast from "@/utils/toast";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import {
+  SettingsRow,
+  SET_FIELD,
+  SET_BTN,
+  SET_BTN_PRIMARY,
+} from "@/components/SettingsPage";
 
 export default function CustomAppName() {
   const { t } = useTranslation();
@@ -59,45 +65,41 @@ export default function CustomAppName() {
   if (!canCustomize || loading) return null;
 
   return (
-    <form
-      className="flex flex-col gap-y-0.5 mt-4"
+    <SettingsRow
+      as="form"
       onSubmit={updateCustomAppName}
+      title={t("customization.items.app-name.title")}
+      description={t("customization.items.app-name.description")}
     >
-      <p className="text-sm leading-6 font-semibold text-white">
-        {t("customization.items.app-name.title")}
-      </p>
-      <p className="text-xs text-white/60">
-        {t("customization.items.app-name.description")}
-      </p>
-      <div className="flex items-center gap-x-4">
-        <input
-          name="customAppName"
-          type="text"
-          className="border-none bg-theme-settings-input-bg mt-2 text-white placeholder:text-theme-settings-input-placeholder text-sm rounded-lg focus:outline-primary-button active:outline-primary-button outline-none block w-fit py-2 px-4"
-          placeholder="Mission LLM"
-          required={true}
-          autoComplete="off"
-          onChange={handleChange}
-          value={customAppName}
-        />
-        {originalAppName !== "" && (
-          <button
-            type="button"
-            onClick={(e) => updateCustomAppName(e, "")}
-            className="text-white text-base font-medium hover:text-opacity-60"
-          >
-            Clear
-          </button>
-        )}
-      </div>
-      {hasChanges && (
-        <button
-          type="submit"
-          className="transition-all mt-2 w-fit duration-300 border border-slate-200 px-5 py-2.5 rounded-lg text-white text-sm items-center flex gap-x-2 hover:bg-slate-200 hover:text-slate-800 focus:ring-gray-800"
-        >
-          Save
-        </button>
+      <input
+        name="customAppName"
+        type="text"
+        aria-label={t("customization.items.app-name.title")}
+        className={SET_FIELD}
+        placeholder="Mission LLM"
+        required={true}
+        autoComplete="off"
+        onChange={handleChange}
+        value={customAppName}
+      />
+      {(hasChanges || originalAppName !== "") && (
+        <div data-row="app-name-actions" className="flex items-center gap-2.5">
+          {hasChanges && (
+            <button type="submit" className={SET_BTN_PRIMARY}>
+              Save
+            </button>
+          )}
+          {originalAppName !== "" && (
+            <button
+              type="button"
+              onClick={(e) => updateCustomAppName(e, "")}
+              className={SET_BTN}
+            >
+              Clear
+            </button>
+          )}
+        </div>
       )}
-    </form>
+    </SettingsRow>
   );
 }

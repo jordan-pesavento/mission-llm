@@ -37,10 +37,7 @@ function MemoriesSidebarContent() {
 
 function SidebarPanel({ children }) {
   return (
-    <div
-      className="w-[366px] flex-shrink-0 flex flex-col gap-5 mt-[72px] px-5 overflow-y-auto no-scroll"
-      style={{ maxHeight: "calc(100% - 88px)" }}
-    >
+    <div className="w-full h-full flex flex-col gap-5 px-5 pb-5 overflow-y-auto">
       {children}
     </div>
   );
@@ -104,16 +101,17 @@ function SidebarHeader() {
   const { closeSidebar } = useMemoriesContext();
 
   return (
-    <div className="flex items-start justify-between shrink-0">
-      <p className="font-medium text-base leading-6 text-zinc-50 light:text-slate-900">
+    <div className="h-topbar -mx-5 pl-5 pr-3 flex items-center justify-between gap-x-2.5 shrink-0 border-b border-theme-sidebar-border">
+      <p className="font-semibold text-base leading-6 text-theme-text-primary">
         {t("chat_window.memories.title")}
       </p>
       <button
         onClick={closeSidebar}
         type="button"
-        className="text-zinc-50 light:text-slate-900 hover:text-white light:hover:text-slate-400 transition-colors border-none bg-transparent cursor-pointer"
+        aria-label="Close"
+        className="w-ctl h-ctl grid place-items-center rounded-[10px] text-theme-text-secondary hover:text-theme-text-primary hover:bg-ml-raised transition-colors border-none bg-transparent cursor-pointer"
       >
-        <X size={16} weight="bold" />
+        <X size={20} />
       </button>
     </div>
   );

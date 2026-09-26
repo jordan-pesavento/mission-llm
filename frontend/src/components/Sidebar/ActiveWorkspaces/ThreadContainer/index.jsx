@@ -1,13 +1,16 @@
 import Workspace from "@/models/workspace";
 import paths from "@/utils/paths";
-import showToast from "@/utils/toast";
-import { Plus, CircleNotch, Trash } from "@phosphor-icons/react";
+import { Trash } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import ThreadItem from "./ThreadItem";
 import { useNavigate, useParams } from "react-router-dom";
 import useHoverMetaKey from "./hooks";
-export const THREAD_RENAME_EVENT = "renameThread";
-export const THREAD_FORK_EVENT = "forkToThread";
+import {
+  THREAD_RENAME_EVENT,
+  THREAD_FORK_EVENT,
+  NEW_THREAD_EVENT,
+} from "./events";
+export { THREAD_RENAME_EVENT, THREAD_FORK_EVENT, NEW_THREAD_EVENT };
 
 export default function ThreadContainer({
   workspace,
@@ -56,6 +59,20 @@ export default function ThreadContainer({
     return () => {
       window.removeEventListener(THREAD_FORK_EVENT, forkHandler);
     };
+  }, [workspace?.slug]);
+
+  // The "New thread" button lives at the top of the rail now; show its
+  // thread here right away, even if the navigation to it gets cancelled.
+  useEffect(() => {
+    const newThreadHandler = (event) => {
+      const { workspaceSlug, thread } = event?.detail || {};
+      if (!thread?.slug || workspaceSlug !== workspace?.slug) return;
+      setThreads((prev) =>
+        prev.some((t) => t.slug === thread.slug) ? prev : [...prev, thread]
+      );
+    };
+    window.addEventListener(NEW_THREAD_EVENT, newThreadHandler);
+    return () => window.removeEventListener(NEW_THREAD_EVENT, newThreadHandler);
   }, [workspace?.slug]);
 
   useEffect(() => {
@@ -119,10 +136,14 @@ export default function ThreadContainer({
     return -1;
   }
 
+  // Thread tree: a guide line on the left, rows indented under the workspace.
+  const treeClass =
+    "flex flex-col gap-y-[2px] shrink-0 mt-2 mb-2 ml-[24px] pl-[12px] border-l border-ml-line-2";
+
   if (loading) {
     return (
-      <div className="flex flex-col bg-pulse w-full h-10 items-center justify-center">
-        <p className="text-xs text-white animate-pulse">loading threads....</p>
+      <div className={treeClass} aria-busy="true" aria-label="Threads">
+        <div className="h-[38px] rounded-[9px] bg-ml-raised animate-pulse" />
       </div>
     );
   }
@@ -137,7 +158,7 @@ export default function ThreadContainer({
   return (
     <div
       ref={containerRef}
-      className="flex flex-col"
+      className={treeClass}
       role="list"
       aria-label="Threads"
     >
@@ -180,69 +201,7 @@ export default function ThreadContainer({
         threads={threads}
         onDelete={handleDeleteAll}
       />
-      <NewThreadButton
-        workspace={workspace}
-        onNewThread={(thread) => setThreads((prev) => [...prev, thread])}
-      />
     </div>
-  );
-}
-
-function NewThreadButton({ workspace, onNewThread }) {
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  const onClick = async () => {
-    setLoading(true);
-    const { thread, error } = await Workspace.threads.new(workspace.slug);
-    if (!!error) {
-      showToast(`Could not create thread - ${error}`, "error", { clear: true });
-      setLoading(false);
-      return;
-    }
-    // Show the new thread in the sidebar immediately - if the navigation below
-    // gets blocked (ActiveGenerationGuard) and cancelled, the thread still
-    // exists and remains reachable. Router navigation also ensures the guard
-    // can intercept and the button never wedges in its loading state.
-    onNewThread?.(thread);
-    navigate(paths.workspace.thread(workspace.slug, thread.slug), {
-      replace: true,
-    });
-    setLoading(false);
-  };
-
-  return (
-    <button
-      onClick={onClick}
-      className="w-full relative flex h-[40px] items-center border-none hover:bg-[var(--theme-sidebar-thread-selected)] light:hover:bg-slate-300 hover:light:bg-theme-sidebar-subitem-hover rounded-lg"
-    >
-      <div className="flex w-full gap-x-2 items-center pl-4">
-        <div className="bg-zinc-800 light:bg-slate-50 p-2 rounded-lg h-[24px] w-[24px] flex items-center justify-center">
-          {loading ? (
-            <CircleNotch
-              weight="bold"
-              size={14}
-              className="shrink-0 animate-spin text-white light:text-theme-text-primary"
-            />
-          ) : (
-            <Plus
-              weight="bold"
-              size={14}
-              className="shrink-0 text-white light:text-theme-text-primary"
-            />
-          )}
-        </div>
-
-        {loading ? (
-          <p className="text-left text-white light:text-theme-text-primary text-sm">
-            Starting Thread...
-          </p>
-        ) : (
-          <p className="text-left text-white light:text-theme-text-primary text-sm font-semibold">
-            New Thread
-          </p>
-        )}
-      </div>
-    </button>
   );
 }
 
@@ -253,20 +212,10 @@ function DeleteAllThreadButton({ ctrlPressed, threads, onDelete }) {
     <button
       type="button"
       onClick={onDelete}
-      className="w-full relative flex h-[40px] items-center border-none hover:bg-red-400/20 rounded-lg group"
+      className="w-full h-[38px] flex items-center gap-x-2 px-[10px] rounded-[9px] text-[15px] font-semibold text-ml-bad hover:bg-ml-bad-soft transition-colors duration-150"
     >
-      <div className="flex w-full gap-x-2 items-center pl-4">
-        <div className="bg-transparent p-2 rounded-lg h-[24px] w-[24px] flex items-center justify-center">
-          <Trash
-            weight="bold"
-            size={14}
-            className="shrink-0 text-white light:text-red-500/50 group-hover:text-red-400"
-          />
-        </div>
-        <p className="text-white light:text-theme-text-secondary text-left text-sm group-hover:text-red-400">
-          Delete Selected
-        </p>
-      </div>
+      <Trash size={16} weight="bold" className="shrink-0" />
+      Delete Selected
     </button>
   );
 }

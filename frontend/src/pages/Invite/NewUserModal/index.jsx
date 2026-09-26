@@ -10,14 +10,21 @@ import {
   USERNAME_MAX_LENGTH,
   USERNAME_PATTERN,
 } from "@/utils/username";
+import PasswordInput from "@/components/lib/PasswordInput";
 import {
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  ModalPrimaryButton,
-  ModalInput,
-} from "@/components/lib/Modal";
+  AUTH_FIELD,
+  AuthAlert,
+  AuthButton,
+  AuthField,
+  AuthForm,
+  AuthHeading,
+  AuthInput,
+} from "@/components/Modals/Password/AuthLayout";
 
+/**
+ * Invite acceptance form. Rendered in the sign-in frame (brand panel plus
+ * form column) instead of a modal over an empty page.
+ */
 export default function NewUserModal() {
   const { code } = useParams();
   const [error, setError] = useState(null);
@@ -45,11 +52,18 @@ export default function NewUserModal() {
   };
 
   return (
-    <form onSubmit={handleCreate} className="flex flex-col gap-y-5">
-      <ModalHeader title="Create a new account" />
-      <ModalBody>
-        <ModalInput
-          label="Username"
+    <AuthForm onSubmit={handleCreate}>
+      <AuthHeading
+        title="Create a new account"
+        subtitle="After creating your account you will be able to login with these credentials and start using workspaces."
+      />
+      <AuthField
+        id="invite-username"
+        label="Username"
+        hint={t("common.username_requirements")}
+      >
+        <AuthInput
+          id="invite-username"
           name="username"
           type="text"
           placeholder="My username"
@@ -58,28 +72,21 @@ export default function NewUserModal() {
           pattern={USERNAME_PATTERN}
           required={true}
           autoComplete="off"
-          hint={t("common.username_requirements")}
         />
-        <ModalInput
-          label="Password"
+      </AuthField>
+      <AuthField id="invite-password" label="Password">
+        <PasswordInput
+          id="invite-password"
           name="password"
-          type="password"
           placeholder="Your password"
+          className={AUTH_FIELD}
           required={true}
           minLength={8}
           autoComplete="off"
         />
-        {error && <p className="text-red-400 text-sm">Error: {error}</p>}
-        <p className="text-zinc-300 light:text-slate-700 text-xs md:text-sm">
-          After creating your account you will be able to login with these
-          credentials and start using workspaces.
-        </p>
-      </ModalBody>
-      <ModalFooter>
-        <ModalPrimaryButton type="submit" className="w-full">
-          Accept Invitation
-        </ModalPrimaryButton>
-      </ModalFooter>
-    </form>
+      </AuthField>
+      {error && <AuthAlert id="invite-error">{error}</AuthAlert>}
+      <AuthButton type="submit">Accept Invitation</AuthButton>
+    </AuthForm>
   );
 }

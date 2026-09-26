@@ -9,6 +9,16 @@ import RecoveryCodeModal from "@/components/Modals/DisplayRecoveryCodeModal";
 import { useTranslation } from "react-i18next";
 import { t } from "i18next";
 import PasswordInput from "@/components/lib/PasswordInput";
+import {
+  AUTH_FIELD,
+  AuthAlert,
+  AuthButton,
+  AuthField,
+  AuthForm,
+  AuthHeading,
+  AuthInput,
+  AuthLink,
+} from "./AuthLayout";
 
 const RecoveryForm = ({ onSubmit, setShowRecoveryForm }) => {
   const [username, setUsername] = useState("");
@@ -31,75 +41,53 @@ const RecoveryForm = ({ onSubmit, setShowRecoveryForm }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col justify-center items-center"
-    >
-      <div className="flex items-start justify-between pt-7 pb-9">
-        <div className="flex items-center flex-col gap-y-[18px] max-w-[300px]">
-          <div className="flex gap-x-1">
-            <h3 className="text-white light:text-slate-950 text-3xl leading-[28px] font-medium text-center white-space-nowrap block">
-              {t("login.password-reset.title")}
-            </h3>
-          </div>
-          <p className="text-zinc-400 light:text-zinc-600 text-sm text-center">
-            {t("login.password-reset.description")}
-          </p>
-        </div>
-      </div>
-      <div className="w-full px-12">
-        <div className="w-full flex flex-col gap-y-3">
-          <div className="w-full flex flex-col gap-y-2">
-            <label className="text-zinc-300 light:text-slate-800 text-sm">
-              {t("login.multi-user.placeholder-username")}
-            </label>
-            <input
-              name="username"
+    <AuthForm onSubmit={handleSubmit}>
+      <AuthHeading
+        title={t("login.password-reset.title")}
+        subtitle={t("login.password-reset.description")}
+      />
+      <AuthField
+        id="recover-username"
+        label={t("login.multi-user.placeholder-username")}
+      >
+        <AuthInput
+          id="recover-username"
+          name="username"
+          type="text"
+          placeholder={t("login.multi-user.placeholder-username")}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+          autoComplete="off"
+        />
+      </AuthField>
+      <AuthField
+        id="recover-code-1"
+        label={t("login.password-reset.recovery-codes")}
+      >
+        <div className="flex flex-col gap-y-2.5">
+          {recoveryCodeInputs.map((code, index) => (
+            <AuthInput
+              key={index}
+              id={`recover-code-${index + 1}`}
               type="text"
-              className="border-none bg-zinc-800 light:bg-slate-200 text-zinc-200 light:text-zinc-600 text-sm rounded-lg p-2.5 w-[300px] h-[34px] focus:outline-none focus:ring-1 focus:ring-sky-300"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              name={`recoveryCode${index + 1}`}
+              aria-label={`${t("login.password-reset.recovery-codes")} ${index + 1}`}
+              className="font-mono text-[16px]"
+              value={code}
+              onChange={(e) => handleRecoveryCodeChange(index, e.target.value)}
               required
               autoComplete="off"
+              spellCheck={false}
             />
-          </div>
-          <div className="w-full flex flex-col gap-y-2">
-            <label className="text-zinc-300 light:text-slate-800 text-sm">
-              {t("login.password-reset.recovery-codes")}
-            </label>
-            {recoveryCodeInputs.map((code, index) => (
-              <input
-                key={index}
-                type="text"
-                name={`recoveryCode${index + 1}`}
-                className="border-none bg-zinc-800 light:bg-slate-200 text-zinc-200 light:text-zinc-600 text-sm rounded-lg p-2.5 w-[300px] h-[34px] focus:outline-none focus:ring-1 focus:ring-sky-300"
-                value={code}
-                onChange={(e) =>
-                  handleRecoveryCodeChange(index, e.target.value)
-                }
-                required
-                autoComplete="off"
-              />
-            ))}
-          </div>
+          ))}
         </div>
-      </div>
-      <div className="flex items-center px-12 mt-9 space-x-2 w-full flex-col gap-y-6">
-        <button
-          type="submit"
-          className="text-zinc-950 bg-white hover:bg-zinc-300 light:bg-sky-200 light:text-slate-950 light:hover:bg-sky-300 text-sm font-semibold rounded-lg border-primary-button h-[34px] w-full"
-        >
-          {t("login.password-reset.title")}
-        </button>
-        <button
-          type="button"
-          className="text-zinc-200 light:text-zinc-600 hover:text-sky-300 light:hover:text-sky-600 hover:underline text-sm flex gap-x-1"
-          onClick={() => setShowRecoveryForm(false)}
-        >
-          {t("login.password-reset.back-to-login")}
-        </button>
-      </div>
-    </form>
+      </AuthField>
+      <AuthButton type="submit">{t("login.password-reset.title")}</AuthButton>
+      <AuthLink onClick={() => setShowRecoveryForm(false)}>
+        {t("login.password-reset.back-to-login")}
+      </AuthLink>
+    </AuthForm>
   );
 };
 
@@ -113,61 +101,30 @@ const ResetPasswordForm = ({ onSubmit }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col justify-center items-center"
-    >
-      <div className="flex items-start justify-between pt-7 pb-9">
-        <div className="flex items-center flex-col gap-y-[18px] max-w-[300px]">
-          <div className="flex gap-x-1">
-            <h3 className="text-white light:text-slate-950 text-[38px] leading-[28px] font-medium text-center white-space-nowrap block">
-              Reset Password
-            </h3>
-          </div>
-          <p className="text-zinc-400 light:text-zinc-600 text-sm text-center">
-            Enter your new password.
-          </p>
-        </div>
-      </div>
-      <div className="w-full px-12">
-        <div className="w-full flex flex-col gap-y-3">
-          <div className="w-full flex flex-col gap-y-2">
-            <label className="text-zinc-300 light:text-slate-800 text-sm">
-              New Password
-            </label>
-            <PasswordInput
-              name="newPassword"
-              containerClassName="w-[300px]"
-              className="border-none bg-zinc-800 light:bg-slate-200 text-zinc-200 light:text-zinc-600 text-sm rounded-lg p-2.5 w-full h-[34px] focus:outline-none focus:ring-1 focus:ring-sky-300"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div className="w-full flex flex-col gap-y-2">
-            <label className="text-zinc-300 light:text-slate-800 text-sm">
-              Confirm Password
-            </label>
-            <PasswordInput
-              name="confirmPassword"
-              containerClassName="w-[300px]"
-              className="border-none bg-zinc-800 light:bg-slate-200 text-zinc-200 light:text-zinc-600 text-sm rounded-lg p-2.5 w-full h-[34px] focus:outline-none focus:ring-1 focus:ring-sky-300"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </div>
-        </div>
-      </div>
-      <div className="flex items-center px-12 mt-9 space-x-2 w-full flex-col gap-y-6">
-        <button
-          type="submit"
-          className="text-zinc-950 bg-white hover:bg-zinc-300 light:bg-sky-200 light:text-slate-950 light:hover:bg-sky-300 text-sm font-semibold rounded-lg border-primary-button h-[34px] w-full"
-        >
-          Reset Password
-        </button>
-      </div>
-    </form>
+    <AuthForm onSubmit={handleSubmit}>
+      <AuthHeading title="Reset Password" subtitle="Enter your new password." />
+      <AuthField id="new-password" label="New Password">
+        <PasswordInput
+          id="new-password"
+          name="newPassword"
+          className={AUTH_FIELD}
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          required
+        />
+      </AuthField>
+      <AuthField id="confirm-password" label="Confirm Password">
+        <PasswordInput
+          id="confirm-password"
+          name="confirmPassword"
+          className={AUTH_FIELD}
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+        />
+      </AuthField>
+      <AuthButton type="submit">Reset Password</AuthButton>
+    </AuthForm>
   );
 };
 
@@ -286,73 +243,50 @@ export default function MultiUserAuth() {
     return <ResetPasswordForm onSubmit={handleResetSubmit} />;
   return (
     <>
-      <form
-        onSubmit={handleLogin}
-        className="flex flex-col justify-center items-center"
-      >
-        <div className="flex items-start justify-between pt-7 pb-9">
-          <div className="flex items-center flex-col gap-y-[18px] max-w-[300px]">
-            <div className="flex gap-x-1">
-              <h3 className="text-white light:text-slate-950 text-[38px] leading-[28px] font-medium text-center white-space-nowrap block">
-                {t("login.multi-user.welcome")}
-              </h3>
-            </div>
-            <p className="text-zinc-400 light:text-zinc-600 text-sm text-center">
-              {t("login.sign-in", { appName: customAppName || "Mission LLM" })}
-            </p>
-          </div>
-        </div>
-        <div className="w-full px-12">
-          <div className="w-full flex flex-col gap-y-3">
-            <div className="w-full flex flex-col gap-y-2">
-              <label className="text-zinc-300 light:text-slate-800 text-sm">
-                {t("login.multi-user.placeholder-username")}
-              </label>
-              <input
-                name="username"
-                type="text"
-                className="border-none bg-zinc-800 light:bg-slate-200 text-zinc-200 light:text-zinc-600 text-sm rounded-lg p-2.5 w-[300px] h-[34px] focus:outline-none focus:ring-1 focus:ring-sky-300"
-                required={true}
-                autoComplete="off"
-              />
-            </div>
-            <div className="w-full px-0 flex flex-col gap-y-2">
-              <label className="text-zinc-300 light:text-slate-800 text-sm">
-                {t("login.multi-user.placeholder-password")}
-              </label>
-              <PasswordInput
-                name="password"
-                containerClassName="w-[300px]"
-                className="border-none bg-zinc-800 light:bg-slate-200 text-zinc-200 light:text-zinc-600 text-sm rounded-lg p-2.5 w-full h-[34px] focus:outline-none focus:ring-1 focus:ring-sky-300"
-                required={true}
-                autoComplete="off"
-              />
-            </div>
-            {error && <p className="text-red-400 text-sm">Error: {error}</p>}
-          </div>
-        </div>
-        <div className="flex items-center px-12 mt-9 space-x-2 w-full flex-col gap-y-6">
-          <button
-            disabled={loading}
-            type="submit"
-            className="text-zinc-950 bg-white hover:bg-zinc-300 light:bg-sky-200 light:text-slate-950 light:hover:bg-sky-300 text-sm font-semibold rounded-lg border-primary-button h-[34px] w-full"
-          >
-            {loading
-              ? t("login.multi-user.validating")
-              : t("login.multi-user.login")}
-          </button>
-          <button
-            type="button"
-            className="text-zinc-200 light:text-zinc-600 hover:text-sky-300 light:hover:text-sky-600 hover:underline text-sm flex gap-x-1"
-            onClick={handleResetPassword}
-          >
-            {t("login.multi-user.forgot-pass")}?
-            <b className="font-semibold text-sky-300 light:text-sky-600">
-              {t("login.multi-user.reset")}
-            </b>
-          </button>
-        </div>
-      </form>
+      <AuthForm onSubmit={handleLogin}>
+        <AuthHeading
+          title={t("login.title", { defaultValue: "Sign in" })}
+          subtitle={t("login.subtitle", {
+            defaultValue: "Use your {{appName}} account.",
+            appName: customAppName || "Mission LLM",
+          })}
+        />
+        <AuthField
+          id="signin-username"
+          label={t("login.multi-user.placeholder-username")}
+        >
+          <AuthInput
+            id="signin-username"
+            name="username"
+            type="text"
+            placeholder={t("login.multi-user.placeholder-username")}
+            required={true}
+            autoComplete="off"
+          />
+        </AuthField>
+        <AuthField
+          id="signin-password"
+          label={t("login.multi-user.placeholder-password")}
+        >
+          <PasswordInput
+            id="signin-password"
+            name="password"
+            placeholder={t("login.multi-user.placeholder-password")}
+            className={AUTH_FIELD}
+            required={true}
+            autoComplete="off"
+          />
+        </AuthField>
+        {error && <AuthAlert id="signin-error">{error}</AuthAlert>}
+        <AuthButton disabled={loading} busy={loading} type="submit">
+          {loading
+            ? t("login.multi-user.validating")
+            : t("login.title", { defaultValue: "Sign in" })}
+        </AuthButton>
+        <AuthLink onClick={handleResetPassword}>
+          {t("login.multi-user.forgot-pass")}?
+        </AuthLink>
+      </AuthForm>
 
       <Modal
         isOpen={isRecoveryCodeModalOpen}

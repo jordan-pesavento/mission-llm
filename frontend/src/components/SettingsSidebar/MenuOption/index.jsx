@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CaretRight } from "@phosphor-icons/react";
+import { CaretDown, CaretRight } from "@phosphor-icons/react";
 import { Link, useLocation } from "react-router-dom";
 import { safeJsonParse } from "@/utils/request";
 import { isPathMatch } from "@/utils/paths";
@@ -27,12 +27,11 @@ export default function MenuOption({
     location: location.pathname,
   });
 
+  const containsActiveChild =
+    hasChildren &&
+    childOptions.some((child) => isPathMatch(child.href, location.pathname));
   const isActive = hasChildren
-    ? (!isExpanded &&
-        childOptions.some((child) =>
-          isPathMatch(child.href, location.pathname)
-        )) ||
-      location.pathname === href
+    ? (!isExpanded && containsActiveChild) || location.pathname === href
     : isPathMatch(href, location.pathname);
 
   const { ref } = useScrollActiveItemIntoView({
@@ -59,65 +58,83 @@ export default function MenuOption({
     if (flex && !!user && !roles.includes(user?.role)) return null;
   }
 
-  const handleClick = (e) => {
-    if (hasChildren) {
-      e.preventDefault();
-      const newExpandedState = !isExpanded;
-      setIsExpanded(newExpandedState);
-      localStorage.setItem(storageKey, JSON.stringify(newExpandedState));
-    }
+  const handleToggle = (e) => {
+    e.preventDefault();
+    const newExpandedState = !isExpanded;
+    setIsExpanded(newExpandedState);
+    localStorage.setItem(storageKey, JSON.stringify(newExpandedState));
   };
 
-  return (
-    <div>
-      <div
-        className={`
-          flex items-center justify-between w-full
-          transition-all duration-300
-          rounded-[6px]
-          ${
-            isActive
-              ? "bg-theme-sidebar-subitem-selected font-medium border-outline"
-              : "hover:bg-theme-sidebar-subitem-hover"
-          }
-        `}
+  // Child row inside a group: 38px, sits on the group's guide line.
+  if (isChild) {
+    return (
+      <Link
+        ref={ref}
+        to={href}
+        aria-current={isActive ? "page" : undefined}
+        className={`flex items-center h-[38px] shrink-0 px-[10px] rounded-[9px] text-[15px] transition-colors duration-150 ${
+          isActive
+            ? "bg-ml-accent-soft text-ml-text font-semibold"
+            : "text-ml-text-2 hover:bg-ml-raised hover:text-ml-text"
+        }`}
       >
-        <Link
-          ref={ref}
-          to={href}
-          className={`flex flex-grow items-center px-[12px] h-[32px] font-medium ${
-            isChild ? "hover:text-white" : "text-white light:text-black"
-          }`}
-          onClick={hasChildren ? handleClick : undefined}
-        >
-          {icon}
-          <p
-            className={`${
-              isChild ? "text-xs" : "text-sm"
-            } leading-loose whitespace-nowrap overflow-hidden ml-2 ${
-              isActive
-                ? "text-white font-semibold"
-                : "text-white light:text-black"
-            } ${!icon && "pl-5"}`}
-          >
-            {btnText}
-          </p>
-        </Link>
-        {hasChildren && (
-          <button onClick={handleClick} className="p-2 text-white">
-            <CaretRight
-              size={16}
-              weight="bold"
-              // color={isExpanded ? "#000000" : "var(--theme-sidebar-subitem-icon)"}
-              className={`transition-transform text-white light:text-black ${
-                isExpanded ? "rotate-90" : ""
-              }`}
-            />
-          </button>
+        <span className="truncate">{btnText}</span>
+      </Link>
+    );
+  }
+
+  const rowClass = `w-full flex items-center gap-x-3 h-[44px] shrink-0 px-[10px] rounded-[10px] text-left text-[15.5px] font-medium transition-colors duration-150 ${
+    isActive
+      ? hasChildren
+        ? "bg-ml-raised text-ml-text"
+        : "bg-ml-accent-soft text-ml-text font-semibold"
+      : isExpanded && hasChildren
+        ? "text-ml-text hover:bg-ml-raised"
+        : "text-ml-text-2 hover:bg-ml-raised hover:text-ml-text"
+  }`;
+
+  const iconEl = icon ? (
+    <span className="w-5 h-5 shrink-0 grid place-items-center">{icon}</span>
+  ) : null;
+
+  if (!hasChildren) {
+    return (
+      <Link
+        ref={ref}
+        to={href}
+        aria-current={isActive ? "page" : undefined}
+        className={rowClass}
+      >
+        {iconEl}
+        <span className="flex-1 min-w-0 truncate">{btnText}</span>
+      </Link>
+    );
+  }
+
+  const groupId = `settings-group-${storageKey}`;
+  return (
+    <>
+      <button
+        ref={ref}
+        type="button"
+        onClick={handleToggle}
+        aria-expanded={isExpanded}
+        aria-controls={groupId}
+        className={rowClass}
+      >
+        {iconEl}
+        <span className="flex-1 min-w-0 truncate">{btnText}</span>
+        {isExpanded ? (
+          <CaretDown size={16} className="shrink-0 text-ml-text-3" />
+        ) : (
+          <CaretRight size={16} className="shrink-0 text-ml-text-3" />
         )}
-      </div>
-      {isExpanded && hasChildren && (
-        <div className="mt-1 rounded-r-lg w-full">
+      </button>
+      {isExpanded && (
+        <div
+          id={groupId}
+          className="flex flex-col gap-y-[2px] shrink-0 mb-[6px] ml-[20px] pl-[12px] border-l border-ml-line-2"
+        >
           {childOptions.map((childOption, index) => (
             <MenuOption
               key={index}
@@ -128,7 +145,7 @@ export default function MenuOption({
           ))}
         </div>
       )}
-    </div>
+    </>
   );
 }
 

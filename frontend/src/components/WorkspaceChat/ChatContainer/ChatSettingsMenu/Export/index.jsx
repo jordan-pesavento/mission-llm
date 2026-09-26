@@ -5,6 +5,7 @@ import { saveAs } from "file-saver";
 import Workspace from "@/models/workspace";
 import showToast from "@/utils/toast";
 import moment from "moment";
+import { MENU_ROW, MENU_SURFACE } from "../../chatUi";
 
 const EXPORT_FORMATS = [
   { key: "pdf", label: "PDF", ext: "pdf" },
@@ -49,22 +50,19 @@ export default function ExportRow({
       onMouseEnter={() => setShowSubmenu(true)}
       onMouseLeave={() => setShowSubmenu(false)}
     >
-      <div
-        className={`flex items-center justify-between px-2 py-1 rounded cursor-pointer ${
-          showSubmenu
-            ? "bg-zinc-700 light:bg-slate-200"
-            : "hover:bg-zinc-700 light:hover:bg-slate-200"
-        }`}
+      <button
+        type="button"
+        role="menuitem"
+        aria-haspopup="menu"
+        aria-expanded={showSubmenu}
+        onClick={() => setShowSubmenu((v) => !v)}
+        className={`${MENU_ROW} justify-between ${showSubmenu ? "bg-ml-raised-2 text-ml-text" : ""}`}
       >
-        <span className="text-sm font-normal text-zinc-50 light:text-slate-800">
+        <span>
           {exporting ? t("chat_window.exporting") : t("chat_window.export")}
         </span>
-        <CaretRight
-          size={14}
-          weight="bold"
-          className="text-zinc-50 light:text-slate-800"
-        />
-      </div>
+        <CaretRight size={14} weight="bold" className="text-ml-text-3" />
+      </button>
       {showSubmenu && (
         <ExportSubmenu onSelect={handleExport} exporting={exporting} />
       )}
@@ -74,20 +72,22 @@ export default function ExportRow({
 
 function ExportSubmenu({ onSelect, exporting }) {
   return (
-    <div className="absolute right-full top-0 -mr-2 pr-2 pt-0">
-      <div className="bg-zinc-800 light:bg-slate-50 border border-zinc-700 light:border-slate-300 rounded-lg p-3.5 w-[130px] flex flex-col gap-1.5 shadow-lg">
+    <div className="absolute right-full top-0 pr-2">
+      <div
+        role="menu"
+        className={`w-[150px] p-1.5 flex flex-col gap-0.5 ${MENU_SURFACE}`}
+      >
         {EXPORT_FORMATS.map((format) => (
-          <div
+          <button
+            type="button"
+            role="menuitem"
             key={format.key}
+            disabled={exporting}
             onClick={() => !exporting && onSelect(format)}
-            className={`px-2 py-1 rounded text-sm font-normal text-white light:text-slate-800 ${
-              exporting
-                ? "opacity-50 cursor-not-allowed"
-                : "cursor-pointer hover:bg-zinc-700/50 light:hover:bg-slate-100"
-            }`}
+            className={`${MENU_ROW} ${exporting ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             {format.label}
-          </div>
+          </button>
         ))}
       </div>
     </div>

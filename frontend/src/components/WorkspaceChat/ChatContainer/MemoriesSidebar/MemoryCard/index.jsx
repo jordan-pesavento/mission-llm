@@ -45,7 +45,7 @@ export default function MemoryCard({ memory }) {
         <p className="text-sm leading-5 text-zinc-50 light:text-slate-900">
           {memory.content}
         </p>
-        <p className="text-xs leading-4 text-zinc-400 light:text-slate-500 mt-1.5">
+        <p className="text-[13px] leading-4 text-zinc-400 light:text-slate-500 mt-1.5">
           {moment(memory.createdAt).format("ll")}
         </p>
       </div>

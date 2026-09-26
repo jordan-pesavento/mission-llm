@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import debounce from "lodash.debounce";
-import { ArrowUp, At } from "@phosphor-icons/react";
+import { ArrowUp, At, Wrench } from "@phosphor-icons/react";
+import { COMPOSER_CHIP } from "../chatUi";
 import StopGenerationButton from "./StopGenerationButton";
 import SpeechToText from "./SpeechToText";
 import { Tooltip } from "react-tooltip";
@@ -56,7 +57,7 @@ export default function PromptInput({
   const [_, setFocused] = useState(false);
   const undoStack = useRef([]);
   const redoStack = useRef([]);
-  const { textSizeClass } = useTextSize();
+  const { textSize } = useTextSize();
   const [searchParams] = useSearchParams();
 
   // Synchronizes prompt input value with localStorage, scoped to the current thread.
@@ -316,94 +317,84 @@ export default function PromptInput({
     }
   }
 
+  const placeholder = workspace?.name
+    ? t("chat_window.ask_workspace", { workspace: workspace.name })
+    : t("chat_window.send_message");
+
   return (
     <div
       id="prompt-input-wrapper"
-      className={
-        centered
-          ? "w-full relative flex justify-center items-center"
-          : "w-full fixed md:absolute bottom-0 left-0 z-10 flex justify-center items-center pwa:pb-5"
-      }
+      className="w-full shrink-0 relative z-10 px-gutter pt-2 pb-4 pwa:pb-5"
     >
-      <form
-        onSubmit={handleSubmit}
-        className={
-          centered
-            ? "flex flex-col gap-y-1 rounded-t-lg w-full items-center"
-            : "flex flex-col gap-y-1 rounded-t-lg md:w-full w-full mx-auto max-w-[750px] items-center"
-        }
-      >
-        <div
-          className={`flex items-center rounded-lg md:w-full ${centered ? "mb-0" : "mb-4"}`}
-        >
-          <div className="relative w-[95vw] md:w-[750px]">
-            <ToolsMenu
-              workspace={workspace}
-              showing={showTools}
-              setShowing={setShowTools}
-              sendCommand={sendCommand}
-              promptRef={textareaRef}
-              centered={centered}
-              highlightedIndexRef={toolsHighlightRef}
+      <form onSubmit={handleSubmit} className="w-full">
+        <div className="relative w-full">
+          <ToolsMenu
+            workspace={workspace}
+            showing={showTools}
+            setShowing={setShowTools}
+            sendCommand={sendCommand}
+            promptRef={textareaRef}
+            centered={centered}
+            highlightedIndexRef={toolsHighlightRef}
+          />
+          <div
+            data-align="chat:left"
+            className="w-full flex flex-col rounded-[18px] border border-ml-line-2 [background:linear-gradient(180deg,var(--ml-raised),var(--ml-panel))] shadow-ml transition-[border-color,box-shadow] duration-150 focus-within:border-ml-accent-line focus-within:shadow-[var(--ml-shadow),0_0_0_4px_var(--ml-accent-soft)]"
+          >
+            <AttachmentManager attachments={attachments} />
+            <textarea
+              id={PROMPT_INPUT_ID}
+              ref={textareaRef}
+              rows={1}
+              onChange={handleChange}
+              onKeyDown={captureEnterOrUndo}
+              onPaste={(e) => {
+                saveCurrentState();
+                handlePasteEvent(e);
+              }}
+              required={true}
+              onFocus={() => setFocused(true)}
+              onBlur={(e) => {
+                setFocused(false);
+                adjustTextArea(e);
+              }}
+              value={promptInput}
+              spellCheck={Appearance.get("enableSpellCheck")}
+              aria-label={placeholder}
+              className={`block w-full border-0 bg-transparent cursor-text resize-none min-h-[58px] max-h-[50vh] md:max-h-[350px] px-[18px] pt-4 pb-1 font-sans text-ml-text leading-[1.5] placeholder:text-ml-text-3 outline-none focus:outline-none focus:ring-0 pwa:!text-[16px] ${COMPOSER_TEXT_SIZES[textSize] ?? COMPOSER_TEXT_SIZES.normal}`}
+              placeholder={placeholder}
             />
-            <div className="bg-zinc-800 light:bg-white light:border light:border-slate-300 rounded-[20px] pwa:rounded-3xl flex flex-col px-5 overflow-hidden">
-              <AttachmentManager attachments={attachments} />
-              <div className="flex items-center">
-                <textarea
-                  id={PROMPT_INPUT_ID}
-                  ref={textareaRef}
-                  onChange={handleChange}
-                  onKeyDown={captureEnterOrUndo}
-                  onPaste={(e) => {
-                    saveCurrentState();
-                    handlePasteEvent(e);
-                  }}
-                  required={true}
-                  onFocus={() => setFocused(true)}
-                  onBlur={(e) => {
-                    setFocused(false);
-                    adjustTextArea(e);
-                  }}
-                  value={promptInput}
-                  spellCheck={Appearance.get("enableSpellCheck")}
-                  className={`border-none cursor-text max-h-[50vh] md:max-h-[350px] md:min-h-[40px] pt-[20px] w-full leading-5 text-white light:text-slate-600 bg-transparent placeholder:text-white/60 light:placeholder:text-slate-400 resize-none active:outline-none focus:outline-none flex-grow pwa:!text-[16px] ${textSizeClass}`}
-                  placeholder={t("chat_window.send_message")}
+            <div
+              data-row="composer"
+              className="flex items-center gap-2 pt-2 pr-2.5 pb-2.5 pl-3"
+            >
+              <AttachItem
+                workspaceSlug={workspaceSlug}
+                workspaceThreadSlug={threadSlug}
+              />
+              <AgentSessionButton
+                sendCommand={sendCommand}
+                promptInput={promptInput}
+                textareaRef={textareaRef}
+                visible={!agentSessionActive & showAgentCommand}
+              />
+              <ToolsButton
+                showTools={showTools}
+                setShowTools={setShowTools}
+                textareaRef={textareaRef}
+                autoOpenedToolsRef={autoOpenedToolsRef}
+              />
+              <span className="flex-1" data-row-skip />
+              <SpeechToText sendCommand={sendCommand} />
+              {isStreaming ? (
+                <StopGenerationButton />
+              ) : (
+                <SendPromptButton
+                  formRef={formRef}
+                  promptInput={promptInput}
+                  isDisabled={isDisabled}
                 />
-              </div>
-              <div className="flex justify-between items-center pt-3.5 pb-3">
-                <div className="flex items-center gap-x-0.25">
-                  <div className="flex items-center gap-x-1">
-                    <AttachItem
-                      workspaceSlug={workspaceSlug}
-                      workspaceThreadSlug={threadSlug}
-                    />
-                    <AgentSessionButton
-                      sendCommand={sendCommand}
-                      promptInput={promptInput}
-                      textareaRef={textareaRef}
-                      visible={!agentSessionActive & showAgentCommand}
-                    />
-                  </div>
-                  <ToolsButton
-                    showTools={showTools}
-                    setShowTools={setShowTools}
-                    textareaRef={textareaRef}
-                    autoOpenedToolsRef={autoOpenedToolsRef}
-                  />
-                </div>
-                <div className="flex gap-x-2 items-center">
-                  <SpeechToText sendCommand={sendCommand} />
-                  {isStreaming ? (
-                    <StopGenerationButton />
-                  ) : (
-                    <SendPromptButton
-                      formRef={formRef}
-                      promptInput={promptInput}
-                      isDisabled={isDisabled}
-                    />
-                  )}
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
@@ -411,6 +402,13 @@ export default function PromptInput({
     </div>
   );
 }
+
+// Composer text follows the chat text size setting (17px by default).
+const COMPOSER_TEXT_SIZES = {
+  small: "text-[15px]",
+  normal: "text-[17px]",
+  large: "text-[19px]",
+};
 
 function AgentSessionButton({
   sendCommand,
@@ -438,18 +436,16 @@ function AgentSessionButton({
         data-tooltip-id="agent-session"
         data-tooltip-content={t("chat_window.start_agent_session")}
         aria-label={t("chat_window.start_agent_session")}
-        className="group border-none relative flex justify-center items-center cursor-pointer w-6 h-6 rounded-full hover:bg-zinc-700 light:hover:bg-slate-200"
+        className={COMPOSER_CHIP}
       >
-        <At
-          size={18}
-          className="pointer-events-none text-zinc-300 light:text-slate-600 group-hover:text-white light:group-hover:text-slate-600 shrink-0"
-        />
+        <At size={18} className="pointer-events-none shrink-0" />
+        <span className="max-[820px]:sr-only">{t("chat_window.agent")}</span>
       </button>
       <Tooltip
         id="agent-session"
-        place="bottom"
+        place="top"
         delayShow={300}
-        className="tooltip !text-xs z-99"
+        className="tooltip z-99"
       />
     </>
   );
@@ -467,44 +463,36 @@ function ToolsButton({
     <button
       id="tools-btn"
       type="button"
+      aria-haspopup="menu"
+      aria-expanded={showTools}
       onClick={() => {
         autoOpenedToolsRef.current = false;
         setShowTools(!showTools);
         textareaRef.current?.focus();
       }}
-      className={`group border-none cursor-pointer flex items-center justify-center h-6 px-2 rounded-full ${
-        showTools
-          ? "bg-zinc-700 light:bg-slate-200"
-          : "hover:bg-zinc-700 light:hover:bg-slate-200"
+      className={`${COMPOSER_CHIP} ${
+        showTools ? "!bg-ml-raised-2 !text-ml-text border-ml-line-2" : ""
       }`}
     >
-      <span
-        className={`text-sm font-medium ${
-          showTools
-            ? "text-white light:text-slate-800"
-            : "text-zinc-300 light:text-slate-600 group-hover:text-white light:group-hover:text-slate-800"
-        }`}
-      >
-        {t("chat_window.tools")}
-      </span>
+      <Wrench size={18} className="pointer-events-none shrink-0" />
+      <span className="max-[820px]:sr-only">{t("chat_window.tools")}</span>
     </button>
   );
 }
 
 function SendPromptButton({ formRef, promptInput, isDisabled }) {
   const { t } = useTranslation();
+  const canSend = promptInput.trim().length > 0 && !isDisabled;
 
   return (
     <>
       <button
         ref={formRef}
         type="submit"
-        disabled={isDisabled || !promptInput.trim().length}
-        className={`border-none flex justify-center items-center rounded-full w-8 h-8 transition-all ${
-          promptInput.trim().length && !isDisabled
-            ? "cursor-pointer bg-white hover:bg-zinc-200 light:bg-slate-800 light:hover:bg-slate-600"
-            : "cursor-not-allowed bg-zinc-600 light:bg-slate-400"
-        }`}
+        disabled={!canSend}
+        className={`w-ctl-lg h-ctl-lg shrink-0 grid place-items-center rounded-[11px] border-0 bg-ml-accent-fill text-ml-on-accent shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_8px_18px_-8px_var(--ml-accent)] transition-[filter,opacity] duration-150 ${
+          canSend ? "cursor-pointer hover:brightness-110" : "cursor-default"
+        } ${isDisabled ? "opacity-60 cursor-not-allowed" : ""}`}
         data-tooltip-id="send-prompt"
         data-tooltip-content={
           isDisabled
@@ -513,17 +501,13 @@ function SendPromptButton({ formRef, promptInput, isDisabled }) {
         }
         aria-label={t("chat_window.send")}
       >
-        <ArrowUp
-          className="w-[18px] h-[18px] pointer-events-none text-zinc-800 light:text-white"
-          weight="bold"
-        />
-        <span className="sr-only">{t("chat_window.send")}</span>
+        <ArrowUp size={19} className="pointer-events-none" weight="bold" />
       </button>
       <Tooltip
         id="send-prompt"
-        place="bottom"
+        place="top"
         delayShow={300}
-        className="tooltip !text-xs z-99"
+        className="tooltip z-99"
       />
     </>
   );

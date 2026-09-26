@@ -1,3 +1,4 @@
+import { ACT_BTN } from "@/components/WorkspaceChat/ChatContainer/chatUi";
 import { useEffect, useState, useRef } from "react";
 import { SpeakerHigh, PauseCircle, CircleNotch } from "@phosphor-icons/react";
 import Workspace from "@/models/workspace";
@@ -55,38 +56,36 @@ export default function AsyncTTSMessage({ slug, chatId }) {
 
   if (!chatId) return null;
   return (
-    <div className="mt-3 relative">
-      <button
-        onClick={speakMessage}
-        data-auto-play-chat-id={chatId}
-        data-tooltip-id="message-to-speech"
-        data-tooltip-content={
-          speaking
-            ? t("pause_tts_speech_message")
-            : t("chat_window.tts_speak_message")
-        }
-        className="border-none text-zinc-300 light:text-slate-500"
-        aria-label={speaking ? "Pause speech" : "Speak message"}
-      >
-        {speaking ? (
-          <PauseCircle size={18} className="mb-1" />
-        ) : (
-          <>
-            {loading ? (
-              <CircleNotch size={18} className="mb-1 animate-spin" />
-            ) : (
-              <SpeakerHigh size={18} className="mb-1" />
-            )}
-          </>
-        )}
-        <audio
-          ref={playerRef}
-          hidden={true}
-          src={audioSrc}
-          autoPlay={true}
-          controls={false}
-        />
-      </button>
-    </div>
+    <button
+      onClick={speakMessage}
+      data-auto-play-chat-id={chatId}
+      data-tooltip-id="message-to-speech"
+      data-tooltip-content={
+        speaking
+          ? t("pause_tts_speech_message")
+          : t("chat_window.tts_speak_message")
+      }
+      className={ACT_BTN}
+      aria-label={speaking ? "Pause speech" : "Speak message"}
+    >
+      {speaking ? (
+        <PauseCircle size={18} />
+      ) : (
+        <>
+          {loading ? (
+            <CircleNotch size={18} className="animate-spin" />
+          ) : (
+            <SpeakerHigh size={18} />
+          )}
+        </>
+      )}
+      <audio
+        ref={playerRef}
+        hidden={true}
+        src={audioSrc}
+        autoPlay={true}
+        controls={false}
+      />
+    </button>
   );
 }

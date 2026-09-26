@@ -103,7 +103,7 @@ export default function AgentSkill({ item, settings, setStep }) {
       <FileReview item={item} />
       <CTAButton
         disabled={loading}
-        className="text-dark-text w-full mt-[18px] h-[34px] hover:bg-accent"
+        className="w-full mt-[18px]"
         onClick={importAgentSkill}
       >
         {loading ? <CircleNotch size={16} className="animate-spin" /> : null}

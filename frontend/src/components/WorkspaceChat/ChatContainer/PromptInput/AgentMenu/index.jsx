@@ -28,7 +28,7 @@ export default function AvailableAgentsButton({ showing, setShowAgents }) {
         id="tooltip-agent-list-btn"
         place="top"
         delayShow={300}
-        className="tooltip !text-xs z-99"
+        className="tooltip !text-[13px] z-99"
       />
     </div>
   );

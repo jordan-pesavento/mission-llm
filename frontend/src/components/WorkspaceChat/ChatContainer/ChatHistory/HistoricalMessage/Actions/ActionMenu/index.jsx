@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Trash, DotsThreeVertical, TreeView } from "@phosphor-icons/react";
+import { Trash, DotsThree, TreeView } from "@phosphor-icons/react";
 import { useTranslation } from "react-i18next";
+import { ACT_BTN, MENU_ROW, MENU_SURFACE } from "../../../../chatUi";
 
 function ActionMenu({ chatId, forkThread, isEditing, role }) {
   const { t } = useTranslation();
@@ -38,34 +39,42 @@ function ActionMenu({ chatId, forkThread, isEditing, role }) {
   if (!chatId || isEditing || role === "user") return null;
 
   return (
-    <div className="mt-2 -ml-0.5 relative" ref={menuRef}>
+    <div className="relative" ref={menuRef}>
       <button
+        type="button"
         onClick={toggleMenu}
-        className="border-none text-zinc-300 light:text-slate-500 transition-colors duration-200"
+        className={`${ACT_BTN} ${open ? "!bg-ml-raised !text-ml-text !border-ml-line" : ""}`}
         data-tooltip-id="action-menu"
         data-tooltip-content={t("chat_window.more_actions")}
         aria-label={t("chat_window.more_actions")}
+        aria-haspopup="menu"
+        aria-expanded={open}
       >
-        <DotsThreeVertical size={24} weight="bold" />
+        <DotsThree size={20} weight="bold" />
       </button>
       {open && (
         <div
           data-action-menu-open
-          className="absolute -top-1 left-7 mt-1 border-[1.5px] border-white/40 rounded-lg bg-theme-action-menu-bg flex flex-col shadow-[0_4px_14px_rgba(0,0,0,0.25)] text-white z-99"
+          role="menu"
+          className={`absolute left-0 bottom-[calc(100%+6px)] z-50 w-[180px] p-1.5 flex flex-col gap-0.5 ${MENU_SURFACE}`}
         >
           <button
+            type="button"
+            role="menuitem"
             onClick={handleFork}
-            className="border-none rounded-t-lg flex items-center text-white gap-x-2 hover:bg-theme-action-menu-item-hover py-1.5 px-2 transition-colors duration-200 w-full text-left"
+            className={MENU_ROW}
           >
             <TreeView size={18} />
-            <span className="text-sm">{t("chat_window.fork")}</span>
+            <span>{t("chat_window.fork")}</span>
           </button>
           <button
+            type="button"
+            role="menuitem"
             onClick={handleDelete}
-            className="border-none flex rounded-b-lg items-center text-white gap-x-2 hover:bg-theme-action-menu-item-hover py-1.5 px-2 transition-colors duration-200 w-full text-left"
+            className={`${MENU_ROW} hover:!text-ml-bad`}
           >
             <Trash size={18} />
-            <span className="text-sm">{t("chat_window.delete")}</span>
+            <span>{t("chat_window.delete")}</span>
           </button>
         </div>
       )}

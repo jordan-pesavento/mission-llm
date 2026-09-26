@@ -61,7 +61,7 @@ export default function PullAndReview({ settings, setSettings, setStep }) {
                 <p className="text-red-500/80 text-sm font-mono">{error}</p>
               </div>
               <CTAButton
-                className="text-dark-text w-full mt-[18px] h-[34px] hover:bg-accent"
+                className="w-full mt-[18px]"
                 onClick={() => {
                   setSettings({ itemId: null, item: null });
                   setStep(CommunityHubImportItemSteps.itemId.key);

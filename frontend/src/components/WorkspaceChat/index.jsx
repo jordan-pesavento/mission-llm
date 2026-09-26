@@ -76,7 +76,7 @@ export default function WorkspaceChat({ loading, workspace }) {
   if (loaded === null) {
     if (hasPendingMessage) {
       return (
-        <div className="transition-all duration-500 relative md:ml-[2px] md:mr-[16px] md:my-[16px] md:rounded-[16px] bg-theme-bg-secondary w-full h-full" />
+        <div className="transition-all duration-500 relative bg-theme-bg-primary w-full h-full" />
       );
     }
     return <LoadingChat />;

@@ -34,7 +34,7 @@ function ScheduledJobCreatedCard({ props }) {
               <p className="text-white light:text-slate-900 text-sm font-medium truncate leading-snug">
                 {jobName || "Scheduled job"}
               </p>
-              <p className="text-zinc-400 light:text-slate-500 text-xs leading-snug truncate">
+              <p className="text-zinc-400 light:text-slate-500 text-[13px] leading-snug truncate">
                 Scheduled job created{schedule ? ` · ${schedule}` : ""}
               </p>
             </div>

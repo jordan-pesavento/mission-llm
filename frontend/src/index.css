@@ -2,209 +2,405 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  -webkit-font-smoothing: antialiased;
+/**
+ * ==============================================
+ * Fonts (self-hosted, the product runs offline)
+ * Archivo (variable, wdth + wght) for the wordmark, Public Sans (variable)
+ * for UI and text, IBM Plex Mono for metadata. SIL OFL 1.1, license texts
+ * are in ./media/fonts/OFL-*.txt.
+ * ==============================================
+ */
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  src: url("./media/fonts/archivo-latin-ext-wdth-normal.woff2")
+    format("woff2-variations");
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  src: url("./media/fonts/archivo-latin-wdth-normal.woff2")
+    format("woff2-variations");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Public Sans";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("./media/fonts/public-sans-latin-ext-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Public Sans";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("./media/fonts/public-sans-latin-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Public Sans";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("./media/fonts/public-sans-latin-ext-wght-italic.woff2")
+    format("woff2-variations");
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Public Sans";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("./media/fonts/public-sans-latin-wght-italic.woff2")
+    format("woff2-variations");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("./media/fonts/ibm-plex-mono-latin-ext-400-normal.woff2")
+    format("woff2");
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("./media/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url("./media/fonts/ibm-plex-mono-latin-ext-500-normal.woff2")
+    format("woff2");
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url("./media/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url("./media/fonts/ibm-plex-mono-latin-ext-600-normal.woff2")
+    format("woff2");
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url("./media/fonts/ibm-plex-mono-latin-600-normal.woff2") format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/**
+ * ==============================================
+ * Design tokens (Mission LLM, concept 1)
+ * --ml-* are the source of truth. Solid colors are stored as RGB channels
+ * (--ml-<name>-rgb) so Tailwind opacity modifiers work (bg-ml-panel/60);
+ * --ml-<name> is the ready-to-use color. Every legacy --theme-* variable is
+ * remapped onto these, so all theme-* Tailwind classes inherit the palette.
+ * Dark is the default (:root); light overrides under [data-theme="light"].
+ * ==============================================
+ */
 :root {
-  /* Default theme */
-  --theme-loader: #ffffff;
-  --theme-bg-primary: #0e0f0f;
-  --theme-bg-secondary: #1b1b1e;
-  --theme-bg-sidebar: #0e0f0f;
-  --theme-bg-container: #0e0f0f;
-  --theme-bg-chat: #1b1b1e;
-  --theme-bg-chat-input: #27282a;
-  --theme-text-primary: #ffffff;
-  --theme-text-secondary: rgba(255, 255, 255, 0.6);
-  --theme-placeholder: #57585a;
-  --theme-sidebar-item-default: rgba(255, 255, 255, 0.1);
-  --theme-sidebar-item-selected: rgba(255, 255, 255, 0.3);
-  --theme-sidebar-item-hover: #3f3f42;
-  --theme-sidebar-subitem-default: rgba(255, 255, 255, 0.05);
-  --theme-sidebar-subitem-selected: rgba(255, 255, 255, 0.05);
-  --theme-sidebar-thread-selected: rgba(255, 255, 255, 0.05);
-  --theme-popup-menu-bg: #000000;
+  color-scheme: dark;
 
-  --theme-sidebar-subitem-hover: rgba(255, 255, 255, 0.05);
-  --theme-sidebar-border: rgba(255, 255, 255, 0.1);
-  --theme-sidebar-item-workspace-active: #ffffff;
-  --theme-sidebar-item-workspace-inactive: #ffffff;
+  /* Surfaces: ground (main pane) < rail (sidebar, drawers) < panel (cards,
+     inputs, pills) < raised (hover, buttons) < raised-2 (tiles, tracks) */
+  --ml-ground-rgb: 6 10 19; /* #060A13 */
+  --ml-rail-rgb: 7 13 25; /* #070D19 */
+  --ml-panel-rgb: 11 19 34; /* #0B1322 */
+  --ml-raised-rgb: 16 26 45; /* #101A2D */
+  --ml-raised-2-rgb: 22 34 58; /* #16223A */
 
-  --theme-sidebar-footer-icon: rgba(255, 255, 255, 0.1);
-  --theme-sidebar-footer-icon-fill: #ffffff;
-  --theme-sidebar-footer-icon-hover: rgba(255, 255, 255, 0.2);
+  /* Text tiers */
+  --ml-text-rgb: 233 239 249; /* #E9EFF9 */
+  --ml-text-2-rgb: 170 183 205; /* #AAB7CD */
+  --ml-text-3-rgb: 129 144 168; /* #8190A8 */
 
-  --theme-chat-input-border: #525355;
-  --theme-action-menu-bg: #27282a;
-  --theme-action-menu-item-hover: rgba(255, 255, 255, 0.1);
-  --theme-settings-input-bg: #0e0f0f;
-  --theme-settings-input-placeholder: rgba(255, 255, 255, 0.5);
-  --theme-settings-input-active: rgb(255 255 255 / 0.2);
-  --theme-settings-input-text: #ffffff;
-  --theme-modal-border: #3f3f42;
+  /* Accent and status */
+  --ml-accent-rgb: 79 134 255; /* #4F86FF */
+  --ml-ok-rgb: 53 196 124; /* #35C47C */
+  --ml-warn-rgb: 242 181 68; /* #F2B544 */
+  --ml-bad-rgb: 240 97 109; /* #F0616D */
 
-  --theme-button-primary: #46c8ff;
-  --theme-button-primary-hover: #434343;
+  /* Hairlines */
+  --ml-line: rgba(150, 172, 212, 0.13);
+  --ml-line-2: rgba(150, 172, 212, 0.22);
 
-  --theme-button-cta: #7cd4fd;
-
-  --theme-file-row-even: #0e0f0f;
-  --theme-file-row-odd: #1b1b1e;
-  --theme-file-row-selected-even: rgba(14, 165, 233, 0.2);
-  --theme-file-row-selected-odd: rgba(14, 165, 233, 0.1);
-  --theme-file-picker-hover: rgb(14 165 233 / 0.2);
-
-  --theme-home-text: #ffffff;
-  --theme-home-text-secondary: #9f9fa0;
-  --theme-home-bg-card: #1a1b1b;
-  --theme-home-bg-button: #252626;
-  --theme-home-border: rgba(255, 255, 255, 0.2);
-  --theme-home-button-primary: #36bffa;
-  --theme-home-button-primary-hover: rgba(54, 191, 250, 0.9);
-  --theme-home-button-secondary: #27282a;
-  --theme-home-button-secondary-hover: rgba(54, 191, 250, 0.1);
-  --theme-home-button-secondary-text: #ffffff;
-  --theme-home-button-secondary-hover-text: #36bffa;
-  --theme-home-update-card-bg: #1c1c1c;
-  --theme-home-update-card-hover: #252525;
-  --theme-home-update-source: #53b1fd;
-
-  --theme-checklist-item-bg: #203c48;
-  --theme-checklist-item-bg-hover: #255d75;
-  --theme-checklist-item-text: #b9e6fe;
-  --theme-checklist-item-completed-bg: #36463d;
-  --theme-checklist-item-completed-text: #a6f4c5;
-  --theme-checklist-checkbox-fill: #a6f4c5;
-  --theme-checklist-checkbox-text: #36463d;
-  --theme-checklist-item-hover: #36bffa;
-  --theme-checklist-checkbox-border: #ffffff;
-  --theme-checklist-button-border: #36bffa;
-  --theme-checklist-button-text: #36bffa;
-  --theme-checklist-button-hover-bg: rgba(54, 191, 250, 0.2);
-  --theme-checklist-button-hover-border: rgba(54, 191, 250, 0.8);
-
-  --theme-home-button-secondary-border: #acc1e6;
-  --theme-home-button-secondary-border-hover: #293056;
-
-  --theme-attachment-bg: #18191a;
-  --theme-attachment-error-bg: rgba(180, 35, 24, 0.4);
-  --theme-attachment-success-bg: #18191a;
-  --theme-attachment-text: #ffffff;
-  --theme-attachment-text-secondary: rgba(255, 255, 255, 0.8);
-  --theme-attachment-icon: #ffffff;
-  --theme-attachment-icon-spinner: #ffffff;
-  --theme-attachment-icon-spinner-bg: #27282a;
-
-  --theme-button-text: #a8a9ab;
-  --theme-button-code-hover-text: #7cd4fd;
-  --theme-button-code-hover-bg: #22343f;
-  --theme-button-disable-hover-text: #fec84b;
-  --theme-button-disable-hover-bg: #3a3128;
-  --theme-button-delete-hover-text: #f97066;
-  --theme-button-delete-hover-bg: #37282b;
+  /* Depth */
+  --ml-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.035) inset,
+    0 14px 34px -14px rgba(0, 0, 0, 0.65);
+  --ml-shadow-pop:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 18px 44px -12px rgba(0, 0, 0, 0.7);
+  --ml-inset-hi: rgba(255, 255, 255, 0.05);
+  --ml-scrim: rgba(2, 4, 10, 0.6);
 }
 
 [data-theme="light"] {
-  --theme-loader: #000000;
-  --theme-bg-primary: #ffffff;
-  --theme-bg-secondary: #ffffff;
-  --theme-bg-sidebar: #edf2fa;
-  --theme-bg-container: #f9fbfd;
-  --theme-popup-menu-bg: #c2e7fe;
+  color-scheme: light;
 
-  --theme-bg-chat: #ffffff;
-  --theme-bg-chat-input: #eaeaea;
-  --theme-text-primary: #0e0f0f;
-  --theme-text-secondary: #7a7d7e;
-  --theme-placeholder: #9ca3af;
-  --theme-sidebar-item-default: #ffffff;
-  --theme-sidebar-item-selected: #ffffff;
-  --theme-sidebar-item-hover: #c8efff;
+  --ml-ground-rgb: 243 245 249; /* #F3F5F9 */
+  --ml-rail-rgb: 235 239 246; /* #EBEFF6 */
+  --ml-panel-rgb: 255 255 255; /* #FFFFFF */
+  --ml-raised-rgb: 247 249 252; /* #F7F9FC */
+  --ml-raised-2-rgb: 233 238 246; /* #E9EEF6 */
 
-  --theme-sidebar-item-text-inactive: #7a7d7e;
-  --theme-sidebar-item-text-active: #184558;
+  --ml-text-rgb: 11 21 40; /* #0B1528 */
+  --ml-text-2-rgb: 66 80 106; /* #42506A */
+  --ml-text-3-rgb: 90 103 128; /* #5A6780 */
 
-  --theme-sidebar-item-workspace-active: #000000;
-  --theme-sidebar-item-workspace-inactive: #7a7d7e;
+  --ml-accent-rgb: 36 88 230; /* #2458E6 */
+  --ml-ok-rgb: 31 157 91; /* #1F9D5B */
+  --ml-warn-rgb: 183 121 31; /* #B7791F */
+  --ml-bad-rgb: 200 53 74; /* #C8354A */
 
+  --ml-line: rgba(16, 32, 64, 0.1);
+  --ml-line-2: rgba(16, 32, 64, 0.18);
+
+  --ml-shadow:
+    0 1px 2px rgba(16, 32, 64, 0.06),
+    0 14px 34px -18px rgba(16, 32, 64, 0.22);
+  --ml-shadow-pop:
+    0 1px 2px rgba(16, 32, 64, 0.08),
+    0 18px 44px -16px rgba(16, 32, 64, 0.3);
+  --ml-inset-hi: rgba(255, 255, 255, 0.6);
+  --ml-scrim: rgba(11, 21, 40, 0.35);
+}
+
+/* Derived tokens. Declared on the same element as the channels above, so
+   they follow the theme (and any future accent override) automatically. */
+:root {
+  --ml-ground: rgb(var(--ml-ground-rgb));
+  --ml-rail: rgb(var(--ml-rail-rgb));
+  --ml-panel: rgb(var(--ml-panel-rgb));
+  --ml-raised: rgb(var(--ml-raised-rgb));
+  --ml-raised-2: rgb(var(--ml-raised-2-rgb));
+  --ml-text: rgb(var(--ml-text-rgb));
+  --ml-text-2: rgb(var(--ml-text-2-rgb));
+  --ml-text-3: rgb(var(--ml-text-3-rgb));
+  --ml-accent: rgb(var(--ml-accent-rgb));
+  --ml-ok: rgb(var(--ml-ok-rgb));
+  --ml-warn: rgb(var(--ml-warn-rgb));
+  --ml-bad: rgb(var(--ml-bad-rgb));
+
+  --ml-on-accent: #ffffff;
+  --ml-accent-fill: color-mix(in srgb, var(--ml-accent) 80%, #000);
+  --ml-accent-soft: color-mix(in srgb, var(--ml-accent) 15%, transparent);
+  --ml-accent-line: color-mix(in srgb, var(--ml-accent) 48%, transparent);
+  --ml-accent-text: color-mix(in srgb, var(--ml-accent) 72%, var(--ml-text));
+  --ml-focus: color-mix(in srgb, var(--ml-accent) 78%, transparent);
+  --ml-selection: color-mix(in srgb, var(--ml-accent) 32%, transparent);
+  --ml-bubble: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--ml-accent) 17%, var(--ml-panel)),
+    color-mix(in srgb, var(--ml-accent) 10%, var(--ml-panel))
+  );
+  --ml-bubble-line: color-mix(in srgb, var(--ml-accent) 30%, transparent);
+  --ml-ok-soft: color-mix(in srgb, var(--ml-ok) 14%, transparent);
+  --ml-warn-soft: color-mix(in srgb, var(--ml-warn) 16%, transparent);
+  --ml-bad-soft: color-mix(in srgb, var(--ml-bad) 14%, transparent);
+  --ml-scroll-thumb: color-mix(in srgb, var(--ml-text-3) 38%, transparent);
+  --ml-scroll-thumb-hover: color-mix(in srgb, var(--ml-text-3) 60%, transparent);
+
+  /* Type */
+  --font-ui:
+    "Public Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-display: "Archivo", var(--font-ui);
+  --font-mono:
+    "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+    "Liberation Mono", monospace;
+
+  /* Frame and control metrics */
+  --ml-rail-w: clamp(280px, 19vw, 320px);
+  --ml-drawer-w: clamp(320px, 23vw, 384px);
+  --ml-topbar-h: 64px;
+  --ml-gutter: clamp(16px, 4vw, 48px);
+  --ml-ctl: 38px; /* top bar controls: pill, Sources, more */
+  --ml-ctl-lg: 40px; /* composer chips, send, source chips */
+  --ml-field: 44px; /* form fields; sign-in uses 50px */
+  /* Settings pages use the same gutter as the chat pane (owner rule: one
+     gutter on every pane). */
+  --ml-set-gutter: var(--ml-gutter);
+  --ml-radius-sm: 8px;
+  --ml-radius: 10px;
+  --ml-radius-md: 12px;
+  --ml-radius-lg: 14px;
+  --ml-radius-xl: 18px;
+  --ml-ease: cubic-bezier(0.2, 0, 0, 1);
+
+  /* ---- Legacy theme variables, remapped to the tokens above ---- */
+  --theme-loader: var(--ml-text);
+  --theme-bg-primary: var(--ml-ground);
+  --theme-bg-secondary: var(--ml-panel);
+  --theme-bg-sidebar: var(--ml-rail);
+  --theme-bg-container: var(--ml-ground);
+  --theme-bg-chat: var(--ml-panel);
+  --theme-bg-chat-input: var(--ml-raised);
+  --theme-text-primary: var(--ml-text);
+  --theme-text-secondary: var(--ml-text-2);
+  --theme-placeholder: var(--ml-text-3);
+  --theme-popup-menu-bg: var(--ml-raised);
+
+  --theme-sidebar-item-default: var(--ml-raised);
+  --theme-sidebar-item-selected: var(--ml-raised-2);
+  --theme-sidebar-item-hover: var(--ml-raised-2);
+  --theme-sidebar-item-text-active: var(--ml-text);
+  --theme-sidebar-item-text-inactive: var(--ml-text-2);
   --theme-sidebar-subitem-default: transparent;
-  --theme-sidebar-subitem-selected: #e2e7ee;
-  --theme-sidebar-thread-selected: #ffffff;
-  --theme-sidebar-subitem-hover: #e2e7ee;
-  --theme-sidebar-border: #d3d4d4;
+  --theme-sidebar-subitem-selected: var(--ml-accent-soft);
+  --theme-sidebar-subitem-hover: var(--ml-raised);
+  --theme-sidebar-thread-selected: var(--ml-accent-soft);
+  --theme-sidebar-border: var(--ml-line);
+  --theme-sidebar-item-workspace-active: var(--ml-text);
+  --theme-sidebar-item-workspace-inactive: var(--ml-text-2);
 
-  --theme-sidebar-footer-icon: #ffffff;
-  --theme-sidebar-footer-icon-fill: #6e6f6f;
-  --theme-sidebar-footer-icon-hover: #d8d6d6;
+  --theme-sidebar-footer-icon: var(--ml-raised);
+  --theme-sidebar-footer-icon-fill: var(--ml-text-2);
+  --theme-sidebar-footer-icon-hover: var(--ml-raised-2);
 
-  --theme-chat-input-border: #cccccc;
-  --theme-action-menu-bg: #eaeaea;
-  --theme-action-menu-item-hover: rgba(0, 0, 0, 0.1);
-  --theme-settings-input-bg: #edf2fa;
-  --theme-settings-input-placeholder: rgba(0, 0, 0, 0.5);
-  --theme-settings-input-active: rgb(0 0 0 / 0.2);
-  --theme-settings-input-text: #0e0f0f;
-  --theme-modal-border: #d3d3d3;
+  --theme-chat-input-border: var(--ml-line-2);
+  --theme-action-menu-bg: var(--ml-raised);
+  --theme-action-menu-item-hover: var(--ml-raised-2);
+  --theme-settings-input-bg: var(--ml-panel);
+  --theme-settings-input-placeholder: var(--ml-text-3);
+  --theme-settings-input-active: var(--ml-line-2);
+  --theme-settings-input-text: var(--ml-text);
+  --theme-modal-border: var(--ml-line-2);
 
-  --theme-button-primary: #0ba5ec;
-  --theme-button-primary-hover: #dedede;
+  --theme-button-primary: var(--ml-accent);
+  --theme-button-primary-hover: var(--ml-raised-2);
+  --theme-button-cta: var(--ml-accent-text);
 
-  --theme-button-cta: #7cd4fd;
+  --theme-file-row-even: var(--ml-panel);
+  --theme-file-row-odd: var(--ml-raised);
+  --theme-file-row-selected-even: var(--ml-accent-soft);
+  --theme-file-row-selected-odd: color-mix(
+    in srgb,
+    var(--ml-accent) 10%,
+    transparent
+  );
+  --theme-file-picker-hover: var(--ml-accent-soft);
 
-  --theme-file-row-even: #f5f5f5;
-  --theme-file-row-odd: #e9e9e9;
-  --theme-file-row-selected-even: #0ba5ec;
-  --theme-file-row-selected-odd: #0ba5ec;
-  --theme-file-picker-hover: #e2e7ee;
+  --theme-home-text: var(--ml-text);
+  --theme-home-text-secondary: var(--ml-text-2);
+  --theme-home-bg-card: var(--ml-panel);
+  --theme-home-bg-button: var(--ml-raised);
+  --theme-home-border: var(--ml-line-2);
+  --theme-home-button-primary: var(--ml-accent-fill);
+  --theme-home-button-primary-hover: var(--ml-accent);
+  --theme-home-button-secondary: var(--ml-raised);
+  --theme-home-button-secondary-hover: var(--ml-accent-soft);
+  --theme-home-button-secondary-text: var(--ml-text);
+  --theme-home-button-secondary-hover-text: var(--ml-accent-text);
+  --theme-home-button-secondary-border: var(--ml-line-2);
+  --theme-home-button-secondary-border-hover: var(--ml-accent-line);
+  --theme-home-update-card-bg: var(--ml-panel);
+  --theme-home-update-card-hover: var(--ml-raised);
+  --theme-home-update-source: var(--ml-accent-text);
 
-  --theme-home-text: #0e0f0f;
-  --theme-home-text-secondary: #6f6f71;
-  --theme-home-bg-card: #edf2fa;
-  --theme-home-bg-button: #f3f4f6;
-  --theme-home-border: rgba(0, 0, 0, 0.1);
-  --theme-home-button-primary: #36bffa;
-  --theme-home-button-primary-hover: rgba(54, 191, 250, 0.9);
-  --theme-home-button-secondary: #dbe8fe;
-  --theme-home-button-secondary-hover: #b0c8f1;
-  --theme-home-button-secondary-text: #293056;
-  --theme-home-button-secondary-hover-text: #293056;
-  --theme-home-update-card-bg: #edf2fa;
-  --theme-home-update-card-hover: #f3f4f6;
-  --theme-home-update-source: #0284c7;
+  --theme-checklist-item-bg: var(--ml-accent-soft);
+  --theme-checklist-item-bg-hover: var(--ml-accent-line);
+  --theme-checklist-item-text: var(--ml-accent-text);
+  --theme-checklist-item-completed-bg: var(--ml-ok-soft);
+  --theme-checklist-item-completed-text: var(--ml-ok);
+  --theme-checklist-checkbox-fill: var(--ml-ok);
+  --theme-checklist-checkbox-text: var(--ml-ground);
+  --theme-checklist-item-hover: var(--ml-accent);
+  --theme-checklist-checkbox-border: var(--ml-text-2);
+  --theme-checklist-button-border: var(--ml-accent-line);
+  --theme-checklist-button-text: var(--ml-accent-text);
+  --theme-checklist-button-hover-bg: var(--ml-accent-soft);
+  --theme-checklist-button-hover-border: var(--ml-accent);
 
-  --theme-checklist-item-bg: #c7e2ee;
-  --theme-checklist-item-bg-hover: #a3d9f1;
-  --theme-checklist-item-text: #0d3851;
-  --theme-checklist-item-completed-bg: #d8f3ea;
-  --theme-checklist-item-completed-text: #039855;
-  --theme-checklist-checkbox-fill: #6ce9a6;
-  --theme-checklist-checkbox-text: #ffffff;
-  --theme-checklist-item-hover: #0ba5ec;
-  --theme-checklist-checkbox-border: #6b7280;
-  --theme-checklist-button-border: #0ba5ec;
-  --theme-checklist-button-text: #0ba5ec;
-  --theme-checklist-button-hover-bg: rgba(11, 165, 236, 0.1);
-  --theme-checklist-button-hover-border: rgba(11, 165, 236, 0.8);
-
-  --theme-home-button-secondary-border-hover: #293056;
-
-  --theme-attachment-bg: #edf2fa;
-  --theme-attachment-error-bg: rgba(180, 35, 24, 0.3);
-  --theme-attachment-success-bg: #eaeaea;
-  --theme-attachment-text: #0e0f0f;
-  --theme-attachment-text-secondary: rgba(0, 0, 0, 0.8);
+  --theme-attachment-bg: var(--ml-panel);
+  --theme-attachment-error-bg: var(--ml-bad-soft);
+  --theme-attachment-success-bg: var(--ml-panel);
+  --theme-attachment-text: var(--ml-text);
+  --theme-attachment-text-secondary: var(--ml-text-2);
   --theme-attachment-icon: #ffffff;
-  --theme-attachment-icon-spinner: #7cd4fd;
-  --theme-attachment-icon-spinner-bg: #ffffff;
+  --theme-attachment-icon-spinner: var(--ml-accent);
+  --theme-attachment-icon-spinner-bg: var(--ml-raised);
 
-  --theme-button-text: #a8a9ab;
-  --theme-button-code-hover-text: #0ba5ec;
-  --theme-button-code-hover-bg: #e8f7fe;
-  --theme-button-disable-hover-text: #854708;
-  --theme-button-disable-hover-bg: #fef7e6;
-  --theme-button-delete-hover-text: #b42318;
-  --theme-button-delete-hover-bg: #fee4e2;
+  --theme-button-text: var(--ml-text-2);
+  --theme-button-code-hover-text: var(--ml-accent-text);
+  --theme-button-code-hover-bg: var(--ml-accent-soft);
+  --theme-button-disable-hover-text: var(--ml-warn);
+  --theme-button-disable-hover-bg: var(--ml-warn-soft);
+  --theme-button-delete-hover-text: var(--ml-bad);
+  --theme-button-delete-hover-bg: var(--ml-bad-soft);
+}
+
+/* Legacy utility overrides. :where() keeps specificity at a single class so
+   hover:, focus: and light: variants on the same element still win. */
+:where(:root:not([data-theme="light"])) .text-white {
+  color: var(--ml-text);
 }
 
 [data-theme="light"] .text-white {
@@ -232,33 +428,25 @@ onboarding flow since its background is dark and is the same fill as the inputs.
 [data-layout="onboarding"] > * select:not([data-theme="light"]),
 [data-layout="onboarding"] > * input:not([data-theme="light"]),
 [data-layout="onboarding"] > * textarea:not([data-theme="light"]) {
-  border: 1px solid #ffffff;
+  border: 1px solid var(--ml-line-2);
 }
 
+/**
+ * ==============================================
+ * Base
+ * ==============================================
+ */
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family:
-    "plus-jakarta-sans",
-    -apple-system,
-    BlinkMacSystemFont,
-    Segoe UI,
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    Fira Sans,
-    Droid Sans,
-    Helvetica Neue,
-    sans-serif;
-  background-color: white;
-}
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #0e0f0f;
-  }
+  font-family: var(--font-ui);
+  background-color: var(--ml-ground);
+  color: var(--ml-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1;
 }
 
 @media (max-width: 600px) {
@@ -276,14 +464,96 @@ a {
   box-sizing: border-box;
 }
 
-.g327 {
-  border-color: #302f30;
+::selection {
+  background-color: var(--ml-selection);
 }
 
-@font-face {
-  font-family: "plus-jakarta-sans";
-  src: url("../public/fonts/PlusJakartaSans.ttf");
-  font-display: swap;
+/* Keyboard focus: one accent ring for every interactive control. Text fields
+   draw their own focus treatment (border plus soft ring) in their component. */
+:is(
+    a,
+    button,
+    summary,
+    select,
+    [role="button"],
+    [role="tab"],
+    [role="menuitem"],
+    [role="option"],
+    [role="switch"],
+    [role="checkbox"],
+    [tabindex]:not([tabindex="-1"])
+  ):focus-visible {
+  outline: 2px solid var(--ml-focus);
+  outline-offset: 2px;
+}
+
+input[type="checkbox"]:focus-visible,
+input[type="radio"]:focus-visible,
+input[type="range"]:focus-visible {
+  outline: 2px solid var(--ml-focus);
+  outline-offset: 2px;
+}
+
+/* Scrollbars: thin, navy, no track. Containers with .no-scroll stay hidden. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ml-scroll-thumb) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--ml-scroll-thumb);
+  border: 3px solid transparent;
+  border-radius: 10px;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--ml-scroll-thumb-hover);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/**
+ * ==============================================
+ * Frame helpers (flush panes separated by hairlines)
+ * ==============================================
+ */
+.ml-wordmark {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.ml-mono {
+  font-family: var(--font-mono);
+  font-feature-settings: normal;
+}
+
+.ml-kbd {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 7px;
+  border: 1px solid var(--ml-line-2);
+  border-radius: 7px;
+  background: var(--ml-raised);
+  color: var(--ml-text-2);
+  font: 500 13px/1 var(--font-mono);
+  white-space: nowrap;
 }
 
 .grr {
@@ -353,24 +623,12 @@ a {
   }
 }
 
-@media (prefers-color-scheme: light) {
-  .fade-up-border {
-    background: linear-gradient(
-      to bottom,
-      rgba(220, 221, 223, 10%),
-      rgb(220, 221, 223) 89%
-    );
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .fade-up-border {
-    background: linear-gradient(
-      to bottom,
-      rgba(41, 37, 36, 50%),
-      rgb(41 37 36) 90%
-    );
-  }
+.fade-up-border {
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--ml-rail-rgb) / 0.1),
+    rgb(var(--ml-rail-rgb) / 1) 90%
+  );
 }
 
 /**
@@ -384,9 +642,9 @@ a {
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #eeeeee;
-  color: #5fa4fa;
-  box-shadow: 9999px 0 0 0 #eeeeee;
+  background-color: var(--ml-text-3);
+  color: var(--ml-accent);
+  box-shadow: 9999px 0 0 0 var(--ml-text-3);
   animation: dot-falling 1.5s infinite linear;
   animation-delay: 0.1s;
 }
@@ -403,8 +661,8 @@ a {
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #eeeeee;
-  color: #eeeeee;
+  background-color: var(--ml-text-3);
+  color: var(--ml-text-3);
   animation: dot-falling-before 1.5s infinite linear;
   animation-delay: 0s;
 }
@@ -413,8 +671,8 @@ a {
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #eeeeee;
-  color: #eeeeee;
+  background-color: var(--ml-text-3);
+  color: var(--ml-text-3);
   animation: dot-falling-after 1.5s infinite linear;
   animation-delay: 0.2s;
 }
@@ -427,7 +685,7 @@ a {
   25%,
   50%,
   75% {
-    box-shadow: 9999px 0 0 0 #eeeeee;
+    box-shadow: 9999px 0 0 0 var(--ml-text-3);
   }
 
   100% {
@@ -443,7 +701,7 @@ a {
   25%,
   50%,
   75% {
-    box-shadow: 9984px 0 0 0 #eeeeee;
+    box-shadow: 9984px 0 0 0 var(--ml-text-3);
   }
 
   100% {
@@ -459,7 +717,7 @@ a {
   25%,
   50%,
   75% {
-    box-shadow: 10014px 0 0 0 #eeeeee;
+    box-shadow: 10014px 0 0 0 var(--ml-text-3);
   }
 
   100% {
@@ -470,12 +728,8 @@ a {
 .show-scrollbar {
   overflow-y: scroll !important;
   scrollbar-width: thin !important;
-  scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.1) !important;
+  scrollbar-color: var(--ml-scroll-thumb) transparent !important;
   -webkit-overflow-scrolling: touch !important;
-}
-
-[data-theme="light"] .show-scrollbar {
-  scrollbar-color: rgba(0, 0, 0, 0.5) rgba(28, 28, 28, 0.3) !important;
 }
 
 .show-scrollbar::-webkit-scrollbar {
@@ -485,13 +739,13 @@ a {
 }
 
 .show-scrollbar::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1) !important;
+  background: transparent !important;
   margin: 3px !important;
   border-radius: 4px !important;
 }
 
 .show-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.3) !important;
+  background-color: var(--ml-scroll-thumb) !important;
   border-radius: 4px !important;
   border: none !important;
   min-height: 40px !important;
@@ -539,7 +793,7 @@ a {
 }
 
 .grid-loader > circle {
-  fill: #008eff;
+  fill: var(--ml-accent);
 }
 
 dialog {
@@ -557,12 +811,12 @@ dialog[open] {
 }
 
 dialog::backdrop {
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--ml-scrim);
   backdrop-filter: blur(2px);
 }
 
 .backdrop {
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--ml-scrim);
   backdrop-filter: blur(2px);
 }
 
@@ -637,7 +891,7 @@ dialog::backdrop {
 .reply > *:last-child::after {
   content: "|";
   animation: blink 1.5s steps(1) infinite;
-  color: white;
+  color: var(--ml-accent-text);
   font-size: 14px;
 }
 
@@ -662,7 +916,19 @@ dialog::backdrop {
 }
 
 .tooltip {
-  @apply !bg-black !text-white !py-2 !px-3 !rounded-md !z-10;
+  @apply !py-2 !px-3 !z-10;
+  background: var(--ml-raised-2) !important;
+  color: var(--ml-text) !important;
+  border: 1px solid var(--ml-line-2);
+  border-radius: 8px !important;
+  box-shadow: var(--ml-shadow-pop);
+  font-family: var(--font-ui);
+  line-height: 1.35;
+}
+
+/* 13px floor: many tooltips pass !text-xs (12px). */
+.tooltip.tooltip {
+  font-size: 13px !important;
 }
 
 .Toastify__toast-body {
@@ -691,184 +957,206 @@ dialog::backdrop {
 
 /**
  * ==============================================
- * Markdown Styles
+ * Markdown Styles (rendered chat content)
+ * .markdown is the chat history container; .ml-prose can be put on any
+ * other container that holds rendered markdown. Both get the same base:
+ * one block rhythm, "01" monospace ordered-list counters, bordered tables
+ * with a monospace last column, hairline rules and inline code chips.
+ * Font size and line height come from the container (chat text is 17px).
  * ==============================================
  */
+@counter-style ml-two-digit {
+  system: extends decimal-leading-zero;
+  suffix: "   ";
+}
+
 .markdown,
 .markdown > * {
   font-weight: 400;
-}
-
-.markdown h1 {
-  font-size: xx-large;
-  line-height: 1.7;
-  padding-left: 0.3rem;
-}
-
-.markdown h2 {
-  line-height: 1.5;
-  font-size: x-large;
-  padding-left: 0.3rem;
-}
-
-.markdown h3 {
-  line-height: 1.4;
-  font-size: large;
-  padding-left: 0.3rem;
-}
-
-/* Table Styles */
-
-.markdown table {
-  border-collapse: separate;
-}
-
-.markdown th {
-  border-top: none;
-}
-
-.markdown td:first-child,
-.markdown th:first-child {
-  border-left: none;
-}
-
-.markdown table {
-  width: 100%;
-  border-collapse: collapse;
-  color: #bdbdbe;
-  font-size: 13px;
-  margin: 30px 0px;
-  border-radius: 10px;
-  overflow: hidden;
-  font-weight: normal;
-}
-
-.markdown table thead {
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: bolder;
-}
-
-.markdown hr {
-  border: 0;
-  border-top: 1px solid #cdcdcd40;
-  margin: 1rem 0;
-}
-
-.markdown table th,
-.markdown table td {
-  padding: 8px 15px;
-  border-bottom: 1px solid #cdcdcd2e;
-  text-align: left;
-}
-
-.markdown table th {
-  padding: 14px 15px;
-}
-
-.markdown > * a {
-  color: var(--theme-button-cta);
-  text-decoration: underline;
-}
-
-@media (max-width: 600px) {
-  .markdown table th,
-  .markdown table td {
-    padding: 10px;
-  }
-}
-
-[data-theme="light"] .markdown table,
-[data-theme="light"] .markdown table th,
-[data-theme="light"] .markdown table td {
-  color: #000;
-}
-
-/* List Styles */
-.markdown ol {
-  list-style: decimal-leading-zero;
-  padding-left: 0px;
-  padding-top: 10px;
-  margin: 10px;
-}
-
-.markdown ol li {
-  margin-left: 20px;
-  padding-left: 10px;
-  position: relative;
-  transition: all 0.3s ease;
-  line-height: 1.4rem;
-}
-
-.markdown ol li::marker {
-  padding-top: 10px;
-}
-
-.markdown ol li p {
-  margin: 0.5rem;
-  padding-top: 10px;
-}
-
-.markdown ol li a {
-  text-decoration: underline;
-}
-
-.markdown ol li p a {
-  text-decoration: underline;
-}
-
-.markdown ul {
-  list-style: revert-layer;
-  /* color: #cfcfcfcf; */
-  padding-left: 0px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin: 10px;
-}
-
-.markdown ul li::marker {
-  color: #d0d0d0cf;
-  padding-top: 10px;
-}
-
-.markdownul li {
-  margin-left: 20px;
-
-  padding-left: 10px;
-  transition: all 0.3s ease;
-  line-height: 1.4rem;
-}
-
-.markdownul li a {
-  text-decoration: underline;
-}
-
-.markdown ul li > ul {
-  padding-left: 20px;
-  margin: 0px;
-}
-
-.markdown p {
-  font-weight: 400;
-  margin: 0.35rem;
-}
-
-.markdown > p > a,
-.markdown p a {
-  text-decoration: underline;
 }
 
 .markdown {
   text-wrap: wrap;
 }
 
-.markdown pre {
-  margin: 20px 0;
+:is(.markdown, .ml-prose) :is(p, ul, ol, blockquote, h1, h2, h3, h4, h5, h6) {
+  margin: 0;
 }
 
-.markdown strong {
+:is(.markdown, .ml-prose)
+  :is(p, ul, ol, blockquote, .md-table-wrap, .katex-display, h1, h2, h3, h4, h5, h6, hr)
+  + :is(p, ul, ol, blockquote, .md-table-wrap, .katex-display) {
+  margin-top: 0.82em;
+}
+
+:is(.markdown, .ml-prose) * + :is(h1, h2, h3, h4, h5, h6) {
+  margin-top: 1.25em;
+}
+
+:is(.markdown, .ml-prose) :is(h1, h2, h3, h4, h5, h6) {
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.003em;
+  color: var(--ml-text);
+}
+
+:is(.markdown, .ml-prose) h1 {
+  font-size: 1.4em;
+}
+
+:is(.markdown, .ml-prose) h2 {
+  font-size: 1.24em;
+}
+
+:is(.markdown, .ml-prose) h3 {
+  font-size: 1.1em;
+}
+
+:is(.markdown, .ml-prose) :is(h4, h5, h6) {
+  font-size: 1em;
+}
+
+:is(.markdown, .ml-prose) strong {
+  font-weight: 650;
+  color: var(--ml-text);
+}
+
+:is(.markdown, .ml-prose) a:not([class]) {
+  color: var(--ml-accent-text);
+  text-decoration: underline;
+  text-decoration-color: var(--ml-accent-line);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+:is(.markdown, .ml-prose) a:not([class]):hover {
+  text-decoration-color: currentColor;
+}
+
+/* Lists */
+:is(.markdown, .ml-prose) ul {
+  list-style: disc;
+  padding-left: 1.5em;
+}
+
+:is(.markdown, .ml-prose) ul ul {
+  list-style: circle;
+}
+
+:is(.markdown, .ml-prose) ul > li::marker {
+  color: var(--ml-text-3);
+}
+
+/* "01" counters: two mono digits plus three mono spaces = 5 x 0.6 x 0.82em,
+   so a 2.47em indent puts the number on the text edge and the item text
+   42px in at 17px, as in the concept. */
+:is(.markdown, .ml-prose) ol {
+  list-style: ml-two-digit;
+  padding-left: 2.47em;
+}
+
+:is(.markdown, .ml-prose) ol > li::marker {
+  font-family: var(--font-mono);
   font-weight: 600;
-  color: #fff;
+  font-size: max(13px, 0.82em);
+  color: var(--ml-accent-text);
+}
+
+:is(.markdown, .ml-prose) li + li {
+  margin-top: 0.7em;
+}
+
+:is(.markdown, .ml-prose) li > :is(ul, ol) {
+  margin-top: 0.55em;
+}
+
+:is(.markdown, .ml-prose) li > p + p {
+  margin-top: 0.6em;
+}
+
+/* Tables: rendered inside .md-table-wrap (see utils/chat/markdown.js) */
+:is(.markdown, .ml-prose) .md-table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--ml-line);
+  border-radius: 12px;
+}
+
+:is(.markdown, .ml-prose) table {
+  width: 100%;
+  min-width: 520px;
+  margin: 0;
+  border-collapse: collapse;
+  border-radius: 0;
+  font-size: 0.912em;
+  font-weight: 400;
+  line-height: 1.55;
+  color: inherit;
+}
+
+:is(.markdown, .ml-prose) table th {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--ml-line);
+  background: var(--ml-panel);
+  color: var(--ml-text-2);
+  font-size: 0.9em;
+  font-weight: 600;
+  text-align: left;
+  text-transform: none;
+}
+
+:is(.markdown, .ml-prose) table td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--ml-line);
+  text-align: left;
+  vertical-align: top;
+}
+
+:is(.markdown, .ml-prose) table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+:is(.markdown, .ml-prose) table td:last-child:not(:first-child) {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--ml-text-2);
+}
+
+/* Rules, quotes, inline code */
+:is(.markdown, .ml-prose) hr {
+  border: 0;
+  border-top: 1px solid var(--ml-line);
+  margin: 1.25em 0;
+}
+
+:is(.markdown, .ml-prose) blockquote {
+  border-left: 3px solid var(--ml-accent-line);
+  padding-left: 14px;
+  color: var(--ml-text-2);
+}
+
+:is(.markdown, .ml-prose) :not(pre) > code:not([class]) {
+  padding: 0.1em 0.42em;
+  border: 1px solid var(--ml-line);
+  border-radius: 6px;
+  background: var(--ml-raised-2);
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+}
+
+/* Code blocks (highlight.js). The theme files set their own background. */
+:is(.markdown, .ml-prose) pre {
+  margin: 20px 0;
+  font-family: var(--font-mono);
+}
+
+:is(.markdown, .ml-prose) .hljs.github-dark,
+:is(.markdown, .ml-prose) .hljs.github {
+  background: var(--ml-panel);
+  border: 1px solid var(--ml-line);
+  border-radius: 12px;
 }
 
 .file-row {
@@ -880,24 +1168,19 @@ dialog::backdrop {
 .file-row:nth-child(even) {
   @apply bg-theme-bg-primary;
   background-color: var(--theme-file-row-even);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--ml-line);
 }
 
 .file-row:nth-child(odd) {
   @apply bg-theme-bg-secondary;
   background-color: var(--theme-file-row-odd);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--ml-line);
 }
 
 .file-row.selected:nth-child(even),
 .file-row.selected:nth-child(odd) {
   background-color: var(--theme-file-row-selected-even);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="light"] .file-row.selected:nth-child(even),
-[data-theme="light"] .file-row.selected:nth-child(odd) {
-  border-bottom: 1px solid rgba(222, 222, 222, 0.5);
+  border-bottom: 1px solid var(--ml-line-2);
 }
 
 /* Flex upload modal to be a column when on small screens so that the UI
@@ -924,29 +1207,29 @@ does not extend the close button beyond the viewport. */
 .white-scrollbar {
   overflow-y: scroll;
   scrollbar-width: thin;
-  scrollbar-color: #ffffff #18181b;
+  scrollbar-color: var(--ml-scroll-thumb) transparent;
   margin-right: 8px;
 }
 
 /* Webkit browsers (Chrome, Safari) */
 .white-scrollbar::-webkit-scrollbar {
-  width: 3px;
-  background-color: #18181b;
+  width: 6px;
+  background-color: transparent;
 }
 
 .white-scrollbar::-webkit-scrollbar-track {
-  background-color: #18181b;
+  background-color: transparent;
   margin-right: 8px;
 }
 
 .white-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #ffffff;
+  background-color: var(--ml-scroll-thumb);
   border-radius: 4px;
-  border: 2px solid #18181b;
+  border: 1px solid transparent;
 }
 
 .white-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: #cccccc;
+  background-color: var(--ml-scroll-thumb-hover);
 }
 
 /* Scoped to the scheduled jobs tool call card — the default white-scrollbar
@@ -981,11 +1264,7 @@ does not extend the close button beyond the viewport. */
 
 /* Recharts rendering styles */
 .recharts-text > * {
-  fill: #fff;
-}
-
-[data-theme="light"] .recharts-text > * {
-  fill: #000;
+  fill: var(--ml-text-2);
 }
 
 .recharts-legend-wrapper {
@@ -1093,7 +1372,8 @@ does not extend the close button beyond the viewport. */
 }
 
 .rti--container:focus-within {
-  @apply !border-sky-500 !shadow-none;
+  border-color: var(--ml-accent-line) !important;
+  box-shadow: 0 0 0 4px var(--ml-accent-soft) !important;
 }
 
 @keyframes fadeUpIn {
@@ -1168,26 +1448,173 @@ does not extend the close button beyond the viewport. */
   content-visibility: visible;
 }
 
-/* Form control font fallback for non-Latin scripts */
-button,
-input,
-select,
-textarea {
-  font-family:
-    "plus-jakarta-sans",
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    "Helvetica Neue",
-    Arial,
-    "Noto Sans",
-    sans-serif,
-    "Apple Color Emoji",
-    "Segoe UI Emoji",
-    "Segoe UI Symbol",
-    "Noto Color Emoji" !important;
+/* Form controls use the UI font (the stack in --font-ui carries the system
+   and non-Latin fallbacks). Zero specificity, so font-mono and other font
+   utilities on a control still apply. */
+:where(button, input, select, textarea) {
+  font-family: inherit;
+}
+
+/*
+ * ==============================================
+ * Instance settings pages (concept 1)
+ * Every settings page renders the settings rail (nav[data-settings-rail])
+ * followed by its content pane. These rules put the existing page markup on
+ * the concept's gutter, type scale, fields and tables without touching any
+ * page's behavior. Pages built on components/SettingsPage use those classes
+ * directly and are unaffected by the legacy selectors below.
+ * ==============================================
+ */
+:is([data-settings-rail] + div, [data-settings-pane]) {
+  background-color: var(--ml-ground);
+  color: var(--ml-text);
+}
+
+/* One gutter on both sides (the old pages used 24px left and 50-86px right). */
+:is([data-settings-rail] + div, [data-settings-pane]) .md\:pl-6 {
+  padding-left: var(--ml-set-gutter);
+}
+:is([data-settings-rail] + div, [data-settings-pane]) .md\:pr-\[50px\],
+:is([data-settings-rail] + div, [data-settings-pane]) .md\:pr-\[86px\] {
+  padding-right: var(--ml-set-gutter);
+}
+:is([data-settings-rail] + div, [data-settings-pane]) .md\:py-6 {
+  padding-top: 0;
+  padding-bottom: 40px;
+}
+
+/* Page head: 27px Archivo title, 16px description, one hairline under it. */
+:is([data-settings-rail] + div, [data-settings-pane]) .pb-6.border-b-2 {
+  padding-top: 22px;
+  padding-bottom: 16px;
+  border-bottom-width: 1px;
+  border-color: var(--ml-line);
+  --tw-border-opacity: 1;
+}
+:is([data-settings-rail] + div, [data-settings-pane]) .pb-6.border-b-2 p.text-lg.font-bold {
+  font-family: "Archivo", var(--font-ui);
+  font-stretch: 112%;
+  font-weight: 650;
+  font-size: 27px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: var(--ml-text);
+}
+:is([data-settings-rail] + div, [data-settings-pane]) .pb-6.border-b-2 > p.text-xs {
+  margin-top: 4px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ml-text-2);
+  --tw-text-opacity: 1;
+}
+
+/* Type floor: nothing under 13px, UI text at 14-15px. */
+:is([data-settings-rail] + div, [data-settings-pane]) .text-xs {
+  font-size: 14px;
+  line-height: 1.5;
+}
+:is([data-settings-rail] + div, [data-settings-pane]) .text-sm {
+  font-size: 15px;
+  line-height: 1.5;
+}
+:is([data-settings-rail] + div, [data-settings-pane]) :is(p, div, label).text-sm:is(.font-semibold, .font-bold) {
+  font-size: 16px;
+}
+:is([data-settings-rail] + div, [data-settings-pane]) .text-white\/60,
+:is([data-settings-rail] + div, [data-settings-pane]) .text-description {
+  color: var(--ml-text-2);
+}
+
+/* Fields: 44px, 12px radius, panel fill, hairline border, accent ring on focus. */
+:is([data-settings-rail] + div, [data-settings-pane]) :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]), select).bg-theme-settings-input-bg {
+  min-height: var(--ml-field);
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 14px;
+  padding-right: 14px;
+  border: 1px solid var(--ml-line-2);
+  border-radius: 12px;
+  background-color: var(--ml-panel);
+  color: var(--ml-text);
+  font-size: 15.5px;
+}
+:is([data-settings-rail] + div, [data-settings-pane]) textarea.bg-theme-settings-input-bg {
+  padding: 10px 14px;
+  border: 1px solid var(--ml-line-2);
+  border-radius: 12px;
+  background-color: var(--ml-panel);
+  color: var(--ml-text);
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+:is([data-settings-rail] + div, [data-settings-pane]) :is(input, select, textarea).bg-theme-settings-input-bg:focus {
+  outline: none;
+  border-color: var(--ml-accent-line);
+  box-shadow: 0 0 0 4px var(--ml-accent-soft);
+}
+
+/* Tables (users, workspaces, invites, chats, API keys): concept table style. */
+:is([data-settings-rail] + div, [data-settings-pane]) table {
+  font-size: 15px;
+}
+:is([data-settings-rail] + div, [data-settings-pane]) thead th,
+:is([data-settings-rail] + div, [data-settings-pane]) thead td {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ml-text-2);
+}
+:is([data-settings-rail] + div, [data-settings-pane]) tbody tr {
+  border-color: var(--ml-line);
+}
+
+/* Field labels: one spacing under every label (pages mixed mb-2 and mb-3,
+   which put fields in the same row at different heights). */
+:is([data-settings-rail] + div, [data-settings-pane]) label.block:is(.mb-2, .mb-3) {
+  margin-bottom: 10px;
+}
+
+/* Legacy white text with an opacity modifier: the .text-white override above
+   drops Tailwind's opacity variable, so map the common tiers to text tokens. */
+.text-white.text-opacity-40,
+.text-white.text-opacity-50,
+.text-white.text-opacity-60,
+.text-white.text-opacity-70 {
+  color: var(--ml-text-2);
+}
+.text-white.text-opacity-80,
+.text-white.text-opacity-90 {
+  color: var(--ml-text);
+}
+
+/* Settings: faint legacy tiers read as the tertiary text token, and the
+   last few hardcoded sub-13px sizes are raised to the 13px floor. */
+:is([data-settings-rail] + div, [data-settings-pane]) :is(.text-white\/40, .text-white\/50) {
+  color: var(--ml-text-2);
+}
+:is([data-settings-rail] + div, [data-settings-pane]) .border-white\/40 {
+  border-color: var(--ml-line-2);
+}
+:is([data-settings-rail] + div, [data-settings-pane]) :is(.text-\[10px\], .text-\[11px\], .text-\[12px\]) {
+  font-size: 13px;
+}
+:is([data-settings-rail] + div, [data-settings-pane]) .\!text-xs {
+  font-size: 14px !important;
+}
+
+/* Provider pickers (LLM, embedder, vector database, agent LLM): let the card
+   grow with its description instead of squeezing it into 64px. */
+:is([data-settings-rail] + div, [data-settings-pane]) button.max-w-\[640px\].h-\[64px\] {
+  height: auto;
+  min-height: 64px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-width: 1px;
+  border-color: var(--ml-line-2);
+  border-radius: 12px;
+  background-color: var(--ml-panel);
+}
+:is([data-settings-rail] + div, [data-settings-pane]) button.max-w-\[640px\].h-\[64px\]:hover {
+  border-color: var(--ml-accent-line);
 }

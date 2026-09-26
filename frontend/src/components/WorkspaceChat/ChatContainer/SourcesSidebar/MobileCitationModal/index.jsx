@@ -43,6 +43,7 @@ export default function MobileCitationModal({
               {sources.map((source, idx) => (
                 <SourceItem
                   key={source.title || idx}
+                  number={idx + 1}
                   source={source}
                   onClick={() => setSelectedSource(source)}
                 />

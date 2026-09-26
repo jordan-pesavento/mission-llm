@@ -21,8 +21,11 @@ export default defineConfig({
     port: 3000,
     host: "localhost"
   },
+  // Never inline the build machine's environment into the browser bundle (it can hold secrets).
+  // Only NODE_ENV is exposed; any other process.env.X read by a dependency resolves to undefined.
   define: {
-    "process.env": process.env
+    "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV || "production"),
+    "process.env": {}
   },
   css: {
     postcss

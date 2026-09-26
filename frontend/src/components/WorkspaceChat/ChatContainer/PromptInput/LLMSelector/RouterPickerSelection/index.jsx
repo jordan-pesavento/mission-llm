@@ -33,7 +33,7 @@ export default function RouterPickerSelection({
 
   if (routers.length === 0) {
     return (
-      <p className="text-xs text-zinc-400 light:text-slate-500">
+      <p className="text-[13px] text-zinc-400 light:text-slate-500">
         {t("model-router.router-selection.no-routers-chat")}
       </p>
     );

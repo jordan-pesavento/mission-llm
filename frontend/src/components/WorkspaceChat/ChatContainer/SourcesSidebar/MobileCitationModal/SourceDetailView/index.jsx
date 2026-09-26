@@ -37,7 +37,7 @@ export default function SourceDetailView({ source, onBack, onClose }) {
                 {HTMLDecode(omitChunkHeader(text))}
               </p>
               {!!score && (
-                <div className="flex items-center text-xs text-white/60 light:text-slate-500 gap-x-1">
+                <div className="flex items-center text-[13px] text-white/60 light:text-slate-500 gap-x-1">
                   <Info size={14} />
                   <p>
                     {toPercentString(score)} {t("chat_window.similarity_match")}

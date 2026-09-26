@@ -182,7 +182,7 @@ export default function AgentSkillsTab({
   return (
     <>
       {showAgentCmdActivationAlert && (
-        <p className="text-xs text-theme-text-secondary text-center py-1">
+        <p className="text-[13px] text-theme-text-secondary text-center py-1">
           {t("chat_window.use_agent_session_to_use_tools")}
         </p>
       )}
@@ -249,20 +249,20 @@ export default function AgentSkillsTab({
             className="text-zinc-500 light:text-slate-400 animate-spin"
             weight="bold"
           />
-          <span className="text-[10px] text-zinc-500 light:text-slate-400">
+          <span className="text-[13px] text-zinc-500 light:text-slate-400">
             {t("chat_window.loading_mcp_servers")}
           </span>
         </div>
       )}
       {filteredSections.length === 0 && !mcpLoading && searchQuery.trim() && (
-        <p className="text-xs text-zinc-500 light:text-slate-400 text-center py-2">
+        <p className="text-[13px] text-zinc-500 light:text-slate-400 text-center py-2">
           {t("chat_window.no_tools_found")}
         </p>
       )}
       <Link to={paths.settings.agentSkills()}>
         <button className="border-none flex items-center gap-1.5 px-2 h-6 rounded cursor-pointer hover:bg-zinc-700/50 light:hover:bg-slate-100 text-theme-text-primary">
           <Wrench size={12} className="text-theme-text-primary" />
-          <span className="text-xs text-theme-text-primary">
+          <span className="text-[13px] text-theme-text-primary">
             {t("chat_window.manage_agent_skills")}
           </span>
         </button>
@@ -292,7 +292,7 @@ function SearchInput({ value, onChange, placeholder }) {
           }
           if (e.key === "Enter") e.preventDefault();
         }}
-        className="w-full pl-7 pr-2 py-1 text-xs bg-zinc-700/50 light:bg-slate-100 border border-zinc-600 light:border-slate-300 rounded text-white light:text-slate-900 placeholder:text-zinc-500 light:placeholder:text-slate-400 outline-none focus:border-zinc-500 light:focus:border-slate-400"
+        className="w-full pl-7 pr-2 py-1 text-[13px] bg-zinc-700/50 light:bg-slate-100 border border-zinc-600 light:border-slate-300 rounded text-white light:text-slate-900 placeholder:text-zinc-500 light:placeholder:text-slate-400 outline-none focus:border-zinc-500 light:focus:border-slate-400"
       />
     </div>
   );

@@ -5,6 +5,7 @@ import NewIconForm from "./NewIconForm";
 import Admin from "@/models/admin";
 import System from "@/models/system";
 import { useTranslation } from "react-i18next";
+import { SettingsRow } from "@/components/SettingsPage";
 
 export default function FooterCustomization() {
   const [footerIcons, setFooterIcons] = useState(Array(3).fill(null));
@@ -55,18 +56,17 @@ export default function FooterCustomization() {
   };
 
   return (
-    <div className="flex flex-col gap-y-0.5 my-4">
-      <p className="text-sm leading-6 font-semibold text-white">
-        {t("customization.items.sidebar-footer.title")}
-      </p>
-      <p className="text-xs text-white/60">
-        {t("customization.items.sidebar-footer.description")}
-      </p>
-      <div className="mt-2 flex gap-x-3 font-medium text-white text-sm">
-        <div>{t("customization.items.sidebar-footer.icon")}</div>
+    <SettingsRow
+      title={t("customization.items.sidebar-footer.title")}
+      description={t("customization.items.sidebar-footer.description")}
+    >
+      <div className="flex gap-x-2.5 text-[14.5px] font-semibold text-ml-text-2">
+        <div className="w-field shrink-0">
+          {t("customization.items.sidebar-footer.icon")}
+        </div>
         <div>{t("customization.items.sidebar-footer.link")}</div>
       </div>
-      <div className="mt-2 flex flex-col gap-y-[10px]">
+      <div className="flex flex-col gap-y-2.5">
         {footerIcons.map((icon, index) => (
           <NewIconForm
             key={index}
@@ -81,6 +81,6 @@ export default function FooterCustomization() {
           />
         ))}
       </div>
-    </div>
+    </SettingsRow>
   );
 }

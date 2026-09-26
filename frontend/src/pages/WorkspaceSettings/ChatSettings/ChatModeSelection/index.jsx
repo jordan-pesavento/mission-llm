@@ -14,7 +14,7 @@ export default function ChatModeSelection({ workspace, setHasChanges }) {
       </div>
 
       <div className="flex flex-col gap-y-[8px]">
-        <div className="w-fit flex gap-x-1 items-center p-1 rounded-lg bg-theme-settings-input-bg ">
+        <div className="w-fit flex gap-x-0.5 items-center p-[3px] rounded-[11px] border border-ml-line-2 bg-ml-panel">
           <input type="hidden" name="chatMode" value={chatMode} />
           <button
             type="button"
@@ -23,7 +23,7 @@ export default function ChatModeSelection({ workspace, setHasChanges }) {
               setChatMode("automatic");
               setHasChanges(true);
             }}
-            className="border-none transition-bg duration-200 px-6 py-1 text-md text-white/60 disabled:text-white bg-transparent disabled:bg-[#687280] rounded-md hover:bg-white/10"
+            className="h-9 px-4 rounded-[8px] border-none bg-transparent text-[15px] font-semibold text-ml-text-2 transition-colors duration-150 hover:text-ml-text hover:bg-ml-raised disabled:bg-ml-raised-2 disabled:text-ml-text disabled:cursor-default disabled:shadow-[inset_0_1px_0_var(--ml-inset-hi)]"
           >
             {t("chat.mode.automatic.title")}
           </button>
@@ -34,7 +34,7 @@ export default function ChatModeSelection({ workspace, setHasChanges }) {
               setChatMode("chat");
               setHasChanges(true);
             }}
-            className="border-none transition-bg duration-200 px-6 py-1 text-md text-white/60 disabled:text-white bg-transparent disabled:bg-[#687280] rounded-md hover:bg-white/10 light:hover:bg-black/10"
+            className="h-9 px-4 rounded-[8px] border-none bg-transparent text-[15px] font-semibold text-ml-text-2 transition-colors duration-150 hover:text-ml-text hover:bg-ml-raised disabled:bg-ml-raised-2 disabled:text-ml-text disabled:cursor-default disabled:shadow-[inset_0_1px_0_var(--ml-inset-hi)]"
           >
             {t("chat.mode.chat.title")}
           </button>
@@ -45,7 +45,7 @@ export default function ChatModeSelection({ workspace, setHasChanges }) {
               setChatMode("query");
               setHasChanges(true);
             }}
-            className="border-none transition-bg duration-200 px-6 py-1 text-md text-white/60 disabled:text-white bg-transparent disabled:bg-[#687280] rounded-md hover:bg-white/10 light:hover:bg-black/10"
+            className="h-9 px-4 rounded-[8px] border-none bg-transparent text-[15px] font-semibold text-ml-text-2 transition-colors duration-150 hover:text-ml-text hover:bg-ml-raised disabled:bg-ml-raised-2 disabled:text-ml-text disabled:cursor-default disabled:shadow-[inset_0_1px_0_var(--ml-inset-hi)]"
           >
             {t("chat.mode.query.title")}
           </button>

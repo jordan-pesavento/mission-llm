@@ -81,8 +81,13 @@ export function ToggleSidebarButton({ showSidebar, setShowSidebar }) {
     <>
       <button
         type="button"
-        className={`hidden md:block border-none bg-transparent outline-none ring-0 absolute transition-all duration-500 z-10 ${showSidebar ? "top-[18px] left-[248px]" : "top-[20px] left-[30px]"}`}
+        className={`hidden md:grid place-items-center w-ctl h-ctl rounded-[10px] border absolute top-[13px] z-10 text-ml-text-2 hover:text-ml-text transition-colors duration-150 ${
+          showSidebar
+            ? "right-[12px] border-transparent bg-transparent hover:bg-ml-raised hover:border-ml-line"
+            : "left-gutter border-ml-line-2 bg-ml-panel hover:bg-ml-raised"
+        }`}
         onClick={() => setShowSidebar((prev) => !prev)}
+        aria-expanded={showSidebar}
         data-tooltip-id="sidebar-toggle"
         data-tooltip-content={
           showSidebar
@@ -95,10 +100,7 @@ export function ToggleSidebarButton({ showSidebar, setShowSidebar }) {
             : `Show Sidebar (${shortcut})`
         }
       >
-        <SidebarSimple
-          className="text-theme-text-secondary hover:text-theme-text-primary"
-          size={24}
-        />
+        <SidebarSimple size={20} />
       </button>
       <Tooltip
         id="sidebar-toggle"

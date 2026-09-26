@@ -57,7 +57,11 @@ export default function NewWorkspaceModal({ hideModal = noop }) {
             autoComplete="off"
             autoFocus={true}
           />
-          {error && <p className="text-red-400 text-sm">Error: {error}</p>}
+          {error && (
+            <p role="alert" className="text-ml-bad text-[14px]">
+              Error: {error}
+            </p>
+          )}
         </ModalBody>
         <ModalFooter className="justify-end">
           <ModalPrimaryButton type="submit">Save</ModalPrimaryButton>

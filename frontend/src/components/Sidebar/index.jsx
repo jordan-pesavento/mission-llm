@@ -1,40 +1,76 @@
 import React, { useEffect, useRef, useState } from "react";
-import { List, Plus } from "@phosphor-icons/react";
+import { List } from "@phosphor-icons/react";
 import NewWorkspaceModal, {
   useNewWorkspaceModal,
 } from "../Modals/NewWorkspace";
 import ActiveWorkspaces from "./ActiveWorkspaces";
 import useLogo from "@/hooks/useLogo";
-import useUser from "@/hooks/useUser";
-import Footer from "../Footer";
+import { RailLinks } from "../Footer";
 import SettingsButton from "../SettingsButton";
-import { Link } from "react-router-dom";
-import paths from "@/utils/paths";
-import { useTranslation } from "react-i18next";
+import { RailUser } from "../UserMenu";
+import RailBrand from "../SettingsSidebar/RailBrand";
 import { useSidebarToggle, ToggleSidebarButton } from "./SidebarToggle";
 import SearchBox from "./SearchBox";
 import { Tooltip } from "react-tooltip";
 import { createPortal } from "react-dom";
 
+/**
+ * Ctrl+/ (Cmd+/ on Mac) focuses the rail search, opening the rail first when
+ * it is collapsed. Ctrl+K is taken by the API keys shortcut.
+ */
+function useSearchShortcut({ inputRef, railOpen, openRail }) {
+  useEffect(() => {
+    function onKeyDown(e) {
+      if (!(e.ctrlKey || e.metaKey) || e.shiftKey || e.altKey) return;
+      if (e.key !== "/") return;
+      e.preventDefault();
+      if (!railOpen) {
+        openRail();
+        // Wait for the rail to open before focusing its search field.
+        setTimeout(() => inputRef.current?.focus(), 320);
+        return;
+      }
+      inputRef.current?.focus();
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [railOpen]);
+}
+
 export default function Sidebar() {
-  const { user } = useUser();
-  const { logo } = useLogo();
   const sidebarRef = useRef(null);
+  const searchInputRef = useRef(null);
   const { showSidebar, setShowSidebar, canToggleSidebar } = useSidebarToggle();
+  // Pages without the collapse toggle (workspace settings) always show the rail.
+  const railOpen = showSidebar || !canToggleSidebar;
   const {
     showing: showingNewWsModal,
     showModal: showNewWsModal,
     hideModal: hideNewWsModal,
   } = useNewWorkspaceModal();
 
+  useSearchShortcut({
+    inputRef: searchInputRef,
+    railOpen,
+    openRail: () => setShowSidebar(true),
+  });
+
+  // Keep the collapsed rail's hidden controls out of the tab order.
+  useEffect(() => {
+    if (sidebarRef.current) sidebarRef.current.inert = !railOpen;
+  }, [railOpen]);
+
+  // Frame: a flush rail (var(--ml-rail-w) wide, rail surface, hairline on the
+  // right) with three zones: brand band (64px, hairline below, aligned with
+  // the main pane's top bar), scrolling body, and a foot band (hairline above)
+  // that holds the user row.
   return (
     <>
       <div
-        style={{
-          width: showSidebar ? "292px" : "0px",
-          paddingLeft: showSidebar ? "0px" : "16px",
-        }}
-        className="relative transition-all duration-500"
+        data-frame="rail"
+        data-offcanvas={railOpen ? undefined : ""}
+        style={{ width: railOpen ? "var(--ml-rail-w)" : "0px" }}
+        className={`relative shrink-0 h-full bg-ml-rail transition-[width] duration-300 ease-ml ${railOpen ? "border-r border-ml-line" : ""}`}
       >
         {canToggleSidebar && (
           <ToggleSidebarButton
@@ -43,35 +79,36 @@ export default function Sidebar() {
           />
         )}
         <div className="overflow-hidden h-full">
-          <div className="flex shrink-0 w-full justify-center my-[18px]">
-            <div className="flex w-[250px] min-w-[250px]">
-              <Link to={paths.home()} aria-label="Home">
-                <img
-                  src={logo}
-                  alt="Logo"
-                  className={`rounded max-h-[24px] object-contain transition-opacity duration-500 ${showSidebar ? "opacity-100" : "opacity-0"}`}
-                />
-              </Link>
-            </div>
-          </div>
-          <div
+          <nav
             ref={sidebarRef}
-            className="relative m-[16px] rounded-[16px] bg-theme-bg-sidebar light:bg-slate-200 border-[2px] border-theme-sidebar-border light:border-none min-w-[250px] p-[10px] h-[calc(100%-76px)]"
+            aria-label="Workspaces"
+            aria-hidden={!railOpen}
+            className={`h-full flex flex-col transition-opacity duration-300 ${railOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+            style={{ width: "var(--ml-rail-w)" }}
           >
-            <div className="flex flex-col h-full overflow-hidden">
-              <div className="flex-grow flex flex-col min-w-[235px] min-h-0">
-                <div className="relative h-[calc(100%-60px)] flex flex-col w-full justify-between pt-[10px] overflow-y-scroll no-scroll">
-                  <div className="flex flex-col gap-y-[14px]">
-                    <SearchBox user={user} showNewWsModal={showNewWsModal} />
-                    <ActiveWorkspaces />
-                  </div>
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 pb-3 rounded-b-[16px] bg-theme-bg-sidebar light:bg-slate-200 bg-opacity-80 backdrop-filter backdrop-blur-md z-10">
-                  <Footer />
-                </div>
-              </div>
+            <div
+              data-frame="rail-head"
+              className={`h-topbar shrink-0 flex items-center pl-[18px] ${canToggleSidebar ? "pr-[62px]" : "pr-3"} border-b border-ml-line`}
+            >
+              <RailBrand />
             </div>
-          </div>
+            <div
+              data-frame="rail-body"
+              className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-[14px] flex flex-col gap-y-[6px]"
+            >
+              <SearchBox inputRef={searchInputRef} />
+              <ActiveWorkspaces showNewWsModal={showNewWsModal} />
+              <RailLinks />
+            </div>
+            <div
+              data-frame="rail-foot"
+              className="shrink-0 border-t border-ml-line px-[14px] py-3"
+            >
+              <RailUser>
+                <SettingsButton />
+              </RailUser>
+            </div>
+          </nav>
         </div>
         {showingNewWsModal && <NewWorkspaceModal hideModal={hideNewWsModal} />}
       </div>
@@ -90,7 +127,6 @@ export function SidebarMobileHeader() {
     showModal: showNewWsModal,
     hideModal: hideNewWsModal,
   } = useNewWorkspaceModal();
-  const { user } = useUser();
 
   useEffect(() => {
     // Darkens the rest of the screen
@@ -111,13 +147,14 @@ export function SidebarMobileHeader() {
     <>
       <div
         aria-label="Show sidebar"
-        className="fixed top-0 left-0 right-0 z-10 flex justify-between items-center px-4 py-2 bg-theme-bg-sidebar light:bg-white text-slate-200 shadow-lg h-16"
+        className="fixed top-0 left-0 right-0 z-10 flex justify-between items-center px-4 py-2 bg-ml-rail border-b border-ml-line text-ml-text h-16"
       >
         <button
           onClick={() => setShowSidebar(true)}
-          className="rounded-md p-2 flex items-center justify-center text-theme-text-secondary"
+          aria-label="Open sidebar"
+          className="w-ctl h-ctl grid place-items-center rounded-[10px] border border-ml-line-2 bg-ml-panel text-ml-text-2"
         >
-          <List className="h-6 w-6" />
+          <List size={20} />
         </button>
         <div className="flex items-center justify-center flex-grow">
           <img
@@ -140,70 +177,31 @@ export function SidebarMobileHeader() {
             showBgOverlay
               ? "transition-all opacity-1"
               : "transition-none opacity-0"
-          }  duration-500 fixed top-0 left-0 bg-theme-bg-secondary bg-opacity-75 w-screen h-screen`}
+          }  duration-500 fixed top-0 left-0 bg-[var(--ml-scrim)] w-screen h-screen`}
           onClick={() => setShowSidebar(false)}
         />
-        <div
+        <nav
           ref={sidebarRef}
-          className="relative h-[100vh] fixed top-0 left-0  rounded-r-[26px] bg-theme-bg-sidebar w-[80%] p-[18px] "
+          aria-label="Workspaces"
+          className="relative h-[100dvh] flex flex-col bg-ml-rail border-r border-ml-line w-[min(320px,86vw)]"
         >
-          <div className="w-full h-full flex flex-col overflow-x-hidden items-between">
-            {/* Header Information */}
-            <div className="flex w-full items-center justify-between gap-x-4">
-              <div className="flex shrink-1 w-fit items-center justify-start">
-                <img
-                  src={logo}
-                  alt="Logo"
-                  className="rounded w-full max-h-[40px]"
-                  style={{ objectFit: "contain" }}
-                />
-              </div>
-              {(!user || user?.role !== "default") && (
-                <div className="flex gap-x-2 items-center text-slate-500 shink-0">
-                  <SettingsButton />
-                </div>
-              )}
-            </div>
-
-            {/* Primary Body */}
-            <div className="h-full flex flex-col w-full justify-between pt-4 ">
-              <div className="h-auto md:sidebar-items">
-                <div className=" flex flex-col gap-y-4 overflow-y-scroll no-scroll pb-[60px]">
-                  <NewWorkspaceButton
-                    user={user}
-                    showNewWsModal={showNewWsModal}
-                  />
-                  <ActiveWorkspaces />
-                </div>
-              </div>
-              <div className="z-99 absolute bottom-0 left-0 right-0 pt-2 pb-6 rounded-br-[26px] bg-theme-bg-sidebar bg-opacity-80 backdrop-filter backdrop-blur-md">
-                <Footer />
-              </div>
-            </div>
+          <div className="h-topbar shrink-0 flex items-center pl-[18px] pr-3 border-b border-ml-line">
+            <RailBrand />
           </div>
-        </div>
+          <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-[14px] flex flex-col gap-y-[6px]">
+            <SearchBox />
+            <ActiveWorkspaces showNewWsModal={showNewWsModal} />
+            <RailLinks />
+          </div>
+          <div className="shrink-0 border-t border-ml-line px-[14px] py-3">
+            <RailUser>
+              <SettingsButton />
+            </RailUser>
+          </div>
+        </nav>
         {showingNewWsModal && <NewWorkspaceModal hideModal={hideNewWsModal} />}
       </div>
     </>
-  );
-}
-
-function NewWorkspaceButton({ user, showNewWsModal }) {
-  const { t } = useTranslation();
-  if (!!user && user?.role === "default") return null;
-
-  return (
-    <div className="flex gap-x-2 items-center justify-between">
-      <button
-        onClick={showNewWsModal}
-        className="flex flex-grow w-[75%] h-[44px] gap-x-2 py-[5px] px-4 bg-white rounded-lg text-sidebar justify-center items-center hover:bg-opacity-80 transition-all duration-300"
-      >
-        <Plus className="h-5 w-5" />
-        <p className="text-sidebar text-sm font-semibold">
-          {t("new-workspace.title")}
-        </p>
-      </button>
-    </div>
   );
 }
 

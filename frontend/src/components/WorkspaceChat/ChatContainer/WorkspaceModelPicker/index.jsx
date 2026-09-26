@@ -13,9 +13,11 @@ import {
 import Workspace from "@/models/workspace";
 import System from "@/models/system";
 import ModelRouterAPI from "@/models/modelRouter";
-import { SIDEBAR_TOGGLE_EVENT } from "@/components/Sidebar/SidebarToggle";
+import { CaretDown } from "@phosphor-icons/react";
+import { MENU_SURFACE } from "../chatUi";
 
 async function resolveModelName(workspace, systemSettings, t) {
+  if (!workspace) return "";
   const effectiveProvider =
     workspace.chatProvider ?? systemSettings?.LLMProvider;
 
@@ -54,15 +56,6 @@ export default function WorkspaceModelPicker({ workspaceSlug = null }) {
   } = useModal();
   const [config, setConfig] = useState({ settings: {}, provider: null });
   const [refreshKey, setRefreshKey] = useState(0);
-  const [sidebarOpen, setSidebarOpen] = useState(
-    () => window.localStorage.getItem("missionllm_sidebar_toggle") !== "closed"
-  );
-
-  useEffect(() => {
-    const handleToggle = (e) => setSidebarOpen(e.detail.open);
-    window.addEventListener(SIDEBAR_TOGGLE_EVENT, handleToggle);
-    return () => window.removeEventListener(SIDEBAR_TOGGLE_EVENT, handleToggle);
-  }, []);
 
   // Fetch current model name for display
   useEffect(() => {
@@ -92,45 +85,59 @@ export default function WorkspaceModelPicker({ workspaceSlug = null }) {
       window.removeEventListener(PROVIDER_SETUP_EVENT, handleProviderSetup);
   }, []);
 
-  // This feature is disabled for multi-user instances where the user is not an admin
-  if (!!user && user.role !== "admin") return null;
   if (!slug || isMobile) return null;
+
+  // Picking a model is admin-only on multi-user instances (unchanged). Other
+  // users still see which model answers, read-only.
+  const canPick = !user || user.role === "admin";
+  if (!canPick) {
+    if (!modelName) return null;
+    return (
+      <span
+        title={modelName}
+        className="h-ctl min-w-0 max-w-[16rem] inline-flex items-center px-3 rounded-[10px] border border-ml-line-2 bg-ml-panel font-mono font-medium text-[14px] text-ml-text"
+      >
+        <span className="truncate">{modelName}</span>
+      </span>
+    );
+  }
 
   return (
     <>
       {showSelector && (
         <div
+          data-row-skip
           className="fixed inset-0 z-20"
           onClick={() => setShowSelector(false)}
         />
       )}
-      <div
-        className={`hidden md:block absolute top-2 z-30 transition-all duration-500 ${
-          sidebarOpen ? "left-3" : "left-11"
-        }`}
-      >
+      <div className="relative z-30 min-w-0 shrink">
         <button
           type="button"
           onClick={() => setShowSelector(!showSelector)}
-          className={`group border-none cursor-pointer px-2.5 py-1 flex items-center rounded-full transition-all ${
+          aria-haspopup="dialog"
+          aria-expanded={showSelector}
+          title={modelName || t("chat_window.select_model")}
+          className={`h-ctl max-w-[18rem] w-full inline-flex items-center gap-[9px] px-3 rounded-[10px] border font-mono font-medium text-[14px] text-ml-text whitespace-nowrap cursor-pointer transition-colors duration-150 ${
             showSelector
-              ? "bg-zinc-700 light:bg-slate-200"
-              : "hover:bg-zinc-700 light:hover:bg-slate-200"
+              ? "border-ml-accent-line bg-ml-accent-soft"
+              : "border-ml-line-2 bg-ml-panel hover:border-ml-accent-line"
           }`}
         >
-          <span
-            className={`text-xs ${
-              showSelector
-                ? "text-white light:text-slate-800"
-                : "text-zinc-500 light:text-slate-500 group-hover:text-white light:group-hover:text-slate-800"
-            }`}
-          >
+          <span className="truncate min-w-0">
             {modelName || t("chat_window.select_model")}
           </span>
+          <CaretDown
+            size={14}
+            weight="bold"
+            className="shrink-0 text-ml-text-3"
+          />
         </button>
 
         {showSelector && (
-          <div className="absolute left-0 top-full mt-1 bg-zinc-800 light:bg-white border border-zinc-700 light:border-slate-300 rounded-xl shadow-lg w-[620px] overflow-hidden">
+          <div
+            className={`absolute right-0 top-[calc(100%+8px)] w-[620px] max-w-[calc(100vw-2rem)] overflow-hidden ${MENU_SURFACE} !bg-ml-panel`}
+          >
             <LLMSelectorModal
               key={refreshKey}
               workspaceSlug={slug}

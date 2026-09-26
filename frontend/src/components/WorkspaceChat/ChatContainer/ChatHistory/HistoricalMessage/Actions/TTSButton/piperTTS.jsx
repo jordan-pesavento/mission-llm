@@ -1,3 +1,4 @@
+import { ACT_BTN } from "@/components/WorkspaceChat/ChatContainer/chatUi";
 import { useEffect, useState, useRef } from "react";
 import { SpeakerHigh, PauseCircle, CircleNotch } from "@phosphor-icons/react";
 import PiperTTSClient from "@/utils/piperTTS";
@@ -155,32 +156,30 @@ export default function PiperTTS({ chatId, voiceId = null, message }) {
   }, [chatId]);
 
   return (
-    <div className="mt-3 relative">
-      <button
-        type="button"
-        onClick={speakMessage}
-        disabled={loading}
-        data-auto-play-chat-id={chatId}
-        data-tooltip-id="message-to-speech"
-        data-tooltip-content={
-          speaking ? "Pause TTS speech of message" : "TTS Speak message"
-        }
-        className="border-none text-[var(--theme-sidebar-footer-icon-fill)]"
-        aria-label={speaking ? "Pause speech" : "Speak message"}
-      >
-        {speaking ? (
-          <PauseCircle size={18} className="mb-1" />
-        ) : (
-          <>
-            {loading ? (
-              <CircleNotch size={18} className="mb-1 animate-spin" />
-            ) : (
-              <SpeakerHigh size={18} className="mb-1" />
-            )}
-          </>
-        )}
-        <audio ref={playerRef} hidden={true} controls={false} />
-      </button>
-    </div>
+    <button
+      type="button"
+      onClick={speakMessage}
+      disabled={loading}
+      data-auto-play-chat-id={chatId}
+      data-tooltip-id="message-to-speech"
+      data-tooltip-content={
+        speaking ? "Pause TTS speech of message" : "TTS Speak message"
+      }
+      className={ACT_BTN}
+      aria-label={speaking ? "Pause speech" : "Speak message"}
+    >
+      {speaking ? (
+        <PauseCircle size={18} />
+      ) : (
+        <>
+          {loading ? (
+            <CircleNotch size={18} className="animate-spin" />
+          ) : (
+            <SpeakerHigh size={18} />
+          )}
+        </>
+      )}
+      <audio ref={playerRef} hidden={true} controls={false} />
+    </button>
   );
 }

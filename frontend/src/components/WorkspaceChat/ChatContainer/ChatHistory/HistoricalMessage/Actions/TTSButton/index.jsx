@@ -4,7 +4,7 @@ import AsyncTTSMessage from "./asyncTts";
 import PiperTTSMessage from "./piperTTS";
 
 function WrapTTS({ children }) {
-  return <div className="mx-2">{children}</div>;
+  return <>{children}</>;
 }
 
 export default function TTSMessage({ slug, chatId, message }) {

@@ -13,10 +13,7 @@ import {
   LinkSimple,
 } from "@phosphor-icons/react";
 import React, { useEffect, useState } from "react";
-import SettingsButton from "../SettingsButton";
-import { isMobile } from "react-device-detect";
 import { Tooltip } from "react-tooltip";
-import { Link } from "react-router-dom";
 
 export const MAX_ICONS = 3;
 export const ICON_COMPONENTS = {
@@ -31,6 +28,27 @@ export const ICON_COMPONENTS = {
   Info: Info,
 };
 
+// Quiet 30px icon button, the same size as the rail's small "+" button.
+export const RAIL_ICON_LINK =
+  "w-[30px] h-[30px] shrink-0 grid place-items-center rounded-[8px] border border-transparent text-ml-text-3 hover:text-ml-text hover:bg-ml-raised hover:border-ml-line transition-colors duration-150";
+
+/**
+ * Quiet row that closes the rail body, just above the foot hairline (pushed
+ * down with mt-auto when the list is short, after the list when it scrolls).
+ */
+export function RailLinks({ className = "" }) {
+  return (
+    <div className={`mt-auto pt-3 flex items-center shrink-0 ${className}`}>
+      <Footer />
+    </div>
+  );
+}
+
+/**
+ * The footer link icons (source code and docs by default, or the custom
+ * footer icons an admin configured under Branding). They close the rail body
+ * so they stay one click away without crowding the user row.
+ */
 export default function Footer() {
   const [footerData, setFooterData] = useState(false);
 
@@ -46,77 +64,49 @@ export default function Footer() {
   // to prevent pop-in.
   if (footerData === false) return null;
 
-  if (!Array.isArray(footerData) || footerData.length === 0) {
-    return (
-      <div className="flex justify-center mb-2">
-        <div className="flex space-x-4">
-          <div className="flex w-fit">
-            <Link
-              to={paths.sourceCode()}
-              target="_blank"
-              rel="noreferrer"
-              className="transition-all duration-300 p-2 rounded-full bg-theme-sidebar-footer-icon hover:bg-theme-sidebar-footer-icon-hover"
-              aria-label="View source code on GitLab"
-              data-tooltip-id="footer-item"
-              data-tooltip-content="View Source Code"
-            >
-              <GitlabLogo
-                weight="fill"
-                className="h-5 w-5 text-white light:text-slate-800"
-              />
-            </Link>
-          </div>
-          <div className="flex w-fit">
-            <Link
-              to={paths.docs()}
-              target="_blank"
-              rel="noreferrer"
-              className="transition-all duration-300 p-2 rounded-full bg-theme-sidebar-footer-icon hover:bg-theme-sidebar-footer-icon-hover"
-              aria-label="Docs"
-              data-tooltip-id="footer-item"
-              data-tooltip-content="Open Mission LLM help docs"
-            >
-              <BookOpen
-                weight="fill"
-                className="h-5 w-5 text-white light:text-slate-800"
-              />
-            </Link>
-          </div>
-          {!isMobile && <SettingsButton />}
-        </div>
-        <Tooltip
-          id="footer-item"
-          place="top"
-          delayShow={300}
-          className="tooltip !text-xs z-99"
-        />
-      </div>
-    );
-  }
+  const links =
+    !Array.isArray(footerData) || footerData.length === 0
+      ? [
+          {
+            url: paths.sourceCode(),
+            Icon: GitlabLogo,
+            label: "View Source Code",
+            ariaLabel: "View source code on GitLab",
+          },
+          {
+            url: paths.docs(),
+            Icon: BookOpen,
+            label: "Open Mission LLM help docs",
+            ariaLabel: "Docs",
+          },
+        ]
+      : footerData.map((item) => ({
+          url: item.url,
+          Icon: ICON_COMPONENTS?.[item.icon] ?? ICON_COMPONENTS.Info,
+          label: item.url,
+          ariaLabel: item.url,
+        }));
 
   return (
-    <div className="flex justify-center mb-2">
-      <div className="flex space-x-4">
-        {footerData.map((item, index) => (
-          <a
-            key={index}
-            href={item.url}
-            target="_blank"
-            rel="noreferrer"
-            className="transition-all duration-300 flex w-fit h-fit p-2 p-2 rounded-full bg-theme-sidebar-footer-icon hover:bg-theme-sidebar-footer-icon-hover hover:border-slate-100"
-          >
-            {React.createElement(
-              ICON_COMPONENTS?.[item.icon] ?? ICON_COMPONENTS.Info,
-              {
-                weight: "fill",
-                className: "h-5 w-5",
-                color: "var(--theme-sidebar-footer-icon-fill)",
-              }
-            )}
-          </a>
-        ))}
-        {!isMobile && <SettingsButton />}
-      </div>
+    <div
+      className="flex items-center gap-x-0.5 shrink-0"
+      aria-label="Links"
+      role="group"
+    >
+      {links.map(({ url, Icon, label, ariaLabel }, index) => (
+        <a
+          key={index}
+          href={url}
+          target="_blank"
+          rel="noreferrer"
+          className={RAIL_ICON_LINK}
+          aria-label={ariaLabel}
+          data-tooltip-id="footer-item"
+          data-tooltip-content={label}
+        >
+          <Icon size={18} weight="regular" />
+        </a>
+      ))}
       <Tooltip
         id="footer-item"
         place="top"

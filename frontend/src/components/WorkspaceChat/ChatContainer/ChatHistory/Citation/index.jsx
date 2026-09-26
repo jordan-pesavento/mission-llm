@@ -18,6 +18,7 @@ import OutlookLogo from "@/pages/Admin/Agents/OutlookSkillPanel/outlook.png";
 import { toPercentString } from "@/utils/numbers";
 import { useTranslation } from "react-i18next";
 import { useSourcesSidebar } from "../../ChatSidebar";
+import { NumberBadge } from "../../chatUi";
 
 const CIRCLE_ICONS = {
   file: FileText,
@@ -126,67 +127,79 @@ export function combineLikeSources(sources) {
   return Object.values(combined);
 }
 
+/**
+ * Short monospace location for a source chip or card: the host for web
+ * sources. Files carry no page or section data, so they show none.
+ * @param {{isUrl: boolean, href: string}} info - from parseChunkSource
+ * @returns {string}
+ */
+export function sourceLocation(info) {
+  if (!info?.isUrl || !info?.href) return "";
+  try {
+    return new URL(info.href).hostname.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+}
+
+/**
+ * Numbered source chips under an answer (number, filename, location). A chip
+ * opens the Sources drawer on this answer's sources with that card marked;
+ * clicking the marked chip again closes the drawer.
+ */
 export default function Citations({ sources = [] }) {
   const {
     sidebarOpen,
     openSidebar,
     closeSidebar,
     sources: currentSources,
+    highlight,
   } = useSourcesSidebar();
   const { t } = useTranslation();
   if (sources.length === 0) return null;
 
   const combined = combineLikeSources(sources);
-  const visibleSources = combined.slice(0, 3);
-  const remainingCount = Math.max(0, combined.length - 3);
+  const isCurrent = sidebarOpen && sources === currentSources;
 
-  function handleOpenSourcesSidebar() {
-    if (sidebarOpen && sources === currentSources) {
-      closeSidebar();
-    } else {
-      openSidebar(sources);
-    }
+  function handleChip(title) {
+    if (isCurrent && highlight === title) closeSidebar();
+    else openSidebar(sources, title);
   }
 
   return (
-    <button
-      onClick={handleOpenSourcesSidebar}
-      className="w-fit flex items-center gap-[5px] px-[10px] py-[4px] rounded-full hover:bg-white/5 light:hover:bg-black/5 transition-colors"
-      type="button"
+    <div
+      role="group"
+      aria-label={t("chat_window.sources")}
+      className="flex flex-wrap gap-2 mt-[18px]"
     >
-      <span className="text-xs text-white light:text-slate-800">
-        {t("chat_window.sources")}
-      </span>
-      <div
-        className="relative h-[22px]"
-        style={{ width: `${visibleSources.length * 17 + 5}px` }}
-      >
-        {visibleSources.map((source, idx) => {
-          const info = parseChunkSource(source);
-          const customImage = CIRCLE_IMAGES[info.icon];
-          return (
-            <div
-              key={source.title || idx}
-              className={`absolute top-0 size-[22px] rounded-full ${customImage ? "border-none" : "border-2 border-zinc-800 light:border-white"}`}
-              style={{ left: `${idx * 17}px`, zIndex: 3 - idx }}
-            >
-              <SourceTypeCircle
-                type={info.icon}
-                size={18}
-                iconSize={10}
-                url={info.href}
-                customImage={customImage}
-              />
-            </div>
-          );
-        })}
-      </div>
-      {remainingCount > 0 && (
-        <span className="text-xs text-white light:text-slate-800">
-          + {remainingCount}
-        </span>
-      )}
-    </button>
+      {combined.map((source, idx) => {
+        const info = parseChunkSource(source);
+        const location = sourceLocation(info);
+        const active = isCurrent && highlight === source.title;
+        return (
+          <button
+            key={source.title || idx}
+            type="button"
+            onClick={() => handleChip(source.title)}
+            aria-pressed={active}
+            title={source.title}
+            className={`h-ctl-lg max-w-full min-w-0 inline-flex items-center gap-2.5 pl-[7px] pr-3 rounded-[11px] border bg-ml-panel text-[14.5px] font-medium leading-none text-ml-text cursor-pointer transition-colors duration-150 ${
+              active
+                ? "border-ml-accent-line"
+                : "border-ml-line-2 hover:border-ml-accent-line"
+            }`}
+          >
+            <NumberBadge>{idx + 1}</NumberBadge>
+            <span className="truncate min-w-0">{source.title}</span>
+            {location && (
+              <span className="shrink-0 font-mono text-[13.5px] text-ml-text-3">
+                {location}
+              </span>
+            )}
+          </button>
+        );
+      })}
+    </div>
   );
 }
 
@@ -233,7 +246,7 @@ export function CitationDetailModal({ source, onClose }) {
                 </p>
 
                 {!!score && (
-                  <div className="w-full flex items-center text-xs text-zinc-400 light:text-slate-500 gap-x-2 cursor-default">
+                  <div className="w-full flex items-center text-[13px] text-zinc-400 light:text-slate-500 gap-x-2 cursor-default">
                     <div
                       data-tooltip-id="similarity-score"
                       data-tooltip-content={`This is the semantic similarity score of this chunk of text compared to your query calculated by the vector database.`}

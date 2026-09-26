@@ -21,7 +21,7 @@ function OptionButton({ label, description, index, selected, onClick }) {
           {label}
         </span>
         {description && (
-          <span className="text-xs text-zinc-400 light:text-slate-500 leading-4">
+          <span className="text-[13px] text-zinc-400 light:text-slate-500 leading-4">
             {description}
           </span>
         )}
@@ -68,7 +68,7 @@ function SkipButton({ onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className="border border-solid border-zinc-600 light:border-slate-300 bg-transparent rounded-lg h-7 px-3 flex items-center justify-center text-white light:text-slate-900 text-xs font-medium leading-4 shrink-0 hover:bg-zinc-700/40 light:hover:bg-slate-200/60"
+      className="border border-solid border-zinc-600 light:border-slate-300 bg-transparent rounded-lg h-7 px-3 flex items-center justify-center text-white light:text-slate-900 text-[13px] font-medium leading-4 shrink-0 hover:bg-zinc-700/40 light:hover:bg-slate-200/60"
     >
       {t("chat_window.agent_invocation.batch_skip_this")}
     </button>

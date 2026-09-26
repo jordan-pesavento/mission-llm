@@ -6,6 +6,7 @@ import {
   useMessageActionsContext,
   EDIT_EVENT,
 } from "@/components/WorkspaceChat/ChatContainer/ChatHistory/MessageActionsContext";
+import { ACT_BTN } from "@/components/WorkspaceChat/ChatContainer/chatUi";
 
 export function useEditMessage({ chatId, role }) {
   const context = useMessageActionsContext();
@@ -23,25 +24,20 @@ export function EditMessageAction({ chatId = null, role, isEditing }) {
 
   if (!chatId || isEditing) return null;
   return (
-    <div
-      className={`mt-3 relative ${
-        role === "user" && !isEditing ? "" : "!opacity-100"
-      }`}
+    <button
+      type="button"
+      onClick={handleEditClick}
+      data-tooltip-id="edit-input-text"
+      data-tooltip-content={`${
+        role === "user"
+          ? t("chat_window.edit_prompt")
+          : t("chat_window.edit_response")
+      } `}
+      className={ACT_BTN}
+      aria-label={`Edit ${role === "user" ? t("chat_window.edit_prompt") : t("chat_window.edit_response")}`}
     >
-      <button
-        onClick={handleEditClick}
-        data-tooltip-id="edit-input-text"
-        data-tooltip-content={`${
-          role === "user"
-            ? t("chat_window.edit_prompt")
-            : t("chat_window.edit_response")
-        } `}
-        className="border-none text-zinc-300 light:text-slate-500 px-0"
-        aria-label={`Edit ${role === "user" ? t("chat_window.edit_prompt") : t("chat_window.edit_response")}`}
-      >
-        <Pencil size={21} className="mb-1" />
-      </button>
-    </div>
+      <Pencil size={18} />
+    </button>
   );
 }
 
@@ -91,17 +87,20 @@ export function EditMessageForm({
     adjustTextArea({ target: formRef.current });
   }, []);
 
+  const textareaClass =
+    "w-full rounded-[18px] bg-ml-panel border border-ml-accent-line shadow-[0_0_0_4px_var(--ml-accent-soft)] text-ml-text text-[1em] leading-[1.6] px-[18px] py-[14px] resize-none overflow-hidden outline-none focus:outline-none focus:ring-0 focus-visible:outline-none";
+
   if (role === "user") {
     return (
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col w-full max-w-[650px]"
+        className="flex flex-col w-full max-w-[min(680px,100%)]"
       >
         <textarea
           ref={formRef}
           name="editedMessage"
           spellCheck={Appearance.get("enableSpellCheck")}
-          className="text-white light:text-slate-900 w-full rounded-2xl bg-zinc-800 light:bg-slate-100 border border-sky-300 focus:border-sky-300 active:outline-none focus:outline-none focus:ring-0 px-4 py-3 resize-none overflow-hidden"
+          className={textareaClass}
           defaultValue={message}
           onChange={adjustTextArea}
         />
@@ -115,15 +114,12 @@ export function EditMessageForm({
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col w-full max-w-[650px]"
-    >
+    <form onSubmit={handleSubmit} className="flex flex-col w-full">
       <textarea
         ref={formRef}
         name="editedMessage"
         spellCheck={Appearance.get("enableSpellCheck")}
-        className="text-white light:text-slate-900 w-full rounded-2xl bg-zinc-800 light:bg-slate-100 border border-sky-300 focus:border-sky-300 active:outline-none focus:outline-none focus:ring-0 px-4 py-3 resize-none overflow-hidden"
+        className={textareaClass}
         defaultValue={message}
         onChange={adjustTextArea}
       />
@@ -134,24 +130,23 @@ export function EditMessageForm({
 
 function EditActionBar({ onCancel, onSave, isUserMessage = false }) {
   const { t } = useTranslation();
+  const btn =
+    "h-10 px-4 rounded-[11px] text-[14.5px] font-semibold whitespace-nowrap cursor-pointer transition-colors duration-150";
   return (
-    <div className="mt-2 flex flex-col md:flex-row md:items-center justify-between gap-2 bg-zinc-800 light:bg-slate-200 rounded-lg p-2">
-      <div className="flex items-start gap-2">
-        <Info
-          size={12}
-          className="shrink-0 mt-0.5 text-zinc-200 light:text-slate-800"
-        />
-        <span className="text-zinc-200 light:text-slate-800 text-xs leading-4">
+    <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+      <div className="flex items-start gap-2 min-w-0 flex-1">
+        <Info size={16} className="shrink-0 mt-0.5 text-ml-text-3" />
+        <span className="text-ml-text-3 text-[13.5px] leading-snug">
           {isUserMessage
             ? t("chat_window.edit_info_user")
             : t("chat_window.edit_info_assistant")}
         </span>
       </div>
-      <div className="flex items-center gap-2 self-end shrink-0">
+      <div data-row="edit-actions" className="flex items-center gap-2 shrink-0">
         <button
           type="button"
           onClick={onCancel}
-          className="border-none text-white light:text-slate-900 text-sm font-medium w-[70px] h-9 rounded-lg hover:bg-white/5 light:hover:bg-slate-300"
+          className={`${btn} border border-transparent text-ml-text-2 hover:bg-ml-raised hover:text-ml-text`}
         >
           {t("chat_window.cancel")}
         </button>
@@ -159,14 +154,14 @@ function EditActionBar({ onCancel, onSave, isUserMessage = false }) {
           <button
             type="button"
             onClick={onSave}
-            className="border border-zinc-600 light:border-slate-600 text-white light:text-slate-900 text-sm font-medium w-[70px] h-9 rounded-lg hover:bg-white/5 light:hover:bg-slate-300"
+            className={`${btn} border border-ml-line-2 bg-ml-raised text-ml-text hover:border-ml-accent-line`}
           >
             {t("chat_window.save")}
           </button>
         )}
         <button
           type="submit"
-          className="border-none bg-zinc-50 light:bg-slate-800 text-zinc-800 light:text-white text-sm font-medium w-[70px] h-9 rounded-lg hover:bg-zinc-200 light:hover:bg-slate-800"
+          className={`${btn} border border-transparent bg-ml-accent-fill text-ml-on-accent shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] hover:brightness-110`}
         >
           {isUserMessage ? t("chat_window.submit") : t("chat_window.save")}
         </button>

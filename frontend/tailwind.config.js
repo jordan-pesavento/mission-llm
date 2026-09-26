@@ -22,21 +22,21 @@ export default {
       },
       colors: {
         "black-900": "#141414",
-        accent: "#3D4147",
-        "sidebar-button": "#31353A",
-        sidebar: "#25272C",
+        accent: "#223049",
+        "sidebar-button": "#16223A",
+        sidebar: "#101A2D",
         "historical-msg-system": "rgba(255, 255, 255, 0.05);",
-        "historical-msg-user": "#2C2F35",
-        outline: "#4E5153",
+        "historical-msg-user": "#16223A",
+        outline: "#2A3650",
         "primary-button": "var(--theme-button-primary)",
         "cta-button": "var(--theme-button-cta)",
-        secondary: "#2C2F36",
-        "dark-input": "#18181B",
-        "mobile-onboarding": "#2C2F35",
-        "dark-highlight": "#1C1E21",
+        secondary: "#16223A",
+        "dark-input": "#0B1322",
+        "mobile-onboarding": "#16223A",
+        "dark-highlight": "#101A2D",
         "dark-text": "#222628",
-        description: "#D2D5DB",
-        "x-button": "#9CA3AF",
+        description: "#AAB7CD",
+        "x-button": "#8190A8",
         royalblue: "#065986",
         purple: "#4A1FB8",
         magenta: "#9E165F",
@@ -46,6 +46,66 @@ export default {
         success: "#05603A",
         darker: "#F4F4F4",
         teal: "#0BA5EC",
+
+        // Mission LLM design tokens (concept 1). Values live in src/index.css
+        // (:root is dark, [data-theme="light"] overrides). Solid colors take
+        // opacity modifiers, e.g. bg-ml-panel/60.
+        ml: {
+          ground: "rgb(var(--ml-ground-rgb) / <alpha-value>)",
+          rail: "rgb(var(--ml-rail-rgb) / <alpha-value>)",
+          panel: "rgb(var(--ml-panel-rgb) / <alpha-value>)",
+          raised: "rgb(var(--ml-raised-rgb) / <alpha-value>)",
+          "raised-2": "rgb(var(--ml-raised-2-rgb) / <alpha-value>)",
+          text: "rgb(var(--ml-text-rgb) / <alpha-value>)",
+          "text-2": "rgb(var(--ml-text-2-rgb) / <alpha-value>)",
+          "text-3": "rgb(var(--ml-text-3-rgb) / <alpha-value>)",
+          accent: "rgb(var(--ml-accent-rgb) / <alpha-value>)",
+          ok: "rgb(var(--ml-ok-rgb) / <alpha-value>)",
+          warn: "rgb(var(--ml-warn-rgb) / <alpha-value>)",
+          bad: "rgb(var(--ml-bad-rgb) / <alpha-value>)",
+          line: "var(--ml-line)",
+          "line-2": "var(--ml-line-2)",
+          "accent-fill": "var(--ml-accent-fill)",
+          "accent-soft": "var(--ml-accent-soft)",
+          "accent-line": "var(--ml-accent-line)",
+          "accent-text": "var(--ml-accent-text)",
+          "on-accent": "var(--ml-on-accent)",
+          focus: "var(--ml-focus)",
+          "ok-soft": "var(--ml-ok-soft)",
+          "warn-soft": "var(--ml-warn-soft)",
+          "bad-soft": "var(--ml-bad-soft)",
+        },
+
+        // Neutral scales retinted to the navy family so the many hardcoded
+        // zinc-* (dark) and slate-* (light) classes match the palette.
+        // zinc 950/900/800 = ground/panel/raised-2, 300/400 = text-2/text-3.
+        zinc: {
+          50: "#EEF2F9",
+          100: "#E1E7F1",
+          200: "#CBD4E3",
+          300: "#AAB7CD",
+          400: "#8B99B1",
+          500: "#707F98",
+          600: "#4A5770",
+          700: "#2A3650",
+          800: "#16223A",
+          900: "#0B1322",
+          950: "#060A13",
+        },
+        // slate 50/100 = light ground/rail, 500/600/900 = light text tiers.
+        slate: {
+          50: "#F3F5F9",
+          100: "#EBEFF6",
+          200: "#E1E7F0",
+          300: "#CBD5E1",
+          400: "#94A3B8",
+          500: "#5A6780",
+          600: "#42506A",
+          700: "#334155",
+          800: "#1E293B",
+          900: "#0B1528",
+          950: "#020617",
+        },
 
         // Generic theme colors
         theme: {
@@ -176,9 +236,39 @@ export default {
           "linear-gradient(90deg, #5B616A 0%, #3F434B 100%)",
         "switch-selected": "linear-gradient(146deg, #5B616A 0%, #3F434B 100%)"
       },
+      borderColor: {
+        DEFAULT: "var(--ml-line-2)",
+      },
+      boxShadow: {
+        ml: "var(--ml-shadow)",
+        "ml-pop": "var(--ml-shadow-pop)",
+      },
+      spacing: {
+        gutter: "var(--ml-gutter)",
+        topbar: "var(--ml-topbar-h)",
+        rail: "var(--ml-rail-w)",
+        drawer: "var(--ml-drawer-w)",
+        ctl: "var(--ml-ctl)",
+        "ctl-lg": "var(--ml-ctl-lg)",
+        field: "var(--ml-field)",
+        "set-gutter": "var(--ml-set-gutter)",
+      },
+      transitionTimingFunction: {
+        ml: "var(--ml-ease)",
+      },
       fontFamily: {
+        display: ["Archivo", "Public Sans", "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: [
+          '"IBM Plex Mono"',
+          "ui-monospace",
+          "SFMono-Regular",
+          "Menlo",
+          "Consolas",
+          '"Liberation Mono"',
+          "monospace"
+        ],
         sans: [
-          "plus-jakarta-sans",
+          '"Public Sans"',
           "ui-sans-serif",
           "system-ui",
           "-apple-system",

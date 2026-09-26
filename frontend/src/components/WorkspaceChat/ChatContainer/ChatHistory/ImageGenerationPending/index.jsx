@@ -46,7 +46,7 @@ function ImageGenerationPending({ aborted = false }) {
             <p className="text-white light:text-slate-800 text-sm font-semibold">
               {t("imageGeneration.pending.heading")}
             </p>
-            <p className="text-white/70 light:text-slate-600 text-xs leading-relaxed">
+            <p className="text-white/70 light:text-slate-600 text-[13px] leading-relaxed">
               {t("imageGeneration.pending.description")}
             </p>
           </div>

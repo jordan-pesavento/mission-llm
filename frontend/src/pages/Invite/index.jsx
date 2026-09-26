@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { FullScreenLoader } from "@/components/Preloader";
 import Invite from "@/models/invite";
 import NewUserModal from "./NewUserModal";
-import Modal from "@/components/lib/Modal";
+import AuthLayout, {
+  AuthAlert,
+  AuthHeading,
+} from "@/components/Modals/Password/AuthLayout";
 
 export default function InvitePage() {
+  const { t } = useTranslation();
   const { code } = useParams();
   const [result, setResult] = useState({
     status: "loading",
@@ -40,17 +45,23 @@ export default function InvitePage() {
 
   if (result.status === "invalid") {
     return (
-      <div className="w-screen h-screen overflow-hidden bg-theme-bg-container flex items-center justify-center">
-        <p className="text-red-400 text-lg">{result.message}</p>
-      </div>
+      <AuthLayout>
+        <div className="flex w-full flex-col gap-[18px]">
+          <AuthHeading
+            id="invite-invalid-title"
+            title={t("invite.invalid-title", {
+              defaultValue: "Invitation unavailable",
+            })}
+          />
+          <AuthAlert id="invite-invalid">{result.message}</AuthAlert>
+        </div>
+      </AuthLayout>
     );
   }
 
   return (
-    <div className="w-screen h-screen overflow-hidden bg-theme-bg-container flex items-center justify-center">
-      <Modal isOpen={true}>
-        <NewUserModal />
-      </Modal>
-    </div>
+    <AuthLayout>
+      <NewUserModal />
+    </AuthLayout>
   );
 }

@@ -168,7 +168,7 @@ export const ChainOfThoughtStep = memo(function ChainOfThoughtStep({
       <div className="flex-1 space-y-2 overflow-hidden">
         <div>{label}</div>
         {description && (
-          <div className="text-xs text-zinc-400 light:text-zinc-500">
+          <div className="text-[13px] text-zinc-400 light:text-zinc-500">
             {description}
           </div>
         )}

@@ -22,85 +22,91 @@ export function ChatTooltips() {
         id="message-to-speech"
         place="bottom"
         delayShow={300}
-        className="tooltip !text-xs"
+        className="tooltip !text-[13px]"
       />
       <Tooltip
         id="regenerate-assistant-text"
         place="bottom"
         delayShow={300}
-        className="tooltip !text-xs"
+        className="tooltip !text-[13px]"
       />
       <Tooltip
         id="copy-assistant-text"
         place="bottom"
         delayShow={300}
-        className="tooltip !text-xs"
+        className="tooltip !text-[13px]"
       />
       <Tooltip
         id="feedback-button"
         place="bottom"
         delayShow={300}
-        className="tooltip !text-xs"
+        className="tooltip !text-[13px]"
       />
       <Tooltip
         id="action-menu"
         place="top"
         delayShow={300}
-        className="tooltip !text-xs"
+        className="tooltip !text-[13px]"
       />
       <Tooltip
         id="edit-input-text"
         place="bottom"
         delayShow={300}
-        className="tooltip !text-xs"
+        className="tooltip !text-[13px]"
       />
       <Tooltip
         id="metrics-visibility"
         place="bottom"
         delayShow={300}
-        className="tooltip !text-xs"
+        className="tooltip !text-[13px]"
       />
       <Tooltip
         id="routing-details"
         place="bottom"
         delayShow={300}
-        className="tooltip !text-xs"
+        className="tooltip !text-[13px]"
       />
       <Tooltip
         id="expand-cot"
         place="bottom"
         delayShow={300}
-        className="tooltip !text-xs"
+        className="tooltip !text-[13px]"
       />
       <Tooltip
         id="cot-thinking"
         place="bottom"
         delayShow={500}
-        className="tooltip !text-xs"
+        className="tooltip !text-[13px]"
       />
       <Tooltip
         id="query-refusal-info"
         place="top"
         delayShow={500}
-        className="tooltip !text-xs max-w-[350px]"
+        className="tooltip !text-[13px] max-w-[350px]"
       />
       <Tooltip
         id="context-window-limit-exceeded"
         place="top"
         delayShow={500}
-        className="tooltip !text-xs max-w-[350px]"
+        className="tooltip !text-[13px] max-w-[350px]"
       />
       <Tooltip
         id="attachment-status-tooltip"
         place="top"
         delayShow={300}
-        className="tooltip !text-xs"
+        className="tooltip !text-[13px]"
       />
       <Tooltip
         id="attach-item-btn"
         place="top"
         delayShow={300}
-        className="tooltip !text-xs"
+        className="tooltip !text-[13px]"
+      />
+      <Tooltip
+        id="chat-settings-menu"
+        place="bottom"
+        delayShow={300}
+        className="tooltip !text-[13px]"
       />
       <DocumentLevelTooltip />
     </>
@@ -122,7 +128,7 @@ function DocumentLevelTooltip() {
         delayShow={100}
         // z-[100] to ensure it renders above the chat history
         // as the citation modal is z-indexed above the chat history
-        className="tooltip !text-xs z-[100]"
+        className="tooltip !text-[13px] z-[100]"
       />
     </>,
     document.body

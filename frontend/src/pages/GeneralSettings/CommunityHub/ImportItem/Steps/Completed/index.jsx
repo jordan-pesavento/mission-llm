@@ -31,7 +31,7 @@ export default function Completed({ settings, setSettings, setStep }) {
             </p>
           </div>
           <CTAButton
-            className="text-dark-text w-full mt-[18px] h-[34px] hover:bg-accent"
+            className="w-full mt-[18px]"
             onClick={() => {
               setSettings({ item: null, itemId: null });
               setStep(CommunityHubImportItemSteps.itemId.key);

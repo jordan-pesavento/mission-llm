@@ -1,3 +1,4 @@
+import { ACT_BTN } from "@/components/WorkspaceChat/ChatContainer/chatUi";
 import React, { useEffect, useState } from "react";
 import { SpeakerHigh, PauseCircle } from "@phosphor-icons/react";
 import messageToSpeech from "@/utils/chat/messageToSpeech";
@@ -34,23 +35,17 @@ export default function NativeTTSMessage({ chatId, message }) {
 
   if (!supported) return null;
   return (
-    <div className="mt-3 relative">
-      <button
-        onClick={speakMessage}
-        data-auto-play-chat-id={chatId}
-        data-tooltip-id="message-to-speech"
-        data-tooltip-content={
-          speaking ? "Pause TTS speech of message" : "TTS Speak message"
-        }
-        className="border-none text-zinc-300 light:text-slate-500"
-        aria-label={speaking ? "Pause speech" : "Speak message"}
-      >
-        {speaking ? (
-          <PauseCircle size={18} className="mb-1" />
-        ) : (
-          <SpeakerHigh size={18} className="mb-1" />
-        )}
-      </button>
-    </div>
+    <button
+      onClick={speakMessage}
+      data-auto-play-chat-id={chatId}
+      data-tooltip-id="message-to-speech"
+      data-tooltip-content={
+        speaking ? "Pause TTS speech of message" : "TTS Speak message"
+      }
+      className={ACT_BTN}
+      aria-label={speaking ? "Pause speech" : "Speak message"}
+    >
+      {speaking ? <PauseCircle size={18} /> : <SpeakerHigh size={18} />}
+    </button>
   );
 }

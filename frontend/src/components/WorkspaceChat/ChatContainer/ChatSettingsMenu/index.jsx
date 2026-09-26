@@ -1,17 +1,22 @@
 import { useState, useRef, useEffect } from "react";
-import { SlidersHorizontal } from "@phosphor-icons/react";
-import useLoginMode from "@/hooks/useLoginMode";
+import { DotsThree } from "@phosphor-icons/react";
+import { useTranslation } from "react-i18next";
 import TextSizeRow from "./TextSize";
 import MemoriesRow from "./Memories";
 import CopyLinkToChatRow from "./CopyLinkToChat";
 import ExportRow from "./Export";
+import { MENU_SURFACE } from "../chatUi";
 
+/**
+ * The "more" button at the right end of the chat top bar. Opens the chat
+ * settings menu: text size, memories, export and copy chat link.
+ */
 export default function ChatSettingsMenu({
   history = [],
   workspace = null,
   threadSlug = null,
 }) {
-  const mode = useLoginMode();
+  const { t } = useTranslation();
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
@@ -28,40 +33,43 @@ export default function ChatSettingsMenu({
         setShowMenu(false);
       }
     }
+    function handleEscape(e) {
+      if (e.key === "Escape") setShowMenu(false);
+    }
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
   }, [showMenu]);
 
-  const hasUserIcon = mode !== null;
-
   return (
-    <div
-      className={`absolute top-3 md:top-5 z-30 ${hasUserIcon ? "right-[55px] md:right-[67px]" : "right-4 md:right-6"}`}
-    >
+    <div className="relative shrink-0">
       <button
         ref={buttonRef}
         type="button"
         onClick={() => setShowMenu(!showMenu)}
-        className={`group border-none cursor-pointer flex items-center justify-center w-[35px] h-[35px] rounded-full transition-all ${
+        aria-label={t("chat_window.more_actions")}
+        aria-haspopup="menu"
+        aria-expanded={showMenu}
+        data-tooltip-id="chat-settings-menu"
+        data-tooltip-hidden={showMenu}
+        data-tooltip-content={t("chat_window.more_actions")}
+        className={`w-ctl h-ctl grid place-items-center rounded-[10px] border cursor-pointer transition-colors duration-150 ${
           showMenu
-            ? "bg-zinc-700 light:bg-slate-200"
-            : "hover:bg-zinc-700 light:hover:bg-slate-200"
+            ? "border-ml-accent-line bg-ml-accent-soft text-ml-text"
+            : "border-ml-line-2 bg-ml-panel text-ml-text-2 hover:text-ml-text hover:border-ml-accent-line"
         }`}
       >
-        <SlidersHorizontal
-          size={18}
-          className={
-            showMenu
-              ? "text-white light:text-slate-800"
-              : "text-zinc-300 light:text-slate-600 group-hover:text-white light:group-hover:text-slate-800"
-          }
-        />
+        <DotsThree size={20} weight="bold" />
       </button>
 
       {showMenu && (
         <div
           ref={menuRef}
-          className="absolute right-0 top-[42px] bg-zinc-800 light:bg-slate-50 border border-zinc-700 light:border-slate-300 rounded-lg p-3.5 w-[226px] flex flex-col gap-1.5 shadow-lg"
+          role="menu"
+          className={`absolute right-0 top-[calc(100%+8px)] z-50 w-[240px] p-1.5 flex flex-col gap-0.5 ${MENU_SURFACE}`}
         >
           <TextSizeRow />
           <MemoriesRow onClose={() => setShowMenu(false)} />

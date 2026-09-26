@@ -41,7 +41,7 @@ export default function PersonalizationToggle() {
           <p className="text-sm font-medium text-zinc-50 light:text-slate-900">
             {t("chat_window.memories.toggle.label")}
           </p>
-          <p className="text-xs leading-4 text-zinc-400 light:text-slate-500">
+          <p className="text-[13px] leading-4 text-zinc-400 light:text-slate-500">
             {t("chat_window.memories.toggle.description")}
           </p>
         </div>
@@ -57,7 +57,7 @@ export default function PersonalizationToggle() {
             <p className="text-sm font-medium text-zinc-50 light:text-slate-900">
               {t("chat_window.memories.auto_extraction.label")}
             </p>
-            <p className="text-xs leading-4 text-zinc-400 light:text-slate-500">
+            <p className="text-[13px] leading-4 text-zinc-400 light:text-slate-500">
               {t("chat_window.memories.auto_extraction.description")}
             </p>
           </div>

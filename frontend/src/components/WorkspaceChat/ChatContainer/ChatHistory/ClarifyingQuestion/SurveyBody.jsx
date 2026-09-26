@@ -3,7 +3,9 @@ import { formatAnswerDisplay } from "./utils";
 
 function StatusMessage({ message }) {
   return (
-    <div className="text-xs text-white/60 light:text-slate-600">{message}</div>
+    <div className="text-[13px] text-white/60 light:text-slate-600">
+      {message}
+    </div>
   );
 }
 
@@ -33,7 +35,7 @@ function AnswersList({ questions, answers }) {
   const skippedLabel = t("chat_window.agent_invocation.answer_skipped");
 
   return (
-    <div className="flex flex-col gap-y-1.5 text-xs text-white/70 light:text-slate-700">
+    <div className="flex flex-col gap-y-1.5 text-[13px] text-white/70 light:text-slate-700">
       {questions.map((q, i) => (
         <AnswerRow
           key={i}

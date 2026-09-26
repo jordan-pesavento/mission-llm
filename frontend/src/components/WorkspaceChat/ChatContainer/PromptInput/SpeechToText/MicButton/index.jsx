@@ -3,6 +3,7 @@ import { Microphone, CircleNotch } from "@phosphor-icons/react";
 import { Tooltip } from "react-tooltip";
 import { useTranslation } from "react-i18next";
 import { PROMPT_INPUT_EVENT } from "../../../PromptInput";
+import { COMPOSER_CHIP } from "../../../chatUi";
 
 /**
  * Shared microphone button for all speech-to-text providers. Owns the Ctrl+M
@@ -48,38 +49,42 @@ export default function MicButton({
 
   const active = listening || processing;
   return (
-    <div
-      data-tooltip-id="tooltip-microphone-btn"
-      data-tooltip-content={`${t("chat_window.microphone")} (CTRL + M)`}
-      aria-label={t("chat_window.microphone")}
-      onClick={toggle}
-      className={`group border-none relative flex justify-center items-center cursor-pointer w-8 h-8 rounded-full hover:bg-zinc-700 light:hover:bg-slate-200 ${
-        active ? "bg-zinc-700 light:bg-slate-200" : ""
-      }`}
-    >
-      {processing ? (
-        <CircleNotch
-          size={18}
-          weight="bold"
-          className="pointer-events-none text-white light:text-slate-800 animate-spin shrink-0"
-        />
-      ) : (
-        <Microphone
-          weight="regular"
-          size={18}
-          className={`pointer-events-none text-zinc-300 light:text-slate-600 group-hover:text-white light:group-hover:text-slate-600 shrink-0 ${
-            listening
-              ? "animate-pulse-glow !text-white light:!text-slate-800"
-              : ""
-          }`}
-        />
-      )}
+    <>
+      <button
+        type="button"
+        data-tooltip-id="tooltip-microphone-btn"
+        data-tooltip-content={`${t("chat_window.microphone")} (CTRL + M)`}
+        aria-label={t("chat_window.microphone")}
+        aria-pressed={listening}
+        onClick={toggle}
+        className={`${COMPOSER_CHIP} w-ctl-lg !px-0 shrink-0 ${
+          active
+            ? "!bg-ml-accent-soft !text-ml-text !border-ml-accent-line"
+            : ""
+        }`}
+      >
+        {processing ? (
+          <CircleNotch
+            size={18}
+            weight="bold"
+            className="pointer-events-none animate-spin shrink-0"
+          />
+        ) : (
+          <Microphone
+            weight="regular"
+            size={18}
+            className={`pointer-events-none shrink-0 ${
+              listening ? "animate-pulse-glow" : ""
+            }`}
+          />
+        )}
+      </button>
       <Tooltip
         id="tooltip-microphone-btn"
         place="top"
         delayShow={300}
-        className="tooltip !text-xs z-99"
+        className="tooltip z-99"
       />
-    </div>
+    </>
   );
 }

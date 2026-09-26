@@ -166,7 +166,7 @@ export default function ChatPromptSettings({
             <button
               ref={historyButtonRef}
               type="button"
-              className="text-theme-text-secondary hover:text-white light:hover:text-black text-xs font-medium"
+              className="shrink-0 whitespace-nowrap text-theme-text-secondary hover:text-white light:hover:text-black text-xs font-medium"
               onClick={(e) => {
                 e.preventDefault();
                 setShowPromptHistory(!showPromptHistory);

@@ -57,15 +57,12 @@ export default function ToolApprovalRequest({
   }
 
   return (
-    <div className="flex justify-center w-full my-1 pr-4">
+    <div className="flex justify-center w-full">
       <div className="w-full flex flex-col">
         <div className="w-full">
           <div
-            style={{
-              transition: "all 0.1s ease-in-out",
-              borderRadius: "16px",
-            }}
-            className="relative bg-zinc-800 light:bg-slate-100 p-4 pb-2 flex flex-col gap-y-1 overflow-hidden"
+            style={{ transition: "all 0.1s ease-in-out" }}
+            className="relative rounded-[14px] border border-ml-line-2 bg-ml-panel shadow-ml p-4 pb-3 flex flex-col gap-y-2 overflow-hidden"
           >
             <ToolApprovalHeader
               skillName={skillName}
@@ -75,7 +72,7 @@ export default function ToolApprovalRequest({
             />
             <div className="flex flex-col gap-y-1">
               {description && (
-                <span className="text-white/60 light:text-slate-700 font-medium font-mono text-xs">
+                <span className="text-ml-text-2 font-medium font-mono text-[13.5px]">
                   {description}
                 </span>
               )}
@@ -91,9 +88,9 @@ export default function ToolApprovalRequest({
               <ToolApprovalResponseMessage approved={approved} />
             </div>
             {timeoutMs && !responded && (
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-zinc-700 light:bg-slate-300">
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-ml-raised-2">
                 <div
-                  className="h-full bg-sky-500 light:bg-sky-600 transition-none"
+                  className="h-full bg-ml-accent transition-none"
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
@@ -116,9 +113,9 @@ function ToolApprovalHeader({
     <div className="flex w-full items-center justify-between">
       <div className="flex items-center gap-2">
         <Hammer size={16} />
-        <div className="text-white/80 light:text-slate-900 font-medium text-sm flex gap-x-1">
+        <div className="text-ml-text font-medium text-[15px] flex gap-x-1.5">
           {t("chat_window.agent_invocation.model_wants_to_call")}
-          <span className="font-semibold text-sky-400 light:text-sky-600">
+          <span className="font-mono font-semibold text-ml-accent-text">
             {skillName}
           </span>
         </div>
@@ -126,7 +123,8 @@ function ToolApprovalHeader({
       {hasPayload && (
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="absolute top-4 right-4 border-none"
+          type="button"
+          className="absolute top-3 right-3 w-9 h-9 grid place-items-center rounded-[10px] text-ml-text-2 hover:bg-ml-raised hover:text-ml-text border-none"
           aria-label={isExpanded ? "Hide details" : "Show details"}
         >
           <CaretDown
@@ -152,8 +150,8 @@ function ToolApprovalPayload({ payload, isExpanded }) {
   }
 
   return (
-    <div className="p-3 bg-zinc-900/50 light:bg-slate-200/50 rounded-lg overflow-x-auto">
-      <pre className="text-xs text-zinc-300 light:text-slate-700 font-mono whitespace-pre-wrap break-words">
+    <div className="p-3 bg-ml-raised border border-ml-line rounded-[10px] overflow-x-auto">
+      <pre className="text-[13.5px] text-ml-text-2 font-mono whitespace-pre-wrap break-words">
         {formatPayload(payload)}
       </pre>
     </div>
@@ -172,29 +170,29 @@ function ToolApprovalResponseOption({
   if (approved !== null) return null;
 
   return (
-    <div className="flex flex-col gap-2 mt-1 pb-2">
-      <div className="flex gap-2">
+    <div className="flex flex-col gap-2.5 mt-1 pb-1">
+      <div data-row="tool-approval" className="flex gap-2">
         <button
           type="button"
           onClick={onApprove}
-          className="border-none transition-all duration-300 bg-white text-black hover:opacity-60 px-4 py-2 rounded-lg text-sm"
+          className="h-10 px-4 rounded-[11px] border-none bg-ml-accent-fill text-ml-on-accent font-semibold text-[14.5px] shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] hover:brightness-110 transition-[filter]"
         >
           {t("chat_window.agent_invocation.approve")}
         </button>
         <button
           type="button"
           onClick={onReject}
-          className="border-none text-white light:text-slate-900 text-sm font-medium w-[70px] h-9 rounded-lg hover:bg-white/5 light:hover:bg-slate-300"
+          className="h-10 px-4 rounded-[11px] border border-ml-line-2 bg-ml-raised text-ml-text font-semibold text-[14.5px] hover:border-ml-accent-line transition-colors"
         >
           {t("chat_window.agent_invocation.reject")}
         </button>
       </div>
-      <label className="flex items-center gap-2 cursor-pointer text-white/60 light:text-slate-600 text-xs hover:text-white/80 light:hover:text-slate-800 transition-colors">
+      <label className="flex items-center gap-2 cursor-pointer text-ml-text-2 text-[14px] hover:text-ml-text transition-colors">
         <input
           type="checkbox"
           checked={alwaysAllow}
           onChange={(e) => setAlwaysAllow(e.target.checked)}
-          className="w-3.5 h-3.5 rounded border-white/20 bg-transparent cursor-pointer"
+          className="w-4 h-4 rounded accent-[var(--ml-accent)] cursor-pointer"
         />
         <span>
           {t("chat_window.agent_invocation.always_allow", { skillName })}
@@ -210,7 +208,7 @@ function ToolApprovalResponseMessage({ approved }) {
   if (approved === null) return null;
   if (approved === false) {
     return (
-      <div className="flex items-center gap-1 text-sm font-medium text-red-400 light:text-red-500">
+      <div className="flex items-center gap-1.5 text-[14.5px] font-medium text-ml-bad">
         <X size={16} weight="bold" />
         <span>{t("chat_window.agent_invocation.tool_call_was_rejected")}</span>
       </div>
@@ -218,7 +216,7 @@ function ToolApprovalResponseMessage({ approved }) {
   }
 
   return (
-    <div className="flex items-center gap-1 text-sm font-medium text-green-400 light:text-green-500">
+    <div className="flex items-center gap-1.5 text-[14.5px] font-medium text-ml-ok">
       <Check size={16} weight="bold" />
       <span>{t("chat_window.agent_invocation.tool_call_was_approved")}</span>
     </div>

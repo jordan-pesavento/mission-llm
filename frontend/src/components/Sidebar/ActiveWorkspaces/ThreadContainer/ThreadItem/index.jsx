@@ -11,17 +11,17 @@ import {
 } from "@phosphor-icons/react";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { THREAD_RENAME_EVENT } from "../events";
 
-const THREAD_CALLOUT_DETAIL_WIDTH = 26;
+const ROW_ICON_BUTTON =
+  "w-[28px] h-[28px] grid place-items-center rounded-[7px] text-ml-text-3 hover:text-ml-text hover:bg-ml-raised-2 transition-colors duration-150";
+
 export default function ThreadItem({
-  idx,
-  activeIdx,
   isActive,
   workspace,
   thread,
   onRemove,
   toggleMarkForDeletion,
-  hasNext,
   ctrlPressed = false,
 }) {
   const { slug: urlSlug, threadSlug = null } = useParams();
@@ -39,126 +39,95 @@ export default function ThreadItem({
     behavior: "instant",
     block: "center",
   });
+
+  const hasOptions = !!thread.slug && !thread.deleted && !thread.virtual;
   return (
     <div
-      className="w-full relative flex h-[38px] items-center border-none rounded-lg"
       role="listitem"
+      className={`group/thread relative flex items-center h-[38px] shrink-0 rounded-[9px] transition-colors duration-150 ${
+        isActive && !thread.deleted
+          ? "bg-ml-accent-soft text-ml-text font-medium"
+          : "text-ml-text-2 hover:bg-ml-raised"
+      }`}
     >
-      {/* Curved line Element and leader if required */}
-      <div
-        style={{ width: THREAD_CALLOUT_DETAIL_WIDTH / 2 }}
-        className={`${
-          isActive
-            ? "border-l-2 border-b-2 border-white light:border-blue-800 z-[2]"
-            : "border-l border-b border-zinc-500 light:border-slate-400 z-[1]"
-        } h-[50%] absolute top-0 left-3 rounded-bl-lg`}
-      ></div>
-      {/* Downstroke border for next item */}
-      {hasNext && (
-        <div
-          style={{ width: THREAD_CALLOUT_DETAIL_WIDTH / 2 }}
-          className={`${
-            idx <= activeIdx && !isActive
-              ? "border-l-2 border-white light:border-blue-800 z-[2]"
-              : "border-l border-zinc-500 light:border-slate-400 z-[1]"
-          } h-[100%] absolute top-0 left-3`}
-        ></div>
-      )}
-
-      {/* Curved line inline placeholder for spacing - not visible */}
-      <div
-        style={{ width: THREAD_CALLOUT_DETAIL_WIDTH + 8 }}
-        className="h-full"
-      />
-      <div
-        className={`flex w-full items-center justify-between pr-2 group/thread relative ${isActive ? "bg-[var(--theme-sidebar-thread-selected)] light:bg-blue-200" : "hover:bg-theme-sidebar-subitem-hover light:hover:bg-slate-300"} rounded-[4px]`}
-      >
-        {thread.deleted ? (
-          <div className="w-full flex justify-between">
-            <div className="w-full pl-2 py-1">
-              <p
-                className={`text-left text-sm text-slate-400/50 light:text-slate-500 italic`}
-              >
-                deleted thread
-              </p>
-            </div>
-            {ctrlPressed && (
-              <button
-                type="button"
-                className="border-none"
-                onClick={() => toggleMarkForDeletion(thread.id)}
-              >
-                <ArrowCounterClockwise
-                  className="text-zinc-300 hover:text-white light:text-theme-text-secondary hover:light:text-theme-text-primary"
-                  size={18}
-                />
-              </button>
-            )}
-          </div>
-        ) : (
-          <Link
-            ref={ref}
-            to={linkTo}
-            data-tooltip-id="workspace-thread-name"
-            data-tooltip-content={thread.name}
-            className="w-full pl-2 py-1 overflow-hidden"
-            aria-current={isActive ? "page" : ""}
-          >
-            <p
-              className={`text-left text-sm truncate max-w-[150px] ${
-                isActive
-                  ? "font-semibold text-theme-text-primary light:text-blue-900"
-                  : "text-theme-text-primary font-medium light:text-slate-800"
-              }`}
+      {thread.deleted ? (
+        <div className="flex flex-1 min-w-0 items-center justify-between pl-[10px] pr-[5px]">
+          <p className="text-[15px] italic text-ml-text-3 truncate">
+            deleted thread
+          </p>
+          {ctrlPressed && (
+            <button
+              type="button"
+              className={ROW_ICON_BUTTON}
+              onClick={() => toggleMarkForDeletion(thread.id)}
+              aria-label="Restore thread"
             >
-              {thread.name}
-            </p>
-          </Link>
-        )}
-        {!!thread.slug && !thread.deleted && !thread.virtual && (
-          <div ref={optionsContainer} className="flex items-center">
-            {" "}
-            {/* Added flex and items-center */}
-            {ctrlPressed ? (
-              <button
-                type="button"
-                className="border-none"
-                onClick={() => toggleMarkForDeletion(thread.id)}
-              >
-                <X
-                  className="text-zinc-300 light:text-theme-text-secondary hover:text-white hover:light:text-theme-text-primary"
-                  weight="bold"
-                  size={18}
-                />
-              </button>
-            ) : (
-              <div className="flex items-center w-fit md:invisible md:group-hover/thread:visible md:group-focus-within/thread:visible gap-x-1">
-                <button
-                  type="button"
-                  className="border-none"
-                  onClick={() => setShowOptions(!showOptions)}
-                  aria-label="Thread options"
-                >
-                  <DotsThree
-                    className="text-slate-300 light:text-theme-text-secondary hover:text-white hover:light:text-theme-text-primary"
-                    size={25}
-                  />
-                </button>
-              </div>
-            )}
-            {showOptions && (
-              <OptionsMenu
-                containerRef={optionsContainer}
-                workspace={workspace}
-                thread={thread}
-                onRemove={onRemove}
-                close={() => setShowOptions(false)}
-                currentThreadSlug={threadSlug}
-              />
-            )}
-          </div>
-        )}
-      </div>
+              <ArrowCounterClockwise size={16} />
+            </button>
+          )}
+        </div>
+      ) : (
+        <Link
+          ref={ref}
+          to={linkTo}
+          data-tooltip-id="workspace-thread-name"
+          data-tooltip-content={thread.name}
+          className={`flex flex-1 min-w-0 items-center self-stretch pl-[10px] pr-[10px] rounded-[9px] ${
+            hasOptions
+              ? showOptions || ctrlPressed
+                ? "!pr-[36px]"
+                : "max-md:pr-[36px] group-hover/thread:pr-[36px] group-focus-within/thread:pr-[36px]"
+              : ""
+          }`}
+          aria-current={isActive ? "page" : undefined}
+        >
+          <span className="text-[15px] truncate">{thread.name}</span>
+        </Link>
+      )}
+      {hasOptions && (
+        <div
+          ref={optionsContainer}
+          className={`absolute right-[5px] top-[5px] flex items-center ${
+            showOptions ? "z-20" : ""
+          }`}
+        >
+          {ctrlPressed ? (
+            <button
+              type="button"
+              className={ROW_ICON_BUTTON}
+              onClick={() => toggleMarkForDeletion(thread.id)}
+              aria-label="Mark thread for deletion"
+            >
+              <X size={16} weight="bold" />
+            </button>
+          ) : (
+            <button
+              type="button"
+              className={`${ROW_ICON_BUTTON} ${
+                showOptions
+                  ? "visible bg-ml-raised-2 text-ml-text"
+                  : "md:invisible md:group-hover/thread:visible md:group-focus-within/thread:visible"
+              }`}
+              onClick={() => setShowOptions(!showOptions)}
+              aria-label="Thread options"
+              aria-haspopup="menu"
+              aria-expanded={showOptions}
+            >
+              <DotsThree size={20} weight="bold" />
+            </button>
+          )}
+          {showOptions && (
+            <OptionsMenu
+              containerRef={optionsContainer}
+              workspace={workspace}
+              thread={thread}
+              onRemove={onRemove}
+              close={() => setShowOptions(false)}
+              currentThreadSlug={threadSlug}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -174,37 +143,27 @@ function OptionsMenu({
   const navigate = useNavigate();
   const menuRef = useRef(null);
 
-  // Ref menu options
-  const outsideClick = (e) => {
-    if (!menuRef.current) return false;
-    if (
-      !menuRef.current?.contains(e.target) &&
-      !containerRef.current?.contains(e.target)
-    )
-      close();
-    return false;
-  };
-
-  const isEsc = (e) => {
-    if (e.key === "Escape" || e.key === "Esc") close();
-  };
-
-  function cleanupListeners() {
-    window.removeEventListener("click", outsideClick);
-    window.removeEventListener("keyup", isEsc);
-  }
-  // end Ref menu options
-
+  // Close on an outside click or Escape. The menu is only mounted while it
+  // is open, so the listeners live exactly as long as the menu.
   useEffect(() => {
-    function setListeners() {
-      if (!menuRef?.current || !containerRef.current) return false;
-      window.document.addEventListener("click", outsideClick);
-      window.document.addEventListener("keyup", isEsc);
-    }
-
-    setListeners();
-    return cleanupListeners;
-  }, [menuRef.current, containerRef.current]);
+    const outsideClick = (e) => {
+      if (!menuRef.current) return;
+      if (
+        !menuRef.current.contains(e.target) &&
+        !containerRef.current?.contains(e.target)
+      )
+        close();
+    };
+    const isEsc = (e) => {
+      if (e.key === "Escape" || e.key === "Esc") close();
+    };
+    window.document.addEventListener("click", outsideClick);
+    window.document.addEventListener("keyup", isEsc);
+    return () => {
+      window.document.removeEventListener("click", outsideClick);
+      window.document.removeEventListener("keyup", isEsc);
+    };
+  }, []);
 
   const renameThread = async () => {
     const name = window
@@ -228,7 +187,13 @@ function OptionsMenu({
       return;
     }
 
-    thread.name = name;
+    // Same event an automatic rename fires, so the rail and the chat top
+    // bar both show the new name.
+    window.dispatchEvent(
+      new CustomEvent(THREAD_RENAME_EVENT, {
+        detail: { threadSlug: thread.slug, newName: name },
+      })
+    );
     close();
   };
 
@@ -256,26 +221,31 @@ function OptionsMenu({
     }
   };
 
+  const itemClass =
+    "w-full h-[36px] flex items-center gap-x-2.5 px-3 rounded-[8px] text-[15px] font-medium whitespace-nowrap transition-colors duration-150";
   return (
     <div
       ref={menuRef}
-      className="absolute w-fit z-[20] top-[25px] right-[10px] bg-zinc-900 light:bg-theme-bg-sidebar light:border-[1px] light:border-theme-sidebar-border rounded-lg p-1"
+      role="menu"
+      className="absolute z-[20] top-[calc(100%+4px)] right-0 w-max min-w-[180px] p-1.5 flex flex-col gap-y-0.5 rounded-[12px] bg-ml-raised border border-ml-line-2 shadow-ml-pop"
     >
       <button
         onClick={renameThread}
         type="button"
-        className="w-full rounded-md flex items-center p-2 gap-x-2 hover:bg-slate-500/20 text-slate-300 light:text-theme-text-primary"
+        role="menuitem"
+        className={`${itemClass} text-ml-text hover:bg-ml-raised-2`}
       >
-        <PencilSimple size={18} />
-        <p className="text-sm">Rename</p>
+        <PencilSimple size={17} className="text-ml-text-2" />
+        Rename
       </button>
       <button
         onClick={handleDelete}
         type="button"
-        className="w-full rounded-md flex items-center p-2 gap-x-2 hover:bg-red-500/20 text-slate-300 light:text-theme-text-primary hover:text-red-100"
+        role="menuitem"
+        className={`${itemClass} text-ml-bad hover:bg-ml-bad-soft`}
       >
-        <Trash size={18} />
-        <p className="text-sm">Delete Thread</p>
+        <Trash size={17} />
+        Delete Thread
       </button>
     </div>
   );
