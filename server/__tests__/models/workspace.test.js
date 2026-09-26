@@ -1,4 +1,7 @@
-const { Workspace } = require("../../models/workspace");
+const {
+  Workspace,
+  InvalidWorkspaceFieldError,
+} = require("../../models/workspace");
 
 describe("Workspace.validations coverage check", () => {
   it("every validation key has a corresponding test suite", () => {
@@ -275,6 +278,110 @@ describeValidation("lastUpdatedAt", () => {
     expect(
       isNaN(Workspace.validations.lastUpdatedAt(undefined).getTime())
     ).toBe(false);
+  });
+});
+
+describeValidation("icon", () => {
+  it("stores initials (the default) as null", () => {
+    expect(Workspace.validations.icon("initials")).toBeNull();
+    expect(Workspace.validations.icon(null)).toBeNull();
+    expect(Workspace.validations.icon(undefined)).toBeNull();
+    expect(Workspace.validations.icon("")).toBeNull();
+  });
+
+  it("passes a library key through", () => {
+    expect(Workspace.validations.icon("leaf")).toBe("leaf");
+    expect(Workspace.validations.icon("graduation-cap")).toBe("graduation-cap");
+  });
+
+  it("throws for anything outside the library instead of coercing", () => {
+    for (const bad of ["Leaf", "not-an-icon", " leaf", 7, true, {}, ["leaf"]])
+      expect(() => Workspace.validations.icon(bad)).toThrow(
+        InvalidWorkspaceFieldError
+      );
+  });
+});
+
+describeValidation("iconColor", () => {
+  it("stores the default (accent) or a missing color as null", () => {
+    expect(Workspace.validations.iconColor("accent")).toBeNull();
+    expect(Workspace.validations.iconColor(null)).toBeNull();
+    expect(Workspace.validations.iconColor(undefined)).toBeNull();
+    expect(Workspace.validations.iconColor("")).toBeNull();
+  });
+
+  it("passes a palette key through", () => {
+    expect(Workspace.validations.iconColor("teal")).toBe("teal");
+    expect(Workspace.validations.iconColor("sky")).toBe("sky");
+  });
+
+  it("throws for anything outside the palette instead of coercing", () => {
+    for (const bad of ["#ff0000", "Teal", "purple", 3, false, {}])
+      expect(() => Workspace.validations.iconColor(bad)).toThrow(
+        InvalidWorkspaceFieldError
+      );
+  });
+});
+
+describe("Workspace icon fields", () => {
+  it("are writable", () => {
+    expect(Workspace.writable).toEqual(
+      expect.arrayContaining(["icon", "iconColor"])
+    );
+  });
+
+  it("invalidFieldMessage reports a bad icon or color and ignores the rest", () => {
+    expect(Workspace.invalidFieldMessage({ icon: "leaf" })).toBeNull();
+    expect(
+      Workspace.invalidFieldMessage({ icon: "initials", iconColor: "sky" })
+    ).toBeNull();
+    expect(
+      Workspace.invalidFieldMessage({ name: "x", topN: "abc" })
+    ).toBeNull();
+    expect(Workspace.invalidFieldMessage(null)).toBeNull();
+    expect(Workspace.invalidFieldMessage({ icon: "nope" })).toMatch(
+      /Invalid workspace icon "nope"/
+    );
+    expect(Workspace.invalidFieldMessage({ iconColor: "#fff" })).toMatch(
+      /Invalid workspace icon color "#fff"/
+    );
+  });
+
+  describe("Workspace.update", () => {
+    let updateSpy;
+    beforeEach(() => {
+      updateSpy = jest
+        .spyOn(Workspace, "_update")
+        .mockImplementation(async (id, data) => ({
+          workspace: { id, ...data },
+          message: null,
+        }));
+    });
+    afterEach(() => updateSpy.mockRestore());
+
+    it("writes normalized icon values", async () => {
+      await Workspace.update(4, { icon: "flask", iconColor: "violet" });
+      expect(updateSpy).toHaveBeenCalledWith(4, {
+        icon: "flask",
+        iconColor: "violet",
+      });
+
+      await Workspace.update(4, { icon: "initials", iconColor: "" });
+      expect(updateSpy).toHaveBeenLastCalledWith(4, {
+        icon: null,
+        iconColor: null,
+      });
+    });
+
+    it("rejects an invalid value without writing anything", async () => {
+      const result = await Workspace.update(4, {
+        name: "Renamed",
+        icon: "not-an-icon",
+      });
+      expect(result.workspace).toBeNull();
+      expect(result.message).toMatch(/Invalid workspace icon/);
+      expect(updateSpy).not.toHaveBeenCalled();
+    });
   });
 });
 

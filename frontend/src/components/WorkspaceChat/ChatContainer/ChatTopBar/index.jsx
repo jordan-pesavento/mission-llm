@@ -7,8 +7,8 @@ import { THREAD_RENAME_EVENT } from "@/components/Sidebar/ActiveWorkspaces/Threa
 import WorkspaceModelPicker from "../WorkspaceModelPicker";
 import ChatSettingsMenu from "../ChatSettingsMenu";
 import { useSourcesSidebar } from "../ChatSidebar";
-import { initialsFor } from "../chatUi";
 import { TopBarUser } from "@/components/UserMenu";
+import WorkspaceTile, { useLiveWorkspace } from "@/components/WorkspaceTile";
 
 const SIDEBAR_TOGGLE_STORAGE_KEY = "missionllm_sidebar_toggle";
 
@@ -89,12 +89,14 @@ function useThreadName(workspaceSlug, threadSlug) {
  * @param {boolean} [props.showSources] - render the Sources toggle
  */
 export default function ChatTopBar({
-  workspace = null,
+  workspace: loadedWorkspace = null,
   threadSlug = null,
   history = [],
   showSources = false,
 }) {
   const { t } = useTranslation();
+  // Follows a rename or a new icon saved in workspace settings.
+  const workspace = useLiveWorkspace(loadedWorkspace);
   const railCollapsed = useRailCollapsed();
   const threadName = useThreadName(workspace?.slug, threadSlug);
   const {
@@ -134,13 +136,11 @@ export default function ChatTopBar({
             data-align={railCollapsed ? undefined : "chat:left"}
             className="flex items-center gap-2.5 min-w-0 text-[15.5px] text-ml-text-2"
           >
-            <span
+            <WorkspaceTile
+              workspace={workspace}
               aria-hidden="true"
               title={workspace.name}
-              className="w-[30px] h-[30px] shrink-0 grid place-items-center rounded-[9px] border border-ml-accent-line bg-ml-accent-soft text-ml-accent-text font-mono font-semibold text-[13px]"
-            >
-              {initialsFor(workspace.name)}
-            </span>
+            />
             <span
               className={`whitespace-nowrap truncate ${
                 threadName

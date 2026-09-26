@@ -1,6 +1,10 @@
 import { useTranslation } from "react-i18next";
 
-export default function WorkspaceName({ workspace, setHasChanges }) {
+export default function WorkspaceName({
+  workspace,
+  setHasChanges,
+  onNameChange = null,
+}) {
   const { t } = useTranslation();
   return (
     <div className="flex flex-col gap-y-[8px]">
@@ -22,7 +26,10 @@ export default function WorkspaceName({ workspace, setHasChanges }) {
         placeholder="My Workspace"
         required={true}
         autoComplete="off"
-        onChange={() => setHasChanges(true)}
+        onChange={(e) => {
+          setHasChanges(true);
+          onNameChange?.(e.target.value);
+        }}
       />
     </div>
   );

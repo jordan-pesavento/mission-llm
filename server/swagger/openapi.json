@@ -2103,7 +2103,7 @@
           }
         },
         "requestBody": {
-          "description": "JSON object containing new settings to update a workspace. All keys are optional and will not update unless provided",
+          "description": "JSON object containing new settings to update a workspace. All keys are optional and will not update unless provided. icon takes initials, null or an icon library key. iconColor takes null or a palette key. An invalid icon or iconColor returns 400.",
           "required": true,
           "content": {
             "application/json": {
@@ -2111,7 +2111,9 @@
                 "name": "Updated Workspace Name",
                 "openAiTemp": 0.2,
                 "openAiHistory": 20,
-                "openAiPrompt": "Respond to all inquires and questions in binary - do not respond in any other format."
+                "openAiPrompt": "Respond to all inquires and questions in binary - do not respond in any other format.",
+                "icon": "leaf",
+                "iconColor": "teal"
               }
             }
           }

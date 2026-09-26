@@ -6,6 +6,7 @@ import paths from "@/utils/paths";
 import Preloader from "@/components/Preloader";
 import debounce from "lodash.debounce";
 import Workspace from "@/models/workspace";
+import WorkspaceTile from "@/components/WorkspaceTile";
 
 const DEFAULT_SEARCH_RESULTS = {
   workspaces: [],
@@ -154,6 +155,7 @@ function SearchResults({ searchResults, searchTerm, loading }) {
           id: workspace.slug,
           to: paths.workspace.chat(workspace.slug),
           name: workspace.name,
+          workspace,
         }))}
       />
       <SearchResultCategory
@@ -183,6 +185,7 @@ function SearchResultCategory({ items, name }) {
             to={item.to}
             name={item.name}
             hint={item.hint}
+            workspace={item.workspace}
           />
         ))}
       </div>
@@ -190,17 +193,27 @@ function SearchResultCategory({ items, name }) {
   );
 }
 
-function SearchResultItem({ to, name, hint }) {
+function SearchResultItem({ to, name, hint, workspace = null }) {
   return (
     <Link
       to={to}
       onClick={() => window.dispatchEvent(new Event(SEARCH_RESULT_SELECTED))}
-      className="flex flex-col justify-center min-h-[38px] px-2.5 py-1 rounded-[9px] hover:bg-ml-raised-2 transition-colors duration-150"
+      className="flex items-center gap-x-2.5 min-h-[38px] px-2.5 py-1 rounded-[9px] hover:bg-ml-raised-2 transition-colors duration-150"
     >
-      <span className="text-ml-text text-[15px] truncate">{name}</span>
-      {hint && (
-        <span className="text-ml-text-3 text-[13px] truncate">{hint}</span>
+      {workspace && (
+        <WorkspaceTile
+          workspace={workspace}
+          size={26}
+          selected={false}
+          aria-hidden="true"
+        />
       )}
+      <span className="flex flex-col justify-center min-w-0">
+        <span className="text-ml-text text-[15px] truncate">{name}</span>
+        {hint && (
+          <span className="text-ml-text-3 text-[13px] truncate">{hint}</span>
+        )}
+      </span>
     </Link>
   );
 }

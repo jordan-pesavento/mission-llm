@@ -24,19 +24,13 @@ import { safeJsonParse } from "@/utils/request";
 import { isMobile } from "react-device-detect";
 import { Tooltip } from "react-tooltip";
 import { useTranslation } from "react-i18next";
-import { initialsFor } from "@/components/WorkspaceChat/ChatContainer/chatUi";
+import WorkspaceTile, {
+  WorkspaceTileGlyph,
+  WORKSPACE_UPDATED_EVENT,
+  liveWorkspaceFields,
+} from "@/components/WorkspaceTile";
 
 export const REFETCH_WORKSPACES_EVENT = "refetchWorkspaces";
-
-/**
- * Two-letter tile for a workspace. Same rule as the chat top bar
- * (initialsFor in WorkspaceChat/ChatContainer/chatUi.jsx).
- * @param {string} name
- * @returns {string}
- */
-export function workspaceInitials(name = "") {
-  return initialsFor(name);
-}
 
 // Document counts per workspace slug. The workspace list endpoint does not
 // include documents, so each count comes from the workspace's own record
@@ -108,6 +102,22 @@ export default function ActiveWorkspaces({ showNewWsModal = null }) {
     window.addEventListener(REFETCH_WORKSPACES_EVENT, getWorkspaces);
     return () =>
       window.removeEventListener(REFETCH_WORKSPACES_EVENT, getWorkspaces);
+  }, []);
+
+  // A saved rename or new icon shows in the rail right away.
+  useEffect(() => {
+    function onWorkspaceUpdated(e) {
+      const saved = e?.detail?.workspace;
+      if (!saved?.id) return;
+      setWorkspaces((prev) =>
+        prev.map((ws) =>
+          ws.id === saved.id ? { ...ws, ...liveWorkspaceFields(saved) } : ws
+        )
+      );
+    }
+    window.addEventListener(WORKSPACE_UPDATED_EVENT, onWorkspaceUpdated);
+    return () =>
+      window.removeEventListener(WORKSPACE_UPDATED_EVENT, onWorkspaceUpdated);
   }, []);
 
   /**
@@ -326,26 +336,24 @@ function WorkspaceRow({
           className="absolute left-[-14px] top-[11px] bottom-[11px] w-[3px] rounded-r-[3px] bg-ml-accent"
         />
       )}
-      <span
+      <WorkspaceTile
         {...dragHandleProps}
+        workspace={workspace}
+        selected={isActive}
         onClick={onOpen}
         aria-label={`Reorder ${workspace.name}`}
         title="Drag to reorder"
-        className={`group/tile w-[30px] h-[30px] shrink-0 grid place-items-center rounded-[9px] border ml-mono text-[13px] font-semibold cursor-grab active:cursor-grabbing ${
-          isActive
-            ? "bg-ml-accent-soft text-ml-accent-text border-ml-accent-line"
-            : "bg-ml-raised-2 text-ml-text-2 border-ml-line"
-        }`}
+        className="group/tile cursor-grab active:cursor-grabbing"
       >
-        <span className="group-hover/tile:hidden">
-          {workspaceInitials(workspace.name)}
+        <span className="grid place-items-center group-hover/tile:hidden">
+          <WorkspaceTileGlyph name={workspace.name} icon={workspace.icon} />
         </span>
         <DotsSixVertical
           size={16}
           weight="bold"
           className="hidden group-hover/tile:block"
         />
-      </span>
+      </WorkspaceTile>
       <Link
         to={paths.workspace.chat(workspace.slug)}
         aria-current={isActive ? "page" : undefined}

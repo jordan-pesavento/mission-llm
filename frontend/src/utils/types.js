@@ -15,6 +15,13 @@ export function castToType(key, value) {
     router_id: {
       cast: (value) => (value ? Number(value) : null),
     },
+    // Workspace tile: an empty value means the default (initials, accent).
+    icon: {
+      cast: (value) => value || null,
+    },
+    iconColor: {
+      cast: (value) => value || null,
+    },
   };
 
   if (!definitions.hasOwnProperty(key)) return value;

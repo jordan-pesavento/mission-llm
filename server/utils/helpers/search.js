@@ -6,6 +6,14 @@ const fastLevenshtein = require("fast-levenshtein");
 // since we would rather show a few more results than less
 const FAST_LEVENSHTEIN_DISTANCE = 3;
 
+// Fields a workspace tile needs (name for initials, icon and color).
+const WORKSPACE_TILE_SELECT = {
+  slug: true,
+  name: true,
+  icon: true,
+  iconColor: true,
+};
+
 /**
  * Search for workspaces and threads based on a search term with optional user context.
  * For each type of item we are looking at the `name` field.
@@ -13,7 +21,7 @@ const FAST_LEVENSHTEIN_DISTANCE = 3;
  * - If the normalized name is within 2 levenshtein distance of the search term => match
  * @param {string} searchTerm - The search term to search for.
  * @param {Object} user - The user to search for.
- * @returns {Promise<{workspaces: Array<{slug: string, name: string}>, threads: Array<{slug: string, name: string, workspace: {slug: string, name: string}}>}>} - The search results.
+ * @returns {Promise<{workspaces: Array<{slug: string, name: string, icon: string|null, iconColor: string|null}>, threads: Array<{slug: string, name: string, workspace: {slug: string, name: string, icon: string|null, iconColor: string|null}}>}>} - The search results.
  */
 async function searchWorkspaceAndThreads(searchTerm, user = null) {
   searchTerm = String(searchTerm).trim(); // Ensure searchTerm is a string and trimmed.
@@ -44,7 +52,12 @@ async function searchWorkspaceAndThreads(searchTerm, user = null) {
         fastLevenshtein.get(wsName, searchTerm) <= FAST_LEVENSHTEIN_DISTANCE
       )
         results.workspaces.add(
-          JSON.stringify({ slug: workspace.slug, name: workspace.name })
+          JSON.stringify({
+            slug: workspace.slug,
+            name: workspace.name,
+            icon: workspace.icon ?? null,
+            iconColor: workspace.iconColor ?? null,
+          })
         );
     }
   }
@@ -55,10 +68,10 @@ async function searchWorkspaceAndThreads(searchTerm, user = null) {
           { user_id: user.id },
           undefined,
           undefined,
-          { workspace: { select: { slug: true, name: true } } }
+          { workspace: { select: WORKSPACE_TILE_SELECT } }
         )
       : await WorkspaceThread.where(undefined, undefined, undefined, {
-          workspace: { select: { slug: true, name: true } },
+          workspace: { select: WORKSPACE_TILE_SELECT },
         });
 
     for (const thread of threads) {
@@ -76,6 +89,8 @@ async function searchWorkspaceAndThreads(searchTerm, user = null) {
             workspace: {
               slug: thread.workspace.slug,
               name: thread.workspace.name,
+              icon: thread.workspace.icon ?? null,
+              iconColor: thread.workspace.iconColor ?? null,
             },
           })
         );
