@@ -20,6 +20,11 @@ const { httpLogger } = require("./middleware/httpLogger");
 const app = express();
 const FILE_LIMIT = "3GB";
 const COLLECTOR_PORT = getCollectorPort();
+// Unset binds every interface (Docker needs this). COLLECTOR_HOST=127.0.0.1 binds loopback only.
+const COLLECTOR_HOST = process.env.COLLECTOR_HOST || null;
+const LISTEN_ARGS = COLLECTOR_HOST
+  ? [COLLECTOR_PORT, COLLECTOR_HOST]
+  : [COLLECTOR_PORT];
 
 // Only log HTTP requests in development mode and if the ENABLE_HTTP_LOGGER environment variable is set to true
 if (
@@ -214,9 +219,13 @@ app.all("*", function (_, response) {
 });
 
 app
-  .listen(COLLECTOR_PORT, async () => {
+  .listen(...LISTEN_ARGS, async () => {
     await wipeCollectorStorage();
-    console.log(`Document processor app listening on port ${COLLECTOR_PORT}`);
+    console.log(
+      `Document processor app listening on ${
+        COLLECTOR_HOST || "*"
+      }:${COLLECTOR_PORT}`
+    );
   })
   .on("error", function (_) {
     process.once("SIGUSR2", function () {

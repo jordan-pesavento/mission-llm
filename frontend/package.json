@@ -16,6 +16,7 @@
   "scripts": {
     "start": "vite --open",
     "dev": "cross-env NODE_ENV=development vite --debug --host=0.0.0.0",
+    "dev:local": "cross-env NODE_ENV=development vite --debug --host=127.0.0.1",
     "build": "vite build && node scripts/postbuild.js",
     "lint:check": "eslint src",
     "lint": "eslint --fix src",

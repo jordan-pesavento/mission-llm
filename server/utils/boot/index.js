@@ -19,7 +19,15 @@ const { TelegramBotService } = require("../telegramBot");
 // Update .env keys with the correct values and boot. These are temporary and not real SSL certs - only use for local.
 // Test with https://localhost:3001/api/ping
 // build and copy frontend to server/public with correct API_BASE and start server in prod model and all should be ok
-function bootSSL(app, port = 3001) {
+/**
+ * Arguments for server.listen(). With no host the server binds every interface (Docker needs this).
+ * Set SERVER_HOST=127.0.0.1 to bind loopback only for local installs.
+ */
+function listenArgs(port, host = null) {
+  return host ? [port, host] : [port];
+}
+
+function bootSSL(app, port = 3001, host = null) {
   try {
     console.log(
       `\x1b[33m[SSL BOOT ENABLED]\x1b[0m Loading the certificate and key for HTTPS mode...`
@@ -32,7 +40,7 @@ function bootSSL(app, port = 3001) {
     const server = https.createServer(credentials, app);
 
     server
-      .listen(port, async () => {
+      .listen(...listenArgs(port, host), async () => {
         await migrateLegacyRecords();
         await migrateWebBrowsingToDefault(); // must run before markOnboarded() so a fresh instance is not mistaken for an existing one.
         await markOnboarded();
@@ -43,7 +51,9 @@ function bootSSL(app, port = 3001) {
         await eagerLoadContextWindows();
         await PushNotifications.setupPushNotificationService();
         await TelegramBotService.bootIfActive();
-        console.log(`Primary server in HTTPS mode listening on port ${port}`);
+        console.log(
+          `Primary server in HTTPS mode listening on ${host || "*"}:${port}`
+        );
       })
       .on("error", catchSigTerms);
 
@@ -59,15 +69,15 @@ function bootSSL(app, port = 3001) {
         stacktrace: e.stack,
       }
     );
-    return bootHTTP(app, port);
+    return bootHTTP(app, port, host);
   }
 }
 
-function bootHTTP(app, port = 3001) {
+function bootHTTP(app, port = 3001, host = null) {
   if (!app) throw new Error('No "app" defined - crashing!');
 
   app
-    .listen(port, async () => {
+    .listen(...listenArgs(port, host), async () => {
       await migrateLegacyRecords();
       await migrateWebBrowsingToDefault(); // must run before markOnboarded() so a fresh instance is not mistaken for an existing one.
       await markOnboarded();
@@ -78,7 +88,9 @@ function bootHTTP(app, port = 3001) {
       await eagerLoadContextWindows();
       await PushNotifications.setupPushNotificationService();
       await TelegramBotService.bootIfActive();
-      console.log(`Primary server in HTTP mode listening on port ${port}`);
+      console.log(
+        `Primary server in HTTP mode listening on ${host || "*"}:${port}`
+      );
     })
     .on("error", catchSigTerms);
 

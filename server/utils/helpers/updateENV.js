@@ -1524,6 +1524,9 @@ function dumpENV() {
     "STORAGE_DIR",
     "SERVER_PORT",
     "COLLECTOR_PORT",
+    "SERVER_HOST",
+    "COLLECTOR_HOST",
+    "RERANK_MIN_SCORE",
     // For persistent data encryption
     "SIG_KEY",
     "SIG_SALT",

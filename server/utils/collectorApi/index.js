@@ -48,10 +48,19 @@ class CollectorApi {
     return this.DEFAULT_COLLECTOR_PORT;
   }
 
+  /**
+   * Host the server uses to reach the collector. Defaults to 0.0.0.0 (unchanged behavior).
+   * Set COLLECTOR_HOST=127.0.0.1 when the collector is bound to loopback only.
+   */
+  static getCollectorHost() {
+    const host = process.env.COLLECTOR_HOST || "0.0.0.0";
+    return host.includes(":") ? `[${host}]` : host;
+  }
+
   constructor() {
     const { CommunicationKey } = require("../comKey");
     this.comkey = new CommunicationKey();
-    this.endpoint = `http://0.0.0.0:${CollectorApi.getCollectorPort()}`;
+    this.endpoint = `http://${CollectorApi.getCollectorHost()}:${CollectorApi.getCollectorPort()}`;
   }
 
   log(text, ...args) {

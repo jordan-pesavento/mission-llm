@@ -22,6 +22,18 @@ class LanceDb extends VectorDatabase {
     super();
   }
 
+  /**
+   * Minimum reranker relevance (0-1) a chunk needs to be used as context in rerank mode.
+   * The reranker's score separates on-topic from off-topic chunks far better than raw cosine
+   * similarity, which some embedders (for example nomic-embed-text) keep high even for unrelated text.
+   * Unset (the default) keeps the upstream behavior of filtering on cosine similarity only.
+   * @returns {number|null}
+   */
+  get rerankMinScore() {
+    const value = Number(process.env.RERANK_MIN_SCORE);
+    return Number.isFinite(value) && value > 0 && value <= 1 ? value : null;
+  }
+
   get uri() {
     const basePath = !!process.env.STORAGE_DIR
       ? process.env.STORAGE_DIR
@@ -142,6 +154,12 @@ class LanceDb extends VectorDatabase {
       .then((rerankResults) => {
         rerankResults.forEach((item) => {
           if (this.distanceToSimilarity(item._distance) < similarityThreshold)
+            return;
+          if (
+            this.rerankMinScore !== null &&
+            typeof item?.rerank_score === "number" &&
+            item.rerank_score < this.rerankMinScore
+          )
             return;
           const { vector: _, ...rest } = item;
           if (filterIdentifiers.includes(sourceIdentifier(rest))) {

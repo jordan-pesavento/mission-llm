@@ -26,6 +26,7 @@
     "dev:server": "cd server && yarn dev",
     "dev:collector": "cd collector && yarn dev",
     "dev:frontend": "cd frontend && yarn dev",
+    "dev:frontend:local": "cd frontend && yarn dev:local",
     "dev": "npx concurrently \"yarn dev:server\" \"yarn dev:frontend\" \"yarn dev:collector\"",
     "prisma:generate": "cd server && npx prisma generate",
     "prisma:migrate": "cd server && node utils/boot/legacyUpgrade.js && npx prisma migrate dev --name init",
