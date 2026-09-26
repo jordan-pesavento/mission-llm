@@ -35,7 +35,7 @@ export default function NewWorkspaceModal({ closeModal }) {
           required={true}
           autoComplete="off"
         />
-        {error && <p className="text-red-400 text-sm">Error: {error}</p>}
+        {error && <p className="text-ml-bad text-sm">Error: {error}</p>}
         <p className="text-zinc-400 light:text-slate-600 text-xs md:text-sm">
           After creating this workspace only admins will be able to see it. You
           can add users after it has been created.

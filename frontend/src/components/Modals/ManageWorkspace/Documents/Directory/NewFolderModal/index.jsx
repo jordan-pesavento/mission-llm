@@ -40,7 +40,7 @@ export default function NewFolderModal({ closeModal, onCreated }) {
           <input
             name="folderName"
             type="text"
-            className="w-full h-[34px] px-3.5 text-sm rounded-lg outline-none bg-zinc-800 border border-zinc-800 text-zinc-300 placeholder:text-zinc-400 light:bg-white light:border-slate-300 light:text-slate-700 light:placeholder:text-slate-400 focus:border-sky-500 light:focus:border-sky-500"
+            className="w-full h-[34px] px-3.5 text-sm rounded-lg outline-none bg-zinc-800 border border-zinc-800 text-zinc-300 placeholder:text-zinc-400 light:bg-white light:border-slate-300 light:text-slate-700 light:placeholder:text-slate-500 focus:border-sky-500 light:focus:border-sky-500"
             placeholder="Enter folder name"
             required={true}
             autoComplete="off"
@@ -48,7 +48,7 @@ export default function NewFolderModal({ closeModal, onCreated }) {
             onChange={(e) => setFolderName(e.target.value)}
           />
         </div>
-        {error && <p className="text-red-400 text-sm">Error: {error}</p>}
+        {error && <p className="text-ml-bad text-sm">Error: {error}</p>}
       </ModalBody>
       <ModalFooter>
         <ModalSecondaryButton onClick={closeModal} type="button">

@@ -119,9 +119,9 @@ export default function GMailSkillPanel({
         </div>
 
         {isMultiUserMode && (
-          <div className="flex items-center gap-x-2 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-            <Warning size={20} className="text-yellow-500 shrink-0" />
-            <p className="text-yellow-500 text-xs">
+          <div className="flex items-center gap-x-2 p-3 bg-ml-warn-soft border border-ml-warn/40 rounded-lg">
+            <Warning size={20} className="text-ml-warn shrink-0" />
+            <p className="text-ml-text text-xs">
               {t("agent.skill.gmail.multiUserWarning")}
             </p>
           </div>
@@ -133,7 +133,7 @@ export default function GMailSkillPanel({
             components={{
               a: (
                 <Link
-                  className="text-sky-400 hover:text-sky-500 text-xs font-medium underline"
+                  className="text-ml-accent-text hover:text-ml-text text-xs font-medium underline"
                   to={paths.docs("/agent/usage/gmail-agent")}
                   target="_blank"
                 />
@@ -211,7 +211,7 @@ function ConfigurationSection({
           {isConfigured && (
             <div className="flex items-center gap-x-1">
               <CheckCircle size={14} weight="fill" className="text-green-500" />
-              <span className="text-xs text-green-500">
+              <span className="text-xs text-ml-text-2">
                 {t("agent.skill.gmail.configured")}
               </span>
             </div>
@@ -287,9 +287,9 @@ function ConfigurationSection({
             />
           </div>
           {!isConfigured && (
-            <div className="flex items-center gap-x-2 p-3 bg-orange-500/10 border border-orange-500/30 rounded-lg">
-              <Warning size={20} className="text-orange-500 shrink-0" />
-              <p className="text-orange-500 text-xs">
+            <div className="flex items-center gap-x-2 p-3 bg-ml-warn-soft border border-ml-warn/40 rounded-lg">
+              <Warning size={20} className="text-ml-warn shrink-0" />
+              <p className="text-ml-text text-xs">
                 {t("agent.skill.gmail.configurationRequired")}
               </p>
             </div>
@@ -416,9 +416,7 @@ function SkillRow({ skill, disabled, onToggle }) {
         <span className="text-sm font-medium text-slate-100 light:text-slate-900">
           {skill.title}
         </span>
-        <span className="text-xs text-slate-100/50 light:text-slate-900/50">
-          {skill.description}
-        </span>
+        <span className="text-xs text-ml-text-3">{skill.description}</span>
       </div>
       <SimpleToggleSwitch enabled={!disabled} onChange={onToggle} size="md" />
     </div>

@@ -88,7 +88,7 @@ export function NoSetupWarning({ showing, onSetupClick }) {
         {t("chat_window.workspace_llm_manager.missing_credentials")}{" "}
         <span
           onClick={onSetupClick}
-          className="text-sky-400 font-semibold cursor-pointer hover:underline"
+          className="text-ml-accent-text font-semibold cursor-pointer hover:underline"
           role="button"
         >
           {t(

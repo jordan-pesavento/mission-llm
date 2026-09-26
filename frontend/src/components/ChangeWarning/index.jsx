@@ -16,7 +16,7 @@ export default function ChangeWarningModal({
     <div className="flex flex-col gap-y-5">
       <ModalHeader
         title={
-          <span className="flex items-center gap-x-2 text-red-500">
+          <span className="flex items-center gap-x-2 text-ml-bad">
             <Warning className="w-6 h-6 shrink-0" weight="fill" />
             WARNING - This action is irreversible
           </span>

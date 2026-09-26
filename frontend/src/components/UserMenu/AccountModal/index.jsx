@@ -94,7 +94,7 @@ export default function AccountModal({ user, hideModal }) {
         <ModalBody>
           <div className="flex flex-col md:flex-row items-center justify-center gap-8">
             <div className="flex flex-col items-center">
-              <label className="group w-48 h-48 flex flex-col items-center justify-center bg-zinc-800 hover:bg-zinc-700 light:bg-sky-100 light:hover:bg-transparent transition-colors duration-300 rounded-full border-2 border-dashed border-white light:border-slate-400 cursor-pointer hover:opacity-60">
+              <label className="group w-48 h-48 flex flex-col items-center justify-center bg-ml-raised hover:bg-ml-raised-2 transition-colors duration-150 rounded-full border-2 border-dashed border-ml-line-2 hover:border-ml-accent-line cursor-pointer">
                 <input
                   id="logo-upload"
                   type="file"
@@ -110,11 +110,11 @@ export default function AccountModal({ user, hideModal }) {
                   />
                 ) : (
                   <div className="flex flex-col items-center justify-center p-3">
-                    <Plus className="w-8 h-8 text-zinc-400 light:text-slate-500 m-2" />
-                    <span className="text-zinc-400 light:text-slate-500 text-sm font-semibold">
+                    <Plus className="w-8 h-8 text-ml-text-2 m-2" />
+                    <span className="text-ml-text-2 text-sm font-semibold">
                       {t("profile_settings.profile_picture")}
                     </span>
-                    <span className="text-zinc-400 light:text-slate-500 text-xs">
+                    <span className="text-ml-text-2 text-[13px]">
                       800 x 800
                     </span>
                   </div>

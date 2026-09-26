@@ -65,7 +65,7 @@ export default function AgentSkill({ item, settings, setStep }) {
             <a
               href={paths.communityHub.profile(item.creatorUsername)}
               target="_blank"
-              className="hover:text-blue-500 hover:underline"
+              className="hover:text-ml-accent-text hover:underline"
               rel="noreferrer"
             >
               @{item.creatorUsername}
@@ -83,7 +83,7 @@ export default function AgentSkill({ item, settings, setStep }) {
           <a
             href="https://docs.anythingllm.com/community-hub/faq#verification"
             target="_blank"
-            className="text-xs font-mono text-blue-500 hover:underline"
+            className="text-xs font-mono text-ml-accent-text hover:underline"
             rel="noreferrer"
           >
             Learn more &rarr;

@@ -113,7 +113,7 @@ function PiperTTSModelSelection({ settings }) {
           </select>
           <DemoVoiceSample voiceId={selectedVoice} />
         </div>
-        <p className="text-xs text-white/40">
+        <p className="text-xs text-ml-text-3">
           The "✔" indicates this model is already stored locally and does not
           need to be downloaded when run.
         </p>
@@ -122,7 +122,7 @@ function PiperTTSModelSelection({ settings }) {
         <button
           type="button"
           onClick={flushVoices}
-          className="w-fit border-none hover:text-white hover:underline text-white/40 text-sm my-4"
+          className="w-fit border-none text-ml-text-3 hover:text-ml-text hover:underline text-sm my-4"
         >
           Flush voice cache
         </button>
@@ -186,7 +186,7 @@ function DemoVoiceSample({ voiceId }) {
       type="button"
       onClick={speakMessage}
       disabled={loading}
-      className="border-none text-zinc-300 flex items-center gap-x-1"
+      className="border-none text-ml-text-2 hover:text-ml-text flex items-center gap-x-1"
     >
       {speaking ? (
         <>

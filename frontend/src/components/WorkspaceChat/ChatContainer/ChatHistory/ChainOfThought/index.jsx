@@ -12,9 +12,9 @@ import {
 const cn = (...classes) => classes.filter(Boolean).join(" ");
 
 const STEP_STATUS_STYLES = {
-  complete: "text-zinc-400 light:text-zinc-500",
-  active: "text-zinc-50 light:text-zinc-950",
-  pending: "text-zinc-400/50 light:text-zinc-500/50",
+  complete: "text-ml-text-2",
+  active: "text-ml-text",
+  pending: "text-ml-text-3",
 };
 
 const ChainOfThoughtContext = createContext(null);
@@ -92,7 +92,7 @@ export function ChainOfThoughtHeader({
       aria-controls={contentId}
       onClick={() => setIsOpen(!isOpen)}
       className={cn(
-        "border-none bg-transparent p-0 flex w-full items-center gap-2 text-zinc-400 transition-colors hover:text-zinc-50 light:text-zinc-500 light:hover:text-zinc-950",
+        "border-none bg-transparent p-0 flex w-full items-center gap-2 text-ml-text-2 transition-colors hover:text-ml-text",
         className
       )}
       {...props}
@@ -168,9 +168,7 @@ export const ChainOfThoughtStep = memo(function ChainOfThoughtStep({
       <div className="flex-1 space-y-2 overflow-hidden">
         <div>{label}</div>
         {description && (
-          <div className="text-[13px] text-zinc-400 light:text-zinc-500">
-            {description}
-          </div>
+          <div className="text-[13px] text-ml-text-3">{description}</div>
         )}
         {children}
       </div>

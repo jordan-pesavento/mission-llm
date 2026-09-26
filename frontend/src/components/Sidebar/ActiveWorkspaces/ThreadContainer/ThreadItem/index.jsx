@@ -28,11 +28,9 @@ export default function ThreadItem({
   const workspaceSlug = workspace?.slug ?? urlSlug;
   const optionsContainer = useRef(null);
   const [showOptions, setShowOptions] = useState(false);
-  const linkTo = thread.virtual
-    ? "/"
-    : !thread.slug
-      ? paths.workspace.chat(workspaceSlug)
-      : paths.workspace.thread(workspaceSlug, thread.slug);
+  const linkTo = !thread.slug
+    ? paths.workspace.chat(workspaceSlug)
+    : paths.workspace.thread(workspaceSlug, thread.slug);
 
   const { ref } = useScrollActiveItemIntoView({
     isActive,
@@ -40,7 +38,7 @@ export default function ThreadItem({
     block: "center",
   });
 
-  const hasOptions = !!thread.slug && !thread.deleted && !thread.virtual;
+  const hasOptions = !!thread.slug && !thread.deleted;
   return (
     <div
       role="listitem"
@@ -242,9 +240,9 @@ function OptionsMenu({
         onClick={handleDelete}
         type="button"
         role="menuitem"
-        className={`${itemClass} text-ml-bad hover:bg-ml-bad-soft`}
+        className={`${itemClass} text-ml-bad hover:bg-ml-bad-soft hover:text-ml-text`}
       >
-        <Trash size={17} />
+        <Trash size={17} className="text-ml-bad" />
         Delete Thread
       </button>
     </div>

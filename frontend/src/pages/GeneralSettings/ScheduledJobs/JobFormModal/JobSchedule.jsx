@@ -20,10 +20,10 @@ export default function JobSchedule({
       <label className="flex items-baseline gap-1.5 mb-2 text-sm font-medium text-theme-text-primary">
         <span>
           {t("scheduledJobs.modal.scheduleLabel")}{" "}
-          <span className="text-red-400">*</span>
+          <span className="text-ml-bad">*</span>
         </span>
         {error && (
-          <span className="text-red-400 italic font-normal">
+          <span className="text-ml-bad italic font-normal">
             {t("scheduledJobs.modal.required", "Required")}
           </span>
         )}

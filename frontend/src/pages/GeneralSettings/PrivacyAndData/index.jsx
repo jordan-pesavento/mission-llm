@@ -99,7 +99,7 @@ function TelemetryLogs({ settings }) {
             look on{" "}
             <a
               href={`${paths.sourceCode()}/-/search?search=sendTelemetry&scope=blobs`}
-              className="underline text-blue-400"
+              className="underline text-ml-accent-text"
               target="_blank"
               rel="noreferrer"
             >
@@ -115,7 +115,7 @@ function TelemetryLogs({ settings }) {
             so that we can continue to improve Mission LLM for you.{" "}
             <a
               href={paths.issues()}
-              className="underline text-blue-400"
+              className="underline text-ml-accent-text"
               target="_blank"
               rel="noreferrer"
             >

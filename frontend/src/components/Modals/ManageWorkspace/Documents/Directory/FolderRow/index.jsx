@@ -93,23 +93,17 @@ export default function FolderRow({
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         className={`text-theme-text-primary text-xs grid grid-cols-12 py-2 pl-3.5 pr-8 hover:bg-theme-file-picker-hover cursor-pointer file-row ${
-          selected || partial ? "selected light:text-white !text-white" : ""
+          selected || partial ? "selected" : ""
         } ${
           isDropTarget
             ? "outline-dashed outline-2 -outline-offset-2 outline-sky-400 bg-sky-400/10"
             : ""
         }`}
       >
-        <div
-          className={`col-span-6 flex gap-x-[4px] items-center ${
-            selected || partial ? "!text-white" : "text-theme-text-primary"
-          }`}
-        >
+        <div className="col-span-6 flex gap-x-[4px] items-center text-theme-text-primary">
           <div
-            className={`shrink-0 w-3 h-3 rounded border-[1px] border-solid border-white ${
-              selected || partial
-                ? "text-white"
-                : "text-theme-text-primary light:invert"
+            className={`shrink-0 w-3 h-3 rounded-[3px] border border-solid ${
+              selected || partial ? "border-ml-accent" : "border-ml-text-3"
             } flex justify-center items-center cursor-pointer`}
             role="checkbox"
             aria-checked={partial ? "mixed" : selected}
@@ -119,8 +113,10 @@ export default function FolderRow({
               onToggleFolder(item);
             }}
           >
-            {selected && <div className="w-2 h-2 bg-white rounded-[2px]" />}
-            {partial && <div className="w-2 h-[2px] bg-white rounded-[2px]" />}
+            {selected && <div className="w-2 h-2 bg-ml-accent rounded-[2px]" />}
+            {partial && (
+              <div className="w-2 h-[2px] bg-ml-accent rounded-[2px]" />
+            )}
           </div>
           {/* No handler of its own - the row click already expands. */}
           <div
@@ -138,11 +134,7 @@ export default function FolderRow({
             {middleTruncate(item.name, 35)}
           </p>
           {displayCount > 0 && (
-            <span
-              className={`text-theme-text-secondary text-[10px] font-medium ml-1.5 shrink-0 ${
-                selected || partial ? "light:!text-white" : ""
-              }`}
-            >
+            <span className="text-theme-text-secondary text-[10px] font-medium ml-1.5 shrink-0">
               ({displayCount})
             </span>
           )}
@@ -184,7 +176,7 @@ export default function FolderRow({
                 onLoadMore(item.name);
               }}
               disabled={loading}
-              className="border-none bg-transparent text-xs text-theme-text-secondary hover:text-white cursor-pointer underline disabled:opacity-50 p-0"
+              className="border-none bg-transparent text-xs text-theme-text-secondary hover:text-ml-text cursor-pointer underline disabled:opacity-50 p-0"
             >
               {loading
                 ? `${t("common.loading")}...`

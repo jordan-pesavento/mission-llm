@@ -1,5 +1,6 @@
 import useLoginMode from "@/hooks/useLoginMode";
 import usePfp from "@/hooks/usePfp";
+import useBranding from "@/hooks/useBranding";
 import useUser from "@/hooks/useUser";
 import System from "@/models/system";
 import paths from "@/utils/paths";
@@ -17,53 +18,89 @@ import {
 import { useTranslation } from "react-i18next";
 
 /*
- * The user identity lives in the rail foot (avatar, name, role). Clicking it
- * opens the same menu the old floating top-right button had: Account,
- * Support and Sign out. The floating button is only rendered as a fallback on
- * pages that have no rail (UserMenu checks whether a RailUser is mounted), so
- * the chat top bar owns the right edge everywhere else.
+ * The user avatar sits in the top-right corner of every screen (owner's
+ * choice). The chat top bar renders it in flow at its right end (TopBarUser);
+ * every other page gets the floating UserButton at the same spot: 38px,
+ * centered in the 64px top band, on the right gutter. Clicking it opens the
+ * menu: who is signed in, then Account, Support and Sign out.
+ *
+ * Instance settings pages (the ones with the settings rail) have a page head
+ * instead of a top bar. There the avatar has the head's geometry on every
+ * page, floating or in a SettingsPageHead: 42px with a 12px radius, like the
+ * head's buttons, at --ml-set-avatar-top on the right gutter. So it neither
+ * moves nor changes size between settings pages.
  */
 
-let railUserMounts = 0;
-const railUserListeners = new Set();
-function emitRailUserChange() {
-  railUserListeners.forEach((listener) => listener(railUserMounts));
+/** Size and corner radius of the avatar on instance settings pages. */
+export const SETTINGS_AVATAR = { size: 42, radius: 12 };
+
+/**
+ * A mount counter shared across components: `useRegister(enabled)` counts a
+ * component while it is mounted, `useMounted()` is true while the count is
+ * above zero.
+ */
+function createMountRegistry() {
+  let mounts = 0;
+  const listeners = new Set();
+  const emit = () => listeners.forEach((listener) => listener(mounts));
+  return {
+    useMounted() {
+      const [mounted, setMounted] = useState(mounts > 0);
+      useLayoutEffect(() => {
+        const listener = (count) => setMounted(count > 0);
+        listeners.add(listener);
+        listener(mounts);
+        return () => listeners.delete(listener);
+      }, []);
+      return mounted;
+    },
+    useRegister(enabled = true) {
+      useLayoutEffect(() => {
+        if (!enabled) return;
+        mounts += 1;
+        emit();
+        return () => {
+          mounts -= 1;
+          emit();
+        };
+      }, [enabled]);
+    },
+  };
 }
 
-/** True while at least one RailUser row is mounted on the page. */
-export function useRailUserMounted() {
-  const [mounted, setMounted] = useState(railUserMounts > 0);
-  useLayoutEffect(() => {
-    const listener = (count) => setMounted(count > 0);
-    railUserListeners.add(listener);
-    listener(railUserMounts);
-    return () => railUserListeners.delete(listener);
-  }, []);
-  return mounted;
-}
+const inlineUser = createMountRegistry();
+const settingsPage = createMountRegistry();
 
-function useRegisterRailUser() {
-  useLayoutEffect(() => {
-    railUserMounts += 1;
-    emitRailUserChange();
-    return () => {
-      railUserMounts -= 1;
-      emitRailUserChange();
-    };
-  }, []);
-}
+/** True while a top bar renders its own avatar, so the floating one hides. */
+export const useInlineUserMounted = inlineUser.useMounted;
 
+/**
+ * Called by the desktop settings rail: while it is mounted the floating
+ * avatar takes the settings page head geometry (SETTINGS_AVATAR).
+ */
+export const useRegisterSettingsPage = settingsPage.useRegister;
+
+/**
+ * Support link for the account menu: mailto: the Branding support email, else
+ * the issue tracker. Refetches whenever the saved brand changes (a Branding
+ * save in this tab, another tab, or by another admin).
+ */
 function useSupportLink() {
   const [supportEmail, setSupportEmail] = useState("");
+  const { savedBrand } = useBranding();
+  const brandVersion = savedBrand?.version || null;
   useEffect(() => {
-    const fetchSupportEmail = async () => {
-      const supportEmail = await System.fetchSupportEmail();
+    let active = true;
+    System.fetchSupportEmail(brandVersion).then((supportEmail) => {
+      if (!active) return;
       setSupportEmail(
         supportEmail?.email ? `mailto:${supportEmail.email}` : paths.issues()
       );
+    });
+    return () => {
+      active = false;
     };
-    fetchSupportEmail();
-  }, []);
+  }, [brandVersion]);
   return supportEmail;
 }
 
@@ -129,8 +166,25 @@ const MENU_ITEM =
 
 function UserMenuItems({ mode, user, supportEmail, onAccount, className }) {
   const { t } = useTranslation();
+  const name = mode === "multi" ? user?.username : null;
+  const role = mode === "multi" ? user?.role : null;
   return (
     <div role="menu" className={className}>
+      {!!name && (
+        <div className="flex flex-col min-w-0 px-3 pt-2 pb-2.5 mb-1 border-b border-ml-line">
+          <span
+            className="text-[15px] font-semibold leading-[1.3] text-ml-text truncate"
+            title={name}
+          >
+            {name}
+          </span>
+          {!!role && (
+            <span className="ml-mono text-[13px] font-medium leading-[1.35] text-ml-text-3 capitalize truncate">
+              {role}
+            </span>
+          )}
+        </div>
+      )}
       {mode === "multi" && !!user && (
         <button
           type="button"
@@ -168,8 +222,13 @@ function UserMenuItems({ mode, user, supportEmail, onAccount, className }) {
 const MENU_SURFACE =
   "p-1.5 flex flex-col gap-y-0.5 rounded-[12px] bg-ml-raised border border-ml-line-2 shadow-ml-pop z-50";
 
-/** Round avatar: profile picture when set, otherwise the username initials. */
-function Avatar({ mode }) {
+/**
+ * Avatar: profile picture when set, otherwise the username initials. Round
+ * and 38px by default (the top bar's control size); settings pages show it
+ * at SETTINGS_AVATAR, the size and radius of the head's buttons.
+ * @param {{size?: number, radius?: number|null}} props - radius in px, null for round
+ */
+function Avatar({ mode, size = 38, radius = null }) {
   const { pfp } = usePfp();
   const { user: ctxUser } = useUser();
   const user = ctxUser || userFromStorage();
@@ -177,8 +236,11 @@ function Avatar({ mode }) {
   return (
     <span
       aria-hidden="true"
-      className="w-[38px] h-[38px] shrink-0 rounded-full grid place-items-center overflow-hidden border border-ml-line-2 text-[14px] font-semibold uppercase text-[#E9EFF9]"
+      className="shrink-0 grid place-items-center overflow-hidden border border-ml-line-2 text-[14px] font-semibold uppercase text-[#E9EFF9]"
       style={{
+        width: size,
+        height: size,
+        borderRadius: radius === null ? "9999px" : radius,
         backgroundColor: "#21345A",
         backgroundImage: "linear-gradient(180deg, #2A3F66, #18284A)",
       }}
@@ -198,15 +260,8 @@ function Avatar({ mode }) {
   );
 }
 
-/**
- * The rail foot's user row: avatar, name and role (real account data) as one
- * button that opens the user menu, followed by any trailing actions (footer
- * links, settings gear).
- */
-export function RailUser({ children = null }) {
-  useRegisterRailUser();
-  const mode = useLoginMode();
-  const { user } = useUser();
+/** Opens the user menu below the avatar, aligned to its right edge. */
+function AvatarMenu({ mode, user, label, size, radius = null }) {
   const supportEmail = useSupportLink();
   const {
     menuRef,
@@ -218,51 +273,24 @@ export function RailUser({ children = null }) {
     closeAccount,
   } = useUserMenu();
 
-  if (mode === null) {
-    // Single user without a password: there is no account to show.
-    return (
-      <div className="flex items-center justify-end gap-x-1 min-h-[38px]">
-        {children}
-      </div>
-    );
-  }
-
-  const name = mode === "multi" ? user?.username : null;
-  const role = mode === "multi" ? user?.role : null;
-
   return (
-    <div className="relative flex items-center gap-x-2 min-h-[38px] px-[2px]">
+    <>
       <button
         ref={buttonRef}
         type="button"
         onClick={() => setShowMenu((prev) => !prev)}
         aria-haspopup="menu"
         aria-expanded={showMenu}
-        aria-label={name ? `${name}, account menu` : "Account menu"}
-        className="flex flex-1 min-w-0 items-center gap-x-3 -my-1 -ml-1 p-1 pr-2 rounded-[12px] text-left hover:bg-ml-raised transition-colors duration-150"
+        aria-label={label}
+        className="grid place-items-center transition-opacity duration-150 hover:opacity-85 focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_var(--ml-accent-soft)]"
+        style={{ borderRadius: radius === null ? "9999px" : radius }}
       >
-        <Avatar mode={mode} />
-        {!!name && (
-          <span className="flex flex-col min-w-0">
-            <span
-              className="text-[15px] font-semibold leading-[1.3] text-ml-text truncate"
-              title={name}
-            >
-              {name}
-            </span>
-            {!!role && (
-              <span className="ml-mono text-[13px] font-medium leading-[1.35] text-ml-text-3 capitalize truncate">
-                {role}
-              </span>
-            )}
-          </span>
-        )}
+        <Avatar mode={mode} size={size} radius={radius} />
       </button>
-      {children}
       {showMenu && (
         <div
           ref={menuRef}
-          className="absolute left-0 bottom-[calc(100%+10px)] min-w-[200px] max-w-full"
+          className="absolute top-[calc(100%+8px)] right-0 min-w-[220px] max-w-[320px] z-50"
         >
           <UserMenuItems
             mode={mode}
@@ -276,60 +304,67 @@ export function RailUser({ children = null }) {
       {user && showAccountSettings && (
         <AccountModal user={user} hideModal={closeAccount} />
       )}
+    </>
+  );
+}
+
+function accountLabel(mode, user) {
+  const name = mode === "multi" ? user?.username : null;
+  return name ? `${name}, account menu` : "Account menu";
+}
+
+/**
+ * The avatar in flow at the right end of a top bar, or of a settings page
+ * head (SettingsPageHead, with `settings`). While it is mounted the floating
+ * button stays hidden, so there is only ever one avatar on screen.
+ * @param {{settings?: boolean}} props - true for the settings head geometry
+ */
+export function TopBarUser({ settings = false }) {
+  inlineUser.useRegister();
+  const mode = useLoginMode();
+  const { user } = useUser();
+  if (mode === null) return null;
+  return (
+    <div data-user-avatar className="relative shrink-0">
+      <AvatarMenu
+        mode={mode}
+        user={user}
+        label={accountLabel(mode, user)}
+        {...(settings ? SETTINGS_AVATAR : {})}
+      />
     </div>
   );
 }
 
 /**
- * Floating fallback for pages without a rail (for example the workspace
- * settings page on a touch device). Same menu as the rail row.
+ * The avatar for pages without a chat top bar (settings, admin, workspace
+ * settings): fixed in the top-right corner. On a page with a top bar it sits
+ * where TopBarUser would; on an instance settings page it sits where a
+ * SettingsPageHead puts its avatar.
  */
 export default function UserButton() {
   const mode = useLoginMode();
   const { user } = useUser();
-  const supportEmail = useSupportLink();
-  const {
-    menuRef,
-    buttonRef,
-    showMenu,
-    setShowMenu,
-    showAccountSettings,
-    openAccount,
-    closeAccount,
-  } = useUserMenu();
+  const onSettingsPage = settingsPage.useMounted();
 
   if (mode === null) return null;
   return (
-    <div className="absolute top-3 right-4 md:top-[13px] md:right-4 w-fit h-fit z-40">
-      <button
-        ref={buttonRef}
-        onClick={() => setShowMenu((prev) => !prev)}
-        type="button"
-        aria-haspopup="menu"
-        aria-expanded={showMenu}
-        aria-label="Account menu"
-        className="rounded-full transition-opacity duration-150 hover:opacity-85"
-      >
-        <Avatar mode={mode} />
-      </button>
-
-      {showMenu && (
-        <div
-          ref={menuRef}
-          className="absolute top-[calc(100%+8px)] right-0 min-w-[200px]"
-        >
-          <UserMenuItems
-            mode={mode}
-            user={user}
-            supportEmail={supportEmail}
-            onAccount={openAccount}
-            className={MENU_SURFACE}
-          />
-        </div>
-      )}
-      {user && showAccountSettings && (
-        <AccountModal user={user} hideModal={closeAccount} />
-      )}
+    <div
+      data-user-avatar
+      className="fixed z-40 w-fit h-fit"
+      style={{
+        top: onSettingsPage
+          ? "calc(var(--ml-banner-top, 0px) + var(--ml-set-avatar-top))"
+          : "calc(var(--ml-banner-top, 0px) + (var(--ml-topbar-h) - var(--ml-ctl)) / 2)",
+        right: "var(--ml-gutter)",
+      }}
+    >
+      <AvatarMenu
+        mode={mode}
+        user={user}
+        label={accountLabel(mode, user)}
+        {...(onSettingsPage ? SETTINGS_AVATAR : {})}
+      />
     </div>
   );
 }

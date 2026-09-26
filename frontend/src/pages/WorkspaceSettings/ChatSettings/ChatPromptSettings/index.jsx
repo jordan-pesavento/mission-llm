@@ -221,7 +221,7 @@ export default function ChatPromptSettings({
               >
                 <Highlighter
                   className="whitespace-pre-wrap"
-                  highlightClassName="bg-cta-button p-0.5 rounded-md"
+                  highlightClassName="bg-ml-accent-soft text-ml-accent-text p-0.5 rounded-md"
                   searchWords={availableVariables.map((v) => `{${v.key}}`)}
                   autoEscape={true}
                   caseSensitive={true}

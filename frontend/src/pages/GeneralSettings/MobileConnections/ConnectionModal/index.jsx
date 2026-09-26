@@ -25,9 +25,9 @@ export default function MobileConnectModal({ isOpen, onClose }) {
         <button
           onClick={onClose}
           type="button"
-          className="border-none absolute top-4 right-4 transition-all duration-200 bg-transparent rounded-lg text-sm p-1 inline-flex items-center hover:bg-zinc-800 light:hover:bg-slate-100"
+          className="border-none absolute top-4 right-4 transition-all duration-200 bg-transparent rounded-lg text-sm p-1 inline-flex items-center hover:bg-white/10"
         >
-          <X size={24} weight="bold" className="text-white" />
+          <X size={24} weight="bold" className="text-[#FFF]" />
         </button>
 
         <div className="flex w-full h-full justify-between p-[35px]">

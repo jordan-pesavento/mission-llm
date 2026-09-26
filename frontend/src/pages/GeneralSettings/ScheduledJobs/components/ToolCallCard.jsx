@@ -122,7 +122,7 @@ function ToolCallResult({ toolCall, showResult, setShowResult }) {
       <button
         type="button"
         onClick={() => setShowResult(!showResult)}
-        className="border-none text-xs text-blue-400 hover:text-blue-300 transition-colors"
+        className="border-none text-xs text-ml-accent-text hover:text-ml-text transition-colors"
       >
         {showResult
           ? t("scheduledJobs.toolCall.hideResult")

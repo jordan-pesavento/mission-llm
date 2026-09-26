@@ -3,7 +3,6 @@
 
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mission LLM | Private, self-hosted AI</title>
 
@@ -20,13 +19,94 @@
     <meta property="twitter:title" content="Mission LLM | Private, self-hosted AI">
     <meta property="twitter:description" content="Mission LLM | Private, self-hosted AI">
 
-    <link rel="icon" href="/favicon.png" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.png" />
 
     <!-- PWA -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="manifest" href="/manifest.json" />
+
+    <!--
+      Boot: resolve the theme and apply the cached branding (accent css, tab
+      title, favicon, system banner space) before the first paint. Mirrors
+      src/utils/branding/theme.js and apply.js; BrandingProvider takes over once
+      the app loads and fetches the current branding.
+    -->
+    <script>
+      (function () {
+        var root = document.documentElement;
+        function get(key) {
+          try {
+            return localStorage.getItem(key);
+          } catch (e) {
+            return null;
+          }
+        }
+        var cache = null;
+        try {
+          cache = JSON.parse(get("missionllm_brand_cache") || "null");
+        } catch (e) {}
+        var brand = cache && typeof cache === "object" ? cache.brand : null;
+        var options = ["system", "light", "dark"];
+
+        var pref = get("missionllm_theme_choice");
+        if (options.indexOf(pref) < 0) {
+          var legacy = get("theme");
+          pref = legacy === "light" || legacy === "dark" ? legacy : null;
+        }
+        if (!pref && brand && options.indexOf(brand.defaultTheme) >= 0)
+          pref = brand.defaultTheme;
+        if (!pref || pref === "system")
+          pref =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark";
+        root.setAttribute("data-theme", pref);
+
+        if (!brand || typeof brand !== "object") return;
+
+        var ch = "(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)";
+        var rgb = ch + " " + ch + " " + ch;
+        var safeCss = new RegExp(
+          "^:root:root\\{--ml-accent-rgb:" + rgb + ";--ml-on-accent:#[0-9a-f]{6}\\}" +
+            ":root:root\\[data-theme=light\\]\\{--ml-accent-rgb:" + rgb + ";--ml-on-accent:#[0-9a-f]{6}\\}$"
+        );
+        if (typeof brand.css === "string" && safeCss.test(brand.css)) {
+          var style = document.createElement("style");
+          style.id = "mission-brand";
+          style.textContent = brand.css;
+          document.head.appendChild(style);
+        }
+
+        if (typeof brand.pageTitle === "string" && brand.pageTitle)
+          document.title = brand.pageTitle;
+
+        var banner = brand.banner;
+        if (banner && banner.enabled === true) {
+          var both = banner.position !== "top";
+          root.style.setProperty("--ml-banner-top", "26px");
+          root.style.setProperty("--ml-banner-bottom", both ? "26px" : "0px");
+          root.setAttribute("data-ml-banner", both ? "both" : "top");
+        }
+
+        var hrefs = cache.hrefs || {};
+        var validHref = /^(https?:\/\/|\/(?!\/))/i;
+        if (typeof hrefs.icon === "string" && validHref.test(hrefs.icon) && hrefs.icon !== "/favicon.png") {
+          var icons = document.querySelectorAll('link[rel~="icon"]');
+          for (var i = 0; i < icons.length; i++) {
+            icons[i].removeAttribute("type");
+            icons[i].setAttribute("href", hrefs.icon);
+          }
+        }
+        if (typeof hrefs.appleTouch === "string" && validHref.test(hrefs.appleTouch)) {
+          var touch = document.querySelectorAll('link[rel="apple-touch-icon"]');
+          for (var j = 0; j < touch.length; j++)
+            touch[j].setAttribute("href", hrefs.appleTouch);
+        }
+      })();
+    </script>
   </head>
 
   <body>

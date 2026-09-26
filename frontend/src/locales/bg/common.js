@@ -1,3 +1,4 @@
+// Anything with "null" requires a translation. Contribute to translation via a PR!
 const TRANSLATIONS = {
   onboarding: {
     home: {
@@ -808,6 +809,214 @@ const TRANSLATIONS = {
       title: "Брандиране и бяла марка",
       description:
         "Персонализирайте вашата инсталация на Mission LLM със собствено брандиране.",
+      loading: null,
+      "load-failed": null,
+      retry: null,
+      uploading: null,
+      actions: {
+        save: null,
+        saving: null,
+        reset: null,
+        "admin-only": null,
+      },
+      tabs: {
+        identity: null,
+        colors: null,
+        "sign-in": null,
+        banner: null,
+        advanced: null,
+      },
+      swatches: {
+        "mission-blue": null,
+        "stellar-teal": null,
+        "ops-green": null,
+        "signal-amber": null,
+        crimson: null,
+        "delta-silver": null,
+      },
+      identity: {
+        name: {
+          title: null,
+          description: null,
+          name: null,
+          tagline: null,
+        },
+        logo: {
+          title: null,
+          description: null,
+          dark: null,
+          light: null,
+          replace: null,
+          remove: null,
+          "using-dark": null,
+          "using-light": null,
+        },
+        icon: {
+          title: null,
+          description: null,
+          replace: null,
+          remove: null,
+          size: null,
+        },
+        accent: {
+          title: null,
+          description: null,
+          hex: null,
+        },
+      },
+      colors: {
+        theme: {
+          title: null,
+          description: null,
+          system: null,
+          dark: null,
+          light: null,
+        },
+        "light-accent": {
+          title: null,
+          description: null,
+          auto: null,
+          custom: null,
+          hex: null,
+        },
+        readability: {
+          title: null,
+          description: null,
+          dark: null,
+          light: null,
+          "light-text": null,
+          "dark-text": null,
+          readable: null,
+          adjusted: null,
+          "low-contrast": null,
+        },
+      },
+      "sign-in": {
+        notice: {
+          title: null,
+          description: null,
+          toggle: null,
+          heading: null,
+          text: null,
+        },
+        ack: {
+          title: null,
+          description: null,
+          toggle: null,
+          "needs-notice": null,
+        },
+      },
+      banner: {
+        main: {
+          title: null,
+          description: null,
+          toggle: null,
+          text: null,
+        },
+        color: {
+          title: null,
+          description: null,
+          hex: null,
+        },
+        position: {
+          title: null,
+          description: null,
+          both: null,
+          top: null,
+        },
+        presets: {
+          unclassified: null,
+          cui: null,
+          confidential: null,
+          secret: null,
+          "top-secret": null,
+          "ts-sci": null,
+        },
+      },
+      advanced: {
+        title: {
+          title: null,
+          description: null,
+          label: null,
+        },
+        favicon: {
+          title: null,
+          description: null,
+          label: null,
+        },
+        support: {
+          title: null,
+          description: null,
+          label: null,
+        },
+        footer: {
+          title: null,
+          description: null,
+          icon: null,
+          link: null,
+          "choose-icon": null,
+          "link-n": null,
+          "clear-n": null,
+        },
+      },
+      preview: {
+        title: null,
+        dark: null,
+        light: null,
+        button: null,
+        "sign-in": null,
+        ack: null,
+      },
+      reset: {
+        title: null,
+        body: null,
+        "include-links": null,
+        cancel: null,
+        confirm: null,
+        working: null,
+      },
+      leave: {
+        title: null,
+        body: null,
+        stay: null,
+        discard: null,
+      },
+      toast: {
+        saved: null,
+        "fix-fields": null,
+        "save-failed": null,
+        "logo-updated": null,
+        "logo-removed": null,
+        "icon-updated": null,
+        "icon-removed": null,
+        "remove-failed": null,
+        reset: null,
+        "reset-failed": null,
+      },
+      errors: {
+        "too-long": null,
+        "too-many": null,
+        "invalid-chars": null,
+        "invalid-hex": null,
+        "invalid-url": null,
+        "invalid-link": null,
+        "invalid-email": null,
+        "missing-url": null,
+        "missing-icon": null,
+        "footer-rows": null,
+        "missing-file": null,
+        "unsupported-type": null,
+        "too-large": null,
+        "too-large-dimensions": null,
+        "logo-too-small": null,
+        "icon-too-small": null,
+        "bad-aspect": null,
+        "not-square": null,
+        "invalid-svg": null,
+        "upload-failed": null,
+        invalid: null,
+        "icon-too-detailed": null,
+      },
     },
     chat: {
       title: "Чат",
@@ -842,50 +1051,10 @@ const TRANSLATIONS = {
         description:
           "Изключва автоматичното превъртане до дъното на чата при нови съобщения.",
       },
-      "support-email": {
-        title: "Имейл за поддръжка",
-        description:
-          "Задайте имейл адрес за поддръжка, достъпен за потребителите, когато имат нужда от помощ.",
-      },
-      "app-name": {
-        title: "Име",
-        description:
-          "Задайте име, което се показва на страницата за вход на всички потребители.",
-      },
       "display-language": {
         title: "Език на интерфейса",
         description:
           "Изберете предпочитания език за интерфейса на Mission LLM — когато има налични преводи.",
-      },
-      logo: {
-        title: "Лого",
-        description:
-          "Качете собствено лого, което да се показва на всички страници.",
-        add: "Добави собствено лого",
-        recommended: "Препоръчителен размер: 800 x 200",
-        remove: "Премахни",
-        replace: "Замени",
-      },
-      "browser-appearance": {
-        title: "Изглед в браузъра",
-        description:
-          "Персонализирайте изгледа на раздела и заглавието в браузъра, когато приложението е отворено.",
-        tab: {
-          title: "Заглавие",
-          description:
-            "Задайте собствено заглавие на раздела, когато приложението е отворено в браузър.",
-        },
-        favicon: {
-          title: "Икона (favicon)",
-          description: "Използвайте собствена икона за раздела на браузъра.",
-        },
-      },
-      "sidebar-footer": {
-        title: "Елементи в долната част на страничната лента",
-        description:
-          "Персонализирайте елементите, показвани в долната част на страничната лента.",
-        icon: "Икона",
-        link: "Връзка",
       },
       "render-html": {
         title: "Показвай HTML в чата",
@@ -1705,6 +1874,15 @@ const TRANSLATIONS = {
       cancel: "Отказ",
       confirm: "Продължи",
     },
+    source_total_one: null,
+    source_total_other: null,
+    sources_of_docs: null,
+    source_match: null,
+    close_sources: null,
+    scroll_to_latest: null,
+    ask_workspace: null,
+    attach: null,
+    agent: null,
   },
   profile_settings: {
     edit_account: "Редакция на акаунта",

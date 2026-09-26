@@ -165,7 +165,7 @@ export default function SuggestedChatMessages({ slug }) {
             </label>
             <input
               placeholder="Message"
-              className="border-none bg-theme-settings-input-bg text-white placeholder:text-white/20 text-sm rounded-lg focus:outline-primary-button active:outline-primary-button outline-none block p-2.5 w-full"
+              className="border-none bg-theme-settings-input-bg text-white placeholder:text-theme-settings-input-placeholder text-sm rounded-lg focus:outline-primary-button active:outline-primary-button outline-none block p-2.5 w-full"
               value={newMessage.message}
               name="message"
               onChange={onEditChange}
@@ -177,7 +177,7 @@ export default function SuggestedChatMessages({ slug }) {
         <button
           type="button"
           onClick={addMessage}
-          className="flex gap-x-2 items-center justify-start text-white text-sm hover:text-sky-400 transition-all duration-300"
+          className="flex gap-x-2 items-center justify-start text-white text-sm hover:text-ml-accent-text transition-all duration-300"
         >
           {t("general.message.add")}{" "}
           <Plus className="" size={24} weight="fill" />

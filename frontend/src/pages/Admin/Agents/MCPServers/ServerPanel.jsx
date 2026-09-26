@@ -163,9 +163,9 @@ function ToolCountWarningBanner({ server, enabledToolCount }) {
   if (enabledToolCount <= 10) return null;
 
   return (
-    <div className="flex items-center gap-x-2 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-      <Warning className="h-5 w-5 text-yellow-500 shrink-0" weight="fill" />
-      <p className="text-yellow-500 text-sm">
+    <div className="flex items-center gap-x-2 p-3 bg-ml-warn-soft border border-ml-warn/40 rounded-lg">
+      <Warning className="h-5 w-5 text-ml-warn shrink-0" weight="fill" />
+      <p className="text-ml-text text-sm">
         <Trans
           i18nKey={`agent.mcp.tool-count-warning`}
           values={{ count: enabledToolCount }}
@@ -207,7 +207,7 @@ function RenderServerStatus({ server }) {
         {t("agent.mcp.not-running-warning")}
       </p>
       <div className="bg-theme-bg-primary rounded-lg p-4">
-        <p className="text-red-500 text-sm font-mono">{server.error}</p>
+        <p className="text-ml-bad text-sm font-mono">{server.error}</p>
       </div>
     </div>
   );
@@ -297,7 +297,7 @@ function ServerTool({ serverName, tool, enabled, onToggle }) {
                     <p className="text-theme-text-secondary text-sm text-left font-bold">
                       {key}
                       {tool.inputSchema?.required?.includes(key) && (
-                        <sup className="text-red-500">*</sup>
+                        <sup className="text-ml-bad">*</sup>
                       )}
                     </p>
                     <p className="text-theme-text-secondary text-sm text-left">

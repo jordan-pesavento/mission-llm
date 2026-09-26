@@ -176,9 +176,11 @@ function MCPServerItem({ server, isFirst, isLast, isSelected, handleClick }) {
         {titleCase(server.name.replace(/[_-]/g, " "))}
       </div>
       <div className="flex items-center gap-x-2">
-        <div
-          className={`text-sm text-theme-text-secondary font-medium ${running ? "text-green-500" : "text-red-500"}`}
-        >
+        <div className="flex items-center gap-x-1.5 text-sm text-ml-text-2 font-medium">
+          <span
+            aria-hidden="true"
+            className={`w-2 h-2 rounded-full ${running ? "bg-ml-ok" : "bg-ml-bad"}`}
+          />
           {running ? t("common.on") : t("common.stopped")}
         </div>
       </div>

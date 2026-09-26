@@ -96,7 +96,7 @@ export default function AgentClarifyingQuestions() {
                 setMaxPerTurn(parseInt(e.target.value));
               }}
               onWheel={(e) => e.target.blur()}
-              className="bg-zinc-800 border border-zinc-800 text-zinc-100 placeholder:text-zinc-400 light:bg-white light:border-slate-300 light:text-slate-900 light:placeholder:text-slate-400 text-sm rounded-lg outline-none focus:border-sky-500 light:focus:border-sky-500 block w-[80px] h-[34px] px-3 text-center"
+              className="bg-zinc-800 border border-zinc-800 text-zinc-100 placeholder:text-zinc-400 light:bg-white light:border-slate-300 light:text-slate-900 light:placeholder:text-slate-500 text-sm rounded-lg outline-none focus:border-sky-500 light:focus:border-sky-500 block w-[80px] h-[34px] px-3 text-center"
               placeholder="3"
               autoComplete="off"
             />

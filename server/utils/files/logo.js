@@ -9,11 +9,21 @@ const LOGO_FILENAME_DARK = "mission-llm-invert.png";
 
 /**
  * Checks if the filename is the default logo filename for dark or light mode.
+ * Spellings that open the same file count too: a path that resolves to it
+ * ("./mission-llm.png", "x/../mission-llm.png"), another letter case, and
+ * trailing dots, spaces or an NTFS stream suffix, which Windows ignores. So a
+ * stored alias is never treated (or removed) as a custom logo.
  * @param {string} filename - The filename to check.
  * @returns {boolean} Whether the filename is the default logo filename.
  */
 function isDefaultFilename(filename) {
-  return [LOGO_FILENAME, LOGO_FILENAME_DARK].includes(filename);
+  if (typeof filename !== "string" || !filename.trim()) return false;
+  const base = path.posix
+    .basename(path.posix.normalize(filename.trim().replace(/\\/g, "/")))
+    .replace(/:.*$/, "")
+    .replace(/[. ]+$/, "")
+    .toLowerCase();
+  return [LOGO_FILENAME, LOGO_FILENAME_DARK].includes(base);
 }
 
 function validFilename(newFilename = "") {
@@ -30,12 +40,32 @@ function getDefaultFilename(darkMode = true) {
   return darkMode ? LOGO_FILENAME : LOGO_FILENAME_DARK;
 }
 
+/**
+ * Path of a shipped default logo (mission-llm.png or mission-llm-invert.png).
+ * @param {string} defaultFilename - one of the two default filenames
+ * @returns {string}
+ */
+function defaultLogoFilepath(defaultFilename = LOGO_FILENAME) {
+  const basePath = process.env.STORAGE_DIR
+    ? path.join(process.env.STORAGE_DIR, "assets")
+    : path.join(__dirname, "../../storage/assets");
+  const name = [LOGO_FILENAME, LOGO_FILENAME_DARK].includes(defaultFilename)
+    ? defaultFilename
+    : LOGO_FILENAME;
+  return path.join(basePath, name);
+}
+
+/**
+ * The legacy custom logo file when logo_filename names a file directly in the
+ * assets folder, else the default. Sub-folders (such as assets/branding) are
+ * never read through here.
+ */
 async function determineLogoFilepath(defaultFilename = LOGO_FILENAME) {
   const currentLogoFilename = await SystemSettings.currentLogoFilename();
   const basePath = process.env.STORAGE_DIR
     ? path.join(process.env.STORAGE_DIR, "assets")
     : path.join(__dirname, "../../storage/assets");
-  const defaultFilepath = path.join(basePath, defaultFilename);
+  const defaultFilepath = defaultLogoFilepath(defaultFilename);
 
   if (currentLogoFilename && validFilename(currentLogoFilename)) {
     const customLogoPath = path.join(
@@ -43,6 +73,8 @@ async function determineLogoFilepath(defaultFilename = LOGO_FILENAME) {
       normalizePath(currentLogoFilename)
     );
     if (!isWithin(path.resolve(basePath), path.resolve(customLogoPath)))
+      return defaultFilepath;
+    if (path.dirname(path.resolve(customLogoPath)) !== path.resolve(basePath))
       return defaultFilepath;
     return fs.existsSync(customLogoPath) ? customLogoPath : defaultFilepath;
   }
@@ -112,6 +144,8 @@ module.exports = {
   validFilename,
   getDefaultFilename,
   determineLogoFilepath,
+  defaultLogoFilepath,
   isDefaultFilename,
   LOGO_FILENAME,
+  LOGO_FILENAME_DARK,
 };

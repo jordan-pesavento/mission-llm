@@ -32,14 +32,17 @@ const fs = require("fs");
 const path = require("path");
 const {
   getDefaultFilename,
-  determineLogoFilepath,
+  defaultLogoFilepath,
   fetchLogo,
-  validFilename,
-  renameLogoFile,
-  removeCustomLogo,
-  LOGO_FILENAME,
-  isDefaultFilename,
 } = require("../utils/files/logo");
+const {
+  getBrand,
+  getAssetFile,
+  setAsset,
+  removeAsset: removeBrandAsset,
+  signInAckRequired,
+  UploadError,
+} = require("../utils/branding");
 const { Telemetry } = require("../models/telemetry");
 const { ApiKey } = require("../models/apiKeys");
 const { getCustomModels } = require("../utils/helpers/customModels");
@@ -76,6 +79,43 @@ const { SystemPromptVariables } = require("../models/systemPromptVariables");
 const { isReservedCommand } = require("../utils/chats");
 const { AgentSkillWhitelist } = require("../models/agentSkillWhitelist");
 const { Memory } = require("../models/memory");
+
+/**
+ * When Branding requires the sign-in notice to be acknowledged, a password
+ * sign-in must send `acknowledged: true`. Responds and returns true when the
+ * request is rejected. SSO and API key sign-in do not pass through here.
+ * @returns {Promise<boolean>}
+ */
+async function rejectedForMissingAck(request, response, metadata = {}) {
+  if (!(await signInAckRequired())) return false;
+  if (reqBody(request)?.acknowledged === true) return false;
+
+  await EventLogs.logEvent("failed_login_notice_not_acknowledged", {
+    ip: request.ip || "Unknown IP",
+    ...metadata,
+  });
+  response.status(200).json({
+    user: null,
+    valid: false,
+    token: null,
+    code: "acknowledgment_required",
+    message: "[006] Read and accept the sign-in notice, then sign in again.",
+  });
+  return true;
+}
+
+// Legacy /system/upload-logo messages for the branding upload error codes.
+const LEGACY_LOGO_ERRORS = {
+  missing_file: "No logo file provided.",
+  unsupported_type: "The logo must be a PNG, JPEG, WebP or SVG image.",
+  too_large: "The logo is too large.",
+  too_small:
+    "The logo is too small. Use one at least 64 pixels wide and 16 tall.",
+  bad_aspect:
+    "The logo must be at least as wide as it is tall, and at most 12 times wider.",
+  invalid_svg: "The SVG file could not be read safely.",
+  upload_failed: "Error uploading the logo.",
+};
 
 function systemEndpoints(app) {
   if (!app) return;
@@ -212,6 +252,13 @@ function systemEndpoints(app) {
         }
 
         const { username, password } = reqBody(request);
+        if (
+          await rejectedForMissingAck(request, response, {
+            username: username || "Unknown user",
+          })
+        )
+          return;
+
         const existingUser = await User._get({ username: String(username) });
 
         if (!existingUser) {
@@ -310,6 +357,13 @@ function systemEndpoints(app) {
         return;
       } else {
         const { password } = reqBody(request);
+        if (
+          await rejectedForMissingAck(request, response, {
+            multiUserMode: false,
+          })
+        )
+          return;
+
         if (
           !bcrypt.compareSync(
             password,
@@ -727,8 +781,37 @@ function systemEndpoints(app) {
   app.get("/system/logo", async function (request, response) {
     try {
       const darkMode = request?.query?.theme !== "light";
+
+      // Branding logos first: the one for this theme, else the other theme's
+      // (one uploaded logo serves both). The dark slot also covers a legacy upload.
+      const slots = darkMode
+        ? ["logo-dark", "logo-light"]
+        : ["logo-light", "logo-dark"];
+      for (const slot of slots) {
+        const file = await getAssetFile(slot);
+        if (!file) continue;
+        const headers = {
+          "Access-Control-Expose-Headers":
+            "Content-Disposition,X-Is-Custom-Logo,Content-Type,Content-Length",
+          "Content-Type": file.mime,
+          "Content-Disposition": `attachment; filename=${slot}`,
+          "Content-Length": file.buffer.length,
+          "X-Content-Type-Options": "nosniff",
+          "X-Is-Custom-Logo": true,
+        };
+        if (file.mime === "image/svg+xml")
+          headers["Content-Security-Policy"] =
+            "default-src 'none'; style-src 'unsafe-inline'; sandbox";
+        response.writeHead(200, headers);
+        response.end(file.buffer);
+        return;
+      }
+
+      // No custom logo: the shipped default. A legacy custom logo is only
+      // ever served through the branding slot above (same folder, sniffed
+      // image, sanitized SVG), never from wherever logo_filename points.
       const defaultFilename = getDefaultFilename(darkMode);
-      const logoPath = await determineLogoFilepath(defaultFilename);
+      const logoPath = defaultLogoFilepath(defaultFilename);
       const { found, buffer, size, mime } = fetchLogo(logoPath);
 
       if (!found) {
@@ -736,7 +819,6 @@ function systemEndpoints(app) {
         return;
       }
 
-      const currentLogoFilename = await SystemSettings.currentLogoFilename();
       response.writeHead(200, {
         "Access-Control-Expose-Headers":
           "Content-Disposition,X-Is-Custom-Logo,Content-Type,Content-Length",
@@ -745,10 +827,8 @@ function systemEndpoints(app) {
           logoPath
         )}`,
         "Content-Length": size,
-        "X-Is-Custom-Logo":
-          currentLogoFilename !== null &&
-          currentLogoFilename !== defaultFilename &&
-          !isDefaultFilename(currentLogoFilename),
+        "X-Content-Type-Options": "nosniff",
+        "X-Is-Custom-Logo": false,
       });
       response.end(Buffer.from(buffer, "base64"));
       return;
@@ -957,6 +1037,7 @@ function systemEndpoints(app) {
     }
   );
 
+  // Legacy single-logo upload. It now fills the Branding dark theme logo.
   app.post(
     "/system/upload-logo",
     [
@@ -965,68 +1046,70 @@ function systemEndpoints(app) {
       handleAssetUpload,
     ],
     async (request, response) => {
-      if (!request?.file || !request?.file.originalname) {
-        return response.status(400).json({ message: "No logo file provided." });
-      }
-
-      if (!validFilename(request.file.originalname)) {
+      if (!request?.file?.buffer?.length)
         return response.status(400).json({
-          message: "Invalid file name. Please choose a different file.",
+          success: false,
+          error: "missing_file",
+          message: LEGACY_LOGO_ERRORS.missing_file,
         });
-      }
 
       try {
-        const newFilename = await renameLogoFile(request.file.originalname);
-        const existingLogoFilename = await SystemSettings.currentLogoFilename();
-        await removeCustomLogo(existingLogoFilename);
-
-        const { success, error } = await SystemSettings._updateSettings({
-          logo_filename: newFilename,
-        });
-
-        return response.status(success ? 200 : 500).json({
-          message: success
-            ? "Logo uploaded successfully."
-            : error || "Failed to update with new logo.",
-        });
+        await setAsset("logo-dark", { file: request.file });
+        await EventLogs.logEvent(
+          "branding_asset_updated",
+          { slot: "logo-dark", action: "upload", legacy: true },
+          response.locals?.user?.id
+        );
+        return response
+          .status(200)
+          .json({ success: true, message: "Logo uploaded successfully." });
       } catch (error) {
-        console.error("Error processing the logo upload:", error);
-        response.status(500).json({ message: "Error uploading the logo." });
+        if (!(error instanceof UploadError))
+          console.error("Error processing the logo upload:", error);
+        const code =
+          error instanceof UploadError ? error.code : "upload_failed";
+        return response.status(error?.status || 500).json({
+          success: false,
+          error: code,
+          message: LEGACY_LOGO_ERRORS[code] || LEGACY_LOGO_ERRORS.upload_failed,
+        });
       }
     }
   );
 
   app.get("/system/is-default-logo", async (_, response) => {
     try {
-      const currentLogoFilename = await SystemSettings.currentLogoFilename();
-      const isDefaultLogo =
-        !currentLogoFilename || currentLogoFilename === LOGO_FILENAME;
-      response.status(200).json({ isDefaultLogo });
+      const { logoDark, logoLight } = (await getBrand()).assets;
+      response
+        .status(200)
+        .json({ isDefaultLogo: !logoDark.custom && !logoLight.custom });
     } catch (error) {
       console.error("Error processing the logo request:", error);
       response.status(500).json({ message: "Internal server error" });
     }
   });
 
+  // Legacy removal. Clears the dark theme logo (and any legacy upload).
   app.get(
     "/system/remove-logo",
     [validatedRequest, flexUserRoleValid([ROLES.admin, ROLES.manager])],
     async (_request, response) => {
       try {
-        const currentLogoFilename = await SystemSettings.currentLogoFilename();
-        await removeCustomLogo(currentLogoFilename);
-        const { success, error } = await SystemSettings._updateSettings({
-          logo_filename: LOGO_FILENAME,
-        });
-
-        return response.status(success ? 200 : 500).json({
-          message: success
-            ? "Logo removed successfully."
-            : error || "Failed to update with new logo.",
-        });
+        const { removed } = await removeBrandAsset("logo-dark");
+        if (removed)
+          await EventLogs.logEvent(
+            "branding_asset_updated",
+            { slot: "logo-dark", action: "remove", legacy: true },
+            response.locals?.user?.id
+          );
+        return response
+          .status(200)
+          .json({ success: true, message: "Logo removed successfully." });
       } catch (error) {
         console.error("Error processing the logo removal:", error);
-        response.status(500).json({ message: "Error removing the logo." });
+        response
+          .status(500)
+          .json({ success: false, message: "Error removing the logo." });
       }
     }
   );

@@ -3,6 +3,7 @@
 .env.test
 server/.env
 storage/assets/*
+storage/branding-backups
 !storage/assets/mission-llm.png
 !storage/assets/mission-llm-invert.png
 storage/documents/*

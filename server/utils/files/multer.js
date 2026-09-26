@@ -44,24 +44,6 @@ const fileAPIUploadStorage = multer.diskStorage({
   },
 });
 
-// Asset storage for logos
-const assetUploadStorage = multer.diskStorage({
-  destination: function (_, __, cb) {
-    const uploadOutput =
-      process.env.NODE_ENV === "development"
-        ? path.resolve(__dirname, `../../storage/assets`)
-        : path.resolve(process.env.STORAGE_DIR, "assets");
-    fs.mkdirSync(uploadOutput, { recursive: true });
-    return cb(null, uploadOutput);
-  },
-  filename: function (_, file, cb) {
-    file.originalname = sanitizeFileName(
-      normalizePath(Buffer.from(file.originalname, "latin1").toString("utf8"))
-    );
-    cb(null, file.originalname);
-  },
-});
-
 /**
  * Handle PFP file upload as logos
  */
@@ -131,19 +113,31 @@ function handleAPIFileUpload(request, response, next) {
 }
 
 /**
- * Handle logo asset uploads
+ * Handle legacy logo uploads (field `logo`). The file stays in memory: it is
+ * validated and stored by the branding module under a content-hash name, so an
+ * upload can never overwrite a shipped default logo with the same filename.
  */
 function handleAssetUpload(request, response, next) {
-  const upload = multer({ storage: assetUploadStorage }).single("logo");
+  const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 2 * 1024 * 1024, files: 1, fields: 10, parts: 11 },
+    fileFilter: (_req, file, cb) => {
+      if (file.fieldname !== "logo")
+        return cb(new Error(`Unexpected field ${file.fieldname}.`));
+      cb(null, true);
+    },
+  }).single("logo");
   upload(request, response, function (err) {
     if (err) {
-      response
-        .status(500)
-        .json({
-          success: false,
-          error: `Invalid file upload. ${err.message}`,
-        })
-        .end();
+      const tooLarge =
+        err instanceof multer.MulterError && err.code === "LIMIT_FILE_SIZE";
+      response.status(tooLarge ? 413 : 400).json({
+        success: false,
+        error: tooLarge ? "too_large" : "upload_failed",
+        message: tooLarge
+          ? "The logo must be 2 MB or smaller."
+          : `Invalid file upload. ${err.message}`,
+      });
       return;
     }
     next();

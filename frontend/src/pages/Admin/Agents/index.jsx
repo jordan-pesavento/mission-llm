@@ -465,9 +465,9 @@ export default function AdminAgents() {
                       setShowSkillModal(false);
                       setSelectedSkill("");
                     }}
-                    className="text-white/60 hover:text-white transition-colors duration-200"
+                    className="text-ml-text-2 hover:text-ml-text transition-colors duration-200"
                   >
-                    <div className="flex items-center text-sky-400">
+                    <div className="flex items-center text-ml-accent-text">
                       <CaretLeft size={24} />
                       <div>Back</div>
                     </div>

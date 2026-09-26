@@ -19,7 +19,7 @@ export function SerpApiOptions({ settings }) {
           href="https://serpapi.com/"
           target="_blank"
           rel="noreferrer"
-          className="text-blue-300 underline"
+          className="text-ml-accent-text underline"
         >
           from SerpApi.
         </a>
@@ -96,7 +96,7 @@ export function SearchApiOptions({ settings }) {
           href="https://www.searchapi.io/"
           target="_blank"
           rel="noreferrer"
-          className="text-blue-300 underline"
+          className="text-ml-accent-text underline"
         >
           from SearchApi.
         </a>
@@ -158,7 +158,7 @@ export function SerperDotDevOptions({ settings }) {
           href="https://serper.dev"
           target="_blank"
           rel="noreferrer"
-          className="text-blue-300 underline"
+          className="text-ml-accent-text underline"
         >
           from Serper.dev.
         </a>
@@ -193,7 +193,7 @@ export function BingSearchOptions({ settings }) {
           href="https://portal.azure.com/"
           target="_blank"
           rel="noreferrer"
-          className="text-blue-300 underline"
+          className="text-ml-accent-text underline"
         >
           from the Azure portal.
         </a>
@@ -225,7 +225,7 @@ export function BingSearchOptions({ settings }) {
             href="https://portal.azure.com/"
             target="_blank"
             rel="noreferrer"
-            className="text-blue-300 underline"
+            className="text-ml-accent-text underline"
           >
             https://portal.azure.com/
           </a>
@@ -257,7 +257,7 @@ export function BaiduSearchOptions({ settings }) {
           href="https://cloud.baidu.com/doc/qianfan-api/s/Wmbq4z7e5"
           target="_blank"
           rel="noreferrer"
-          className="text-blue-300 underline"
+          className="text-ml-accent-text underline"
         >
           from Baidu AI Cloud Qianfan.
         </a>
@@ -294,7 +294,7 @@ export function SerplySearchOptions({ settings }) {
           href="https://serply.io"
           target="_blank"
           rel="noreferrer"
-          className="text-blue-300 underline"
+          className="text-ml-accent-text underline"
         >
           from Serply.io.
         </a>
@@ -351,7 +351,7 @@ export function TavilySearchOptions({ settings }) {
           href="https://tavily.com/"
           target="_blank"
           rel="noreferrer"
-          className="text-blue-300 underline"
+          className="text-ml-accent-text underline"
         >
           from Tavily.
         </a>
@@ -386,7 +386,7 @@ export function CrwSearchOptions({ settings }) {
           href="https://fastcrw.com/"
           target="_blank"
           rel="noreferrer"
-          className="text-blue-300 underline"
+          className="text-ml-accent-text underline"
         >
           from fastCRW.
         </a>
@@ -395,7 +395,7 @@ export function CrwSearchOptions({ settings }) {
           href="https://github.com/us/crw"
           target="_blank"
           rel="noreferrer"
-          className="text-blue-300 underline"
+          className="text-ml-accent-text underline"
         >
           self-host.
         </a>
@@ -455,7 +455,7 @@ export function KeenableSearchOptions({ settings }) {
           href="https://keenable.ai/console"
           target="_blank"
           rel="noreferrer"
-          className="text-blue-300 underline"
+          className="text-ml-accent-text underline"
         >
           from Keenable.
         </a>
@@ -503,7 +503,7 @@ export function AnySearchOptions({ settings }) {
           href="https://anysearch.com/console/api-keys"
           target="_blank"
           rel="noreferrer"
-          className="text-blue-300 underline"
+          className="text-ml-accent-text underline"
         >
           from the AnySearch console.
         </a>
@@ -538,7 +538,7 @@ export function ExaSearchOptions({ settings }) {
           href="https://exa.ai"
           target="_blank"
           rel="noreferrer"
-          className="text-blue-300 underline"
+          className="text-ml-accent-text underline"
         >
           from Exa.
         </a>
@@ -573,7 +573,7 @@ export function PerplexitySearchOptions({ settings }) {
           href="https://console.perplexity.ai"
           target="_blank"
           rel="noreferrer"
-          className="text-blue-300 underline"
+          className="text-ml-accent-text underline"
         >
           from Perplexity.
         </a>
@@ -608,7 +608,7 @@ export function BraveSearchOptions({ settings }) {
           href="https://brave.com/search/api"
           target="_blank"
           rel="noreferrer"
-          className="text-blue-300 underline"
+          className="text-ml-accent-text underline"
         >
           from Brave.
         </a>
@@ -644,7 +644,7 @@ export function YouSearchOptions({ settings }) {
           href="https://you.com/platform"
           target="_blank"
           rel="noreferrer"
-          className="text-blue-300 underline"
+          className="text-ml-accent-text underline"
         >
           from You.com
         </a>

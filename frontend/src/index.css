@@ -220,7 +220,7 @@
   --ml-accent-rgb: 36 88 230; /* #2458E6 */
   --ml-ok-rgb: 31 157 91; /* #1F9D5B */
   --ml-warn-rgb: 183 121 31; /* #B7791F */
-  --ml-bad-rgb: 200 53 74; /* #C8354A */
+  --ml-bad-rgb: 180 35 56; /* #B42338, 4.5:1 or better on light tinted surfaces */
 
   --ml-line: rgba(16, 32, 64, 0.1);
   --ml-line-2: rgba(16, 32, 64, 0.18);
@@ -284,6 +284,10 @@
 
   /* Frame and control metrics */
   --ml-rail-w: clamp(280px, 19vw, 320px);
+  /* The settings rail's wordmark box: the rail less its 1px border, 18px and
+     12px padding, the 30px emblem and the 11px gap. The Branding logo cards
+     size a long name to it so it wraps there as in the sidebar. */
+  --ml-rail-wordmark-w: calc(var(--ml-rail-w) - 72px);
   --ml-drawer-w: clamp(320px, 23vw, 384px);
   --ml-topbar-h: 64px;
   --ml-gutter: 16px; /* owner: full width, border to border, with only a small margin */
@@ -293,6 +297,12 @@
   /* Settings pages use the same gutter as the chat pane (owner rule: one
      gutter on every pane). */
   --ml-set-gutter: var(--ml-gutter);
+  /* Settings page head: the account avatar (42px, like the head's buttons)
+     sits this far below the top of the page on every settings page, centered
+     on a 27px title plus one line of 16px description (22px top padding,
+     4px gap): 22 + (32.4 + 4 + 24 - 42) / 2. */
+  --ml-set-avatar: 42px;
+  --ml-set-avatar-top: 31.2px;
   --ml-radius-sm: 8px;
   --ml-radius: 10px;
   --ml-radius-md: 12px;
@@ -458,6 +468,98 @@ body {
   html {
     overscroll-behavior: none;
   }
+}
+
+/**
+ * ==============================================
+ * System banner layout (Branding > System banner)
+ * The banner bars are fixed to the top (and optionally the bottom) of the
+ * viewport. While one is on, BrandingProvider sets data-ml-banner plus
+ * --ml-banner-top/--ml-banner-bottom on <html>, and the rules below fit the
+ * app between the bars: full-height screens, fixed overlays, modals and
+ * toasts. With the banner off none of these rules match, so the layout is
+ * exactly the one without a banner.
+ * ==============================================
+ */
+:root {
+  --ml-banner-top: 0px;
+  --ml-banner-bottom: 0px;
+  --ml-app-h: calc(100vh - var(--ml-banner-top) - var(--ml-banner-bottom));
+}
+
+html[data-ml-banner] body {
+  padding-top: var(--ml-banner-top);
+  padding-bottom: var(--ml-banner-bottom);
+}
+
+/* Full-height screens: #root, every page frame, sign-in, onboarding, the
+   full-screen loader and the modal backdrop (h-screen), the mobile drawers
+   (h-[100vh], h-[100dvh]) and the 404 and error pages (min-h-screen). */
+html[data-ml-banner] .h-screen,
+html[data-ml-banner] .h-\[100vh\],
+html[data-ml-banner] .h-\[100dvh\] {
+  height: var(--ml-app-h);
+}
+
+html[data-ml-banner] .min-h-screen {
+  min-height: var(--ml-app-h);
+}
+
+html[data-ml-banner] .max-h-screen {
+  max-height: var(--ml-app-h);
+}
+
+/* Agent skills and embed widget side panels. */
+html[data-ml-banner] .h-\[calc\(100vh-90px\)\] {
+  height: calc(var(--ml-app-h) - 90px);
+}
+
+@media (min-width: 1536px) {
+  html[data-ml-banner] .\32xl\:h-screen {
+    height: var(--ml-app-h);
+  }
+}
+
+/* Fixed overlays pinned to the viewport edges: the sign-in frame, lightbox,
+   click-away layers (inset-0), modal backdrops, the loader, the save bar and
+   the provider search overlays (top-0 with h-full), and the prompt history
+   drawer (top-3/bottom-3). Elements positioned from pointer or anchor
+   coordinates set inline styles and already use viewport positions. */
+html[data-ml-banner] .fixed.inset-0 {
+  top: var(--ml-banner-top);
+  bottom: var(--ml-banner-bottom);
+}
+
+html[data-ml-banner] .fixed.top-0 {
+  top: var(--ml-banner-top);
+}
+
+html[data-ml-banner] .fixed.bottom-0 {
+  bottom: var(--ml-banner-bottom);
+}
+
+html[data-ml-banner] .fixed.top-3 {
+  top: calc(var(--ml-banner-top) + 0.75rem);
+}
+
+html[data-ml-banner] .fixed.bottom-3 {
+  bottom: calc(var(--ml-banner-bottom) + 0.75rem);
+}
+
+html[data-ml-banner] .fixed.h-full {
+  height: var(--ml-app-h);
+}
+
+html[data-ml-banner] .Toastify__toast-container--top-left,
+html[data-ml-banner] .Toastify__toast-container--top-center,
+html[data-ml-banner] .Toastify__toast-container--top-right {
+  top: calc(1em + var(--ml-banner-top));
+}
+
+html[data-ml-banner] .Toastify__toast-container--bottom-left,
+html[data-ml-banner] .Toastify__toast-container--bottom-center,
+html[data-ml-banner] .Toastify__toast-container--bottom-right {
+  bottom: calc(1em + var(--ml-banner-bottom));
 }
 
 a {
@@ -1488,13 +1590,18 @@ does not extend the close button beyond the viewport. */
   padding-bottom: 40px;
 }
 
-/* Page head: 27px Archivo title, 16px description, one hairline under it. */
+/* Page head: 27px Archivo title, 16px description, one hairline under it.
+   On instance settings pages the account avatar floats at the right end of
+   the head, so the head keeps its text clear of it. */
 :is([data-settings-rail] + div, [data-settings-pane]) .pb-6.border-b-2 {
   padding-top: 22px;
   padding-bottom: 16px;
   border-bottom-width: 1px;
   border-color: var(--ml-line);
   --tw-border-opacity: 1;
+}
+[data-settings-rail] + div .pb-6.border-b-2 {
+  padding-right: calc(var(--ml-set-avatar) + 16px);
 }
 :is([data-settings-rail] + div, [data-settings-pane]) .pb-6.border-b-2 p.text-lg.font-bold {
   font-family: "Archivo", var(--font-ui);

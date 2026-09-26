@@ -58,7 +58,7 @@ export default function LemonadeImageOptions({ settings }) {
                 <Link
                   to="https://lemonade-server.ai/docs"
                   target="_blank"
-                  className="text-blue-500 hover:underline"
+                  className="text-ml-accent-text hover:underline"
                 >
                   Learn more &rarr;
                 </Link>
@@ -74,7 +74,7 @@ export default function LemonadeImageOptions({ settings }) {
                 {!basePathValue.value && (
                   <button
                     onClick={handleAutoDetectClick}
-                    className="border-none bg-primary-button text-xs font-medium px-2 py-1 rounded-lg hover:bg-secondary hover:text-white shadow-[0_4px_14px_rgba(0,0,0,0.25)]"
+                    className="border-none bg-ml-accent-fill text-ml-on-accent text-xs font-semibold px-2 py-1 rounded-lg transition-[filter] duration-150 hover:brightness-105 shadow-[0_4px_14px_rgba(0,0,0,0.25)]"
                   >
                     Auto-Detect
                   </button>
@@ -97,7 +97,7 @@ export default function LemonadeImageOptions({ settings }) {
         </div>
         <div className="flex flex-col w-60">
           <label className="text-white text-sm font-semibold block mb-3">
-            API Key <span className="text-white/40">(optional)</span>
+            API Key <span className="text-ml-text-3">(optional)</span>
           </label>
           <input
             type="password"

@@ -115,7 +115,7 @@ export default function JobFormModal({ job = null, onClose, onSaved }) {
         {hasErrors() && (
           <div className="flex gap-1 items-center mt-1">
             <WarningCircle size={16} className="text-red-400 shrink-0" />
-            <p className="text-sm text-red-400">
+            <p className="text-sm text-ml-bad">
               {t(
                 "scheduledJobs.modal.requiredFieldsBanner",
                 "Please fill out all required fields in order to create job."

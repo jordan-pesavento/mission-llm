@@ -56,7 +56,7 @@ export default function ApiKeyRow({ apiKey, removeApiKey }) {
             <button
               onClick={copyApiKey}
               disabled={copied}
-              className="text-xs font-medium text-blue-300 rounded-lg hover:text-white hover:light:text-blue-500 hover:text-opacity-60 hover:underline"
+              className="text-xs font-medium text-ml-accent-text rounded-lg hover:underline"
             >
               {copied ? t("api.row.copied") : t("api.row.copy")}
             </button>

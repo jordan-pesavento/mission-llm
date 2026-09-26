@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import paths from "@/utils/paths";
 import useLogo from "@/hooks/useLogo";
+import useBranding from "@/hooks/useBranding";
 import {
   Cpu,
   Flask,
@@ -16,9 +17,8 @@ import {
 } from "@phosphor-icons/react";
 import useUser from "@/hooks/useUser";
 import { isMobile } from "react-device-detect";
-import { RailLinks } from "../Footer";
-import { BackToWorkspacesButton } from "../SettingsButton";
-import { RailUser } from "../UserMenu";
+import { RailFootRow } from "../Footer";
+import SettingsButton from "../SettingsButton";
 import RailBrand from "./RailBrand";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -27,11 +27,12 @@ import System from "@/models/system";
 import Option from "./MenuOption";
 import { CanViewChatHistoryProvider } from "../CanViewChatHistory";
 import useAppVersion from "@/hooks/useAppVersion";
+import { useRegisterSettingsPage } from "../UserMenu/UserButton";
 
 /**
  * Settings rail: the same flush rail as the workspace rail (64px brand band,
- * scrolling body, foot band with the user row) holding the real settings
- * groups.
+ * scrolling body, foot band with the link icons and the back button in one
+ * row) holding the real settings groups.
  */
 function RailBody({ user, t }) {
   return (
@@ -54,17 +55,15 @@ function RailBody({ user, t }) {
         </Link>
         <AppVersion />
       </div>
-      <RailLinks />
     </>
   );
 }
 
 function RailFoot() {
   return (
-    <div className="flex flex-col gap-y-[10px]">
-      <BackToWorkspacesButton />
-      <RailUser />
-    </div>
+    <RailFootRow>
+      <SettingsButton />
+    </RailFootRow>
   );
 }
 
@@ -72,6 +71,8 @@ export default function SettingsSidebar() {
   const { t } = useTranslation();
   const { logo } = useLogo();
   const { user } = useUser();
+  // The floating avatar takes the settings page head geometry.
+  useRegisterSettingsPage(!isMobile);
   const sidebarRef = useRef(null);
   const [showSidebar, setShowSidebar] = useState(false);
   const [showBgOverlay, setShowBgOverlay] = useState(false);
@@ -192,16 +193,22 @@ function SupportEmail() {
   const [supportEmail, setSupportEmail] = useState(paths.issues());
   const { t } = useTranslation();
   const isMailto = supportEmail.startsWith("mailto:");
+  // Refetch whenever the saved brand changes (a Branding save anywhere).
+  const { savedBrand } = useBranding();
+  const brandVersion = savedBrand?.version || null;
 
   useEffect(() => {
-    const fetchSupportEmail = async () => {
-      const supportEmail = await System.fetchSupportEmail();
+    let active = true;
+    System.fetchSupportEmail(brandVersion).then((supportEmail) => {
+      if (!active) return;
       setSupportEmail(
         supportEmail?.email ? `mailto:${supportEmail.email}` : paths.issues()
       );
+    });
+    return () => {
+      active = false;
     };
-    fetchSupportEmail();
-  }, []);
+  }, [brandVersion]);
 
   return (
     <Link

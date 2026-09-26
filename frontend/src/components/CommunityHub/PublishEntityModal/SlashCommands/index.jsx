@@ -141,7 +141,7 @@ export default function SlashCommands({ entity, onSuccess }) {
                 placeholder={t(
                   "community_hub.publish.slash_command.tags_placeholder"
                 )}
-                className="flex-1 min-w-[200px] border-none text-sm bg-transparent text-slate-50 light:text-slate-900 placeholder:text-zinc-400 light:placeholder:text-slate-400 p-0 h-[24px] focus:outline-none"
+                className="flex-1 min-w-[200px] border-none text-sm bg-transparent text-slate-50 light:text-slate-900 placeholder:text-zinc-400 light:placeholder:text-slate-500 p-0 h-[24px] focus:outline-none"
               />
             </div>
           </div>

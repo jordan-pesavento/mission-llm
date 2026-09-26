@@ -8,6 +8,7 @@ import WorkspaceModelPicker from "../WorkspaceModelPicker";
 import ChatSettingsMenu from "../ChatSettingsMenu";
 import { useSourcesSidebar } from "../ChatSidebar";
 import { initialsFor } from "../chatUi";
+import { TopBarUser } from "@/components/UserMenu";
 
 const SIDEBAR_TOGGLE_STORAGE_KEY = "missionllm_sidebar_toggle";
 
@@ -77,8 +78,8 @@ function useThreadName(workspaceSlug, threadSlug) {
 
 /**
  * The 64px bar at the top of the chat pane: workspace tile and breadcrumb on
- * the left; the model pill, the Sources toggle and the chat settings ("more")
- * button on the right. Shares its height and hairline with the rail's brand
+ * the left; the model pill, the Sources toggle, the chat settings ("more")
+ * button and the user avatar on the right. Shares its height and hairline with the rail's brand
  * band and the drawer head.
  *
  * @param {Object} props
@@ -205,6 +206,7 @@ export default function ChatTopBar({
           workspace={workspace}
           threadSlug={threadSlug}
         />
+        <TopBarUser />
       </div>
     </header>
   );

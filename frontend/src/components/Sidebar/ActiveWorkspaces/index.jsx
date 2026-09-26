@@ -15,7 +15,8 @@ import {
   UploadSimple,
 } from "@phosphor-icons/react";
 import useUser from "@/hooks/useUser";
-import ThreadContainer, { NEW_THREAD_EVENT } from "./ThreadContainer";
+import ThreadContainer from "./ThreadContainer";
+import startNewThread from "./startNewThread";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import showToast from "@/utils/toast";
 import { LAST_VISITED_WORKSPACE } from "@/utils/constants";
@@ -408,24 +409,9 @@ function NewThreadButton({ workspace, loading: workspacesLoading }) {
   const onClick = async () => {
     if (!workspace) return;
     setLoading(true);
-    const { thread, error } = await Workspace.threads.new(workspace.slug);
-    if (!!error) {
+    const { error } = await startNewThread(workspace.slug, navigate);
+    if (error)
       showToast(`Could not create thread - ${error}`, "error", { clear: true });
-      setLoading(false);
-      return;
-    }
-    // Show the new thread in the rail immediately - if the navigation below
-    // gets blocked (ActiveGenerationGuard) and cancelled, the thread still
-    // exists and remains reachable. Router navigation also ensures the guard
-    // can intercept and the button never wedges in its loading state.
-    window.dispatchEvent(
-      new CustomEvent(NEW_THREAD_EVENT, {
-        detail: { workspaceSlug: workspace.slug, thread },
-      })
-    );
-    navigate(paths.workspace.thread(workspace.slug, thread.slug), {
-      replace: true,
-    });
     setLoading(false);
   };
 

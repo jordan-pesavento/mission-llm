@@ -20,7 +20,7 @@ export default function Completed({ settings, setSettings, setStep }) {
             {settings.item.itemType === "agent-flow" && (
               <Link
                 to={paths.settings.agentSkills()}
-                className="text-theme-text-primary hover:text-blue-500 hover:underline"
+                className="text-theme-text-primary hover:text-ml-accent-text hover:underline"
               >
                 View "{settings.item.name}" in Agent Skills
               </Link>

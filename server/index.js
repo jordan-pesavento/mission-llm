@@ -50,6 +50,7 @@ const {
   googleAgentSkillEndpoints,
 } = require("./endpoints/utils/googleAgentSkillEndpoints");
 const { memoryEndpoints } = require("./endpoints/memory");
+const { brandingEndpoints } = require("./endpoints/branding");
 const { httpLogger } = require("./middleware/httpLogger");
 const app = express();
 const apiRouter = express.Router();
@@ -84,6 +85,7 @@ if (!!process.env.ENABLE_HTTPS) {
 
 app.use("/api", apiRouter);
 systemEndpoints(apiRouter);
+brandingEndpoints(apiRouter);
 extensionEndpoints(apiRouter);
 workspaceEndpoints(apiRouter);
 workspaceThreadEndpoints(apiRouter);
@@ -140,8 +142,22 @@ if (process.env.NODE_ENV !== "development") {
   );
   // rebrand:keep-end
 
+  // The index page and the manifest carry the instance brand (name, icons,
+  // accent), so they are generated here and never served from the static
+  // build: these routes come before express.static, and static has no index.
+  app.get("/manifest.json", async function (_, response) {
+    IndexPage.generateManifest(response);
+    return;
+  });
+
+  app.get("/index.html", function (_, response) {
+    IndexPage.generate(response);
+    return;
+  });
+
   app.use(
     express.static(path.resolve(__dirname, "public"), {
+      index: false,
       extensions: ["js"],
       setHeaders: (res) => {
         // Disable I-framing of entire site UI
@@ -154,11 +170,6 @@ if (process.env.NODE_ENV !== "development") {
   app.get("/robots.txt", function (_, response) {
     response.type("text/plain");
     response.send("User-agent: *\nDisallow: /").end();
-  });
-
-  app.get("/manifest.json", async function (_, response) {
-    IndexPage.generateManifest(response);
-    return;
   });
 
   app.use("/", function (_, response) {

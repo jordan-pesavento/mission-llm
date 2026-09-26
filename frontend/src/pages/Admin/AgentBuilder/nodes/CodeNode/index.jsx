@@ -35,7 +35,7 @@ export default function CodeNode({
           placeholder="Enter code..."
           value={config.code}
           onChange={(e) => onConfigChange({ code: e.target.value })}
-          className="w-full p-2.5 text-sm rounded-lg bg-theme-bg-primary border border-white/5 text-white placeholder:text-white/20 focus:border-primary-button focus:ring-1 focus:ring-primary-button outline-none font-mono"
+          className="w-full p-2.5 text-sm rounded-lg bg-theme-bg-primary border border-white/5 text-white placeholder:text-theme-settings-input-placeholder focus:border-primary-button focus:ring-1 focus:ring-primary-button outline-none font-mono"
           rows={5}
           autoComplete="off"
           spellCheck={false}

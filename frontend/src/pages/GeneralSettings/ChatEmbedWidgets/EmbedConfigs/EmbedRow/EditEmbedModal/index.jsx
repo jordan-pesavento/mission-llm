@@ -82,7 +82,7 @@ export default function EditEmbedModal({ embed, closeModal }) {
           defaultValue={embed.allow_prompt_override}
         />
 
-        {error && <p className="text-red-400 text-sm">Error: {error}</p>}
+        {error && <p className="text-ml-bad text-sm">Error: {error}</p>}
         <p className="text-xs text-zinc-400 light:text-slate-600">
           After creating an embed you will be provided a link that you can
           publish on your website with a simple

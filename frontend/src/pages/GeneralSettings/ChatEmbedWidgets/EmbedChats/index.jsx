@@ -142,7 +142,7 @@ export default function EmbedChatsView() {
             <button
               ref={openMenuButton}
               onClick={toggleMenu}
-              className="flex items-center gap-x-2 px-4 py-1 rounded-lg text-theme-bg-chat bg-primary-button hover:bg-secondary hover:text-white text-xs font-semibold h-[34px] w-fit"
+              className="flex items-center gap-x-2 px-3 rounded-[9px] border border-transparent bg-ml-accent-fill text-ml-on-accent text-[14px] font-semibold transition-[filter] duration-150 hover:brightness-105 h-[34px] w-fit"
             >
               <Download size={18} weight="bold" />
               {t("embed-chats.export")}
@@ -152,9 +152,9 @@ export default function EmbedChatsView() {
               ref={menuRef}
               className={`${
                 showMenu ? "slide-down" : "slide-up hidden"
-              } z-20 w-fit rounded-lg absolute top-full right-0 bg-secondary light:bg-theme-bg-secondary mt-2 shadow-md`}
+              } z-20 w-fit p-1.5 rounded-[12px] absolute top-full right-0 bg-ml-raised border border-ml-line-2 shadow-ml-pop mt-2`}
             >
-              <div className="py-2">
+              <div className="flex flex-col gap-0.5">
                 {Object.entries(exportOptions).map(([key, data]) => (
                   <button
                     key={key}
@@ -162,7 +162,7 @@ export default function EmbedChatsView() {
                       handleDumpChats(key);
                       setShowMenu(false);
                     }}
-                    className="w-full text-left px-4 py-2 text-white text-sm hover:bg-[#3D4147] light:hover:bg-theme-sidebar-item-hover"
+                    className="w-full text-left px-3 py-2 rounded-[9px] text-ml-text-2 text-[14px] hover:bg-ml-raised-2 hover:text-ml-text"
                   >
                     {data.name}
                   </button>

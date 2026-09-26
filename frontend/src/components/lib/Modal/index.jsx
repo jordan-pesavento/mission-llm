@@ -141,7 +141,7 @@ export function ModalFooter({ children, className = "" }) {
 }
 
 const FIELD_BASE =
-  "w-full text-sm rounded-lg outline-none bg-zinc-800 border border-zinc-800 text-zinc-100 placeholder:text-zinc-400 light:bg-white light:border-slate-300 light:text-slate-900 light:placeholder:text-slate-400 focus:border-sky-500 light:focus:border-sky-500 disabled:opacity-50 disabled:cursor-not-allowed";
+  "w-full text-sm rounded-lg outline-none bg-zinc-800 border border-zinc-800 text-zinc-100 placeholder:text-zinc-400 light:bg-white light:border-slate-300 light:text-slate-900 light:placeholder:text-slate-500 focus:border-sky-500 light:focus:border-sky-500 disabled:opacity-50 disabled:cursor-not-allowed";
 
 /**
  * Field label matching the Figma input label (Medium 14).
@@ -326,7 +326,7 @@ export function ModalDangerButton({ children, className = "", ...props }) {
   return (
     <button
       {...props}
-      className={`${BUTTON_BASE} border-none bg-red-500 light:bg-red-600 text-white hover:opacity-80 ${className}`}
+      className={`${BUTTON_BASE} border-none bg-ml-bad text-ml-ground light:text-ml-on-accent hover:brightness-110 light:hover:brightness-90 ${className}`}
     >
       {children}
     </button>

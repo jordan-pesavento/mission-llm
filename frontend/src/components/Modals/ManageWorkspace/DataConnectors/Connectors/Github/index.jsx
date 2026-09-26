@@ -142,7 +142,7 @@ export default function GithubOptions() {
                 classNames={{
                   tag: "!bg-zinc-700 light:!bg-slate-200 !text-zinc-100 light:!text-slate-800",
                   input:
-                    "flex !bg-transparent text-zinc-100 light:text-slate-900 placeholder:text-zinc-400 light:placeholder:text-slate-400 text-sm outline-none",
+                    "flex !bg-transparent text-zinc-100 light:text-slate-900 placeholder:text-zinc-400 light:placeholder:text-slate-500 text-sm outline-none",
                 }}
               />
             </div>
@@ -153,12 +153,12 @@ export default function GithubOptions() {
             <button
               type="submit"
               disabled={loading}
-              className="mt-2 w-full justify-center border-none px-4 py-2 rounded-lg text-dark-text light:text-white text-sm font-bold items-center flex gap-x-2 bg-theme-home-button-primary hover:bg-theme-home-button-primary-hover disabled:bg-theme-home-button-primary-hover disabled:cursor-not-allowed"
+              className="mt-2 w-full justify-center border-none px-4 py-2 rounded-lg text-ml-on-accent text-sm font-bold items-center flex gap-x-2 bg-theme-home-button-primary transition-[filter] duration-150 hover:brightness-105 disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {loading ? "Collecting files..." : "Submit"}
             </button>
             {loading && (
-              <p className="text-xs text-white/50">
+              <p className="text-xs text-ml-text-3">
                 {t("connectors.github.task_explained")}
               </p>
             )}

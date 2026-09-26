@@ -47,7 +47,7 @@ export default function SkillSection({
             </span>
           )}
         </div>
-        <span className="text-[13px] text-zinc-500 light:text-slate-400 tabular-nums">
+        <span className="text-[13px] text-ml-text-3 tabular-nums">
           {enabledCount}/{totalCount}
         </span>
       </button>

@@ -105,7 +105,7 @@ function Layout({ t, showAction, onAction, children }) {
             {showAction && (
               <button
                 onClick={onAction}
-                className="shrink-0 h-ctl-lg inline-flex items-center justify-center gap-2 px-4 rounded-[11px] border border-transparent bg-ml-accent-fill text-ml-on-accent text-[15px] font-semibold whitespace-nowrap shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_8px_20px_-10px_var(--ml-accent)] transition-[filter] duration-150 hover:brightness-110"
+                className="shrink-0 h-ctl-lg inline-flex items-center justify-center gap-2 px-4 rounded-[11px] border border-transparent bg-ml-accent-fill text-ml-on-accent text-[15px] font-semibold whitespace-nowrap shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_8px_20px_-10px_var(--ml-accent)] transition-[filter] duration-150 hover:brightness-105"
               >
                 {t("model-router.new-router-button")}
               </button>
@@ -166,7 +166,7 @@ function EmptyState({ onCreateClick, t }) {
       </div>
       <button
         onClick={onCreateClick}
-        className="h-ctl-lg inline-flex items-center justify-center gap-2 px-4 rounded-[11px] border border-transparent bg-ml-accent-fill text-ml-on-accent text-[15px] font-semibold whitespace-nowrap shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_8px_20px_-10px_var(--ml-accent)] transition-[filter] duration-150 hover:brightness-110"
+        className="h-ctl-lg inline-flex items-center justify-center gap-2 px-4 rounded-[11px] border border-transparent bg-ml-accent-fill text-ml-on-accent text-[15px] font-semibold whitespace-nowrap shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_8px_20px_-10px_var(--ml-accent)] transition-[filter] duration-150 hover:brightness-105"
       >
         {t("model-router.new-router-button")}
       </button>

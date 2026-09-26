@@ -2,35 +2,19 @@
  * Shared class names and small helpers for the chat view (concept 1).
  * Colors come from the --ml-* tokens so both themes follow automatically.
  */
-import { useEffect, useState } from "react";
-import System from "@/models/system";
+import useBranding from "@/hooks/useBranding";
 
 const DEFAULT_ASSISTANT_NAME = "Mission LLM";
-let assistantNameCache = null;
 
 /**
- * Name shown above assistant replies: the instance's custom app name when an
- * admin set one, otherwise "Mission LLM". Fetched once per page load.
+ * Name shown above assistant replies: the product name from Branding (the
+ * saved one, so an unsaved draft never shows here), otherwise "Mission LLM".
+ * Follows Branding saves right away, like the sidebar wordmark.
  * @returns {string}
  */
 export function useAssistantName() {
-  const [name, setName] = useState(
-    assistantNameCache ?? DEFAULT_ASSISTANT_NAME
-  );
-  useEffect(() => {
-    if (assistantNameCache !== null) return;
-    let cancelled = false;
-    System.fetchCustomAppName()
-      .then(({ appName }) => {
-        assistantNameCache = appName?.trim() || DEFAULT_ASSISTANT_NAME;
-        if (!cancelled) setName(assistantNameCache);
-      })
-      .catch(() => {});
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-  return name;
+  const { savedBrand } = useBranding();
+  return savedBrand?.appName?.trim() || DEFAULT_ASSISTANT_NAME;
 }
 
 // 38px bordered control used in the top bar (model pill, Sources, more).

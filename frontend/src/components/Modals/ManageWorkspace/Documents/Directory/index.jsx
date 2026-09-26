@@ -26,6 +26,13 @@ import { getFilesFromUploadEvent } from "@/utils/folderUpload";
 
 const NO_FILES = [];
 
+// Buttons in the floating bar shown while documents are selected (concept 1
+// tokens, readable in both themes and on hover). Callers add px-3 or w-[32px].
+const SELECTION_BTN_BASE =
+  "h-[32px] inline-flex items-center justify-center gap-1.5 rounded-[9px] border border-ml-line-2 bg-ml-panel text-ml-text text-[14px] font-semibold whitespace-nowrap cursor-pointer transition-colors duration-150";
+const SELECTION_BTN = `${SELECTION_BTN_BASE} hover:border-ml-accent-line hover:bg-ml-accent-soft hover:text-ml-accent-text`;
+const SELECTION_BTN_DANGER = `${SELECTION_BTN_BASE} hover:border-ml-bad hover:text-ml-bad`;
+
 export default function Directory({
   picker,
   workspace,
@@ -293,12 +300,8 @@ export default function Directory({
               className="border-none flex items-center gap-x-2 cursor-pointer px-[14px] py-[7px] -mr-[14px] rounded-lg hover:bg-theme-sidebar-subitem-hover z-20 relative"
               onClick={openFolderModal}
             >
-              <Plus
-                size={18}
-                weight="bold"
-                className="text-theme-text-primary light:text-[#0ba5ec]"
-              />
-              <div className="text-theme-text-primary light:text-[#0ba5ec] text-xs font-bold leading-[18px]">
+              <Plus size={18} weight="bold" className="text-ml-accent-text" />
+              <div className="text-ml-accent-text text-xs font-bold leading-[18px]">
                 {t("connectors.directory.new-folder")}
               </div>
             </button>
@@ -375,13 +378,13 @@ export default function Directory({
 
             {hasSelection && (
               <div className="absolute bottom-[12px] left-0 right-0 flex justify-center pointer-events-none">
-                <div className="mx-auto bg-white/40 light:bg-white rounded-lg py-1 px-2 pointer-events-auto light:shadow-lg">
-                  <div className="flex flex-row items-center gap-x-2">
+                <div className="mx-auto p-1.5 rounded-[12px] border border-ml-line-2 bg-ml-raised shadow-ml-pop pointer-events-auto">
+                  <div className="flex flex-row items-center gap-x-1.5">
                     <button
                       onClick={moveToWorkspace}
                       onMouseEnter={() => setHighlightWorkspace(true)}
                       onMouseLeave={() => setHighlightWorkspace(false)}
-                      className="border-none text-sm font-semibold bg-white light:bg-[#E0F2FE] h-[30px] px-2.5 rounded-lg hover:bg-neutral-800/80 hover:text-white light:text-[#026AA2] light:hover:bg-[#026AA2] light:hover:text-white"
+                      className={`${SELECTION_BTN} px-3`}
                     >
                       {t("connectors.directory.move-workspace")}
                     </button>
@@ -390,9 +393,10 @@ export default function Directory({
                         onClick={() =>
                           setShowFolderSelection(!showFolderSelection)
                         }
-                        className="border-none text-sm font-semibold bg-white light:bg-[#E0F2FE] h-[32px] w-[32px] rounded-lg text-dark-text hover:bg-neutral-800/80 hover:text-white light:text-[#026AA2] light:hover:bg-[#026AA2] light:hover:text-white flex justify-center items-center group"
+                        aria-label="Move to folder"
+                        className={`${SELECTION_BTN} w-[32px]`}
                       >
-                        <MoveToFolderIcon className="text-dark-text light:text-[#026AA2] group-hover:text-white" />
+                        <MoveToFolderIcon className="text-current" />
                       </button>
                       {showFolderSelection && (
                         <FolderSelectionPopup
@@ -404,7 +408,8 @@ export default function Directory({
                     </div>
                     <button
                       onClick={deleteFiles}
-                      className="border-none text-sm font-semibold bg-white light:bg-[#E0F2FE] h-[32px] w-[32px] rounded-lg text-dark-text hover:bg-neutral-800/80 hover:text-white light:text-[#026AA2] light:hover:bg-[#026AA2] light:hover:text-white flex justify-center items-center"
+                      aria-label="Delete selected"
+                      className={`${SELECTION_BTN_DANGER} w-[32px]`}
                     >
                       <Trash size={18} weight="bold" />
                     </button>
@@ -451,15 +456,13 @@ function DirectoryTooltips() {
       id="directory-item"
       place="bottom"
       delayShow={800}
-      className="tooltip invert light:invert-0 z-99 max-w-[300px]"
+      className="tooltip z-99 max-w-[300px]"
       render={({ content }) => {
         const data = safeJsonParse(content, null);
         if (!data) return null;
         return (
           <div className="text-xs">
-            <p className="text-white light:invert font-medium break-all">
-              {data.title}
-            </p>
+            <p className="text-ml-text font-medium break-all">{data.title}</p>
             <div className="flex flex-col mt-1">
               <p className="">
                 Date: <b>{data.date}</b>

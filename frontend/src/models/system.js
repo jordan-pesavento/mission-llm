@@ -134,16 +134,25 @@ const System = {
     window.localStorage.setItem(AUTH_TIMESTAMP, Number(new Date()));
     return valid;
   },
+  /**
+   * Signs in. `body.acknowledged: true` is required when Branding asks users
+   * to acknowledge the sign-in notice; a rejection keeps the server's message
+   * (for example the missing acknowledgment) instead of a generic one.
+   */
   requestToken: async function (body) {
     return await fetch(`${API_BASE}/request-token`, {
       method: "POST",
       body: JSON.stringify({ ...body }),
     })
-      .then((res) => {
-        if (!res.ok) throw new Error("Could not validate login.");
-        return res.json();
+      .then(async (res) => {
+        const data = await res.json().catch(() => null);
+        if (!res.ok || !data)
+          throw new Error(
+            (typeof data?.message === "string" && data.message) ||
+              "Could not validate login."
+          );
+        return data;
       })
-      .then((res) => res)
       .catch((e) => {
         return { valid: false, message: e.message };
       });
@@ -330,13 +339,24 @@ const System = {
         return { success: false, error: e.message };
       });
   },
-  fetchCustomFooterIcons: async function () {
+  /**
+   * Sidebar footer links. Cached for an hour per branding version: pass the
+   * current brand version (useBranding().savedBrand.version) so a Branding
+   * save, in this or any other browser, is picked up as soon as the new
+   * version is known.
+   * @param {string|null} brandVersion
+   */
+  fetchCustomFooterIcons: async function (brandVersion = null) {
     const cache = window.localStorage.getItem(this.cacheKeys.footerIcons);
-    const { data, lastFetched } = cache
-      ? safeJsonParse(cache, { data: [], lastFetched: 0 })
-      : { data: [], lastFetched: 0 };
+    const { data, lastFetched, version } = cache
+      ? safeJsonParse(cache, { data: [], lastFetched: 0, version: null })
+      : { data: [], lastFetched: 0, version: null };
 
-    if (!!data && Date.now() - lastFetched < 3_600_000)
+    if (
+      !!data &&
+      Date.now() - lastFetched < 3_600_000 &&
+      (!brandVersion || version === brandVersion)
+    )
       return { footerData: data, error: null };
 
     const { footerData, error } = await fetch(
@@ -358,17 +378,29 @@ const System = {
     const newData = safeJsonParse(footerData, []);
     window.localStorage.setItem(
       this.cacheKeys.footerIcons,
-      JSON.stringify({ data: newData, lastFetched: Date.now() })
+      JSON.stringify({
+        data: newData,
+        lastFetched: Date.now(),
+        version: brandVersion,
+      })
     );
     return { footerData: newData, error: null };
   },
-  fetchSupportEmail: async function () {
+  /**
+   * Support email. Cached like the footer links (see fetchCustomFooterIcons).
+   * @param {string|null} brandVersion
+   */
+  fetchSupportEmail: async function (brandVersion = null) {
     const cache = window.localStorage.getItem(this.cacheKeys.supportEmail);
-    const { email, lastFetched } = cache
-      ? safeJsonParse(cache, { email: "", lastFetched: 0 })
-      : { email: "", lastFetched: 0 };
+    const { email, lastFetched, version } = cache
+      ? safeJsonParse(cache, { email: "", lastFetched: 0, version: null })
+      : { email: "", lastFetched: 0, version: null };
 
-    if (!!email && Date.now() - lastFetched < 3_600_000)
+    if (
+      !!email &&
+      Date.now() - lastFetched < 3_600_000 &&
+      (!brandVersion || version === brandVersion)
+    )
       return { email: email, error: null };
 
     const { supportEmail, error } = await fetch(
@@ -385,10 +417,18 @@ const System = {
         return { email: "", error: e.message };
       });
 
-    if (!supportEmail || !!error) return { email: "", error: null };
+    if (!supportEmail || !!error) {
+      // No address (or it was removed): drop any cached one.
+      window.localStorage.removeItem(this.cacheKeys.supportEmail);
+      return { email: "", error: null };
+    }
     window.localStorage.setItem(
       this.cacheKeys.supportEmail,
-      JSON.stringify({ email: supportEmail, lastFetched: Date.now() })
+      JSON.stringify({
+        email: supportEmail,
+        lastFetched: Date.now(),
+        version: brandVersion,
+      })
     );
     return { email: supportEmail, error: null };
   },

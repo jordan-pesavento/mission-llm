@@ -188,7 +188,7 @@ export default function LLMSelectorModal({
             type="button"
             disabled={saving}
             onClick={handleSave}
-            className="border-none text-[14.5px] px-4 font-semibold rounded-[11px] bg-ml-accent-fill text-ml-on-accent shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] hover:brightness-110 h-10 w-full cursor-pointer transition-[filter] mt-auto"
+            className="border-none text-[14.5px] px-4 font-semibold rounded-[11px] bg-ml-accent-fill text-ml-on-accent shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] hover:brightness-105 h-10 w-full cursor-pointer transition-[filter] mt-auto"
           >
             {saving
               ? t("chat_window.workspace_llm_manager.saving")

@@ -58,7 +58,7 @@ export default function NewApiKeyModal({ closeModal, onSuccess }) {
       <ModalHeader title={t("api.modal.title")} onClose={closeModal} />
       <ModalBody>
         {error && (
-          <p className="text-red-400 text-sm">
+          <p className="text-ml-bad text-sm">
             {t("api.messages.error", { error })}
           </p>
         )}
@@ -78,7 +78,7 @@ export default function NewApiKeyModal({ closeModal, onSuccess }) {
               type="text"
               defaultValue={`${apiKey.secret}`}
               disabled={true}
-              className="border-none bg-zinc-800 text-zinc-100 placeholder:text-zinc-400 light:bg-white light:text-slate-900 light:placeholder:text-slate-400 text-sm rounded-lg outline-none block w-full p-2.5 pr-10"
+              className="border-none bg-zinc-800 text-zinc-100 placeholder:text-zinc-400 light:bg-white light:text-slate-900 light:placeholder:text-slate-500 text-sm rounded-lg outline-none block w-full p-2.5 pr-10"
             />
             <button
               type="button"
@@ -105,7 +105,7 @@ export default function NewApiKeyModal({ closeModal, onSuccess }) {
           href={paths.apiDocs()}
           target="_blank"
           rel="noreferrer"
-          className="text-blue-400 hover:underline"
+          className="text-ml-accent-text hover:underline"
         >
           Read the API documentation &rarr;
         </a>

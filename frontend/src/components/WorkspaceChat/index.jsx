@@ -88,7 +88,7 @@ export default function WorkspaceChat({ loading, workspace }) {
           <Modal isOpen={true} size="md">
             <ModalHeader
               title={
-                <span className="flex items-center gap-x-2 text-red-500">
+                <span className="flex items-center gap-x-2 text-ml-bad">
                   <WarningCircle className="w-5 h-5" weight="fill" />
                   Workspace not found
                 </span>

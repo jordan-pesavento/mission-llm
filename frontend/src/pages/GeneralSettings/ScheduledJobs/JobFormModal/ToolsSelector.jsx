@@ -305,7 +305,7 @@ export default function ToolsSelector({
                                   )}
                                 </span>
                                 {item.description && (
-                                  <span className="block text-xs text-zinc-500 light:text-slate-400 truncate">
+                                  <span className="block text-xs text-ml-text-3 truncate">
                                     {item.description}
                                   </span>
                                 )}
