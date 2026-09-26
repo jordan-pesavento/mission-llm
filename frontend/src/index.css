@@ -189,6 +189,9 @@
   /* Hairlines */
   --ml-line: rgba(150, 172, 212, 0.13);
   --ml-line-2: rgba(150, 172, 212, 0.22);
+  /* Form fields: visibly lighter than panels, with a clear border (owner: fields must not blend in). */
+  --ml-field-bg: #13203A;
+  --ml-field-line: rgba(150, 172, 212, 0.38);
 
   /* Depth */
   --ml-shadow:
@@ -221,6 +224,8 @@
 
   --ml-line: rgba(16, 32, 64, 0.1);
   --ml-line-2: rgba(16, 32, 64, 0.18);
+  --ml-field-bg: #FFFFFF;
+  --ml-field-line: rgba(16, 32, 64, 0.28);
 
   --ml-shadow:
     0 1px 2px rgba(16, 32, 64, 0.06),
@@ -328,7 +333,7 @@
   --theme-chat-input-border: var(--ml-line-2);
   --theme-action-menu-bg: var(--ml-raised);
   --theme-action-menu-item-hover: var(--ml-raised-2);
-  --theme-settings-input-bg: var(--ml-panel);
+  --theme-settings-input-bg: var(--ml-field-bg);
   --theme-settings-input-placeholder: var(--ml-text-3);
   --theme-settings-input-active: var(--ml-line-2);
   --theme-settings-input-text: var(--ml-text);
@@ -1525,24 +1530,42 @@ does not extend the close button beyond the viewport. */
   color: var(--ml-text-2);
 }
 
-/* Fields: 44px, 12px radius, panel fill, hairline border, accent ring on focus. */
+/* Every text field, select and textarea that uses the settings-input style, anywhere in the app
+   (modals, workspace settings, data connectors, onboarding): distinct fill, visible border, focus ring.
+   Outranks utility classes such as border-none, which many upstream fields carry. */
+:is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]), select, textarea).bg-theme-settings-input-bg {
+  background-color: var(--ml-field-bg);
+  border: 1px solid var(--ml-field-line);
+  color: var(--ml-text);
+}
+:is(input, select, textarea).bg-theme-settings-input-bg::placeholder {
+  color: var(--ml-text-3);
+  opacity: 1;
+}
+:is(input, select, textarea).bg-theme-settings-input-bg:focus {
+  outline: none;
+  border-color: var(--ml-accent-line);
+  box-shadow: 0 0 0 3px var(--ml-accent-soft);
+}
+
+/* Fields: 44px, 12px radius, field fill, visible border, accent ring on focus. */
 :is([data-settings-rail] + div, [data-settings-pane]) :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]), select).bg-theme-settings-input-bg {
   min-height: var(--ml-field);
   padding-top: 0;
   padding-bottom: 0;
   padding-left: 14px;
   padding-right: 14px;
-  border: 1px solid var(--ml-line-2);
+  border: 1px solid var(--ml-field-line);
   border-radius: 12px;
-  background-color: var(--ml-panel);
+  background-color: var(--ml-field-bg);
   color: var(--ml-text);
   font-size: 15.5px;
 }
 :is([data-settings-rail] + div, [data-settings-pane]) textarea.bg-theme-settings-input-bg {
   padding: 10px 14px;
-  border: 1px solid var(--ml-line-2);
+  border: 1px solid var(--ml-field-line);
   border-radius: 12px;
-  background-color: var(--ml-panel);
+  background-color: var(--ml-field-bg);
   color: var(--ml-text);
   font-size: 15.5px;
   line-height: 1.55;
